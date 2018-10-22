@@ -10,7 +10,7 @@ class Loader extends Component {
             <div>
                 Scroll to load images.
                 <div className="filler" />
-                <LazyLoad height={762} offsetVertical={300}>
+                <LazyLoad height={100} offsetVertical={300}>
                     <h1>JAMES</h1>
                 </LazyLoad>
                 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Login from './Components/Login'
+import Loader from './Components/LazyLoad';
 import './App.css';
 
 class App extends Component {
@@ -8,6 +9,7 @@ class App extends Component {
       <div >
 
         <Login />
+        <Loader />
       </div>
     );
   }

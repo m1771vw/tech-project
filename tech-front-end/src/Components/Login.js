@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import { submitLogin } from '../Redux/Actions';
+import { connect } from 'react-redux';
 
 class Login extends Component {
     state = {
         userName: '',
-        password:''
+        password: ''
     }
 
-    onChangeUser = e =>{
+    onChangeUser = e => {
         this.setState({
             userName: e.target.value
         })
@@ -18,29 +20,30 @@ class Login extends Component {
         })
     }
 
-    
-
+    onSubmit = () => {
+        this.props.submitLogin()
+    }
 
     render() {
         return (
-            <div>   
+            <div>
                 <input
-                placeholder="Username"
-                value={this.state.userName}
-                onChange={this.onChangeUser}/>
-
-                <input 
-                placeholder="Password"
-                value={this.state.password}
-                onChange={this.onChangePassword}/>
-
+                    placeholder="Username"
+                    value={this.state.userName}
+                    onChange={this.onChangeUser} />
+                <input
+                    placeholder="Password"
+                    value={this.state.password}
+                    onChange={this.onChangePassword} />
                 <button
-                onClick={this.submitLogin}>Login</button>
-
-
+                    onClick={this.onSubmit}>Login</button>
             </div>
         );
     }
 }
 
-export default Login;
+const mapDispatchToProps = dispatch => ({
+    submitLogin: () => dispatch(submitLogin())
+})
+
+export default connect(null, mapDispatchToProps)(Login);

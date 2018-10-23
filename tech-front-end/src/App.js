@@ -39,7 +39,11 @@ class App extends Component {
     })
   }
 
-
+  // Update action to take in a parameter
+  // Update mapDispatchToProps to reflect action w/ parameter
+  // Update this.props.[dispatchAction] with that parameter
+  // Update dispatch payload with that new parameter (try console logging to make sure you get it)
+  // Update reducer to add onto data array
   onAssignmentSubmit = (model) =>{
     model.id = ""
     console.log("On assignment submit Clicked")

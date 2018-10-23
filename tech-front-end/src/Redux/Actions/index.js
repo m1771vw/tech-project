@@ -22,9 +22,10 @@ export const submitAssignment = () => async dispatch => {
         console.log("ERROR")
     }
 }
-
-export const submitEmployee = () => async dispatch => {
+// asdf is a temporary parameter. 
+export const submitEmployee = (asdf) => async dispatch => {
     try {
+        console.log("INSIDE ACTIONS: ", asdf);
         console.log("EMPLOYEE BUTTON PRESSED")
         dispatch({ type: EMPLOYEE , payload: "testemployee"})
     } catch {

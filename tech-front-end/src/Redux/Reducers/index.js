@@ -5,9 +5,9 @@ import { ASSIGNMENT } from '../Constants';
 
 const initialState = {
     currentUser:'',
-    employeedata:[],
-    assignmentdata:[],
-    projectdata:[],
+    employeeData:[],
+    assignmentData:[],
+    projectData:[],
     
 }
 
@@ -16,7 +16,7 @@ const rootReducer = (state = initialState, action) => {
         case LOGIN:
             return {...state, currentUser: action.payload};
         case EMPLOYEE:
-            return {...state, currentUser: action.payload};
+            return {...state, employeeData: action.payload};
         case ASSIGNMENT:
             return {...state, currentUser: action.payload};
         case PROJECT:

@@ -1,13 +1,25 @@
 import { LOGIN } from '../Constants';
+import { EMPLOYEE } from '../Constants';
+import { PROJECT } from '../Constants';
+import { ASSIGNMENT } from '../Constants';
 
 const initialState = {
     currentUser:'',
+    employeedata:[],
+    assignmentdata:[],
+    projectdata:[],
     
 }
 
 const rootReducer = (state = initialState, action) => {
     switch(action.type) {
         case LOGIN:
+            return {...state, currentUser: action.payload};
+        case EMPLOYEE:
+            return {...state, currentUser: action.payload};
+        case ASSIGNMENT:
+            return {...state, currentUser: action.payload};
+        case PROJECT:
             return {...state, currentUser: action.payload};
         default:
             return state;

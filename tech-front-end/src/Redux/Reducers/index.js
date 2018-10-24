@@ -1,7 +1,6 @@
 import { LOGIN } from '../Constants';
-import { EMPLOYEE } from '../Constants';
-import { PROJECT } from '../Constants';
-import { ASSIGNMENT } from '../Constants';
+import { ADD_EMPLOYEE, ADD_PROJECT, ADD_ASSIGNMENT } from '../Constants';
+
 
 const initialState = {
     currentUser:'',
@@ -11,19 +10,22 @@ const initialState = {
     
 }
 
+
+
+// Create action.types for DELETE_EMPLOYEE...etc.
 const rootReducer = (state = initialState, action) => {
     switch(action.type) {
         case LOGIN:
             return {...state, currentUser: action.payload};
-        case EMPLOYEE:
+        case ADD_EMPLOYEE:
             return {...state, 
                 employeeData: [...state.employeeData, action.payload]
             };
-        case ASSIGNMENT:
+        case ADD_ASSIGNMENT:
             return {...state, 
                 assignmentData: [...state.assignmentData, action.payload]
             };
-        case PROJECT:
+        case ADD_PROJECT:
             return {...state, 
                 projectData: [...state.projectData, action.payload]
             };

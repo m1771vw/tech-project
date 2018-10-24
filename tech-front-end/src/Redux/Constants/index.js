@@ -1,4 +1,4 @@
 export const LOGIN = 'LOGIN';
-export const EMPLOYEE = 'EMPLOYEE';
-export const ASSIGNMENT = 'ASSIGNMENT';
-export const PROJECT = 'PROJECT';
+export const ADD_EMPLOYEE = 'ADD_EMPLOYEE';
+export const ADD_ASSIGNMENT = 'ADD_ASSIGNMENT';
+export const ADD_PROJECT = 'ADD_PROJECT';

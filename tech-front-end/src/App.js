@@ -9,7 +9,7 @@ import Dashboard       from './components/Dashboard/Dashboard';
 import Form            from './components/Forms/DynamicForm/Form';
 
 import { connect } from 'react-redux';
-import { submitProject, submitEmployee, submitAssignment, deleteEmployee } from './Redux/Actions';
+import { submitProject, submitEmployee, submitAssignment, deleteEmployee, deleteAssignment, deleteProject } from './Redux/Actions';
 
 class App extends Component {
   state = {
@@ -34,6 +34,21 @@ class App extends Component {
     this.props.deleteEmployee(employee, index);
 
   }
+
+  onDeleteAssignment = (assignment) =>{
+    let index = 1
+    console.log("delete button pressed")
+    this.props.deleteAssignment(assignment, index);
+
+  }
+
+  onDeleteProject = (project) =>{
+    let index = 1
+    console.log("delete button pressed")
+    this.props.deleteProject(project, index);
+
+  }
+
 
 
   onProjectSubmit = (model) =>{
@@ -89,6 +104,7 @@ class App extends Component {
 
                                                 ]}
                                                 onSubmit = {(model) => {this.onAssignmentSubmit(model)}}
+                                                onDelete = {(model) => {this.onDeleteAssignment(model)}}
                                               />}/>
                                               
           <Route path='/projects' component={()=>
@@ -102,6 +118,7 @@ class App extends Component {
                                                 
                                                 ]}
                                                 onSubmit = {(model) => {this.onProjectSubmit(model)}}
+                                                onDelete = {(model) => {this.onDeleteProject(model)}}
                                                 />}/>
           <Route path='/employees' render={()=>  //Design form 'to-fill' data here
                                             <Form className = "form"
@@ -124,9 +141,12 @@ class App extends Component {
 const mapDispatchToProps = dispatch => ({
     // submitForms: () => dispatch(submitForms()),
     submitProject: (project) => dispatch(submitProject(project)),
+    deleteProject: (project, index) => dispatch(deleteProject(project, index)),
     submitEmployee: (employee)=> dispatch(submitEmployee(employee)),
+    deleteEmployee: (employee, index)=> dispatch(deleteEmployee(employee, index)),
     submitAssignment: (assignment)=> dispatch(submitAssignment(assignment)),
-    deleteEmployee: (employee, index)=> dispatch(deleteEmployee(employee, index))
+    deleteAssignment: (assignment, index)=> dispatch(deleteAssignment(assignment, index))
+    
 })
 
 export default connect(null, mapDispatchToProps)(App);

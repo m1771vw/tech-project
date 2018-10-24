@@ -20,7 +20,6 @@ class App extends Component {
     let index = 1
     console.log("delete button pressed")
     this.props.deleteEmployee(employee, index);
-
   }
 
   onProjectSubmit = (model) =>{

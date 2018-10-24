@@ -1,10 +1,7 @@
-import { LOGIN } from '../Constants';
-import { ADD_EMPLOYEE, ADD_PROJECT, ADD_ASSIGNMENT, REMOVE_EMPLOYEE } from '../Constants';
-
 import { combineReducers } from 'redux';
-import project from '../Reducers/Project';
-import assignment from '../Reducers/Assignment';
-import employee from '../Reducers/Employee';
+import projectReducer from '../Reducers/Project';
+import assignmentReducer from '../Reducers/Assignment';
+import employeeReducer from '../Reducers/Employee';
 
 // const initialState = {
 //     currentUser: '',
@@ -82,4 +79,9 @@ import employee from '../Reducers/Employee';
 //     }
 // }
 
-export default combineReducers({project, employee, assignment})
+/**
+ * projectReducer: projectReducer
+ * employeeReducer:employeeReducer
+ * assignmentReducer: assignmentReducer
+ * */
+export default combineReducers({projectReducer: projectReducer, employeeReducer, assignmentReducer}) // combines all the states to state.projectReducer

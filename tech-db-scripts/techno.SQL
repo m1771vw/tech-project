@@ -2,17 +2,18 @@ DROP DATABASE technoprojectdb;
 CREATE DATABASE technoprojectdb;
 \c technoprojectdb
 
-CREATE TABLE Admin_Login (
-    admin_id            SERIAL PRIMARY KEY,
+CREATE TABLE User_Login (
+    user_id            SERIAL PRIMARY KEY,
     username            varchar(50),
-    password            varchar(500)
+    password            varchar(500),
+    isAdmin             boolean
 );
 
-INSERT INTO Admin_Login (username, password)
+INSERT INTO User_Login (username, password, isAdmin)
 VALUES
-('wyang93', 'wyang123'),
-('username', 'password'),
-('password', 'username');
+('wyang93', 'wyang123', true),
+('username', 'password', false),
+('password', 'username', false);
 
 CREATE TABLE Employees (
     employee_id         SERIAL PRIMARY KEY,

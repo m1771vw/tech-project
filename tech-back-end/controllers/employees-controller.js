@@ -26,11 +26,11 @@ const getEmployeeById = async (req, res) => {
 const addEmployee = async (req, res) => {
     try {
         let { first_name, last_name, position } = req.body;
-        let newEmployee = await db.one(
+        let employee = await db.one(
             'INSERT INTO employees(first_name, last_name, position)' +
             'VALUES($1, $2, $3) RETURNING employees.first_name, employees.last_name', [first_name, last_name, position]
         )
-        res.status(200).send(newEmployee)
+        res.status(200).send(employee)
     } catch (e) {
         res.status(500).json({ message: e.message })
     }

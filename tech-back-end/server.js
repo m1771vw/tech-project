@@ -3,7 +3,7 @@ const logger        = require('morgan');
 const assignments   = require('./routes/assignments');
 const employees     = require('./routes/employees');
 const projects      = require('./routes/projects');
-
+const login         = require('./routes/login');
 /**
  * For when we add .env file to handle DB_URLs
  */
@@ -23,5 +23,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/api/assignments', assignments);
 app.use('/api/employees', employees);
 app.use('/api/projects', projects);
+app.use('/api/', login);
 
 module.exports = app;

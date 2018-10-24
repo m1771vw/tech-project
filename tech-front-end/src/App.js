@@ -3,10 +3,10 @@ import './App.css';
 
 import { Switch, Route } from 'react-router-dom';
 
-import Navbar          from './components/Navbar'
-import Loader          from './components/LazyLoad';
-import Dashboard       from './components/Dashboard/Dashboard';
-import Form            from './components/Forms/DynamicForm/Form';
+import Navbar          from './Components/Navbar'
+import Loader          from './Components/LazyLoad';
+import Dashboard       from './Components/Dashboard/Dashboard';
+import Form            from './Components/Forms/DynamicForm/Form';
 
 import { connect } from 'react-redux';
 import { submitProject, submitEmployee, submitAssignment, deleteEmployee } from './Redux/Actions';
@@ -14,27 +14,14 @@ import { submitProject, submitEmployee, submitAssignment, deleteEmployee } from 
 class App extends Component {
   state = {
 
-    employeeData: [
-      { id: 1, name: "amy", title: "Senior engineer ", project: "B.com", profile: "wd.com" },
-      { id: 2, name: "bob", title: "Mid engineer ", project: "B.com", profile: "wc.com" },
-      { id: 3, name: "charles", title: "Junior engineer ", project: "A.com", profile: "ww.com" }
-
-    ],
-
-    assignmentData:[],
-    projectData:[]
-
-
   }
  
-
   onDeleteEmployee = (employee) =>{
     let index = 1
     console.log("delete button pressed")
     this.props.deleteEmployee(employee, index);
 
   }
-
 
   onProjectSubmit = (model) =>{
     //generate a unique model id# here

@@ -21,10 +21,6 @@ class Form extends Component {
 
     }
 
-  
-
-    
-
     onChange =(e, key) =>{
         this.setState({
             [key]: this[key].value

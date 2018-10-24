@@ -32,22 +32,15 @@ class App extends Component {
   onProjectSubmit = (model) =>{
     //generate a unique model id# here
     model.id = ""
-    alert(JSON.stringify(model));
-    this.props.submitProject();
+    this.props.submitProject(model);
     this.setState({
       projectData: [model, ...this.state.projectData]
     })
   }
 
-  // Update action to take in a parameter
-  // Update mapDispatchToProps to reflect action w/ parameter
-  // Update this.props.[dispatchAction] with that parameter
-  // Update dispatch payload with that new parameter (try console logging to make sure you get it)
-  // Update reducer to add onto data array
   onAssignmentSubmit = (model) =>{
     model.id = ""
-    console.log("On assignment submit Clicked")
-    this.props.submitAssignment();
+    this.props.submitAssignment(model);
     this.setState({
       assignmentData: [ model, ...this.state.assignmentData]
 
@@ -57,13 +50,14 @@ class App extends Component {
 
   onEmployeeSubmit = (model) =>{
     model.id = ""
-    this.props.submitEmployee();
+    this.props.submitEmployee(model);
     this.setState({
       employeeData: [ model, ...this.state.employeeData]
 
     })
 
   }
+  
 
 
   render() {
@@ -121,9 +115,9 @@ class App extends Component {
 
 const mapDispatchToProps = dispatch => ({
     // submitForms: () => dispatch(submitForms()),
-    submitProject: () => dispatch(submitProject()),
-    submitEmployee: ()=> dispatch(submitEmployee()),
-    submitAssignment: ()=> dispatch(submitAssignment())
+    submitProject: (project) => dispatch(submitProject(project)),
+    submitEmployee: (employee)=> dispatch(submitEmployee(employee)),
+    submitAssignment: (assignment)=> dispatch(submitAssignment(assignment))
 })
 
 export default connect(null, mapDispatchToProps)(App);

@@ -1,42 +1,34 @@
 import axios from 'axios';
-import {LOGIN} from '../Constants';
-import {ASSIGNMENT} from '../Constants';
-import {EMPLOYEE} from '../Constants';
-import {PROJECT} from '../Constants';
+import {LOGIN, ASSIGNMENT, EMPLOYEE, PROJECT} from '../Constants';
 
 
 export const submitLogin = () => async dispatch => {
     try {
-        console.log("LOGIN BUTTON PRESSED")
         dispatch({ type: LOGIN , payload: "testuser"})
     } catch {
         console.log("ERROR")
     }
 }
 
-export const submitAssignment = () => async dispatch => {
+export const submitAssignment = (assignment) => async dispatch => {
     try {
-        console.log("ASSIGNMENT BUTTON PRESSED")
-        dispatch({ type: ASSIGNMENT , payload: "testassignment"})
+        dispatch({ type: ASSIGNMENT , payload: assignment})
     } catch {
         console.log("ERROR")
     }
 }
 // asdf is a temporary parameter. 
-export const submitEmployee = (asdf) => async dispatch => {
+export const submitEmployee = (employee) => async dispatch => {
     try {
-        console.log("INSIDE ACTIONS: ", asdf);
-        console.log("EMPLOYEE BUTTON PRESSED")
-        dispatch({ type: EMPLOYEE , payload: "testemployee"})
+        dispatch({ type: EMPLOYEE , payload: employee})
     } catch {
         console.log("ERROR")
     }
 }
 
-export const submitProject = () => async dispatch => {
+export const submitProject = (project) => async dispatch => {
     try {
-        console.log("PROJECT BUTTON PRESSED")
-        dispatch({ type: PROJECT , payload: "testproject"})
+        dispatch({ type: PROJECT , payload: project})
     } catch {
         console.log("ERROR")
     }

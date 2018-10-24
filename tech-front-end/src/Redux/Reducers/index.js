@@ -16,11 +16,17 @@ const rootReducer = (state = initialState, action) => {
         case LOGIN:
             return {...state, currentUser: action.payload};
         case EMPLOYEE:
-            return {...state, employeeData: action.payload};
+            return {...state, 
+                employeeData: [...state.employeeData, action.payload]
+            };
         case ASSIGNMENT:
-            return {...state, currentUser: action.payload};
+            return {...state, 
+                assignmentData: [...state.assignmentData, action.payload]
+            };
         case PROJECT:
-            return {...state, currentUser: action.payload};
+            return {...state, 
+                projectData: [...state.projectData, action.payload]
+            };
         default:
             return state;
     }

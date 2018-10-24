@@ -1,7 +1,7 @@
-const router            = require('express').Router();
+const router = require('express').Router();
 const {
-    index, getAllProjects, getProjectById, addProject, deleteProject, updateProject 
-}         = require('./../controllers/projects-controllers');
+    index, getAllProjects, getProjectById, addProject, deleteProject, updateProject
+} = require('./../controllers/projects-controllers');
 
 router.get('/', index);
 router.get('/all', getAllProjects);

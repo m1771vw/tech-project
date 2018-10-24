@@ -8,6 +8,7 @@ const projects      = require('./routes/projects');
  * For when we add .env file to handle DB_URLs
  */
 // require('dotenv').load();
+
 require('./config/db');
 
 const app       = express();

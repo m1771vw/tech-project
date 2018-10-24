@@ -10,9 +10,18 @@ class Form extends Component {
 
     onSubmit = e =>{
         e.preventDefault();
-        console.log("Inside Form, onSubmit pressed");
+       
         if (this.props.onSubmit) this.props.onSubmit(this.state)
     }
+
+    onDelete = e =>{
+        e.preventDefault();
+       
+        this.props.onDelete(this.state)
+
+    }
+
+  
 
     
 
@@ -65,8 +74,12 @@ class Form extends Component {
                      {this.renderForm()}
                      <div className = "form-group">
                      <button type = "submit">Submit</button>
+                     {/* /temp button */}
                      </div>
                 </form>
+                <button onClick={(e)=> {this.onDelete(e)}}>x</button>
+                
+               
             </div>
         )
     }

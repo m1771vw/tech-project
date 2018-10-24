@@ -9,9 +9,7 @@ import Dashboard       from './components/Dashboard/Dashboard';
 import Form            from './components/Forms/DynamicForm/Form';
 
 import { connect } from 'react-redux';
-import { submitProject } from './Redux/Actions';
-import { submitEmployee} from './Redux/Actions';
-import { submitAssignment} from './Redux/Actions';
+import { submitProject, submitEmployee, submitAssignment, deleteEmployee } from './Redux/Actions';
 
 class App extends Component {
   state = {
@@ -28,6 +26,15 @@ class App extends Component {
 
 
   }
+ 
+
+  onDeleteEmployee = (employee) =>{
+    let index = 1
+    console.log("delete button pressed")
+    this.props.deleteEmployee(employee, index);
+
+  }
+
 
   onProjectSubmit = (model) =>{
     //generate a unique model id# here
@@ -106,6 +113,7 @@ class App extends Component {
                                                     {key: "profile", label: "Profile", type: "text ", props: {required: true}}
                                                   ]}  
                                                   onSubmit = {(model) => {this.onEmployeeSubmit(model)}}
+                                                  onDelete = {(model) => {this.onDeleteEmployee(model)}}
                                                   />}/>
         </Switch>
       </div>
@@ -117,7 +125,8 @@ const mapDispatchToProps = dispatch => ({
     // submitForms: () => dispatch(submitForms()),
     submitProject: (project) => dispatch(submitProject(project)),
     submitEmployee: (employee)=> dispatch(submitEmployee(employee)),
-    submitAssignment: (assignment)=> dispatch(submitAssignment(assignment))
+    submitAssignment: (assignment)=> dispatch(submitAssignment(assignment)),
+    deleteEmployee: (employee, index)=> dispatch(deleteEmployee(employee, index))
 })
 
 export default connect(null, mapDispatchToProps)(App);

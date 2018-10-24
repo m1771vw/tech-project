@@ -1,5 +1,5 @@
 import { LOGIN } from '../Constants';
-import { ADD_EMPLOYEE, ADD_PROJECT, ADD_ASSIGNMENT } from '../Constants';
+import { ADD_EMPLOYEE, ADD_PROJECT, ADD_ASSIGNMENT, REMOVE_EMPLOYEE } from '../Constants';
 
 
 const initialState = {
@@ -21,6 +21,23 @@ const rootReducer = (state = initialState, action) => {
             return {...state, 
                 employeeData: [...state.employeeData, action.payload]
             };
+
+        case REMOVE_EMPLOYEE:
+        // Need some action.index
+            return {
+                ...state,
+                employeeData: [...state.employeeData.slice(0, action.index),
+                                ...state.employeeData.slice(action.index + 1)]
+            };
+
+        // case UPDATE_EMPLOYEE:
+        // return {
+        //     ...state,
+        //     employeeData: [...state.employeeData.slice(0, action.index),
+        //                     employeeData,
+        //                     ...state.employeeData.slice(action.index + 1)]
+        // };
+
         case ADD_ASSIGNMENT:
             return {...state, 
                 assignmentData: [...state.assignmentData, action.payload]

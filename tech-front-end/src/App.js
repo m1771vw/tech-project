@@ -3,35 +3,62 @@ import './App.css';
 
 import { Switch, Route } from 'react-router-dom';
 
-import Navbar          from './Components/Navbar'
-import Loader          from './Components/LazyLoad';
-import AssignmentsPage from './Components/Assignments/AssignmentsPage';
-import EmployeesPage   from './Components/Employees/EmployeesPage';
-import ProjectsPage    from './Components/Projects/ProjectsPage';
-import Dashboard       from './Components/Dashboard/Dashboard';
-import FormStudy       from './Components/Forms/DynamicForm/FormStudy';
+import Navbar          from './components/Navbar'
+import Loader          from './components/LazyLoad';
+import Dashboard       from './components/Dashboard/Dashboard';
+import Form            from './components/Forms/DynamicForm/Form';
+
+import { connect } from 'react-redux';
+import { submitProject } from './Redux/Actions';
+import { submitEmployee} from './Redux/Actions';
+import { submitAssignment} from './Redux/Actions';
 
 class App extends Component {
   state = {
 
-    data: [
+    employeeData: [
       { id: 1, name: "amy", title: "Senior engineer ", project: "B.com", profile: "wd.com" },
       { id: 2, name: "bob", title: "Mid engineer ", project: "B.com", profile: "wc.com" },
       { id: 3, name: "charles", title: "Junior engineer ", project: "A.com", profile: "ww.com" }
 
+    ],
 
-    ]
+    assignmentData:[],
+    projectData:[]
+
+
   }
 
-  onSubmit = (model) =>{
+  onProjectSubmit = (model) =>{
     //generate a unique model id# here
     model.id = ""
-    alert(JSON.stringify(model));
+    this.props.submitProject(model);
     this.setState({
-      data: [model, ...this.state.data]
+      projectData: [model, ...this.state.projectData]
+    })
+  }
+
+  onAssignmentSubmit = (model) =>{
+    model.id = ""
+    this.props.submitAssignment(model);
+    this.setState({
+      assignmentData: [ model, ...this.state.assignmentData]
+
     })
 
   }
+
+  onEmployeeSubmit = (model) =>{
+    model.id = ""
+    this.props.submitEmployee(model);
+    this.setState({
+      employeeData: [ model, ...this.state.employeeData]
+
+    })
+
+  }
+  
+
 
   render() {
     return (
@@ -41,19 +68,44 @@ class App extends Component {
         <Loader />
         <Switch>
           <Route exact path='/' component={Dashboard}/>
-          <Route path='/assignments' component={AssignmentsPage}/>
-          <Route path='/employees' component={EmployeesPage}/>
-          <Route path='/projects' component={ProjectsPage}/>
-          <Route path='/forms' render={()=>  //Design form 'to-fill' data here
-                                            <FormStudy className = "form"
+
+          <Route path='/assignments' component={() => 
+                                              <Form className = "form"
+                                                title = "Assignment Form"
+                                                model ={[
+                                                  {key: "name", label: "Assignment Name", type: "text", props: {required: true}},
+                                                  {key: "startDate", label: "Start Date", type: "text",  props: {required: true}},
+                                                  {key: "endDate", label: "End Date", type: "text", props: {required: true}},
+                                                  {key: "estHours", label: "Estimated Hours", type: "text", props:{required: true}},
+                                                  {key: "elapsHours", label: "Elapased Hours", type: "text", props: {required:true}}
+
+
+                                                ]}
+                                                onSubmit = {(model) => {this.onAssignmentSubmit(model)}}
+                                              />}/>
+                                              
+          <Route path='/projects' component={()=>
+                                            <Form className = "form"
+                                              title = "Project Form"
+                                              model = {[
+                                                {key: "name", label: " Project Name", type: "text", props: {required: true}},
+                                                {key: "startDate", label: "Start Date", type:"text", props: {required: true}},
+                                                {key: "endDate", label: "Deadline Date", type:"text", props: {required: true}}
+                                               
+                                                
+                                                ]}
+                                                onSubmit = {(model) => {this.onProjectSubmit(model)}}
+                                                />}/>
+          <Route path='/employees' render={()=>  //Design form 'to-fill' data here
+                                            <Form className = "form"
                                                   title = "Employee Form"
                                                   model = {[
-                                                    {key: "name", label:"Name", props: {required: true}},
-                                                    {key: "title", label:"Title", type: "text"},
-                                                    {key: "project", label: "Project", type: "text"},
-                                                    {key: "profile", label: "Profile", type: "text "}
+                                                    {key: "firstName", label:"Name", type: "text", props: {required: true}},
+                                                    {key: "lastName", label:"Title", type: "text", props: {required: true}},
+                                                    {key: "position", label: "Project", type: "text", props: {required: true}},
+                                                    {key: "profile", label: "Profile", type: "text ", props: {required: true}}
                                                   ]}  
-                                                  onSubmit = {(model) => {this.onSubmit(model)}}
+                                                  onSubmit = {(model) => {this.onEmployeeSubmit(model)}}
                                                   />}/>
         </Switch>
       </div>
@@ -61,4 +113,11 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => ({
+    // submitForms: () => dispatch(submitForms()),
+    submitProject: (project) => dispatch(submitProject(project)),
+    submitEmployee: (employee)=> dispatch(submitEmployee(employee)),
+    submitAssignment: (assignment)=> dispatch(submitAssignment(assignment))
+})
+
+export default connect(null, mapDispatchToProps)(App);

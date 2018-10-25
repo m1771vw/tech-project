@@ -28,7 +28,7 @@ const addProject = async (req, res) => {
         let { project_name, project_start_date, project_end_date } = req.body;
         let project = await db.one(
             'INSERT INTO projects(project_name, project_start_date, project_end_date)' +
-            'VALUES($1, $2, $3) RETURNING projects.project_name, projects.project_end_date, projects.project_end_date',
+            'VALUES($1, $2, $3) RETURNING projects.project_id, projects.project_name, projects.project_end_date, projects.project_end_date',
             [project_name, project_start_date, project_end_date]
         )
         res.status(200).send({ project })

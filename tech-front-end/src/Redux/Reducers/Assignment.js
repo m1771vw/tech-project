@@ -32,18 +32,20 @@ const assignmentReducer = (state = initialState, action) => {
             };
         case REMOVE_ASSIGNMENT:
             // Need some action.index
+            let index = state.assignments.findIndex(a => a.assignment_id === action.id)
             return {
                 ...state,
-                assignments: [...state.assignments.slice(0, action.index),
-                ...state.assignments.slice(action.index + 1)]
+                assignments: [...state.assignments.slice(0, index),
+                ...state.assignments.slice(index + 1)]
             };
 
         case UPDATE_ASSIGNMENT:
+            let updateIndex = state.assignments.findIndex(a => a.assignment_id === action.id);
             return {
                 ...state,
-                assignments: [...state.assignments.slice(0, action.index),
+                assignments: [...state.assignments.slice(0, updateIndex),
                 action.payload,
-                ...state.assignments.slice(action.index + 1)]
+                ...state.assignments.slice(updateIndex + 1)]
             };
         default:
             return state;

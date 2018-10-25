@@ -7,18 +7,25 @@ class Form extends Component {
     state = {
 
     }
+    // TODO John Component Did Update
+    componentDidUpdate() {
 
+    }
+    
     onSubmit = e =>{
-        e.preventDefault();
-       
+        e.preventDefault(); 
         if (this.props.onSubmit) this.props.onSubmit(this.state)
     }
 
     onDelete = e =>{
         e.preventDefault();
-       
         this.props.onDelete(this.state)
+    }
 
+    onUpdate = e =>{
+        e.preventDefault();
+       console.log("Update Assignment Button worked")
+        this.props.onUpdate(this.state)
     }
 
     onChange =(e, key) =>{
@@ -74,6 +81,7 @@ class Form extends Component {
                      </div>
                 </form>
                 <button onClick={(e)=> {this.onDelete(e)}}>x</button>
+                <button onClick={(e)=> {this.onUpdate(e)}}>Update</button>
                 
                
             </div>

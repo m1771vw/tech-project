@@ -1,4 +1,4 @@
-import { ADD_EMPLOYEE, REMOVE_EMPLOYEE } from '../Constants';
+import { ADD_EMPLOYEE, REMOVE_EMPLOYEE, UPDATE_EMPLOYEE } from '../Constants';
 
 const initialState = {
     employeeData: [
@@ -39,13 +39,13 @@ const employeeReducer = (state = initialState, action) => {
                 employeeData: [...state.employeeData.slice(0, action.index),
                                 ...state.employeeData.slice(action.index + 1)]
             };
-        // case UPDATE_EMPLOYEE:
-        // return {
-        //     ...state,
-        //     employeeData: [...state.employeeData.slice(0, action.index),
-        //                     employeeData,
-        //                     ...state.employeeData.slice(action.index + 1)]
-        // };
+            case UPDATE_EMPLOYEE:
+            return {
+                ...state,
+                employeeData: [...state.employeeData.slice(0, action.index),
+                                action.payload,
+                                ...state.employeeData.slice(action.index + 1)]
+            };
         default:
             return state;
     }

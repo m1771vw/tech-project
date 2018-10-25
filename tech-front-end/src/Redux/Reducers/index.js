@@ -10,3 +10,6 @@ import loginReducer from '../Reducers/Login';
  * assignmentReducer: assignmentReducer
  * */
 export default combineReducers({projectReducer, employeeReducer, assignmentReducer, loginReducer}) // combines all the states to state.projectReducer
+
+    
+

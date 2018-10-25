@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
+import { submitEmployee } from '../../Redux/Actions/index';
 // import { connect } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
 
 
 
-class EmployeesPage  extends Component {
+class EmployeesPage extends Component {
     state = {
-        employeeId:'',
-        employeeName:'',
-        employeeTitle:'',
-        employeeProjects:'',
+        employeeId: '',
+        employeeName: '',
+        employeeTitle: '',
+        employeeProjects: '',
         success: false
     }
-    
+
     handleOnChange = e => {
         e.preventDefault();
         this.setState({
@@ -29,12 +30,12 @@ class EmployeesPage  extends Component {
     toggleSubmit = e => {
         this.setState({ success: true })
     }
-    
-    
-    render() { 
-        let {employeeName, employeeTitle, employeeProjects} = this.state
-        let {handleOnChange} = this
-        return (  
+
+
+    render() {
+        let { employeeName, employeeTitle, employeeProjects } = this.state
+        let { handleOnChange } = this
+        return (
             <div className="pageClass">
                 <form onSubmit={this.handleSubmit}>
                     <div className="field">
@@ -59,11 +60,11 @@ class EmployeesPage  extends Component {
         );
     }
 }
- 
 
-// const  mapDispatchToProps = dispatch => ({
-//     newEmployee: employee => dispatch(newEmployee(employee))
-// })
+
+const  mapDispatchToProps = dispatch => ({
+    submitEmployee: employee => dispatch(submitEmployee(employee))
+})
 
 // //Double check this
 // export default connect(null, mapDispatchToProps)(AddEmployee);

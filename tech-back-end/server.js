@@ -4,6 +4,7 @@ const assignments   = require('./routes/assignments');
 const employees     = require('./routes/employees');
 const projects      = require('./routes/projects');
 const login         = require('./routes/login');
+const cors          = require('cors')
 /**
  * For when we add .env file to handle DB_URLs
  */
@@ -12,6 +13,8 @@ require('./config/db');
 
 const app       = express();
 const port      = 5000;
+
+app.use(cors())
 
 app.listen(port, () => console.log(`Server running on port: ${port}`));
 app.use(logger('dev'));

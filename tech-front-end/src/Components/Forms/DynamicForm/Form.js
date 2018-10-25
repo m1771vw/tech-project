@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux';
 
 
@@ -11,79 +11,79 @@ class Form extends Component {
     componentDidUpdate() {
 
     }
-    
-    onSubmit = e =>{
-        e.preventDefault(); 
+
+    onSubmit = e => {
+        e.preventDefault();
         if (this.props.onSubmit) this.props.onSubmit(this.state)
     }
 
-    onDelete = e =>{
+    onDelete = e => {
         e.preventDefault();
         this.props.onDelete(this.state)
     }
 
-    onUpdate = e =>{
+    onUpdate = e => {
         e.preventDefault();
-       console.log("Update Assignment Button worked")
+        console.log("Update Assignment Button worked")
         this.props.onUpdate(this.state)
     }
 
-    onChange =(e, key) =>{
+    onChange = (e, key) => {
         this.setState({
             [key]: this[key].value
         })
 
     }
     //grab the model
-    renderForm = () =>{
+    renderForm = () => {
         let model = this.props.model;
-    //loop thorugh all the metadata
-        let formUI = model.map((m)=> {
+        //loop thorugh all the metadata
+        let formUI = model.map((m) => {
             let key = m.key;
-            let type = m.type  || "text"; //default to "text"
+            let type = m.type || "text"; //default to "text"
             let props = m.props || {};  // default to empty object
 
             return (
                 //create a div
-                <div key = {key} className ="form-group">
-                {/* form label */}
-                    <label className ="form-label"
-                        key = {"l" + m.key}
-                        htmlFor = {m.key}>
+                <div key={key} className="form-group">
+                    {/* form label */}
+                    <label className="form-label"
+                        key={"l" + m.key}
+                        htmlFor={m.key}>
                         {/* label text  */}
-                            {m.label}
-                        </label>
-                        <input {...props}
+                        {m.label}
+                    </label>
+                    <input {...props}
                         //references every input element in array
-                            ref={(key)=>{this[m.key] = key}}
-                            className = "form-input"
-                            type ={type}
-                            key = {"i" + m.key}
-                            //event handler
-                            onChange={(e)=>{this.onChange(e, key)}}
-                        />
-                </div> 
+                        ref={(key) => { this[m.key] = key }}
+                        className="form-input"
+                        type={type}
+                        key={"i" + m.key}
+                        //event handler
+                        onChange={(e) => { this.onChange(e, key) }}
+                    />
+                </div>
             );
         });
         return formUI;
     }
 
-    render(){
+    render() {
         let title = this.props.title || "Default Form"  //Or render "default"
         return (
-            <div className = {this.props.className}> 
+            <div className={this.props.className}>
                 <h3>{title}</h3>
-                <form className = "dynamic-form" onSubmit={(e)=> {this.onSubmit(e)}}>
-                     {this.renderForm()}
-                     <div className = "form-group">
-                     <button type = "submit">Submit</button>
-                     {/* /temp button */}
-                     </div>
+                <form className="dynamic-form" onSubmit={(e) => { this.onSubmit(e) }}>
+                    {this.renderForm()}
+                    <div className="form-group">
+                        <button type="submit">Submit</button>
+                        {/* /temp button */}
+                    </div>
                 </form>
-                <button onClick={(e)=> {this.onDelete(e)}}>x</button>
-                <button onClick={(e)=> {this.onUpdate(e)}}>Update</button>
-                
-               
+                <button onClick={(e) => { this.onDelete(e) }}>x</button>
+                <button onClick={(e) => { this.onUpdate(e) }}>Update</button>
+
+
             </div>
         )
     }

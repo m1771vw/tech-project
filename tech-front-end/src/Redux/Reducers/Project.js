@@ -17,18 +17,20 @@ const projectReducer = (state = initialState, action) => {
                 projects: [...state.projects, action.payload]
             }
         case REMOVE_PROJECT:
+            let index = state.projects.findIndex(p => p.project_id === action.id)
             return {
                 ...state,
-                projects: [...state.projects.slice(0, action.index),
-                ...state.projects.slice(action.index + 1)]
+                projects: [...state.projects.slice(0, index),
+                ...state.projects.slice(index + 1)]
             };
 
         case UPDATE_PROJECT:
+            let updateIndex = state.projects.findIndex(p => p.project_id === action.id)
             return {
                 ...state,
-                projects: [...state.projects.slice(0, action.index),
+                projects: [...state.projects.slice(0, updateIndex),
                             action.payload,
-                            ...state.projects.slice(action.index + 1)]
+                            ...state.projects.slice(updateIndex + 1)]
         };
         default:
             return state;

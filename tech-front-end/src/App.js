@@ -51,6 +51,7 @@ class App extends Component {
   }
 
   onUpdateAssignment = (assignment) => {
+    console.log("Updating toward Map Dispatch")
     let index = 0
     this.props.updateAssignment(assignment, index);
   }
@@ -118,7 +119,7 @@ class App extends Component {
                 { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
                 { key: "ssignment_end_date", label: "End Date", type: "text", props: { required: true } },
                 { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
-                { key: "assignment_final_hours", label: "Elapased Hours", type: "text", props: { required: true } }
+                { key: "assignment_final_hours", label: "Final Hours", type: "text", props: { required: true } }
 
 
               ]}
@@ -146,7 +147,8 @@ class App extends Component {
               model={[
                 { key: "project_name", label: " Project Name", type: "text", props: { required: true } },
                 { key: "project_start_date", label: "Start Date", type: "text", props: { required: true } },
-                { key: "project_end_date", label: "Deadline Date", type: "text", props: { required: true } }
+                { key: "project_end_date", label: "Deadline Date", type: "text", props: { required: true } },
+                { key: "status_id", label: "Current Status", type: "text", props: { required: true } }
 
 
               ]}
@@ -158,9 +160,9 @@ class App extends Component {
             <Form className="form"
               title="Update Project"
               model={[
-                { key: "name", label: "Assignment Name", type: "text", props: { required: true } },
-                { key: "startDate", label: "Start Date", type: "text", props: { required: true } },
-                { key: "endDate", label: "End Date", type: "text", props: { required: true } },
+                { key: "project_name", label: "Assignment Name", type: "text", props: { required: true } },
+                { key: "project_start_date", label: "Start Date", type: "text", props: { required: true } },
+                { key: "project_end_date", label: "End Date", type: "text", props: { required: true } },
                 { key: "estHours", label: "Estimated Hours", type: "text", props: { required: true } },
                 { key: "elapsHours", label: "Elapased Hours", type: "text", props: { required: true } }
 
@@ -171,9 +173,9 @@ class App extends Component {
             <Form className="form"
               title="Employee Form"
               model={[
-                { key: "first_name", label: "Name", type: "text", props: { required: true } },
-                { key: "last_name", label: "Title", type: "text", props: { required: true } },
-                { key: "position", label: "Project", type: "text", props: { required: true } },
+                { key: "first_name", label: "First Name", type: "text", props: { required: true } },
+                { key: "last_name", label: "Last Name", type: "text", props: { required: true } },
+                { key: "position", label: "Position", type: "text", props: { required: true } },
                 { key: "profile", label: "Profile", type: "text ", props: { required: true } }
               ]}
               onSubmit={(model) => { this.onEmployeeSubmit(model) }}

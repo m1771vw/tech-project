@@ -32,15 +32,15 @@ export const submitLogin = () => async dispatch => {
  * Assignment Actions
  */
 
- export const getAllAssignments = () => async dispatch => {
+export const getAllAssignments = () => async dispatch => {
     try {
         let response = await axios.get('http://localhost:5000/api/assignments/all');
         console.log("Response: ", response);
-        dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments})
-    } catch(e) {
+        dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments })
+    } catch (e) {
         console.log("Get All Assignment Error", e);
     }
- }
+}
 
 export const submitAssignment = assignment => async dispatch => {
     try {
@@ -51,17 +51,22 @@ export const submitAssignment = assignment => async dispatch => {
     }
 }
 
-export const deleteAssignment = (assignment, index) => async dispatch => {
+export const deleteAssignment = id => async dispatch => {
     try {
-        dispatch({ type: REMOVE_ASSIGNMENT, payload: assignment, index })
-    } catch {
-        console.log("ERROR")
+        let id = 17;
+        await axios.delete(`http://localhost:5000/api/assignments/${id}`);
+        dispatch({ type: REMOVE_ASSIGNMENT, id })
+    } catch (e) {
+        console.log("ERROR:", e)
     }
 }
 
-export const updateAssignment = (assignment, index) => async dispatch => {
+export const updateAssignment = (assignment, id) => async dispatch => {
     try {
-        dispatch({ type: UPDATE_ASSIGNMENT, payload: assignment, index })
+        let id = 20;
+        let response = await axios.put(`http://localhost:5000/api/assignments/${id}`, assignment);
+        console.log('RESPONSE: ', response)
+        dispatch({ type: UPDATE_ASSIGNMENT, payload: response.data.message, id })
     } catch {
         console.log("ERROR")
     }
@@ -75,8 +80,8 @@ export const getAllEmployees = () => async dispatch => {
     try {
         let response = await axios.get('http://localhost:5000/api/employees/all');
         console.log("Response: ", response);
-        dispatch({ type: GET_ALL_EMPLOYEES, payload: response.data.employees})
-    } catch(e) {
+        dispatch({ type: GET_ALL_EMPLOYEES, payload: response.data.employees })
+    } catch (e) {
         console.log("Get All Employee Error", e);
     }
 }
@@ -117,14 +122,14 @@ export const updateEmployee = (employee, id) => async dispatch => {
  */
 export const getAllProjects = () => async dispatch => {
     try {
-         let response = await axios.get('http://localhost:5000/api/projects/all');
-         console.log("Response: ", response);
-         dispatch({ type: GET_ALL_PROJECTS, payload: response.data.projects})
-     } catch(e) {
-         console.log("Get All Projects Error", e);
-     }
- }
- 
+        let response = await axios.get('http://localhost:5000/api/projects/all');
+        console.log("Response: ", response);
+        dispatch({ type: GET_ALL_PROJECTS, payload: response.data.projects })
+    } catch (e) {
+        console.log("Get All Projects Error", e);
+    }
+}
+
 export const submitProject = project => async dispatch => {
     try {
         let response = await axios.post('http://localhost:5000/api/projects/', project);
@@ -134,21 +139,23 @@ export const submitProject = project => async dispatch => {
         console.log("ERROR:", e)
     }
 }
-export const deleteProject = (project, index) => async dispatch => {
+export const deleteProject = id => async dispatch => {
     try {
-        dispatch({ type: REMOVE_PROJECT, payload: project, index })
-    } catch {
-        console.log("ERROR")
+        let id = 13;
+        await axios.delete(`http://localhost:5000/api/projects${id}`)
+        dispatch({ type: REMOVE_PROJECT, id })
+    } catch (e) {
+        console.log("ERROR", e)
     }
 }
 
-export const updateProject = (project, index) => async dispatch => {
+export const updateProject = (project, id) => async dispatch => {
     try {
-        dispatch({ type: UPDATE_PROJECT, payload: project, index })
-    } catch {
-        console.log("ERROR")
+        let id = 13;
+        let response = await axios.put(`http://localhost:5000/api/projects/${id}`, project)
+        dispatch({ type: UPDATE_PROJECT, payload: response.data.message, id })
+    } catch (e) {
+        console.log("ERROR:", e)
     }
 }
-
-
 

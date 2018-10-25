@@ -9,18 +9,20 @@ import Dashboard       from './components/Dashboard/Dashboard';
 import Form            from './components/Forms/DynamicForm/Form';
 
 import { connect } from 'react-redux';
-import { submitProject, submitEmployee, submitAssignment, deleteEmployee, deleteAssignment, deleteProject } from './Redux/Actions';
+import { submitProject, 
+        submitEmployee, 
+        submitAssignment, 
+        deleteEmployee, 
+        deleteAssignment, 
+        deleteProject, 
+        updateAssignment, 
+        updateEmployee,
+        updateProject } from './Redux/Actions';
 
 class App extends Component {
   state = {
 
-    employeeData: [
-      { id: 1, name: "amy", title: "Senior engineer ", project: "B.com", profile: "wd.com" },
-      { id: 2, name: "bob", title: "Mid engineer ", project: "B.com", profile: "wc.com" },
-      { id: 3, name: "charles", title: "Junior engineer ", project: "A.com", profile: "ww.com" }
-
-    ],
-
+    employeeData: [],
     assignmentData:[],
     projectData:[]
 
@@ -30,25 +32,37 @@ class App extends Component {
 
   onDeleteEmployee = (employee) =>{
     let index = 1
-    console.log("delete button pressed")
     this.props.deleteEmployee(employee, index);
 
   }
 
   onDeleteAssignment = (assignment) =>{
     let index = 1
-    console.log("delete button pressed")
     this.props.deleteAssignment(assignment, index);
 
   }
-
   onDeleteProject = (project) =>{
     let index = 1
-    console.log("delete button pressed")
     this.props.deleteProject(project, index);
 
   }
 
+  onUpdateAssignment = (assignment) =>{
+    let index = 0
+    this.props.updateAssignment(assignment, index);
+  }
+
+  onUpdateEmployee = (employee) =>{
+    console.log("Updating toward Map Dispatch")
+    let index = 0
+    this.props.updateEmployee(employee, index);
+  }
+
+  onUpdateProject = (project) =>{
+    console.log("Updating toward Map Dispatch")
+    let index = 0
+    this.props.updateProject(project, index);
+  }
 
 
   onProjectSubmit = (model) =>{
@@ -67,7 +81,6 @@ class App extends Component {
       assignmentData: [ model, ...this.state.assignmentData]
 
     })
-
   }
 
   onEmployeeSubmit = (model) =>{
@@ -77,7 +90,6 @@ class App extends Component {
       employeeData: [ model, ...this.state.employeeData]
 
     })
-
   }
   
 
@@ -90,7 +102,7 @@ class App extends Component {
         <Loader />
         <Switch>
           <Route exact path='/' component={Dashboard}/>
-
+          
           <Route path='/assignments' component={() => 
                                               <Form className = "form"
                                                 title = "Assignment Form"
@@ -106,6 +118,20 @@ class App extends Component {
                                                 onSubmit = {(model) => {this.onAssignmentSubmit(model)}}
                                                 onDelete = {(model) => {this.onDeleteAssignment(model)}}
                                               />}/>
+
+          <Route path='/update-assignment' component={()=> 
+                                            <Form className = "form"
+                                              title = "Update Assignment"
+                                              model = {[
+                                                {key: "name", label: "Assignment Name", type: "text", props: {required: true}},
+                                                {key: "startDate", label: "Start Date", type: "text",  props: {required: true}},
+                                                {key: "endDate", label: "End Date", type: "text", props: {required: true}},
+                                                {key: "estHours", label: "Estimated Hours", type: "text", props:{required: true}},
+                                                {key: "elapsHours", label: "Elapased Hours", type: "text", props: {required:true}}
+    
+                                              ]}
+                                              onUpdate = {(model) => {this.onUpdateAssignment(model)}}
+                                            />}/>
                                               
           <Route path='/projects' component={()=>
                                             <Form className = "form"
@@ -120,7 +146,21 @@ class App extends Component {
                                                 onSubmit = {(model) => {this.onProjectSubmit(model)}}
                                                 onDelete = {(model) => {this.onDeleteProject(model)}}
                                                 />}/>
-          <Route path='/employees' render={()=>  //Design form 'to-fill' data here
+
+          <Route path='/update-project' component={()=> 
+                                            <Form className = "form"
+                                              title = "Update Project"
+                                              model = {[
+                                                {key: "name", label: "Assignment Name", type: "text", props: {required: true}},
+                                                {key: "startDate", label: "Start Date", type: "text",  props: {required: true}},
+                                                {key: "endDate", label: "End Date", type: "text", props: {required: true}},
+                                                {key: "estHours", label: "Estimated Hours", type: "text", props:{required: true}},
+                                                {key: "elapsHours", label: "Elapased Hours", type: "text", props: {required:true}}
+    
+                                              ]}
+                                                  onUpdate = {(model) => {this.onUpdateProject(model)}}
+                                            />}/>
+          <Route path='/employees' render={()=>  
                                             <Form className = "form"
                                                   title = "Employee Form"
                                                   model = {[
@@ -128,9 +168,22 @@ class App extends Component {
                                                     {key: "lastName", label:"Title", type: "text", props: {required: true}},
                                                     {key: "position", label: "Project", type: "text", props: {required: true}},
                                                     {key: "profile", label: "Profile", type: "text ", props: {required: true}}
-                                                  ]}  
+                                                  ]} 
                                                   onSubmit = {(model) => {this.onEmployeeSubmit(model)}}
-                                                  onDelete = {(model) => {this.onDeleteEmployee(model)}}
+                                                  onDelete = {(model) => {this.onDeleteEmployee(model)}} 
+                                                  
+                                                  />}/>
+
+          <Route path='/update-employee' render={()=>  //Design form 'to-fill' data here
+                                            <Form className = "form"
+                                                  title = "Update Employee"
+                                                  model = {[
+                                                    {key: "firstName", label:"Name", type: "text", props: {required: true}},
+                                                    {key: "lastName", label:"Title", type: "text", props: {required: true}},
+                                                    {key: "position", label: "Project", type: "text", props: {required: true}},
+                                                    {key: "profile", label: "Profile", type: "text ", props: {required: true}}
+                                                  ]}  
+                                                  onUpdate = {(model) => {this.onUpdateEmployee(model)}}
                                                   />}/>
         </Switch>
       </div>
@@ -142,10 +195,13 @@ const mapDispatchToProps = dispatch => ({
     // submitForms: () => dispatch(submitForms()),
     submitProject: (project) => dispatch(submitProject(project)),
     deleteProject: (project, index) => dispatch(deleteProject(project, index)),
+    updateProject: (project, index) => dispatch(updateProject(project,index)),
     submitEmployee: (employee)=> dispatch(submitEmployee(employee)),
     deleteEmployee: (employee, index)=> dispatch(deleteEmployee(employee, index)),
+    updateEmployee: (employee, index)=> dispatch(updateEmployee(employee,index)),
     submitAssignment: (assignment)=> dispatch(submitAssignment(assignment)),
-    deleteAssignment: (assignment, index)=> dispatch(deleteAssignment(assignment, index))
+    deleteAssignment: (assignment, index)=> dispatch(deleteAssignment(assignment, index)),
+    updateAssignment: (assignment, index)=> dispatch(updateAssignment(assignment, index)),
     
 })
 

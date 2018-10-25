@@ -6,7 +6,9 @@ import {LOGIN,
     REMOVE_EMPLOYEE,
     REMOVE_ASSIGNMENT,
     REMOVE_PROJECT,
-    UPDATE_ASSIGNMENT 
+    UPDATE_ASSIGNMENT, 
+    UPDATE_EMPLOYEE,
+    UPDATE_PROJECT
 } 
 from '../Constants';
 
@@ -38,8 +40,8 @@ export const deleteAssignment = (assignment, index) => async dispatch => {
 
 export const updateAssignment = (assignment, index) => async dispatch => {
     try {
-        console.log("Update ASSIGNMENT ACTION:", index)
-        dispatch({ type:UPDATE_ASSIGNMENT , payload: assignment, index})
+        console.log("Update ASSIGNMENT ACTION:", assignment)
+        dispatch({ type: UPDATE_ASSIGNMENT , payload: assignment, index})
     } catch {
         console.log("ERROR")
     }
@@ -64,6 +66,14 @@ export const deleteEmployee = (employee, index) => async dispatch => {
     }
 }
 
+export const updateEmployee = (employee, index) => async dispatch => {
+    try {
+        dispatch({ type: UPDATE_EMPLOYEE , payload: employee, index})
+    } catch {
+        console.log("ERROR")
+    }
+}
+
 
 
 export const submitProject = (project) => async dispatch => {
@@ -82,5 +92,15 @@ export const deleteProject = (project, index) => async dispatch => {
         console.log("ERROR")
     }
 }
+
+export const updateProject = (project, index) => async dispatch => {
+    try {
+        console.log("Update PROJECT ACTION:", project)
+        dispatch({ type: UPDATE_PROJECT , payload: project, index})
+    } catch {
+        console.log("ERROR")
+    }
+}
+
 
 

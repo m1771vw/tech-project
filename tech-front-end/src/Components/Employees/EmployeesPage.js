@@ -1,71 +1,39 @@
 import React, { Component } from 'react';
 import { submitEmployee } from '../../Redux/Actions/index';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 // import { Redirect } from 'react-router-dom';
 
 
 
 class EmployeesPage extends Component {
     state = {
-        employeeId: '',
-        employeeName: '',
-        employeeTitle: '',
-        employeeProjects: '',
-        success: false
+       employees: []
     }
-
-    handleOnChange = e => {
-        e.preventDefault();
-        this.setState({
-            [e.target.name]: e.target.value
-        })
+    componentDidMount() {
+        this.fetchAllEmployees();
     }
-
-    handleSubmit = e => {
-        e.preventDefault();
-
+    
+    fetchAllEmployees = () => {
 
     }
-
-    toggleSubmit = e => {
-        this.setState({ success: true })
-    }
-
-
+    
     render() {
-        let { employeeName, employeeTitle, employeeProjects } = this.state
-        let { handleOnChange } = this
         return (
-            <div className="pageClass">
-                <form onSubmit={this.handleSubmit}>
-                    <div className="field">
-                        <label>Employee Name</label>
-                        <input type="text" onChange={handleOnChange} value={employeeName}
-                            name="employeeName" className="input" />
-                    </div>
-                    <div className="field">
-                        <label>Employee Title</label>
-                        <input type="text" onChange={handleOnChange} value={employeeTitle}
-                            name="employeeTitle" className="input" />
-                    </div>
-                    <div className="field">
-                        <label>Employee Project Participation</label>
-                        <input type="text" onChange={handleOnChange} value={employeeProjects}
-                            name="employeeProjects" className="input" />
-                    </div>
-                    <button className="button">Submit</button>
-                </form>
+            <div className="">
+
             </div>
 
         );
     }
 }
 
-
+const mapStateToProps = ({employeeReducer}) => ({
+    employees: employeeReducer.employees
+})
 const  mapDispatchToProps = dispatch => ({
     submitEmployee: employee => dispatch(submitEmployee(employee))
 })
 
 // //Double check this
 // export default connect(null, mapDispatchToProps)(AddEmployee);
-export default EmployeesPage;
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeesPage);

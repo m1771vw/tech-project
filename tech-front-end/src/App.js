@@ -39,7 +39,7 @@ class App extends Component {
     this.props.deleteAssignment(assignment, index);
 
   }
-  
+
   onDeleteProject = (project) => {
     let index = 1
     this.props.deleteProject(project, index);
@@ -177,8 +177,8 @@ class App extends Component {
             <Form className="form"
               title="Update Employee"
               model={[
-                { key: "firstName", label: "Name", type: "text", props: { required: true } },
-                { key: "lastName", label: "Title", type: "text", props: { required: true } },
+                { key: "first_name", label: "Name", type: "text", props: { required: true } },
+                { key: "last_name", label: "Title", type: "text", props: { required: true } },
                 { key: "position", label: "Project", type: "text", props: { required: true } },
                 { key: "profile", label: "Profile", type: "text ", props: { required: true } }
               ]}

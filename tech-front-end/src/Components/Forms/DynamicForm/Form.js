@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-
+import { withRouter } from 'react-router-dom'
 
 
 class Form extends Component {
-    state = {
+    state = {}
 
-    }
-    // TODO John Component Did Update
-    componentDidUpdate() {
-
+    shouldComponentUpdate(nextProps) {
+        if(nextProps.location !== this.props.location) {
+            return true;
+        }
     }
 
     onSubmit = e => {
@@ -24,7 +24,6 @@ class Form extends Component {
 
     onUpdate = e => {
         e.preventDefault();
-        console.log("Update Assignment Button worked")
         this.props.onUpdate(this.state)
     }
 
@@ -82,17 +81,12 @@ class Form extends Component {
                 </form>
                 <button onClick={(e) => { this.onDelete(e) }}>x</button>
                 <button onClick={(e) => { this.onUpdate(e) }}>Update</button>
-
-
             </div>
         )
     }
 
 
 
-
-
-
-
 }
+
 export default Form;

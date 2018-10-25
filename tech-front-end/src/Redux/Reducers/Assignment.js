@@ -1,4 +1,4 @@
-import { ADD_ASSIGNMENT, REMOVE_ASSIGNMENT, UPDATE_ASSIGNMENT} from '../Constants';
+import { ADD_ASSIGNMENT, REMOVE_ASSIGNMENT, UPDATE_ASSIGNMENT } from '../Constants';
 
 const initialState = {
     assignments: [{
@@ -7,13 +7,13 @@ const initialState = {
         endDate: "2017-10-21",
         estHours: "1",
         elapsHours: "1"
-    },{
+    }, {
         name: "Test Assignment2",
         startDate: "2017-10-21",
         endDate: "2017-10-21",
         estHours: "1",
         elapsHours: "1"
-    },{
+    }, {
         name: "Test Assignmen3t",
         startDate: "2017-10-16",
         endDate: "2017-10-21",
@@ -22,26 +22,29 @@ const initialState = {
     }]
 }
 const assignmentReducer = (state = initialState, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case ADD_ASSIGNMENT:
-        return {...state, 
-            assignments: [...state.assignments, action.payload]
-        };
+        console.log("Inside ASSIGNMENT reducer add ASSIGNMENT");
+        console.log('ASSIGNMENT Data:',state.assignments);
+            return {
+                ...state,
+                assignments: [...state.assignments, action.payload]
+            };
         case REMOVE_ASSIGNMENT:
-        // Need some action.index
-        return {
-            ...state,
-            assignments: [...state.assignments.slice(0, action.index),
-            ...state.assignments.slice(action.index + 1)]
-        };
+            // Need some action.index
+            return {
+                ...state,
+                assignments: [...state.assignments.slice(0, action.index),
+                ...state.assignments.slice(action.index + 1)]
+            };
 
-    case UPDATE_ASSIGNMENT:
-        return {
-        ...state,
-        assignments: [...state.assignments.slice(0, action.index),
-                        action.payload,
-                        ...state.assignments.slice(action.index + 1)]
-    };
+        case UPDATE_ASSIGNMENT:
+            return {
+                ...state,
+                assignments: [...state.assignments.slice(0, action.index),
+                action.payload,
+                ...state.assignments.slice(action.index + 1)]
+            };
         default:
             return state;
     }

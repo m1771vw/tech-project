@@ -1,4 +1,4 @@
-import { ADD_EMPLOYEE, REMOVE_EMPLOYEE, UPDATE_EMPLOYEE, GET_ALL_EMPLOYEE } from '../Constants';
+import { ADD_EMPLOYEE, REMOVE_EMPLOYEE, UPDATE_EMPLOYEE, GET_ALL_EMPLOYEES } from '../Constants';
 
 const initialState = {
     employees: [
@@ -26,7 +26,7 @@ const initialState = {
 }
 const employeeReducer = (state = initialState, action) => {
     switch(action.type) {
-        case GET_ALL_EMPLOYEE:
+        case GET_ALL_EMPLOYEES:
             return { ...state,
                 employees: [...action.payload]
             };

@@ -52,7 +52,7 @@ class Project extends Component {
                     </div>
                     <div className="field">
                         <label>Project Start</label>
-                        <input type="text" onChange={handleonChange} value={projectStart}
+                        <input type="text" onChange={handleOnChange} value={projectStart}
                             name="projectStart" className="input" />
                     </div>
                     <div>

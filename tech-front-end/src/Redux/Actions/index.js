@@ -1,9 +1,9 @@
 import axios from 'axios';
 import {
     LOGIN,
-    GET_ALL_ASSIGNMENT,
+    GET_ALL_ASSIGNMENTS,
     GET_ALL_EMPLOYEES,
-    GET_ALL_PROJECT,
+    GET_ALL_PROJECTS,
     ADD_ASSIGNMENT,
     ADD_EMPLOYEE,
     ADD_PROJECT,
@@ -32,11 +32,12 @@ export const submitLogin = () => async dispatch => {
  * Assignment Actions
  */
 
-export const submitAssignment = (assignment) => async dispatch => {
+export const submitAssignment = assignment => async dispatch => {
     try {
-        dispatch({ type: ADD_ASSIGNMENT, payload: assignment })
-    } catch {
-        console.log("ERROR")
+        let response = await axios.post('http://localhost:5000/api/assignments', assignment);
+        dispatch({ type: ADD_ASSIGNMENT, payload: response.data.assignment })
+    } catch (e) {
+        console.log("ERROR:", e)
     }
 }
 
@@ -68,6 +69,7 @@ export const getAllEmployees = () => async dispatch => {
         console.log("Get All Employee Error");
     }
 }
+
 export const submitEmployee = employee => async dispatch => {
     try {
         let response = await axios.post('http://localhost:5000/api/employees/', employee);
@@ -97,15 +99,15 @@ export const updateEmployee = (employee, index) => async dispatch => {
  *  Project Actions
  */
 
-export const submitProject = (project) => async dispatch => {
+export const submitProject = project => async dispatch => {
     try {
         let response = await axios.post('http://localhost:5000/api/projects/', project);
-        dispatch({ type: ADD_PROJECT, payload: response.data })
-    } catch {
-        console.log("ERROR")
+        console.log(response);
+        dispatch({ type: ADD_PROJECT, payload: response.data.project })
+    } catch (e) {
+        console.log("ERROR:", e)
     }
 }
-
 export const deleteProject = (project, index) => async dispatch => {
     try {
         dispatch({ type: REMOVE_PROJECT, payload: project, index })

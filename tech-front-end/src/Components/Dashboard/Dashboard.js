@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 class Dashboard extends Component {
     componentDidMount() {
-        console.log("Employee:",this.props.employees && this.props.employees);
+        console.log("Employee:",this.props.employeeData && this.props.employeeData);
     }
     render() {
         return (
             <div>
-            { this.props.employees.map((e) => {
+            { this.props.employeeData.map((e) => {
                 return(
                     <div>{e.first_name} {e.last_name}</div>
                 )
@@ -24,7 +24,7 @@ class Dashboard extends Component {
 // };
 
 const mapStateToProps = ({employeeReducer}) => ({
-    employees: employeeReducer.employees
+    employeeData: employeeReducer.employeeData
 });
 
 const mapDispatchToProps = dispatch => ({

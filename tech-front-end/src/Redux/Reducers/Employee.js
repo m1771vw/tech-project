@@ -1,7 +1,7 @@
-import { ADD_EMPLOYEE } from '../Constants';
+import { ADD_EMPLOYEE, REMOVE_EMPLOYEE } from '../Constants';
 
 const initialState = {
-    employees: [
+    employeeData: [
         {
             first_name: "William",
             last_name: "Yang",
@@ -28,7 +28,24 @@ const employeeReducer = (state = initialState, action) => {
     switch(action.type) {
         case ADD_EMPLOYEE:
         console.log("Inside employee reducer add employee");
-            return {...state}
+        console.log('Employee Data:',state.employeeData);
+        return {...state, 
+            employeeData: [...state.employeeData, action.payload]
+        };
+        case REMOVE_EMPLOYEE:
+        // Need some action.index
+            return {
+                ...state,
+                employeeData: [...state.employeeData.slice(0, action.index),
+                                ...state.employeeData.slice(action.index + 1)]
+            };
+        // case UPDATE_EMPLOYEE:
+        // return {
+        //     ...state,
+        //     employeeData: [...state.employeeData.slice(0, action.index),
+        //                     employeeData,
+        //                     ...state.employeeData.slice(action.index + 1)]
+        // };
         default:
             return state;
     }

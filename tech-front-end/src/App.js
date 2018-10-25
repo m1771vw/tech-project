@@ -13,6 +13,9 @@ import { submitProject, submitEmployee, submitAssignment, deleteEmployee } from 
 
 class App extends Component {
   state = {
+    employeeData: [],
+    assignmentData: [],
+    projectData: []
 
   }
  

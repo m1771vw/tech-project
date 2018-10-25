@@ -1,4 +1,4 @@
-import { ADD_ASSIGNMENT, REMOVE_ASSIGNMENT, UPDATE_ASSIGNMENT } from '../Constants';
+import { ADD_ASSIGNMENT, REMOVE_ASSIGNMENT, UPDATE_ASSIGNMENT, GET_ALL_ASSIGNMENTS } from '../Constants';
 
 const initialState = {
     assignments: [{
@@ -23,6 +23,11 @@ const initialState = {
 }
 const assignmentReducer = (state = initialState, action) => {
     switch (action.type) {
+        case GET_ALL_ASSIGNMENTS:
+            return {
+                ...state,
+                assignments: [...action.payload]
+            };
         case ADD_ASSIGNMENT:
         console.log("Inside ASSIGNMENT reducer add ASSIGNMENT");
         console.log('ASSIGNMENT Data:',state.assignments);

@@ -1,26 +1,25 @@
 import React, { Component } from 'react';
-import { submitEmployee } from '../../Redux/Actions/index';
+import { getAllEmployees } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
-// import { Redirect } from 'react-router-dom';
-
-
 
 class EmployeesPage extends Component {
     state = {
        employees: []
     }
     componentDidMount() {
+        console.log("Trying to fetch all employees");
         this.fetchAllEmployees();
     }
     
     fetchAllEmployees = () => {
-
+        this.props.getAllEmployees();
     }
-    
+
     render() {
+
         return (
             <div className="">
-
+                Hello?
             </div>
 
         );
@@ -30,10 +29,9 @@ class EmployeesPage extends Component {
 const mapStateToProps = ({employeeReducer}) => ({
     employees: employeeReducer.employees
 })
+
 const  mapDispatchToProps = dispatch => ({
-    submitEmployee: employee => dispatch(submitEmployee(employee))
+    getAllEmployees: () => dispatch(getAllEmployees())
 })
 
-// //Double check this
-// export default connect(null, mapDispatchToProps)(AddEmployee);
 export default connect(mapStateToProps, mapDispatchToProps)(EmployeesPage);

@@ -32,6 +32,16 @@ export const submitLogin = () => async dispatch => {
  * Assignment Actions
  */
 
+ export const getAllAssignments = () => async dispatch => {
+    try {
+        let response = await axios.get('http://localhost:5000/api/assignments/all');
+        console.log("Response: ", response);
+        dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments})
+    } catch(e) {
+        console.log("Get All Assignment Error", e);
+    }
+ }
+
 export const submitAssignment = assignment => async dispatch => {
     try {
         let response = await axios.post('http://localhost:5000/api/assignments', assignment);
@@ -64,16 +74,17 @@ export const updateAssignment = (assignment, index) => async dispatch => {
 export const getAllEmployees = () => async dispatch => {
    try {
         let response = await axios.get('http://localhost:5000/api/employees/all');
-        dispatch({ type: GET_ALL_EMPLOYEES, payload: response.data.employee})
-    } catch {
-        console.log("Get All Employee Error");
+        console.log("Response: ", response);
+        dispatch({ type: GET_ALL_EMPLOYEES, payload: response.data.employees})
+    } catch(e) {
+        console.log("Get All Employee Error", e);
     }
 }
 
 export const submitEmployee = employee => async dispatch => {
     try {
         let response = await axios.post('http://localhost:5000/api/employees/', employee);
-        dispatch({ type: ADD_EMPLOYEE, payload: response.data.employee })
+        dispatch({ type: ADD_EMPLOYEE, payload: response.data.employees })
     } catch {
         console.log("ERROR")
     }
@@ -98,7 +109,16 @@ export const updateEmployee = (employee, index) => async dispatch => {
 /**
  *  Project Actions
  */
-
+export const getAllProjects = () => async dispatch => {
+    try {
+         let response = await axios.get('http://localhost:5000/api/projects/all');
+         console.log("Response: ", response);
+         dispatch({ type: GET_ALL_PROJECTS, payload: response.data.projects})
+     } catch(e) {
+         console.log("Get All Projects Error", e);
+     }
+ }
+ 
 export const submitProject = project => async dispatch => {
     try {
         let response = await axios.post('http://localhost:5000/api/projects/', project);

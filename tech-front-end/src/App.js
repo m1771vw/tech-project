@@ -21,6 +21,10 @@ import {
   updateProject
 } from './Redux/Actions';
 
+
+import EmployeesPage from './Components/Employees/EmployeesPage';
+import AssignmentsPage from './Components/Assignments/AssignmentsPage';
+import ProjectsPage from './Components/Projects/ProjectsPage';
 class App extends Component {
   state = {
     employeeData: [],
@@ -99,9 +103,13 @@ class App extends Component {
 
         <Navbar />
         <Loader />
+        
         <Switch>
-          <Route exact path='/' component={Dashboard} />
 
+          <Route exact path='/' component={Dashboard} />
+          <Route path='/e' component={EmployeesPage} />
+          <Route path='/a' component={AssignmentsPage} />
+          <Route path='/p' component={ProjectsPage} />
           <Route path='/assignments' component={() =>
             <Form className="form"
               title="Assignment Form"

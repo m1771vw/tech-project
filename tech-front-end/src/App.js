@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 
 import Navbar from './Components/Navbar'
 import Loader from './Components/LazyLoad';
@@ -25,6 +25,7 @@ import {
 import EmployeesPage from './Components/Employees/EmployeesPage';
 import AssignmentsPage from './Components/Assignments/AssignmentsPage';
 import ProjectsPage from './Components/Projects/ProjectsPage';
+
 class App extends Component {
   state = {
     employeeData: [],
@@ -95,23 +96,19 @@ class App extends Component {
     })
   }
 
-
-
   render() {
     return (
-      <div >
-
+      <div>
         <Navbar />
         <Loader />
-        
         <Switch>
 
           <Route exact path='/' component={Dashboard} />
           <Route path='/e' component={EmployeesPage} />
           <Route path='/a' component={AssignmentsPage} />
           <Route path='/p' component={ProjectsPage} />
-          <Route path='/assignments' component={() =>
-            <Form className="form"
+          <Route path='/assignments' render={(renderProps) =>
+            <Form {...renderProps} className="form"
               title="Assignment Form"
               model={[
                 { key: "assignment_name", label: "Assignment Name", type: "text", props: { required: true } },
@@ -119,14 +116,12 @@ class App extends Component {
                 { key: "ssignment_end_date", label: "End Date", type: "text", props: { required: true } },
                 { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
                 { key: "assignment_final_hours", label: "Elapased Hours", type: "text", props: { required: true } }
-
-
               ]}
               onSubmit={(model) => { this.onAssignmentSubmit(model) }}
               onDelete={(model) => { this.onDeleteAssignment(model) }}
             />} />
 
-          <Route path='/update-assignment' component={() =>
+          <Route path='/update-assignment' render={() =>
             <Form className="form"
               title="Update Assignment"
               model={[
@@ -140,8 +135,8 @@ class App extends Component {
               onUpdate={(model) => { this.onUpdateAssignment(model) }}
             />} />
 
-          <Route path='/projects' component={() =>
-            <Form className="form"
+          <Route path='/projects' render={(renderProps) =>
+            <Form {...renderProps} className="form"
               title="Project Form"
               model={[
                 { key: "project_name", label: " Project Name", type: "text", props: { required: true } },
@@ -154,8 +149,9 @@ class App extends Component {
               onDelete={(model) => { this.onDeleteProject(model) }}
             />} />
 
-          <Route path='/update-project' component={() =>
+          <Route path='/update-project' render={(renderProps) =>
             <Form className="form"
+              {...renderProps} 
               title="Update Project"
               model={[
                 { key: "name", label: "Assignment Name", type: "text", props: { required: true } },
@@ -167,8 +163,10 @@ class App extends Component {
               ]}
               onUpdate={(model) => { this.onUpdateProject(model) }}
             />} />
-          <Route path='/employees' render={() =>
-            <Form className="form"
+          <Route path='/employees' render={(renderProps) =>
+            <Form 
+              {...renderProps} 
+              className="form"
               title="Employee Form"
               model={[
                 { key: "first_name", label: "Name", type: "text", props: { required: true } },
@@ -181,8 +179,10 @@ class App extends Component {
 
             />} />
 
-          <Route path='/update-employee' render={() =>  //Design form 'to-fill' data here
-            <Form className="form"
+          <Route path='/update-employee' render={(renderProps) =>  //Design form 'to-fill' data here
+            <Form 
+              className="form"
+              {...renderProps} 
               title="Update Employee"
               model={[
                 { key: "first_name", label: "Name", type: "text", props: { required: true } },
@@ -212,4 +212,4 @@ const mapDispatchToProps = dispatch => ({
 
 })
 
-export default connect(null, mapDispatchToProps)(App);
+export default withRouter(connect(null, mapDispatchToProps)(App));

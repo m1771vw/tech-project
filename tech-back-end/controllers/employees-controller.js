@@ -28,7 +28,7 @@ const addEmployee = async (req, res) => {
         let { first_name, last_name, position } = req.body;
         let employee = await db.one(
             'INSERT INTO employees(first_name, last_name, position)' +
-            'VALUES($1, $2, $3) RETURNING employees.first_name, employees.last_name, employees.position', [first_name, last_name, position]
+            'VALUES($1, $2, $3) RETURNING employees.employee_id, employees.first_name, employees.last_name, employees.position', [first_name, last_name, position]
         )
         res.status(200).send({ employee })
     } catch (e) {
@@ -43,7 +43,7 @@ const updateEmployee = async (req, res) => {
         await db.any('UPDATE employees SET first_name = $1, last_name = $2, position = $3 WHERE employee_id = $4',
             [first_name, last_name, position, employee_id])
         let updatedEmployee = await db.one('SELECT * FROM employees WHERE employee_id = $1', employee_id);
-        res.status(200).json({ message: updatedEmployee })
+        res.status(200).json({ employee: updatedEmployee })
     } catch (e) {
         res.status(500).json({ message: e.message })
     }

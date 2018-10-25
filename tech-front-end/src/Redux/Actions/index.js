@@ -14,7 +14,7 @@ import {
     UPDATE_EMPLOYEE,
     UPDATE_PROJECT
 }
-from '../Constants';
+    from '../Constants';
 
 /**
  * Login Actions
@@ -72,7 +72,7 @@ export const updateAssignment = (assignment, index) => async dispatch => {
  */
 
 export const getAllEmployees = () => async dispatch => {
-   try {
+    try {
         let response = await axios.get('http://localhost:5000/api/employees/all');
         console.log("Response: ", response);
         dispatch({ type: GET_ALL_EMPLOYEES, payload: response.data.employees})
@@ -90,19 +90,25 @@ export const submitEmployee = employee => async dispatch => {
     }
 }
 
-export const deleteEmployee = (employee, index) => async dispatch => {
+export const deleteEmployee = id => async dispatch => {
     try {
-        dispatch({ type: REMOVE_EMPLOYEE, payload: employee, index })
-    } catch {
-        console.log("ERROR")
+        // hard coded for now since getall does not exist
+        let id = 31;
+        await axios.delete(`http://localhost:5000/api/employees/${id}`);
+        dispatch({ type: REMOVE_EMPLOYEE, id })
+    } catch (e) {
+        console.log("ERROR:", e)
     }
 }
 
-export const updateEmployee = (employee, index) => async dispatch => {
+export const updateEmployee = (employee, id) => async dispatch => {
     try {
-        dispatch({ type: UPDATE_EMPLOYEE, payload: employee, index })
-    } catch {
-        console.log("ERROR")
+        let id = 27;
+        let response = await axios.put(`http://localhost:5000/api/employees/${id}`, employee);
+        console.log('RESPONSE:', response)
+        dispatch({ type: UPDATE_EMPLOYEE, payload: response.data.employee, id })
+    } catch (e) {
+        console.log("ERROR:", e)
     }
 }
 

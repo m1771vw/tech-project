@@ -39,6 +39,7 @@ class App extends Component {
     this.props.deleteAssignment(assignment, index);
 
   }
+  
   onDeleteProject = (project) => {
     let index = 1
     this.props.deleteProject(project, index);
@@ -105,11 +106,11 @@ class App extends Component {
             <Form className="form"
               title="Assignment Form"
               model={[
-                { key: "name", label: "Assignment Name", type: "text", props: { required: true } },
-                { key: "startDate", label: "Start Date", type: "text", props: { required: true } },
-                { key: "endDate", label: "End Date", type: "text", props: { required: true } },
-                { key: "estHours", label: "Estimated Hours", type: "text", props: { required: true } },
-                { key: "elapsHours", label: "Elapased Hours", type: "text", props: { required: true } }
+                { key: "assignment_name", label: "Assignment Name", type: "text", props: { required: true } },
+                { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
+                { key: "ssignment_end_date", label: "End Date", type: "text", props: { required: true } },
+                { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
+                { key: "assignment_final_hours", label: "Elapased Hours", type: "text", props: { required: true } }
 
 
               ]}
@@ -121,11 +122,11 @@ class App extends Component {
             <Form className="form"
               title="Update Assignment"
               model={[
-                { key: "name", label: "Assignment Name", type: "text", props: { required: true } },
-                { key: "startDate", label: "Start Date", type: "text", props: { required: true } },
-                { key: "endDate", label: "End Date", type: "text", props: { required: true } },
-                { key: "estHours", label: "Estimated Hours", type: "text", props: { required: true } },
-                { key: "elapsHours", label: "Elapased Hours", type: "text", props: { required: true } }
+                { key: "assignment_name", label: "Assignment Name", type: "text", props: { required: true } },
+                { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
+                { key: "assignment_end_date", label: "End Date", type: "text", props: { required: true } },
+                { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
+                { key: "assignment_final_hours", label: "Total Hours", type: "text", props: { required: true } }
 
               ]}
               onUpdate={(model) => { this.onUpdateAssignment(model) }}

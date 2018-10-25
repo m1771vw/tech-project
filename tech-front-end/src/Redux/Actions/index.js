@@ -22,13 +22,6 @@ export const submitLogin = () => async dispatch => {
     }
 }
 
-export const submitAssignment = (assignment) => async dispatch => {
-    try {
-        dispatch({ type: ADD_ASSIGNMENT, payload: assignment })
-    } catch {
-        console.log("ERROR")
-    }
-}
 
 export const deleteAssignment = (assignment, index) => async dispatch => {
     try {
@@ -57,14 +50,25 @@ export const submitEmployee = employee => async dispatch => {
     }
 }
 
-export const submitProject = (project) => async dispatch => {
+export const submitProject = project => async dispatch => {
     try {
         let response = await axios.post('http://localhost:5000/api/projects/', project);
-        dispatch({ type: ADD_PROJECT, payload: response.data })
-    } catch {
-        console.log("ERROR")
+        console.log(response);
+        dispatch({ type: ADD_PROJECT, payload: response.data.project })
+    } catch (e) {
+        console.log("ERROR:", e)
     }
 }
+
+export const submitAssignment = assignment => async dispatch => {
+    try {
+        let response = await axios.post('http://localhost:5000/api/assignments', assignment);
+        dispatch({ type: ADD_ASSIGNMENT, payload: response.data.assignment })
+    } catch (e) {
+        console.log("ERROR:", e)
+    }
+}
+
 export const deleteEmployee = (employee, index) => async dispatch => {
     try {
 

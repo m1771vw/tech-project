@@ -4,15 +4,19 @@ import {
     GET_ALL_ASSIGNMENTS,
     GET_ALL_EMPLOYEES,
     GET_ALL_PROJECTS,
+    GET_ALL_PROJECT_ROLES,
     ADD_ASSIGNMENT,
     ADD_EMPLOYEE,
     ADD_PROJECT,
     REMOVE_ASSIGNMENT,
     REMOVE_EMPLOYEE,
     REMOVE_PROJECT,
+    REMOVE_PROJECT_ROLES,
     UPDATE_ASSIGNMENT,
     UPDATE_EMPLOYEE,
-    UPDATE_PROJECT
+    UPDATE_PROJECT,
+    UPDATE_PROJECT_ROLES
+
 }
     from '../Constants';
 
@@ -130,6 +134,14 @@ export const getAllProjects = () => async dispatch => {
     }
 }
 
+export const getProjectById = () => async dispatch => {
+    try {
+
+    } catch (e) {
+
+    }
+}
+
 export const submitProject = project => async dispatch => {
     try {
         let response = await axios.post('http://localhost:5000/api/projects/', project);
@@ -156,6 +168,36 @@ export const updateProject = (project, id) => async dispatch => {
         dispatch({ type: UPDATE_PROJECT, payload: response.data.message, id })
     } catch (e) {
         console.log("ERROR:", e)
+    }
+}
+
+export const getAllProjectRoles = () => async dispatch => {
+    try {
+        let response = await axios.get('http://localhost:5000/api/projects/projectroles/all')
+        console.log("GET PROJECT ROLES:", response)
+        dispatch({ type: GET_ALL_PROJECT_ROLES, payload: response.data.role })
+    } catch (e) {
+        console.log("Get All Project Roles Error: ", e);
+    }
+}
+
+export const updateProjectRole = (project_role, id) => async dispatch => {
+    try {
+        let id = 9;
+        let response = await axios.put(`http://localhost:500/api/projects/projectroles/${id}`, project_role)
+        dispatch({ type: UPDATE_PROJECT_ROLES, payload: response.data.message, id })
+    } catch (e) {
+        console.log('ERROR AT', e)
+    }
+}
+
+export const deleteProjectRole = id => async dispatch => {
+    try {
+        let id = 10;
+        await axios.delete(`http://localhost:5000/api/projects/projectroles/${id}`)
+        dispatch({ type: REMOVE_PROJECT_ROLES, id})
+    } catch (e) {
+        console.log("ERROR:" , e)
     }
 }
 

@@ -12,8 +12,7 @@ class Forms extends Component {
     shouldComponentUpdate(nextProps) {
         if(nextProps.location !== this.props.location) {
             return true;
-        }
-        return false;
+        } return false;
     }
 
     onSubmit = e => {

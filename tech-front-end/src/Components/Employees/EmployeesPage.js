@@ -23,7 +23,7 @@ class EmployeesPage extends Component {
 
         return (
             <div>
-            <Link to='/createEmployees'><Button>Create</Button></Link>
+            <Link to='/createEmployees'><Button primary>Create</Button></Link>
 
     
             <LazyLoad height={100} offsetVertical={300}>
@@ -54,8 +54,8 @@ class EmployeesPage extends Component {
                                     <Table.Cell>{first_name}</Table.Cell>
                                     <Table.Cell>{last_name}</Table.Cell>
                                     <Table.Cell>{position}</Table.Cell>
-                                    <Link to='/update-employee'><Button>Update</Button></Link>
-                                    <Button onClick={() => this.props.deleteEmployee(employee_id)}>Delete</Button>
+                                    <Link to='/update-employee'><Button Secondary>Update</Button></Link>
+                                    <Button color='red' onClick={() => this.props.deleteEmployee(employee_id)}>Delete</Button>
                                    
                                 </Table.Row>
                              

@@ -22,7 +22,7 @@ class AssignmentsPage extends Component {
         let { assignments } = this.props
         return (
             <div>
-                <Link to='/createAssignments'><Button>Create</Button></Link>
+                <Link to='/createAssignments'><Button primary>Create</Button></Link>
             <LazyLoad height={100} offsetVertical={300}>
             <div>
             <Header color='blue'>Assignment List</Header>
@@ -62,8 +62,8 @@ class AssignmentsPage extends Component {
                                         <Table.Cell>{assignment_end_date}</Table.Cell>
                                         <Table.Cell>{assignment_est_hours }</Table.Cell>
                                         <Table.Cell>{assignment_final_hours}</Table.Cell>
-                                        <Link to='/update-assignment'><Button>Update</Button></Link>
-                                        <Button onClick={() => this.props.deleteAssignment(assignment_id)}>Delete</Button>
+                                        <Link  to='/update-assignment'><Button Secondary>Update</Button></Link>
+                                        <Button color='red' onClick={() => this.props.deleteAssignment(assignment_id)}>Delete</Button>
                                     </Table.Row>
                                     );
                             })}

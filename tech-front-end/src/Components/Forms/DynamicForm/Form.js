@@ -45,28 +45,45 @@ class Forms extends Component {
             let props = m.props || {};  // default to empty object
 
             return (
-             
-                <Form.Group key={key} className="form-group">
+                <div key={key} className="form-group">
+                {/* form label */}
+                <label className="form-label"
+                    key={"l" + m.key}
+                    htmlFor={m.key}>
+                    {/* label text  */}
+                    {m.label}
+                </label>
+                <input {...props}
+                    //references every input element in array
+                    ref={(key) => { this[m.key] = key }}
+                    className="form-input"
+                    type={type}
+                    key={"i" + m.key}
+                    //event handler
+                    onChange={(e) => { this.onChange(e, key) }}
+                />
+            </div>
+                // <Form.Group key={key} className="form-group">
                     
-                    {/* form label */}
-                    <Form.Input  className="form-label"
-                        key={"l" + m.key}
-                        htmlFor={m.key}>
-                        {/* label text  */}
-                        {m.label}
-                    </Form.Input>
-                    <Form.Input {...props}
-                        //references every input element in array
-                        ref={(key) => { this[m.key] = key }}
-                        className="form-input"
-                        type={type}
-                        key={"i" + m.key}
-                        //event handler
-                        onChange={(e) => { this.onChange(e, key) }}
-                      >
-                      </Form.Input>
+                //     {/* form label */}
+                //     <Form.Input  className="form-label"
+                //         key={"l" + m.key}
+                //         htmlFor={m.key}>
+                //         {/* label text  */}
+                //         {m.label}
+                //     </Form.Input>
+                //     <Form.Input {...props}
+                //         //references every input element in array
+                //         ref={(key) => { this[m.key] = key }}
+                //         className="form-input"
+                //         type={type}
+                //         key={"i" + m.key}
+                //         //event handler
+                //         onChange={(e) => { this.onChange(e, key) }}
+                //       >
+                //       </Form.Input>
                       
-                </Form.Group>
+                // </Form.Group>
                 
             );
         });
@@ -85,9 +102,9 @@ class Forms extends Component {
                 <Form.Field  className="dynamic-form" onSubmit={(e) => { this.onSubmit(e) }}>
                     {this.renderForm()}
                     <div className="form-group">
-                        <Button primary type="submit">Submit</Button>
+                        <Button primary onClick={(e) => { this.onSubmit(e) }} type="submit">Submit</Button>
                         <Button Secondary onClick={(e) => { this.onUpdate(e) }}>Update</Button>
-                        <Button color='red'onClick={(e) => { this.onDelete(e) }}>x</Button>
+                        <Button color='red' onClick={(e) => { this.onDelete(e) }}>x</Button>
                         {/* /temp button */}
                     </div>
                 </Form.Field>

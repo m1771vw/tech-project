@@ -30,7 +30,7 @@ class ProjectsPage extends Component {
 
         return (
             <div>
-                <Link to='/createAssignments'><Button>Create</Button></Link>
+                <Link to='/createAssignments'><Button primary>Create</Button></Link>
 
            
             <LazyLoad height={100} offsetVertical={300}>
@@ -62,8 +62,8 @@ class ProjectsPage extends Component {
                     <Table.Cell>{project_name}</Table.Cell>
                     <Table.Cell>{project_start_date}</Table.Cell>
                     <Table.Cell>{project_end_date}</Table.Cell>
-                    <Link to='/update-project'><Button>Update</Button></Link>
-                    <Button onClick={() => this.props.deleteProject(project_id)}>Delete</Button>
+                    <Link to='/update-project'><Button Secondary>Update</Button></Link>
+                    <Button color='red' onClick={() => this.props.deleteProject(project_id)}>Delete</Button>
                                    
                 </Table.Row>
             );

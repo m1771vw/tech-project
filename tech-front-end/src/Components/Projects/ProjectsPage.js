@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { getAllProjects, getAllProjectRoles } from '../../Redux/Actions/index';
+import { getAllProjects, getAllProjectRoles, deleteProject } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
-import { Table } from 'semantic-ui-react'
+import { Button, Table } from 'semantic-ui-react'
+import { Link } from 'react-router-dom';
 
 class ProjectsPage extends Component {
     state = {
@@ -28,6 +29,10 @@ class ProjectsPage extends Component {
         let {projects} = this.props
 
         return (
+            <div>
+                <Link to='/createAssignments'><Button>Create</Button></Link>
+
+           
             <LazyLoad height={100} offsetVertical={300}>
             <Table singleLine>
                     <Table.Header>
@@ -52,6 +57,9 @@ class ProjectsPage extends Component {
                     <Table.Cell>{project_name}</Table.Cell>
                     <Table.Cell>{project_start_date}</Table.Cell>
                     <Table.Cell>{project_end_date}</Table.Cell>
+                    <Link to='/update-project'><Button>Update</Button></Link>
+                    <Button onClick={() => this.props.deleteProject(project_id)}>Delete</Button>
+                                   
                 </Table.Row>
             );
 
@@ -60,6 +68,7 @@ class ProjectsPage extends Component {
             </Table.Body>
             </Table>
             </LazyLoad>
+            </div>
         );
     }
 }
@@ -71,7 +80,9 @@ const mapStateToProps = ({ projectReducer }) => ({
 
 const mapDispatchToProps = dispatch => ({
     getAllProjects: () => dispatch(getAllProjects()),
-    getAllProjectRoles: () => dispatch(getAllProjectRoles())
+    getAllProjectRoles: () => dispatch(getAllProjectRoles()),
+    deleteProject: id => dispatch(deleteProject(id))
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsPage);

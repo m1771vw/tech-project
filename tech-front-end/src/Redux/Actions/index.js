@@ -58,7 +58,6 @@ export const submitAssignment = assignment => async dispatch => {
 
 export const deleteAssignment = id => async dispatch => {
     try {
-        let id = 17;
         await axios.delete(`http://localhost:5000/api/assignments/${id}`);
         dispatch({ type: REMOVE_ASSIGNMENT, id })
     } catch (e) {
@@ -105,7 +104,7 @@ export const submitEmployee = employee => async dispatch => {
 export const deleteEmployee = id => async dispatch => {
     try {
         // hard coded for now since getall does not exist
-        let id = 31;
+        // let id = 31;
         await axios.delete(`http://localhost:5000/api/employees/${id}`);
         dispatch({ type: REMOVE_EMPLOYEE, id })
     } catch (e) {
@@ -156,8 +155,7 @@ export const submitProject = project => async dispatch => {
 }
 export const deleteProject = id => async dispatch => {
     try {
-        let id = 13;
-        await axios.delete(`http://localhost:5000/api/projects${id}`)
+        await axios.delete(`http://localhost:5000/api/projects/${id}`)
         dispatch({ type: REMOVE_PROJECT, id })
     } catch (e) {
         console.log("ERROR", e)

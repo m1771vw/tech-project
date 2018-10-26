@@ -109,10 +109,10 @@ class App extends Component {
         <Switch>
 
           <Route exact path='/' component={Dashboard} />
-          <Route path='/e' component={EmployeesPage} />
-          <Route path='/a' component={AssignmentsPage} />
-          <Route path='/p' component={ProjectsPage} />
-          <Route path='/assignments' render={(renderProps) =>
+          <Route path='/employees' component={EmployeesPage} />
+          <Route path='/assignments' component={AssignmentsPage} />
+          <Route path='/projects' component={ProjectsPage} />
+          <Route path='/createAssignments' render={(renderProps) =>
             <Form {...renderProps} className="form"
               title="Assignment Form"
               model={[
@@ -142,7 +142,7 @@ class App extends Component {
               onUpdate={(model) => { this.onUpdateAssignment(model) }}
             />} />
 
-          <Route path='/projects' render={(renderProps) =>
+          <Route path='/createProjects' render={(renderProps) =>
             <Form {...renderProps} className="form"
               title="Project Form"
               model={[
@@ -171,7 +171,7 @@ class App extends Component {
               ]}
               onUpdate={(model) => { this.onUpdateProject(model) }}
             />} />
-          <Route path='/employees' render={(renderProps) =>
+          <Route path='/createEmployees' render={(renderProps) =>
             <Form 
               {...renderProps} 
               className="form"

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getAllAssignments, deleteAssignment } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load'
-import { Button, Table } from 'semantic-ui-react'
+import { Button, Table, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
 class AssignmentsPage extends Component {
@@ -23,23 +23,24 @@ class AssignmentsPage extends Component {
         return (
             <div>
                 <Link to='/createAssignments'><Button>Create</Button></Link>
-                <LazyLoad height={100} offsetVertical={300}>
-                    
-
-                    <Table singleLine>
-                        <Table.Header>
-                            <Table.Row>
-                                <Table.HeaderCell>Assignment ID</Table.HeaderCell>
-                                <Table.HeaderCell>Name</Table.HeaderCell>
-                                <Table.HeaderCell>Project ID</Table.HeaderCell>
-                                <Table.HeaderCell>Status ID</Table.HeaderCell>
-                                <Table.HeaderCell>Start Date</Table.HeaderCell>
-                                <Table.HeaderCell>End Date</Table.HeaderCell>
-                                <Table.HeaderCell>Estimated Hours</Table.HeaderCell>
-                                <Table.HeaderCell>Final Elapsed Hours</Table.HeaderCell>
-                            </Table.Row>
-                        </Table.Header>
-                        <Table.Body>
+            <LazyLoad height={100} offsetVertical={300}>
+            <div>
+            <Header color='blue'>Assignment List</Header>
+                <Table singleLine selectable>
+                
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>Assignment ID</Table.HeaderCell>
+                            <Table.HeaderCell>Name</Table.HeaderCell>
+                            <Table.HeaderCell>Project ID</Table.HeaderCell>
+                            <Table.HeaderCell>Status ID</Table.HeaderCell>
+                            <Table.HeaderCell>Start Date</Table.HeaderCell>
+                            <Table.HeaderCell>End Date</Table.HeaderCell>
+                            <Table.HeaderCell>Estimated Hours</Table.HeaderCell>
+                            <Table.HeaderCell>Final Elapsed Hours</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
 
                             {assignments.map((a) => {
                                 let assignment_id = a.assignment_id || "Error Assign ID /"
@@ -68,6 +69,7 @@ class AssignmentsPage extends Component {
                             })}
                         </Table.Body>
                     </Table>
+                    </div>
                 </LazyLoad>
             </div>
         );

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getAllProjects, getAllProjectRoles, deleteProject } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
-import { Button, Table } from 'semantic-ui-react'
+import { Button, Table, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
 class ProjectsPage extends Component {
@@ -34,7 +34,11 @@ class ProjectsPage extends Component {
 
            
             <LazyLoad height={100} offsetVertical={300}>
-            <Table singleLine>
+            <div>
+            <Header color='blue'>Employee Roster</Header>
+            
+            <Table singleLine selectable>
+        
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Project ID</Table.HeaderCell>
@@ -52,6 +56,7 @@ class ProjectsPage extends Component {
                 let project_start_date = p.project_start_date;
                 let project_end_date = p.project_end_date;
             return( 
+                
                 <Table.Row key = {project_id}>
                     <Table.Cell> {project_id}</Table.Cell>
                     <Table.Cell>{project_name}</Table.Cell>
@@ -67,6 +72,7 @@ class ProjectsPage extends Component {
 
             </Table.Body>
             </Table>
+            </div>
             </LazyLoad>
             </div>
         );

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getAllEmployees, deleteEmployee } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
-import { Button, Table } from 'semantic-ui-react'
+import { Button, Table, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
 class EmployeesPage extends Component {
@@ -27,7 +27,9 @@ class EmployeesPage extends Component {
 
     
             <LazyLoad height={100} offsetVertical={300}>
-                <Table singleLine>
+            <div>
+                <Header color='blue'>Employee Roster</Header>
+                <Table singleLine selectable>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Employee ID</Table.HeaderCell>
@@ -46,6 +48,7 @@ class EmployeesPage extends Component {
                             let position = em.position;
                             return (
                                 
+                               
                                 <Table.Row key={employee_id}>
                                     <Table.Cell> {employee_id}</Table.Cell>
                                     <Table.Cell>{first_name}</Table.Cell>
@@ -55,12 +58,14 @@ class EmployeesPage extends Component {
                                     <Button onClick={() => this.props.deleteEmployee(employee_id)}>Delete</Button>
                                    
                                 </Table.Row>
+                             
 
                             );
                                 
                         })}
                     </Table.Body>
                 </Table>
+            </div>
             </LazyLoad>
             </div>
 

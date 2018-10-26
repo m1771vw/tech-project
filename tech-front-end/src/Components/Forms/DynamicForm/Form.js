@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import {Button, Form, Message, Grid } from 'semantic-ui-react';
-
+import {Container, Button, Form, Message, Grid, Header, Segment } from 'semantic-ui-react';
 
 class Forms extends Component {
     state = {
@@ -46,16 +45,17 @@ class Forms extends Component {
             let props = m.props || {};  // default to empty object
 
             return (
-                
-                <Form key={key} className="form-group">
+             
+                <Form.Group key={key} className="form-group">
+                    
                     {/* form label */}
-                    <Form.Input className="form-label"
+                    <Form.Input  className="form-label"
                         key={"l" + m.key}
                         htmlFor={m.key}>
                         {/* label text  */}
                         {m.label}
                     </Form.Input>
-                    <input {...props}
+                    <Form.Input {...props}
                         //references every input element in array
                         ref={(key) => { this[m.key] = key }}
                         className="form-input"
@@ -63,8 +63,10 @@ class Forms extends Component {
                         key={"i" + m.key}
                         //event handler
                         onChange={(e) => { this.onChange(e, key) }}
-                    />
-                </Form>
+                      >
+                      </Form.Input>
+                      
+                </Form.Group>
                 
             );
         });
@@ -74,20 +76,25 @@ class Forms extends Component {
     render() {
         let title = this.props.title || "Default Form"  //Or render "default"
         return (
-            <div className={this.props.className}>
-                <h3>{title}</h3>
-                <form className="dynamic-form" onSubmit={(e) => { this.onSubmit(e) }}>
+            
+            <Grid className={this.props.className}>
+            <Grid.Column style={{ maxWidth: 800 }}>
+                <Form >
+                <Segment stacked>
+                <Header color='blue'>{title}</Header>
+                <Form.Field  className="dynamic-form" onSubmit={(e) => { this.onSubmit(e) }}>
                     {this.renderForm()}
                     <div className="form-group">
-                        <Button type="submit">Submit</Button>
+                        <Button primary type="submit">Submit</Button>
+                        <Button Secondary onClick={(e) => { this.onUpdate(e) }}>Update</Button>
+                        <Button color='red'onClick={(e) => { this.onDelete(e) }}>x</Button>
                         {/* /temp button */}
                     </div>
-                </form>
-                <Button onClick={(e) => { this.onDelete(e) }}>x</Button>
-                <Button onClick={(e) => { this.onUpdate(e) }}>Update</Button>
-
-
-            </div>
+                </Form.Field>
+                </Segment>
+                </Form>
+            </Grid.Column>    
+            </Grid>
         )
     }
 

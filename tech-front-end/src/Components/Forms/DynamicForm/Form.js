@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
+import {Button, Form, Message, Grid } from 'semantic-ui-react';
 
 
-class Form extends Component {
-    state = {}
+class Forms extends Component {
+    state = {
 
+    }
+   
     shouldComponentUpdate(nextProps) {
         if(nextProps.location !== this.props.location) {
             return true;
         }
+        return false;
     }
 
     onSubmit = e => {
@@ -43,15 +47,15 @@ class Form extends Component {
             let props = m.props || {};  // default to empty object
 
             return (
-                //create a div
-                <div key={key} className="form-group">
+                
+                <Form key={key} className="form-group">
                     {/* form label */}
-                    <label className="form-label"
+                    <Form.Input className="form-label"
                         key={"l" + m.key}
                         htmlFor={m.key}>
                         {/* label text  */}
                         {m.label}
-                    </label>
+                    </Form.Input>
                     <input {...props}
                         //references every input element in array
                         ref={(key) => { this[m.key] = key }}
@@ -61,7 +65,8 @@ class Form extends Component {
                         //event handler
                         onChange={(e) => { this.onChange(e, key) }}
                     />
-                </div>
+                </Form>
+                
             );
         });
         return formUI;
@@ -75,12 +80,14 @@ class Form extends Component {
                 <form className="dynamic-form" onSubmit={(e) => { this.onSubmit(e) }}>
                     {this.renderForm()}
                     <div className="form-group">
-                        <button type="submit">Submit</button>
+                        <Button type="submit">Submit</Button>
                         {/* /temp button */}
                     </div>
                 </form>
-                <button onClick={(e) => { this.onDelete(e) }}>x</button>
-                <button onClick={(e) => { this.onUpdate(e) }}>Update</button>
+                <Button onClick={(e) => { this.onDelete(e) }}>x</Button>
+                <Button onClick={(e) => { this.onUpdate(e) }}>Update</Button>
+
+
             </div>
         )
     }
@@ -89,4 +96,4 @@ class Form extends Component {
 
 }
 
-export default Form;
+export default Forms;

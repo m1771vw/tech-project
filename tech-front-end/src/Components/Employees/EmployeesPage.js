@@ -1,36 +1,69 @@
 import React, { Component } from 'react';
 import { getAllEmployees } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
+import LazyLoad from 'react-lazy-load';
+import { Table } from 'semantic-ui-react'
 
 class EmployeesPage extends Component {
     state = {
-       employees: []
+        employees: []
     }
     componentDidMount() {
-        console.log("Trying to fetch all employees");
         this.fetchAllEmployees();
     }
-    
+
     fetchAllEmployees = () => {
-        this.props.getAllEmployees();
-    }
+        this.props.getAllEmployees()
+
+    };
 
     render() {
+        let { employees } = this.props
 
         return (
-            <div className="">
-                Hello?
-            </div>
+            <LazyLoad height={100} offsetVertical={300}>
+                <Table singleLine>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.HeaderCell>Employee ID</Table.HeaderCell>
+                            <Table.HeaderCell>First Name</Table.HeaderCell>
+                            <Table.HeaderCell>Last Name</Table.HeaderCell>
+                            <Table.HeaderCell>Position</Table.HeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+                    <Table.Body>
+
+                        {   
+                            employees.map((em) => {
+                            let employee_id = em.employee_id || "i"
+                            let first_name = em.first_name;
+                            let last_name = em.last_name;
+                            let position = em.position;
+                            return (
+                                
+                                <Table.Row key={employee_id}>
+                                    <Table.Cell> {employee_id}</Table.Cell>
+                                    <Table.Cell>{first_name}</Table.Cell>
+                                    <Table.Cell>{last_name}</Table.Cell>
+                                    <Table.Cell>{position}</Table.Cell>
+                                </Table.Row>
+
+                            );
+                                
+                        })}
+                    </Table.Body>
+                </Table>
+            </LazyLoad>
 
         );
     }
 }
 
-const mapStateToProps = ({employeeReducer}) => ({
+const mapStateToProps = ({ employeeReducer }) => ({
     employees: employeeReducer.employees
 })
 
-const  mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = dispatch => ({
     getAllEmployees: () => dispatch(getAllEmployees())
 })
 

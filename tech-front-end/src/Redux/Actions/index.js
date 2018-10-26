@@ -48,6 +48,7 @@ export const getAllAssignments = () => async dispatch => {
 
 export const submitAssignment = assignment => async dispatch => {
     try {
+        console.log("Trying to submit to assignment:", assignment);
         let response = await axios.post('http://localhost:5000/api/assignments', assignment);
         dispatch({ type: ADD_ASSIGNMENT, payload: response.data.assignment })
     } catch (e) {
@@ -92,8 +93,10 @@ export const getAllEmployees = () => async dispatch => {
 
 export const submitEmployee = employee => async dispatch => {
     try {
+        console.log("Trying to submit employee:", employee)
         let response = await axios.post('http://localhost:5000/api/employees/', employee);
-        dispatch({ type: ADD_EMPLOYEE, payload: response.data.employees })
+        console.log("New Response:", response);
+        dispatch({ type: ADD_EMPLOYEE, payload: response.data.employee })
     } catch {
         console.log("ERROR")
     }

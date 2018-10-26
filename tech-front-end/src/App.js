@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import { Switch, Route, withRouter } from 'react-router-dom';
+import { getAllAssignments, getAllProjects, getAllEmployees } from './Redux/Actions';
 
 import Navbar from './Components/Navbar'
 import Loader from './Components/LazyLoad';
@@ -21,7 +22,6 @@ import {
   updateProject
 } from './Redux/Actions';
 
-
 import EmployeesPage from './Components/Employees/EmployeesPage';
 import AssignmentsPage from './Components/Assignments/AssignmentsPage';
 import ProjectsPage from './Components/Projects/ProjectsPage';
@@ -33,7 +33,11 @@ class App extends Component {
     projectData: []
 
   }
-
+  componentDidMount() {
+    this.props.getAllAssignments();
+    this.props.getAllProjects();
+    this.props.getAllEmployees();
+  }
   onDeleteEmployee = (employee) => {
     let index = 1
     this.props.deleteEmployee(employee, index);
@@ -114,7 +118,7 @@ class App extends Component {
               model={[
                 { key: "assignment_name", label: "Assignment Name", type: "text", props: { required: true } },
                 { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
-                { key: "ssignment_end_date", label: "End Date", type: "text", props: { required: true } },
+                { key: "assignment_end_date", label: "End Date", type: "text", props: { required: true } },
                 { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
                 { key: "assignment_final_hours", label: "Final Hours", type: "text", props: { required: true } }
 
@@ -213,6 +217,10 @@ const mapDispatchToProps = dispatch => ({
   submitAssignment: (assignment) => dispatch(submitAssignment(assignment)),
   deleteAssignment: (assignment, index) => dispatch(deleteAssignment(assignment, index)),
   updateAssignment: (assignment, index) => dispatch(updateAssignment(assignment, index)),
+  getAllAssignments: () => dispatch(getAllAssignments()),
+  getAllProjects: () => dispatch(getAllProjects()),
+  getAllEmployees: () => dispatch(getAllEmployees()),
+
 
 })
 

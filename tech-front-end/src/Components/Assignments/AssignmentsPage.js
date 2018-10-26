@@ -27,6 +27,7 @@ class AssignmentsPage extends Component {
                             <Table.HeaderCell>Assignment ID</Table.HeaderCell>
                             <Table.HeaderCell>Name</Table.HeaderCell>
                             <Table.HeaderCell>Project ID</Table.HeaderCell>
+                            <Table.HeaderCell>Status ID</Table.HeaderCell>
                             <Table.HeaderCell>Start Date</Table.HeaderCell>
                             <Table.HeaderCell>End Date</Table.HeaderCell>
                             <Table.HeaderCell>Estimated Hours</Table.HeaderCell>
@@ -57,7 +58,6 @@ class AssignmentsPage extends Component {
                                     <Table.Cell>{assignment_final_hours}</Table.Cell>
                                 </Table.Row>
                                 );
-
                         })}
                     </Table.Body>
                 </Table>

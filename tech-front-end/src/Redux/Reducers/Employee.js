@@ -40,6 +40,7 @@ const employeeReducer = (state = initialState, action) => {
         case ADD_EMPLOYEE:
             console.log("Inside employee reducer add employee");
             console.log('Employee Data:', state.employees);
+            console.log("Payload:" ,action.payload);
             return {
                 ...state,
                 employees: [...state.employees, action.payload]

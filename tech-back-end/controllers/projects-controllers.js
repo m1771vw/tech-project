@@ -44,7 +44,7 @@ const updateProject = async (req, res) => {
         await db.any('UPDATE projects SET project_name = $1, project_start_date = $2, project_end_date = $3 WHERE project_id = $4',
             [project_name, project_start_date, project_end_date, project_id])
         let updatedProject = await db.one('SELECT * FROM projects WHERE project_id = $1', project_id);
-        res.status(200).json({ message: updatedProject })    
+        res.status(200).json({ message: updatedProject })
     } catch (e) {
         res.status(500).json({ message: e.message })
     }
@@ -62,6 +62,44 @@ const deleteProject = async (req, res) => {
     }
 }
 
+const getAllProjectRoles = async (req, res) => {
+    try {
+        let role = await db.any('SELECT * FROM project_roles');
+        console.log(role)
+        res.send({ role })
+    } catch (e) {
+        res.status(500).json({ message: e.message })
+    }
+}
+
+const updateProjectRole = async (req, res) => {
+    try {
+        let { role } = req.body;
+        let project_roles_id = parseInt(req.params.id);
+        await db.any('UPDATE project_roles SET role = $1 WHERE project_roles_id = $2',
+        [role, project_roles_id])
+        let updatedProjectRole = await db.one('SELECT * FROM project_roles WHERE project_roles_id = $1', project_roles_id);
+        res.status(200).json({ message: updatedProjectRole })
+    } catch (e) {
+        res.status(500).json({ message: e })
+    }
+}
+
+const deleteProjectRole = async (req, res) => {
+    try {
+        let project_role_id = req.params.id;
+        let role = await db.one('SELECT * FROM project_roles WHERE project_roles_id = $1', project_role_id);
+        await db.none('DELETE FROM project_roles WHERE project_roles_id = $1', project_role_id);
+        res.status(200).send({ role })
+    } catch (e) {
+        res.status(500).json({ message: e.message })
+    }
+}
 
 
-module.exports = { index, getAllProjects, getProjectById, addProject, deleteProject, updateProject }
+
+
+
+module.exports = { 
+    index, getAllProjects, getProjectById, addProject, deleteProject, updateProject, getAllProjectRoles, updateProjectRole, deleteProjectRole 
+}

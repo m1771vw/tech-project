@@ -1,18 +1,26 @@
 import React, { Component } from 'react';
-import { getAllProjects } from '../../Redux/Actions/index';
+import { getAllProjects, getAllProjectRoles } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 
 class ProjectsPage extends Component {
     state = {
-       projects: []
+        projects: [],
+        project_roles:[],
     }
     componentDidMount() {
         console.log("Trying to fetch all projects");
         this.fetchAllProjects();
+        this.fetchAllProjectRoles();
+        
     }
     
     fetchAllProjects = () => {
         this.props.getAllProjects();
+        
+    }
+    
+    fetchAllProjectRoles = () => {
+        this.props.getAllProjectRoles();
     }
 
     render() {
@@ -26,12 +34,14 @@ class ProjectsPage extends Component {
     }
 }
 
-const mapStateToProps = ({assignmentReducer}) => ({
-    projects: assignmentReducer.projects
+const mapStateToProps = ({ projectReducer }) => ({
+    projects: projectReducer.projects,
+    project_role: projectReducer.project_role
 })
 
-const  mapDispatchToProps = dispatch => ({
-    getAllProjects: () => dispatch(getAllProjects())
+const mapDispatchToProps = dispatch => ({
+    getAllProjects: () => dispatch(getAllProjects()),
+    getAllProjectRoles: () => dispatch(getAllProjectRoles())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsPage);

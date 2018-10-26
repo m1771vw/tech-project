@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getAllAssignments } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load'
-import { Table } from 'semantic-ui-react'
+import { Table, Header } from 'semantic-ui-react'
 
 class AssignmentsPage extends Component {
     state = {
@@ -21,12 +21,16 @@ class AssignmentsPage extends Component {
         let { assignments } = this.props
         return (
             <LazyLoad height={100} offsetVertical={300}>
-                <Table singleLine>
+            <div>
+            <Header color='blue'>Assignment List</Header>
+                <Table singleLine selectable>
+                
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Assignment ID</Table.HeaderCell>
                             <Table.HeaderCell>Name</Table.HeaderCell>
                             <Table.HeaderCell>Project ID</Table.HeaderCell>
+                            <Table.HeaderCell>Status ID</Table.HeaderCell>
                             <Table.HeaderCell>Start Date</Table.HeaderCell>
                             <Table.HeaderCell>End Date</Table.HeaderCell>
                             <Table.HeaderCell>Estimated Hours</Table.HeaderCell>
@@ -46,6 +50,8 @@ class AssignmentsPage extends Component {
                             let assignment_final_hours = a.assignment_final_hours || "Error Final Hours /"
 
                             return (
+                                
+                                
                                 <Table.Row key={assignment_id}>
                                     <Table.Cell> {assignment_id}</Table.Cell>
                                     <Table.Cell> {assignment_name}</Table.Cell>
@@ -56,11 +62,13 @@ class AssignmentsPage extends Component {
                                     <Table.Cell>{assignment_est_hours }</Table.Cell>
                                     <Table.Cell>{assignment_final_hours}</Table.Cell>
                                 </Table.Row>
+                                
                                 );
 
                         })}
                     </Table.Body>
                 </Table>
+            </div>
             </LazyLoad>
         );
     }

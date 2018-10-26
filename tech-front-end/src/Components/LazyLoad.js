@@ -31,11 +31,11 @@ class Loader extends Component {
         return (
 
             <div>
-                Scroll to load images.
+                
                 <div className="filler" />
                 <LazyLoad height={100} offsetVertical={300}>
                     <div>
-                    <h1>JAMES</h1>
+                    
                    
                     </div>
                 </LazyLoad>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getAllEmployees } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
-import { Table } from 'semantic-ui-react'
+import { Table, Header } from 'semantic-ui-react'
 
 class EmployeesPage extends Component {
     state = {
@@ -22,7 +22,9 @@ class EmployeesPage extends Component {
 
         return (
             <LazyLoad height={100} offsetVertical={300}>
-                <Table singleLine>
+            <div>
+                <Header color='blue'>Employee Roster</Header>
+                <Table singleLine selectable>
                     <Table.Header>
                         <Table.Row>
                             <Table.HeaderCell>Employee ID</Table.HeaderCell>
@@ -41,18 +43,21 @@ class EmployeesPage extends Component {
                             let position = em.position;
                             return (
                                 
+                               
                                 <Table.Row key={employee_id}>
                                     <Table.Cell> {employee_id}</Table.Cell>
                                     <Table.Cell>{first_name}</Table.Cell>
                                     <Table.Cell>{last_name}</Table.Cell>
                                     <Table.Cell>{position}</Table.Cell>
                                 </Table.Row>
+                             
 
                             );
                                 
                         })}
                     </Table.Body>
                 </Table>
+            </div>
             </LazyLoad>
 
         );

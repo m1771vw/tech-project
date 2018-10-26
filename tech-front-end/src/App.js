@@ -6,7 +6,7 @@ import { Switch, Route } from 'react-router-dom';
 import Navbar from './Components/Navbar'
 import Loader from './Components/LazyLoad';
 import Dashboard from './Components/Dashboard/Dashboard';
-import Form from './Components/Forms/DynamicForm/Form';
+import Forms from './Components/Forms/DynamicForm/Form';
 
 import { connect } from 'react-redux';
 import {
@@ -111,7 +111,7 @@ class App extends Component {
           <Route path='/a' component={AssignmentsPage} />
           <Route path='/p' component={ProjectsPage} />
           <Route path='/assignments' component={() =>
-            <Form className="form"
+            <Forms className="form"
               title="Assignment Form"
               model={[
                 { key: "assignment_name", label: "Assignment Name", type: "text", props: { required: true } },
@@ -127,7 +127,7 @@ class App extends Component {
             />} />
 
           <Route path='/update-assignment' component={() =>
-            <Form className="form"
+            <Forms className="form"
               title="Update Assignment"
               model={[
                 { key: "assignment_name", label: "Assignment Name", type: "text", props: { required: true } },
@@ -141,8 +141,8 @@ class App extends Component {
             />} />
 
           <Route path='/projects' component={() =>
-            <Form className="form"
-              title="Project Form"
+            <Forms className="form"
+              title="Input Project"
               model={[
                 { key: "project_name", label: " Project Name", type: "text", props: { required: true } },
                 { key: "project_start_date", label: "Start Date", type: "text", props: { required: true } },
@@ -155,7 +155,7 @@ class App extends Component {
             />} />
 
           <Route path='/update-project' component={() =>
-            <Form className="form"
+            <Forms className="form"
               title="Update Project"
               model={[
                 { key: "name", label: "Assignment Name", type: "text", props: { required: true } },
@@ -168,8 +168,8 @@ class App extends Component {
               onUpdate={(model) => { this.onUpdateProject(model) }}
             />} />
           <Route path='/employees' render={() =>
-            <Form className="form"
-              title="Employee Form"
+            <Forms className="form"
+              title="Input Employee"
               model={[
                 { key: "first_name", label: "Name", type: "text", props: { required: true } },
                 { key: "last_name", label: "Title", type: "text", props: { required: true } },
@@ -182,7 +182,7 @@ class App extends Component {
             />} />
 
           <Route path='/update-employee' render={() =>  //Design form 'to-fill' data here
-            <Form className="form"
+            <Forms className="form"
               title="Update Employee"
               model={[
                 { key: "first_name", label: "Name", type: "text", props: { required: true } },

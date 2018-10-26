@@ -7,12 +7,16 @@ const index = (req, res) => {
 
 const getAllAssignments = async(req, res) => {
     try {
-        let assignments = await db.any('SELECT * FROM assignments')
+        let assignments = await db.any('SELECT assignments.assignment_name, projects.project_name FROM assignments')
         res.send({ assignments })
     } catch (e) {
         res.status(500).json({ message: e.message })
     }
-}
+    
+// }
+// SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+// FROM Orders
+// INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
 
 const getAssignmentById = async (req, res) => {
     try {

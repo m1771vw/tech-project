@@ -25,6 +25,7 @@ import {
 import EmployeesPage from './Components/Employees/EmployeesPage';
 import AssignmentsPage from './Components/Assignments/AssignmentsPage';
 import ProjectsPage from './Components/Projects/ProjectsPage';
+import ProjectDetails from './Components/Projects/ProjectDetails';
 
 class App extends Component {
   state = {
@@ -108,6 +109,7 @@ class App extends Component {
           <Route path='/e' component={EmployeesPage} />
           <Route path='/a' component={AssignmentsPage} />
           <Route path='/p' component={ProjectsPage} />
+          <Route path='/pd' component={ProjectDetails} />
           <Route path='/assignments' render={(renderProps) =>
             <Form {...renderProps} className="form"
               title="Assignment Form"

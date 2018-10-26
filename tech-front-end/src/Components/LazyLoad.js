@@ -17,25 +17,14 @@ class Loader extends Component {
        console.log(getAllEmployees(model))
         
     }
-
     
-
     render() {
-
-        
-       
-        
-
-
-
         return (
-
             <div>
-                Scroll to load images.
                 <div className="filler" />
                 <LazyLoad height={100} offsetVertical={300}>
                     <div>
-                    <h1>JAMES</h1>
+                    
                    
                     </div>
                 </LazyLoad>

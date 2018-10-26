@@ -2,9 +2,11 @@ import React, { Component } from 'react';
 import './App.css';
 
 import { Switch, Route, withRouter } from 'react-router-dom';
+import { getAllAssignments, getAllProjects, getAllEmployees } from './Redux/Actions';
 
 import Navbar from './Components/Navbar'
 import Loader from './Components/LazyLoad';
+import Login from './Components/Login'
 import Dashboard from './Components/Dashboard/Dashboard';
 import Form from './Components/Forms/DynamicForm/Form';
 
@@ -21,7 +23,6 @@ import {
   updateProject
 } from './Redux/Actions';
 
-
 import EmployeesPage from './Components/Employees/EmployeesPage';
 import AssignmentsPage from './Components/Assignments/AssignmentsPage';
 import ProjectsPage from './Components/Projects/ProjectsPage';
@@ -31,10 +32,15 @@ class App extends Component {
   state = {
     employeeData: [],
     assignmentData: [],
-    projectData: []
+    projectData: [],
+    signupData:[]
 
   }
-
+  componentDidMount() {
+    this.props.getAllAssignments();
+    this.props.getAllProjects();
+    this.props.getAllEmployees();
+  }
   onDeleteEmployee = (employee) => {
     let index = 1
     this.props.deleteEmployee(employee, index);
@@ -98,29 +104,38 @@ class App extends Component {
     })
   }
 
+  onSignupSubmit = (model) => {
+    let index = 0
+    this.props.signUp(model);
+    this.setState({
+      signUpData: [model, ...this.state.assignmentData]
+
+    })
+  }
+
+
+
   render() {
     return (
       <div>
         <Navbar />
-        <Loader />
+        {/* <Loader /> */}
         <Switch>
 
           <Route exact path='/' component={Dashboard} />
-          <Route path='/e' component={EmployeesPage} />
-          <Route path='/a' component={AssignmentsPage} />
-          <Route path='/p' component={ProjectsPage} />
-          <Route path='/pd' component={ProjectDetails} />
-          <Route path='/assignments' render={(renderProps) =>
-            <Form {...renderProps} className="form"
-              title="Assignment Form"
+          <Route path = '/login' component={Login}/>
+          <Route path='/employees' component={EmployeesPage} />
+          <Route path='/assignments' component={AssignmentsPage} />
+          <Route path='/projects' component={ProjectsPage} />
+          <Route path='/createAssignments' render={(renderProps) =>
+            <Form className="form"
+              title="Input Assignment"
               model={[
-                { key: "assignment_name", label: "Assignment Name", type: "text", props: { required: true } },
+                { key: "assignment_name", label: "Assign Name", type: "text", props: { required: true } },
                 { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
-                { key: "ssignment_end_date", label: "End Date", type: "text", props: { required: true } },
+                { key: "assignment_end_date", label: "End Date", type: "text", props: { required: true } },
                 { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
-                { key: "assignment_final_hours", label: "Final Hours", type: "text", props: { required: true } }
-
-
+                { key: "assignment_final_hours", label: "Elapsed Hours", type: "text", props: { required: true } }
               ]}
               onSubmit={(model) => { this.onAssignmentSubmit(model) }}
               onDelete={(model) => { this.onDeleteAssignment(model) }}
@@ -130,17 +145,17 @@ class App extends Component {
             <Form className="form"
               title="Update Assignment"
               model={[
-                { key: "assignment_name", label: "Assignment Name", type: "text", props: { required: true } },
+                { key: "assignment_name", label: "Assign Name", type: "text", props: { required: true } },
                 { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
                 { key: "assignment_end_date", label: "End Date", type: "text", props: { required: true } },
                 { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
-                { key: "assignment_final_hours", label: "Total Hours", type: "text", props: { required: true } }
+                { key: "assignment_final_hours", label: "Elapsed Hours", type: "text", props: { required: true } }
 
               ]}
               onUpdate={(model) => { this.onUpdateAssignment(model) }}
             />} />
 
-          <Route path='/projects' render={(renderProps) =>
+          <Route path='/createProjects' render={(renderProps) =>
             <Form {...renderProps} className="form"
               title="Project Form"
               model={[
@@ -164,12 +179,12 @@ class App extends Component {
                 { key: "project_start_date", label: "Start Date", type: "text", props: { required: true } },
                 { key: "project_end_date", label: "End Date", type: "text", props: { required: true } },
                 { key: "estHours", label: "Estimated Hours", type: "text", props: { required: true } },
-                { key: "elapsHours", label: "Elapased Hours", type: "text", props: { required: true } }
+                { key: "elapsHours", label: "Elapsed Hours", type: "text", props: { required: true } }
 
               ]}
               onUpdate={(model) => { this.onUpdateProject(model) }}
             />} />
-          <Route path='/employees' render={(renderProps) =>
+          <Route path='/createEmployees' render={(renderProps) =>
             <Form 
               {...renderProps} 
               className="form"
@@ -198,6 +213,22 @@ class App extends Component {
               ]}
               onUpdate={(model) => { this.onUpdateEmployee(model) }}
             />} />
+
+            <Route path='/signup' component={() =>
+            <Form className="form"
+              title="Sign Up Today"
+              model={[
+                { key: "First Name", label: "First Name", type: "text", props: { required: true } },
+                { key: "Last Name", label: "Last Name", type: "text", props: { required: true } },
+                { key: "Email", label: "Email", type: "text", props: { required: true } },
+                { key: "Password", label: "Password", type: "text", props: { required: true } },
+                { key: "Confirm Password", label: "Confirm Password", type: "text", props: { required: true } }
+
+
+              ]}
+              onSubmit={(model) => { this.onSignUp(model) }}
+          
+            />} />
         </Switch>
       </div>
     );
@@ -215,6 +246,10 @@ const mapDispatchToProps = dispatch => ({
   submitAssignment: (assignment) => dispatch(submitAssignment(assignment)),
   deleteAssignment: (assignment, index) => dispatch(deleteAssignment(assignment, index)),
   updateAssignment: (assignment, index) => dispatch(updateAssignment(assignment, index)),
+  getAllAssignments: () => dispatch(getAllAssignments()),
+  getAllProjects: () => dispatch(getAllProjects()),
+  getAllEmployees: () => dispatch(getAllEmployees()),
+
 
 })
 

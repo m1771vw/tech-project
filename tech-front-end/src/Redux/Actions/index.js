@@ -48,6 +48,7 @@ export const getAllAssignments = () => async dispatch => {
 
 export const submitAssignment = assignment => async dispatch => {
     try {
+        console.log("Trying to submit to assignment:", assignment);
         let response = await axios.post('http://localhost:5000/api/assignments', assignment);
         dispatch({ type: ADD_ASSIGNMENT, payload: response.data.assignment })
     } catch (e) {
@@ -57,7 +58,6 @@ export const submitAssignment = assignment => async dispatch => {
 
 export const deleteAssignment = id => async dispatch => {
     try {
-        let id = 17;
         await axios.delete(`http://localhost:5000/api/assignments/${id}`);
         dispatch({ type: REMOVE_ASSIGNMENT, id })
     } catch (e) {
@@ -92,8 +92,10 @@ export const getAllEmployees = () => async dispatch => {
 
 export const submitEmployee = employee => async dispatch => {
     try {
+        console.log("Trying to submit employee:", employee)
         let response = await axios.post('http://localhost:5000/api/employees/', employee);
-        dispatch({ type: ADD_EMPLOYEE, payload: response.data.employees })
+        console.log("New Response:", response);
+        dispatch({ type: ADD_EMPLOYEE, payload: response.data.employee })
     } catch {
         console.log("ERROR")
     }
@@ -102,7 +104,7 @@ export const submitEmployee = employee => async dispatch => {
 export const deleteEmployee = id => async dispatch => {
     try {
         // hard coded for now since getall does not exist
-        let id = 31;
+        // let id = 31;
         await axios.delete(`http://localhost:5000/api/employees/${id}`);
         dispatch({ type: REMOVE_EMPLOYEE, id })
     } catch (e) {
@@ -153,8 +155,7 @@ export const submitProject = project => async dispatch => {
 }
 export const deleteProject = id => async dispatch => {
     try {
-        let id = 13;
-        await axios.delete(`http://localhost:5000/api/projects${id}`)
+        await axios.delete(`http://localhost:5000/api/projects/${id}`)
         dispatch({ type: REMOVE_PROJECT, id })
     } catch (e) {
         console.log("ERROR", e)

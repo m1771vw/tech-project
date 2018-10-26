@@ -13,7 +13,7 @@ const getAllAssignments = async(req, res) => {
         res.status(500).json({ message: e.message })
     }
     
-// }
+}
 // SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
 // FROM Orders
 // INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;

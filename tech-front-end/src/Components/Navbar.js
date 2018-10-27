@@ -4,18 +4,7 @@ import { Link } from 'react-router-dom'
 import Login from './Login';
 import {
     Button,
-    Container,
-    Divider,
-    Grid,
-    Header,
-    Icon,
-    Image,
-    List,
     Menu,
-    Responsive,
-    Segment,
-    Sidebar,
-    Visibility,
   } from 'semantic-ui-react'
 
 
@@ -56,9 +45,6 @@ const Navbar = props => {
             active={<Link to='/'>Dashboard </Link>}
             onClick={console.log("hello")}
             >Signup</Menu.Item> */}
-
-
-        
             
             <Link to='/'><Menu.Item
             name='editorials'

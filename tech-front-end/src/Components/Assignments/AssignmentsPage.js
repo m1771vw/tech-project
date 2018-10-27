@@ -65,8 +65,13 @@ class AssignmentsPage extends Component {
                                         <Table.Cell>
                                         <Link to={{
                                             pathname:'/update-assignment',
-                                            state:{ test:'test'}
-                                            }}><Button secondary>Update</Button></Link>
+                                            state:{ 
+                                                assignment_name: assignment_name,
+                                                assignment_start_date: assignment_start_date,
+                                                assignment_end_date: assignment_end_date,
+                                                assignment_est_hours: assignment_est_hours,
+                                                assignment_final_hours: assignment_final_hours,
+                                            }}}><Button secondary>Update</Button></Link>
                                         <Button color='red' onClick={() => this.props.deleteAssignment(assignment_id)}>Delete</Button>
                                         </Table.Cell>
                                     </Table.Row>

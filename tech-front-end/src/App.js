@@ -140,8 +140,8 @@ class App extends Component {
               onDelete={(model) => { this.onDeleteAssignment(model) }}
             />} />
 
-          <Route path='/update-assignment' render={() =>
-            <Form className="form"
+          <Route path='/update-assignment' render={(renderProps) =>
+            <Form {...renderProps} className="form"
               title="Update Assignment"
               model={[
                 { key: "assignment_name", label: "Assign Name", type: "text", props: { required: true } },
@@ -213,8 +213,8 @@ class App extends Component {
               onUpdate={(model) => { this.onUpdateEmployee(model) }}
             />} />
 
-            <Route path='/signup' component={() =>
-            <Form className="form"
+            <Route path='/signup' component={(renderProps) =>
+            <Form {...renderProps} className="form"
               title="Sign Up Today"
               model={[
                 { key: "First Name", label: "First Name", type: "text", props: { required: true } },

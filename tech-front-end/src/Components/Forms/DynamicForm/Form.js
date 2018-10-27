@@ -8,8 +8,19 @@ class Forms extends Component {
 
     }
     componentDidMount() {
-        console.log("Props:", this.props.match.location);
+        if(this.props.location !== undefined) { 
+        console.log("Keys:", Object.keys(this.props.location.state));
+        let stateKeys = Object.keys(this.props.location.state);
+        for(let i = 0; i < stateKeys.length; i++) {
+            this.setState({
+                [stateKeys[i]]: this.props.location.state[stateKeys[i]]
+            })
+        }
     }
+       
+        // console.log("Forms: ", this.props.location.state);
+    }
+
     shouldComponentUpdate(nextProps) {
         if(nextProps.location !== this.props.location) {
             return true;
@@ -61,6 +72,7 @@ class Forms extends Component {
                     className="form-input"
                     type={type}
                     key={"i" + m.key}
+                    value={key}
                     //event handler
                     onChange={(e) => { this.onChange(e, key) }}
                 />
@@ -105,7 +117,7 @@ class Forms extends Component {
                     {this.renderForm()}
                     <div className="form-group">
                         <Button primary onClick={(e) => { this.onSubmit(e) }} type="submit">Submit</Button>
-                        <Button Secondary onClick={(e) => { this.onUpdate(e) }}>Update</Button>
+                        <Button secondary onClick={(e) => { this.onUpdate(e) }}>Update</Button>
                         <Button color='red' onClick={(e) => { this.onDelete(e) }}>x</Button>
                         {/* /temp button */}
                     </div>

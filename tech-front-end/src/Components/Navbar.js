@@ -62,38 +62,38 @@ const Navbar = props => {
             
             <Link to='/'><Menu.Item
             name='editorials'
-            active={<Link to='/'>Dashboard </Link>}
-            onClick={console.log("hello")}
+            // active
+            // onClick
             >Dashboard</Menu.Item> </Link>
             
             <Link to='/assignments'><Menu.Item
             name='editorials'
-            active={<Link to='/'>Dashboard </Link>}
-            onClick={console.log("hello")}
+            // active
+            // onClick
             >Assignments</Menu.Item></Link>
 
             <Link to='/employees'><Menu.Item
             name='editorials'
-            active={<Link to='/'>Dashboard </Link>}
-            onClick={console.log("hello")}
+            // active
+            // onClick
             >Employees</Menu.Item>  </Link>
             
             <Link to='/projects'><Menu.Item
             name='editorials'
-            active={<Link to='/'>Dashboard </Link>}
-            onClick={console.log("hello")}
+            // active
+            // onClick
             >Projects</Menu.Item>  </Link>
 
             <Link to='/login'><Menu.Item
             name='editorials'
-            active={<Link to='/'>Dashboard </Link>}
-            onClick={console.log("hello")}
+            // active
+            // onClick
             >Login</Menu.Item> </Link>
             
             <Link to='/signup'><Menu.Item
             name='editorials'
-            active={<Link to='/'>Dashboard </Link>}
-            onClick={console.log("hello")}
+            // active
+            // onClick
             >Signup</Menu.Item></Link>
             
         

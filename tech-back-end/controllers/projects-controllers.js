@@ -64,11 +64,15 @@ const deleteProject = async (req, res) => {
 
 const getAllProjectRoles = async (req, res) => {
     try {
-        let role = await db.any('SELECT * FROM project_roles');
+        let role = await db.any('SELECT pr.project_roles_id, e.employee_id, e.first_name, e.last_name, p.project_id, p.project_name, pr.role ' +
+            'FROM project_roles AS pr ' +
+            'INNER JOIN employees AS e ON e.employee_id = pr.employee_id ' +
+            'INNER JOIN projects AS p ON p.project_id = pr.project_id');
         console.log(role)
         res.send({ role })
     } catch (e) {
         res.status(500).json({ message: e.message })
+        res.status(404).json({ message: e })
     }
 }
 
@@ -77,7 +81,7 @@ const updateProjectRole = async (req, res) => {
         let { role } = req.body;
         let project_roles_id = parseInt(req.params.id);
         await db.any('UPDATE project_roles SET role = $1 WHERE project_roles_id = $2',
-        [role, project_roles_id])
+            [role, project_roles_id])
         let updatedProjectRole = await db.one('SELECT * FROM project_roles WHERE project_roles_id = $1', project_roles_id);
         res.status(200).json({ message: updatedProjectRole })
     } catch (e) {
@@ -100,6 +104,6 @@ const deleteProjectRole = async (req, res) => {
 
 
 
-module.exports = { 
-    index, getAllProjects, getProjectById, addProject, deleteProject, updateProject, getAllProjectRoles, updateProjectRole, deleteProjectRole 
+module.exports = {
+    index, getAllProjects, getProjectById, addProject, deleteProject, updateProject, getAllProjectRoles, updateProjectRole, deleteProjectRole
 }

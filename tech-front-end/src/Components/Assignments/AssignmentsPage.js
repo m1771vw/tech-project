@@ -53,7 +53,7 @@ class AssignmentsPage extends Component {
                                 let assignment_final_hours = a.assignment_final_hours || "Error Final Hours /"
 
                                 return (
-                                    <Table.Row key={assignment_id}>
+                                    <Table.Row key={assignment_id+assignment_name}>
                                         <Table.Cell> {assignment_id}</Table.Cell>
                                         <Table.Cell> {assignment_name}</Table.Cell>
                                         <Table.Cell>{project_id}</Table.Cell>
@@ -62,8 +62,13 @@ class AssignmentsPage extends Component {
                                         <Table.Cell>{assignment_end_date}</Table.Cell>
                                         <Table.Cell>{assignment_est_hours }</Table.Cell>
                                         <Table.Cell>{assignment_final_hours}</Table.Cell>
-                                        <Link  to='/update-assignment'><Button Secondary>Update</Button></Link>
+                                        <Table.Cell>
+                                        <Link to={{
+                                            pathname:'/update-assignment',
+                                            state:{ test:'test'}
+                                            }}><Button secondary>Update</Button></Link>
                                         <Button color='red' onClick={() => this.props.deleteAssignment(assignment_id)}>Delete</Button>
+                                        </Table.Cell>
                                     </Table.Row>
                                     );
                             })}

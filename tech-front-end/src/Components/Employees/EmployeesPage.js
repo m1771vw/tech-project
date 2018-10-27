@@ -49,14 +49,15 @@ class EmployeesPage extends Component {
                             return (
                                 
                                
-                                <Table.Row key={employee_id}>
+                                <Table.Row key={employee_id+first_name}>
                                     <Table.Cell> {employee_id}</Table.Cell>
                                     <Table.Cell>{first_name}</Table.Cell>
                                     <Table.Cell>{last_name}</Table.Cell>
                                     <Table.Cell>{position}</Table.Cell>
-                                    <Link to='/update-employee'><Button Secondary>Update</Button></Link>
+                                    <Table.Cell>
+                                    <Link to='/update-employee'><Button secondary>Update</Button></Link>
                                     <Button color='red' onClick={() => this.props.deleteEmployee(employee_id)}>Delete</Button>
-                                   
+                                    </Table.Cell>
                                 </Table.Row>
                              
 

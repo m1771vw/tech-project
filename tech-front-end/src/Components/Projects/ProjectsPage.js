@@ -57,14 +57,15 @@ class ProjectsPage extends Component {
                 let project_end_date = p.project_end_date;
             return( 
                 
-                <Table.Row key = {project_id}>
+                <Table.Row key = {project_id+project_name}>
                     <Table.Cell> {project_id}</Table.Cell>
                     <Table.Cell>{project_name}</Table.Cell>
                     <Table.Cell>{project_start_date}</Table.Cell>
                     <Table.Cell>{project_end_date}</Table.Cell>
-                    <Link to='/update-project'><Button Secondary>Update</Button></Link>
+                    <Table.Cell>
+                    <Link to='/update-project'><Button secondary>Update</Button></Link>
                     <Button color='red' onClick={() => this.props.deleteProject(project_id)}>Delete</Button>
-                                   
+                    </Table.Cell>
                 </Table.Row>
             );
 

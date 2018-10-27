@@ -39,7 +39,7 @@ export const submitLogin = () => async dispatch => {
 export const getAllAssignments = () => async dispatch => {
     try {
         let response = await axios.get('http://localhost:5000/api/assignments/all');
-        console.log("Response: ", response);
+        console.log("Assginment Response: ", response);
         dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments })
     } catch (e) {
         console.log("Get All Assignment Error", e);
@@ -83,7 +83,7 @@ export const updateAssignment = (assignment, id) => async dispatch => {
 export const getAllEmployees = () => async dispatch => {
     try {
         let response = await axios.get('http://localhost:5000/api/employees/all');
-        console.log("Response: ", response);
+        console.log("Assignment Response: ", response);
         dispatch({ type: GET_ALL_EMPLOYEES, payload: response.data.employees })
     } catch (e) {
         console.log("Get All Employee Error", e);
@@ -129,7 +129,7 @@ export const updateEmployee = (employee, id) => async dispatch => {
 export const getAllProjects = () => async dispatch => {
     try {
         let response = await axios.get('http://localhost:5000/api/projects/all');
-        console.log("Response: ", response);
+        console.log("Assignment Response: ", response);
         dispatch({ type: GET_ALL_PROJECTS, payload: response.data.projects })
     } catch (e) {
         console.log("Get All Projects Error", e);

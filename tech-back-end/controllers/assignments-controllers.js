@@ -7,18 +7,29 @@ const index = (req, res) => {
 
 const getAllAssignments = async(req, res) => {
     try {
-        let assignments = await db.any('SELECT * FROM assignments')
-        res.send({ assignments })
+        let assignments = await db.any('SELECT a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.assignment_final_hours, p.project_id, p.project_name, s.status_id, s.status_name ' + 
+        'FROM Assignments as a ' +
+        'INNER JOIN Status_Types as s ON s.status_id = a.status_id ' + 
+        'INNER JOIN Projects as p ON p.project_id = a.project_id')
+        res.status(200).send({ assignments })
     } catch (e) {
         res.status(500).json({ message: e.message })
     }
 }
+// SELECT a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.assignment_final_hours, p.project_id, p.project_name, s.status_id, s.status_name
+// FROM Assignments as a
+// INNER JOIN Status_Types as s ON s.status_id = a.status_id
+// INNER JOIN Projects as p ON p.project_id = a.project_id;
+
+// SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+// FROM Orders
+// INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
 
 const getAssignmentById = async (req, res) => {
     try {
         let assignment_id = parseInt(req.params.id);
         let assignment = await db.one('SELECT * FROM assignments WHERE assignment_id = $1', assignment_id);
-        res.send({ assignment })
+        res.status(200).send({ assignment })
     } catch (e) {
         res.status(500).json({ message: e.message })
     }
@@ -36,8 +47,8 @@ const addAssignment = async (req, res) => {
             assignment_final_hours
         } = req.body;
         let assignment = await db.one(
-            'INSERT INTO assignments(assignment_name, project_id, status_id, assignment_start_date, assignment_end_date, assignment_est_hours, assignment_final_hours)' +
-            'VALUES($1, $2, $3, $4, $5, $6, $7)' + 
+            'INSERT INTO assignments(assignment_name, project_id, status_id, assignment_start_date, assignment_end_date, assignment_est_hours, assignment_final_hours) ' +
+            'VALUES($1, $2, $3, $4, $5, $6, $7) ' + 
             'RETURNING assignments.assignment_id, assignments.assignment_name, assignments.project_id, assignments.status_id, assignments.assignment_start_date, assignments.assignment_end_date, assignments.assignment_est_hours, assignments.assignment_final_hours ',
             [assignment_name, 
             project_id, 

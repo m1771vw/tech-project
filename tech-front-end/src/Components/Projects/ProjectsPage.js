@@ -8,25 +8,25 @@ import { Link } from 'react-router-dom';
 class ProjectsPage extends Component {
     state = {
         projects: [],
-        project_roles:[],
+        project_roles: [],
     }
     componentDidMount() {
         this.fetchAllProjects();
         this.fetchAllProjectRoles();
-        
+
     }
-    
+
     fetchAllProjects = () => {
         this.props.getAllProjects();
-        
+
     }
-    
+
     fetchAllProjectRoles = () => {
         this.props.getAllProjectRoles();
     }
 
     render() {
-        let {projects} = this.props
+        let { projects } = this.props
 
         return (
             <div>
@@ -35,7 +35,7 @@ class ProjectsPage extends Component {
            
             <LazyLoad height={100} offsetVertical={300}>
             <div>
-            <Header color='blue'>Employee Roster</Header>
+            <Header color='blue'>Projects</Header>
             
             <Table singleLine selectable>
         
@@ -69,7 +69,7 @@ class ProjectsPage extends Component {
                 </Table.Row>
             );
 
-       })}
+                            })}
 
             </Table.Body>
             </Table>
@@ -82,7 +82,7 @@ class ProjectsPage extends Component {
 
 const mapStateToProps = ({ projectReducer }) => ({
     projects: projectReducer.projects,
-    project_role: projectReducer.project_role
+    project_roles: projectReducer.project_roles
 })
 
 const mapDispatchToProps = dispatch => ({

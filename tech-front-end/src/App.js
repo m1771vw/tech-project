@@ -27,6 +27,7 @@ import EmployeesPage from './Components/Employees/EmployeesPage';
 import AssignmentsPage from './Components/Assignments/AssignmentsPage';
 import ProjectsPage from './Components/Projects/ProjectsPage';
 import AssignmentDetails from './Components/Assignments/AssignmentDetails';
+import ProjectDetails from './Components/Projects/ProjectDetails';
 
 class App extends Component {
   state = {
@@ -136,6 +137,8 @@ class App extends Component {
                 { key: "assignment_name", label: "Assign Name", type: "text", props: { required: true } },
                 { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
                 { key: "assignment_end_date", label: "End Date", type: "text", props: { required: true } },
+                { key: "status_id", label: "Status ID", type: "text", props: { required: true } },
+                { key: "project_id", label: "Project ID", type: "text", props: { required: true } },
                 { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
                 { key: "assignment_final_hours", label: "Elapsed Hours", type: "text", props: { required: true } }
               ]}

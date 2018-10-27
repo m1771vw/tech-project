@@ -6,7 +6,7 @@ const index = (req, res) => {
 
 const getAllProjects = async (req, res) => {
     try {
-        let projects = await db.any('SELECT * FROM projects')
+        let projects = await db.any('SELECT p.project_id, p.project_name, p.project_start_date, p.project_start_date, p.project_end_date FROM projects AS p')
         res.send({ projects })
     } catch (e) {
         res.status(500).json({ message: e.message })

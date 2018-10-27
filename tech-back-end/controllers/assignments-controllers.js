@@ -7,13 +7,20 @@ const index = (req, res) => {
 
 const getAllAssignments = async(req, res) => {
     try {
-        let assignments = await db.any('SELECT assignments.assignment_name, projects.project_name FROM assignments')
-        res.send({ assignments })
+        let assignments = await db.any('SELECT a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.assignment_final_hours, p.project_id, p.project_name, s.status_id, s.status_name ' + 
+        'FROM Assignments as a ' +
+        'INNER JOIN Status_Types as s ON s.status_id = a.status_id ' + 
+        'INNER JOIN Projects as p ON p.project_id = a.project_id')
+        res.status(200).send({ assignments })
     } catch (e) {
         res.status(500).json({ message: e.message })
     }
-    
 }
+// SELECT a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.assignment_final_hours, p.project_id, p.project_name, s.status_id, s.status_name
+// FROM Assignments as a
+// INNER JOIN Status_Types as s ON s.status_id = a.status_id
+// INNER JOIN Projects as p ON p.project_id = a.project_id;
+
 // SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
 // FROM Orders
 // INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
@@ -22,7 +29,7 @@ const getAssignmentById = async (req, res) => {
     try {
         let assignment_id = parseInt(req.params.id);
         let assignment = await db.one('SELECT * FROM assignments WHERE assignment_id = $1', assignment_id);
-        res.send({ assignment })
+        res.status(200).send({ assignment })
     } catch (e) {
         res.status(500).json({ message: e.message })
     }

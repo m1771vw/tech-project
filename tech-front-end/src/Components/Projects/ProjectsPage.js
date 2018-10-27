@@ -35,7 +35,7 @@ class ProjectsPage extends Component {
            
             <LazyLoad height={100} offsetVertical={300}>
             <div>
-            <Header color='blue'>Employee Roster</Header>
+            <Header color='blue'>Projects</Header>
             
             <Table singleLine selectable>
         

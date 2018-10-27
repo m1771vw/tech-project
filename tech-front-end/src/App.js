@@ -134,6 +134,8 @@ class App extends Component {
                 { key: "assignment_name", label: "Assign Name", type: "text", props: { required: true } },
                 { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
                 { key: "assignment_end_date", label: "End Date", type: "text", props: { required: true } },
+                { key: "status_id", label: "Status ID", type: "text", props: { required: true } },
+                { key: "project_id", label: "Project ID", type: "text", props: { required: true } },
                 { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
                 { key: "assignment_final_hours", label: "Elapsed Hours", type: "text", props: { required: true } }
               ]}

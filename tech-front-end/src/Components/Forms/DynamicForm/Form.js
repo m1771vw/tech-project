@@ -8,7 +8,7 @@ class Forms extends Component {
 
     }
     componentDidMount() {
-        console.log("Props:", this.props.match.location);
+        // console.log("Props:", this.props.match.location);
     }
     shouldComponentUpdate(nextProps) {
         if(nextProps.location !== this.props.location) {

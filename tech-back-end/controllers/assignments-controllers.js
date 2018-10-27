@@ -47,8 +47,8 @@ const addAssignment = async (req, res) => {
             assignment_final_hours
         } = req.body;
         let assignment = await db.one(
-            'INSERT INTO assignments(assignment_name, project_id, status_id, assignment_start_date, assignment_end_date, assignment_est_hours, assignment_final_hours)' +
-            'VALUES($1, $2, $3, $4, $5, $6, $7)' + 
+            'INSERT INTO assignments(assignment_name, project_id, status_id, assignment_start_date, assignment_end_date, assignment_est_hours, assignment_final_hours) ' +
+            'VALUES($1, $2, $3, $4, $5, $6, $7) ' + 
             'RETURNING assignments.assignment_id, assignments.assignment_name, assignments.project_id, assignments.status_id, assignments.assignment_start_date, assignments.assignment_end_date, assignments.assignment_est_hours, assignments.assignment_final_hours ',
             [assignment_name, 
             project_id, 

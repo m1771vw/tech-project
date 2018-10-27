@@ -72,7 +72,7 @@ class Forms extends Component {
                     className="form-input"
                     type={type}
                     key={"i" + m.key}
-                    value={key}
+                    // value={key}
                     //event handler
                     onChange={(e) => { this.onChange(e, key) }}
                 />
@@ -106,8 +106,7 @@ class Forms extends Component {
 
     render() {
         let title = this.props.title || "Default Form"  //Or render "default"
-        return (
-            
+        return (    
             <Grid className={this.props.className}>
             <Grid.Column style={{ maxWidth: 800 }}>
                 <Form >
@@ -117,8 +116,6 @@ class Forms extends Component {
                     {this.renderForm()}
                     <div className="form-group">
                         <Button primary onClick={(e) => { this.onSubmit(e) }} type="submit">Submit</Button>
-                        <Button secondary onClick={(e) => { this.onUpdate(e) }}>Update</Button>
-                        <Button color='red' onClick={(e) => { this.onDelete(e) }}>x</Button>
                         {/* /temp button */}
                     </div>
                 </Form.Field>
@@ -128,9 +125,6 @@ class Forms extends Component {
             </Grid>
         )
     }
-
-
-
 }
 
 export default Forms;

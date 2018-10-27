@@ -26,6 +26,7 @@ import {
 import EmployeesPage from './Components/Employees/EmployeesPage';
 import AssignmentsPage from './Components/Assignments/AssignmentsPage';
 import ProjectsPage from './Components/Projects/ProjectsPage';
+import AssignmentDetails from './Components/Assignments/AssignmentDetails';
 
 class App extends Component {
   state = {
@@ -124,8 +125,10 @@ class App extends Component {
           <Route exact path='/' component={Dashboard} />
           <Route path = '/login' component={Login}/>
           <Route path='/employees' component={EmployeesPage} />
-          <Route path='/assignments' component={AssignmentsPage} />
+          <Route exact path='/assignments' component={AssignmentsPage} />
           <Route path='/projects' component={ProjectsPage} />
+
+          {/* Assignment Routes */}
           <Route path='/createAssignments' render={(renderProps) =>
             <Form className="form"
               title="Input Assignment"
@@ -139,7 +142,7 @@ class App extends Component {
               onSubmit={(model) => { this.onAssignmentSubmit(model) }}
               onDelete={(model) => { this.onDeleteAssignment(model) }}
             />} />
-
+          <Route path={`/assignments/details/:id`} render={(renderProps) => <AssignmentDetails {...renderProps}/>}/>
           <Route path='/update-assignment' render={(renderProps) =>
             <Form {...renderProps} className="form"
               title="Update Assignment"
@@ -154,6 +157,8 @@ class App extends Component {
               onUpdate={(model) => { this.onUpdateAssignment(model) }}
             />} />
 
+            {/* Project Routes */}
+
           <Route path='/createProjects' render={(renderProps) =>
             <Form {...renderProps} className="form"
               title="Project Form"
@@ -162,7 +167,6 @@ class App extends Component {
                 { key: "project_start_date", label: "Start Date", type: "text", props: { required: true } },
                 { key: "project_end_date", label: "Deadline Date", type: "text", props: { required: true } },
                 { key: "status_id", label: "Current Status", type: "text", props: { required: true } }
-
 
               ]}
               onSubmit={(model) => { this.onProjectSubmit(model) }}
@@ -183,6 +187,8 @@ class App extends Component {
               ]}
               onUpdate={(model) => { this.onUpdateProject(model) }}
             />} />
+
+          {/* Employee Routes */}
           <Route path='/createEmployees' render={(renderProps) =>
             <Form 
               {...renderProps} 
@@ -222,7 +228,6 @@ class App extends Component {
                 { key: "Email", label: "Email", type: "text", props: { required: true } },
                 { key: "Password", label: "Password", type: "text", props: { required: true } },
                 { key: "Confirm Password", label: "Confirm Password", type: "text", props: { required: true } }
-
 
               ]}
               onSubmit={(model) => { this.onSignUp(model) }}

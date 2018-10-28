@@ -75,6 +75,7 @@ class ProjectsPage extends Component {
                         </Table>
                     </div>
                 </LazyLoad>
+                
             </div>
         );
     }

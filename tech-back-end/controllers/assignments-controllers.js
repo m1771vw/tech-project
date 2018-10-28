@@ -5,12 +5,12 @@ const index = (req, res) => {
     res.send({ message: 'Assignments Index' })
 }
 
-const getAllAssignments = async(req, res) => {
+const getAllAssignments = async (req, res) => {
     try {
-        let assignments = await db.any('SELECT a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.assignment_final_hours, p.project_id, p.project_name, s.status_id, s.status_name ' + 
-        'FROM Assignments as a ' +
-        'INNER JOIN Status_Types as s ON s.status_id = a.status_id ' + 
-        'INNER JOIN Projects as p ON p.project_id = a.project_id')
+        let assignments = await db.any('SELECT a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.assignment_final_hours, p.project_id, p.project_name, s.status_id, s.status_name ' +
+            'FROM Assignments as a ' +
+            'INNER JOIN Status_Types as s ON s.status_id = a.status_id ' +
+            'INNER JOIN Projects as p ON p.project_id = a.project_id')
         res.status(200).send({ assignments })
     } catch (e) {
         res.status(500).json({ message: e.message })
@@ -41,25 +41,25 @@ const getAssignmentById = async (req, res) => {
 const addAssignment = async (req, res) => {
     try {
         let {
-            assignment_name, 
-            project_id, 
-            status_id, 
-            assignment_start_date, 
-            assignment_end_date, 
+            assignment_name,
+            project_id,
+            status_id,
+            assignment_start_date,
+            assignment_end_date,
             assignment_est_hours,
             assignment_final_hours
         } = req.body;
         let assignment = await db.one(
             'INSERT INTO assignments(assignment_name, project_id, status_id, assignment_start_date, assignment_end_date, assignment_est_hours, assignment_final_hours) ' +
-            'VALUES($1, $2, $3, $4, $5, $6, $7) ' + 
+            'VALUES($1, $2, $3, $4, $5, $6, $7) ' +
             'RETURNING assignments.assignment_id, assignments.assignment_name, assignments.project_id, assignments.status_id, assignments.assignment_start_date, assignments.assignment_end_date, assignments.assignment_est_hours, assignments.assignment_final_hours ',
-            [assignment_name, 
-            project_id, 
-            status_id, 
-            assignment_start_date, 
-            assignment_end_date, 
-            assignment_est_hours,
-            assignment_final_hours]
+            [assignment_name,
+                project_id,
+                status_id,
+                assignment_start_date,
+                assignment_end_date,
+                assignment_est_hours,
+                assignment_final_hours]
         )
         res.status(200).send({ assignment })
     } catch (e) {
@@ -69,27 +69,27 @@ const addAssignment = async (req, res) => {
 
 const updateAssignment = async (req, res) => {
     try {
-        let {   assignment_name, 
-                project_id, 
-                status_id, 
-                assignment_start_date, 
-                assignment_end_date, 
-                assignment_est_hours,
-                assignment_final_hours 
-            } = req.body;
+        let { assignment_name,
+            project_id,
+            status_id,
+            assignment_start_date,
+            assignment_end_date,
+            assignment_est_hours,
+            assignment_final_hours
+        } = req.body;
         let assignment_id = parseInt(req.params.id);
-        await db.any('UPDATE assignments ' + 
-                    'SET assignment_name = $1, status_id = $2, assignment_start_date = $3, assignment_end_date = $4, assignment_est_hours = $5, assignment_final_hours = $6' + 
-                    'WHERE assignment_id = $7',
-                    [assignment_name, 
-                    status_id, 
-                    assignment_start_date, 
-                    assignment_end_date, 
-                    assignment_est_hours, 
-                    assignment_final_hours, 
-                    assignment_id])
+        await db.any('UPDATE assignments ' +
+            'SET assignment_name = $1, status_id = $2, assignment_start_date = $3, assignment_end_date = $4, assignment_est_hours = $5, assignment_final_hours = $6' +
+            'WHERE assignment_id = $7',
+            [assignment_name,
+                status_id,
+                assignment_start_date,
+                assignment_end_date,
+                assignment_est_hours,
+                assignment_final_hours,
+                assignment_id])
         let updatedAssignment = await db.one('SELECT * FROM assignments WHERE assignment_id = $1', assignment_id);
-        res.status(200).json({ message: updatedAssignment })    
+        res.status(200).json({ message: updatedAssignment })
     } catch (e) {
         res.status(500).json({ message: e.message })
     }

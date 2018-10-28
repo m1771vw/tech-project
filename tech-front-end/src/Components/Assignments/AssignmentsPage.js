@@ -26,7 +26,7 @@ class AssignmentsPage extends Component {
             <LazyLoad height={100} offsetVertical={300}>
             <div>
             <Header color='blue'>Assignment List</Header>
-                <Table singleLine selectable>
+                <Table singleLine celled>
                 
                     <Table.Header>
                         <Table.Row>
@@ -55,7 +55,7 @@ class AssignmentsPage extends Component {
                                 return (
                                     <Table.Row key={assignment_id+assignment_name}>
                                         <Table.Cell> {assignment_id}</Table.Cell>
-                                        <Table.Cell> {assignment_name}</Table.Cell>
+                                        <Link to={`/assignments/details/${assignment_id}`}><Table.Cell selectable> {assignment_name}</Table.Cell></Link>
                                         <Table.Cell>{project_id}</Table.Cell>
                                         <Table.Cell>{status_id}</Table.Cell>
                                         <Table.Cell>{assignment_start_date}</Table.Cell>
@@ -65,8 +65,13 @@ class AssignmentsPage extends Component {
                                         <Table.Cell>
                                         <Link to={{
                                             pathname:'/update-assignment',
-                                            state:{ test:'test'}
-                                            }}><Button secondary>Update</Button></Link>
+                                            state:{ 
+                                                assignment_name: assignment_name,
+                                                assignment_start_date: assignment_start_date,
+                                                assignment_end_date: assignment_end_date,
+                                                assignment_est_hours: assignment_est_hours,
+                                                assignment_final_hours: assignment_final_hours,
+                                            }}}><Button secondary>Update</Button></Link>
                                         <Button color='red' onClick={() => this.props.deleteAssignment(assignment_id)}>Delete</Button>
                                         </Table.Cell>
                                     </Table.Row>

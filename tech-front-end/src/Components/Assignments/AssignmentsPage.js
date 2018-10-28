@@ -32,8 +32,8 @@ class AssignmentsPage extends Component {
                         <Table.Row>
                             <Table.HeaderCell>Assignment ID</Table.HeaderCell>
                             <Table.HeaderCell>Name</Table.HeaderCell>
-                            <Table.HeaderCell>Project ID</Table.HeaderCell>
-                            <Table.HeaderCell>Status ID</Table.HeaderCell>
+                            <Table.HeaderCell>Project Name</Table.HeaderCell>
+                            <Table.HeaderCell>Status</Table.HeaderCell>
                             <Table.HeaderCell>Start Date</Table.HeaderCell>
                             <Table.HeaderCell>End Date</Table.HeaderCell>
                             <Table.HeaderCell>Estimated Hours</Table.HeaderCell>
@@ -46,7 +46,9 @@ class AssignmentsPage extends Component {
                                 let assignment_id = a.assignment_id || "Error Assign ID /"
                                 let assignment_name = a.assignment_name || "Error Name /"
                                 let project_id = a.project_id || "Error Project ID /"
+                                let project_name = a.project_name || "Error Project ID /"
                                 let status_id = a.status_id || "Error Status ID /"
+                                let status_name = a.status_name || "Error Status ID /"
                                 let assignment_start_date = a.assignment_start_date || "Error Assign Start /"
                                 let assignment_end_date = a.assignment_end_date || "Error Assign End /"
                                 let assignment_est_hours = a.assignment_est_hours || "Error Est Hours /"
@@ -56,8 +58,8 @@ class AssignmentsPage extends Component {
                                     <Table.Row key={assignment_id+assignment_name}>
                                         <Table.Cell> {assignment_id}</Table.Cell>
                                         <Table.Cell selectable> <Link to={`/assignments/details/${assignment_id}`}>{assignment_name}</Link></Table.Cell>
-                                        <Table.Cell>{project_id}</Table.Cell>
-                                        <Table.Cell>{status_id}</Table.Cell>
+                                        <Table.Cell>{project_name}</Table.Cell>
+                                        <Table.Cell>{status_name}</Table.Cell>
                                         <Table.Cell>{assignment_start_date}</Table.Cell>
                                         <Table.Cell>{assignment_end_date}</Table.Cell>
                                         <Table.Cell>{assignment_est_hours }</Table.Cell>

@@ -16,7 +16,8 @@ import {
     UPDATE_ASSIGNMENT,
     UPDATE_EMPLOYEE,
     UPDATE_PROJECT,
-    UPDATE_PROJECT_ROLES
+    UPDATE_PROJECT_ROLES,
+    GET_EMPLOYEES_IN_PROJECT
 
 }
     from '../Constants';
@@ -140,10 +141,20 @@ export const getProjectById = () => async dispatch => {
     try {
         let id = 1;
         let response = await axios.get(`http://localhost:5000/api/projects/id/${id}`);
-        console.log('GET PROJ.ID: ' ,response.data.project);
         dispatch({ type: GET_PROJECT_BY_ID, payload: response.data.project})
     } catch (e) {
         console.log('ERROR MESSAGE PROJ.ID: ' , e)
+    }
+}
+
+export const getEmployeesInProject = () => async dispatch => {
+    try{
+        let id = 1;
+        let response = await axios.get(`http://localhost:5000/api/projects/projectdetails/${id}`);
+        console.log('THIS IS THE RESPONSE: ', response)
+        dispatch({ type: GET_EMPLOYEES_IN_PROJECT, payload: response.data.employees })
+    } catch (e) {
+        console.log('ERROR MESSAGE GETTING EMPLOYEES IN PROJECT: ' , e)
     }
 }
 

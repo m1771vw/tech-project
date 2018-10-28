@@ -24,7 +24,8 @@ export const UPDATE_EMPLOYEE    = 'UPDATE_EMPLOYEE';
  * Project Constants 
  */
 export const GET_ALL_PROJECTS   = 'GET_ALL_PROJECTS';
-export const GET_PROJECT_BY_ID = 'GET_PROJECT_BY_ID'
+export const GET_PROJECT_BY_ID = 'GET_PROJECT_BY_ID';
+export const GET_EMPLOYEES_IN_PROJECT = 'GET_EMPLOYEES_IN_PROJECT';
 export const ADD_PROJECT       = 'ADD_PROJECT';
 export const REMOVE_PROJECT    = 'REMOVE_PROJECT';
 export const UPDATE_PROJECT    = 'UPDATE_PROJECT';

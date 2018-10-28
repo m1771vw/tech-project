@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const {
-    index, getAllProjects, getProjectById, addProject, deleteProject, updateProject, getAllProjectRoles, updateProjectRole, deleteProjectRole
+    index, getAllProjects, getProjectById, addProject, 
+    deleteProject, updateProject, getAllProjectRoles, 
+    updateProjectRole, deleteProjectRole, getEmployeesInProject
 } = require('./../controllers/projects-controllers');
 
 router.get('/', index);
@@ -9,6 +11,7 @@ router.get('/id/:id', getProjectById);
 router.post('/', addProject);
 router.put('/:id', updateProject)
 router.delete('/:id', deleteProject);
+router.get('/projectdetails/:id', getEmployeesInProject)
 router.get('/projectroles/all', getAllProjectRoles)
 router.put('/projectroles/:id', updateProjectRole)
 router.delete('/projectroles/:id', deleteProjectRole)

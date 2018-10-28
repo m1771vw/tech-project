@@ -31,14 +31,31 @@ const getProjectById = async (req, res) => {
     }
 }
 
-const getEmployeeByProjectId = async (req , res) => {
+
+// 1st query: get employees by project roles + employees
+// 2nd query: get assignments by project.project_id = assignment.project_id also status_types
+
+const getEmployeesInProject = async (req , res) => {
     try {
         let project_id = parseInt(req.params.id);
-        let employees = await db.one('SELECT ')
+        let employees = await db.any(
+            `SELECT p.project_id, p.project_name, p.project_start_date, p.project_end_date, 
+            pr.employee_id, 
+            e.first_name, e.last_name, e.position
+            FROM projects as p
+            INNER JOIN project_roles as pr ON pr.project_id = p.project_id
+            INNER JOIN employees as e ON pr.employee_id = e.employee_id
+            WHERE p.project_id = $1`,
+            project_id)
+            res.status(200).send({ employees })
     } catch(e) {
         res.status(500).json({ message: e.message })
     }
 }
+// SELECT a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.assignment_final_hours, p.project_id, p.project_name, s.status_id, s.status_name
+// FROM Assignments as a
+// INNER JOIN Status_Types as s ON s.status_id = a.status_id
+// INNER JOIN Projects as p ON p.project_id = a.project_id;
 
 const addProject = async (req, res) => {
     try {
@@ -122,5 +139,8 @@ const deleteProjectRole = async (req, res) => {
 
 
 module.exports = {
-    index, getAllProjects, getProjectById, addProject, deleteProject, updateProject, getAllProjectRoles, updateProjectRole, deleteProjectRole
+    index, getAllProjects, getProjectById, 
+    addProject, deleteProject, updateProject, 
+    getAllProjectRoles, updateProjectRole, deleteProjectRole,
+    getEmployeesInProject
 }

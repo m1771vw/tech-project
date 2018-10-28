@@ -28,7 +28,10 @@ const getAllAssignments = async(req, res) => {
 const getAssignmentById = async (req, res) => {
     try {
         let assignment_id = parseInt(req.params.id);
-        let assignment = await db.one('SELECT * FROM assignments WHERE assignment_id = $1', assignment_id);
+        let assignment = await db.one(
+            `SELECT * 
+            FROM assignments 
+            WHERE assignment_id = $1`, assignment_id);
         res.status(200).send({ assignment })
     } catch (e) {
         res.status(500).json({ message: e.message })

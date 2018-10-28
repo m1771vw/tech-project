@@ -51,11 +51,15 @@ class Forms extends Component {
     //grab the model
     renderForm = () => {
         let model = this.props.model;
+        let stateValues = Object.values(this.props.location.state);
+        let stateKeys = Object.keys(this.props.location.state);
+        console.log("State:", this.state);
         //loop thorugh all the metadata
-        let formUI = model.map((m) => {
+        let formUI = model.map((m, index) => {
             let key = m.key;
             let type = m.type || "text"; //default to "text"
             let props = m.props || {};  // default to empty object
+            
 
             return (
                 <div key={key} className="form-group">
@@ -72,7 +76,7 @@ class Forms extends Component {
                     className="form-input"
                     type={type}
                     key={"i" + m.key}
-                    // value={key}
+                    // value={this.state[stateKeys[index]]}
                     //event handler
                     onChange={(e) => { this.onChange(e, key) }}
                 />

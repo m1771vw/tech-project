@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const {
     index, getAllEmployees, addEmployee, deleteEmployee, getEmployeeById, updateEmployee,
+    getAllEmployeesAssignments, getAllEmployeeAssignments, getEmployeeAssignment, addAssignmentToEmployee, updateEmployeeToAssignment, deleteAssignmentToEmployee
 } = require('./../controllers/employees-controller');
 
 /**
@@ -16,10 +17,10 @@ router.delete('/:id', deleteEmployee);
 /**
  * Employee Assignment Routes
  */
-// router.get('/all/assignments/all', getAllEmployeesAssignments);
-// router.get('/:eid/assignments/all', getAllEmployeeAssignments);
-// router.get('/:eid/assignments/:eaid', getEmployeeAssignment);
-// router.post('/:eid/assignment', addAssignmentToEmployee);
-// router.put('/:eid/assignments/:eaid', updateAssignmentToEmployee);
-// router.delete('/:eid/assignments/:eaid', deleteAssignmentToEmployee);
+router.get('/all/assignments/all', getAllEmployeesAssignments);
+router.get('/:e_id/assignments/all', getAllEmployeeAssignments);
+router.get('/:e_id/assignments/:ea_id', getEmployeeAssignment);
+router.post('/:e_id/assignments', addAssignmentToEmployee);
+router.put('/:e_id/assignments/:ea_id', updateEmployeeToAssignment);
+router.delete('/:e_id/assignments/:ea_id', deleteAssignmentToEmployee);
 module.exports = router;

@@ -55,7 +55,7 @@ class AssignmentsPage extends Component {
                                 return (
                                     <Table.Row key={assignment_id+assignment_name}>
                                         <Table.Cell> {assignment_id}</Table.Cell>
-                                        <Link to={`/assignments/details/${assignment_id}`}><Table.Cell selectable> {assignment_name}</Table.Cell></Link>
+                                        <Table.Cell selectable> <Link to={`/assignments/details/${assignment_id}`}>{assignment_name}</Link></Table.Cell>
                                         <Table.Cell>{project_id}</Table.Cell>
                                         <Table.Cell>{status_id}</Table.Cell>
                                         <Table.Cell>{assignment_start_date}</Table.Cell>

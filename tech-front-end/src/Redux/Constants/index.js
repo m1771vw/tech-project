@@ -7,6 +7,7 @@ export const LOGIN = 'LOGIN';
  * Assignment Constants 
  */
 export const GET_ALL_ASSIGNMENTS = 'GET_ALL_ASSIGNMENTS';
+export const GET_ASSIGNMENT_BY_ID = 'GET_ASSIGNMENT_BY_ID';
 export const ADD_ASSIGNMENT     = 'ADD_ASSIGNMENT';
 export const REMOVE_ASSIGNMENT  = 'REMOVE_ASSIGNMENT';
 export const UPDATE_ASSIGNMENT  = 'UPDATE_ASSIGNMENT';

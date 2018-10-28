@@ -7,18 +7,35 @@ const index = (req, res) => {
 const getAllProjects = async (req, res) => {
     try {
         let projects = await db.any('SELECT p.project_id, p.project_name, p.project_start_date, p.project_start_date, p.project_end_date FROM projects AS p')
-        res.send({ projects })
+        res.status(200).send({ projects })
     } catch (e) {
         res.status(500).json({ message: e.message })
     }
 }
 
+// const getEmployeesFromProjectId = async (req, res) => {
+//     try {
+//         let project_id = req.params.id;
+//         let employees = await db.any('SELECT * FROM projects INNER JOIN project_roles ON projects.project_id = project_roles.project_id WHERE projects.project_id = 1')
+//         res.send({ employees })
+//     }
+// }
+
 const getProjectById = async (req, res) => {
     try {
         let project_id = parseInt(req.params.id);
-        let project = await db.one('SELECT * FROM projects WHERE project_id = $1', project_id);
-        res.send({ project })
+        let project = await db.one('SELECT p.project_id, p.project_name, p.project_start_date, p.project_start_date, p.project_end_date FROM projects AS p WHERE project_id = $1', project_id);
+        res.status(200).send({ project })
     } catch (e) {
+        res.status(500).json({ message: e.message })
+    }
+}
+
+const getEmployeeByProjectId = async (req , res) => {
+    try {
+        let project_id = parseInt(req.params.id);
+        let employees = await db.one('SELECT ')
+    } catch(e) {
         res.status(500).json({ message: e.message })
     }
 }

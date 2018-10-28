@@ -127,6 +127,7 @@ class App extends Component {
           <Route path='/employees' component={EmployeesPage} />
           <Route path='/assignments' component={AssignmentsPage} />
           <Route path='/projects' component={ProjectsPage} />
+          <Route path='/projectdetails' component={ProjectDetails} />
           <Route path='/createAssignments' render={(renderProps) =>
             <Form className="form"
               title="Input Assignment"

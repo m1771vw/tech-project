@@ -6,7 +6,7 @@ const index = (req, res) => {
 
 const getAllEmployees = async (req, res) => {
     try {
-        let employees = await db.any('SELECT e.first_name, e.last_name, e.position FROM employees AS e')
+        let employees = await db.any('SELECT e.employee_id, e.first_name, e.last_name, e.position FROM employees AS e')
         res.send({ employees })
     } catch (e) {
         res.status(500).json({ message: e.message })
@@ -16,7 +16,7 @@ const getAllEmployees = async (req, res) => {
 const getEmployeeById = async (req, res) => {
     try {
         let employee_id = parseInt(req.params.id);
-        let employee = await db.one('SELECT * FROM employees WHERE employee_id = $1', employee_id);
+        let employee = await db.one('SELECT employee_id, first_name, last_name, position FROM employees WHERE employee_id = $1', employee_id);
         res.send({ employee })
     } catch (e) {
         res.status(500).json({ message: e.message })

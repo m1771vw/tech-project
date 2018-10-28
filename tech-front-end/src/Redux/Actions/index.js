@@ -5,6 +5,7 @@ import {
     GET_ALL_EMPLOYEES,
     GET_ALL_PROJECTS,
     GET_ALL_PROJECT_ROLES,
+    GET_PROJECT_BY_ID,
     ADD_ASSIGNMENT,
     ADD_EMPLOYEE,
     ADD_PROJECT,
@@ -39,7 +40,6 @@ export const submitLogin = () => async dispatch => {
 export const getAllAssignments = () => async dispatch => {
     try {
         let response = await axios.get('http://localhost:5000/api/assignments/all');
-        console.log("Assginment Response: ", response);
         dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments })
     } catch (e) {
         console.log("Get All Assignment Error", e);
@@ -129,7 +129,7 @@ export const updateEmployee = (employee, id) => async dispatch => {
 export const getAllProjects = () => async dispatch => {
     try {
         let response = await axios.get('http://localhost:5000/api/projects/all');
-        console.log("Assignment Response: ", response);
+        console.log("ALL PROJECTS Response: ", response);
         dispatch({ type: GET_ALL_PROJECTS, payload: response.data.projects })
     } catch (e) {
         console.log("Get All Projects Error", e);
@@ -138,9 +138,12 @@ export const getAllProjects = () => async dispatch => {
 
 export const getProjectById = () => async dispatch => {
     try {
-
+        let id = 1;
+        let response = await axios.get(`http://localhost:5000/api/projects/id/${id}`);
+        console.log('GET PROJ.ID: ' ,response.data.project);
+        dispatch({ type: GET_PROJECT_BY_ID, payload: response.data.project})
     } catch (e) {
-
+        console.log('ERROR MESSAGE PROJ.ID: ' , e)
     }
 }
 

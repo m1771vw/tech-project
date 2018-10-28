@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getAssignmentById, getAssignmentEmployees } from '../../Redux/Actions/';
+
 class AssignmentDetails extends Component {
+
     async componentDidMount() {
         await this.fetchAssignmentDetails();
         console.log("Assignment Details: ", this.props.match.params.id);
@@ -12,6 +14,7 @@ class AssignmentDetails extends Component {
         await this.props.getAssignmentById(this.props.match.params.id);
         await this.props.getAssignmentEmployees(this.props.match.params.id);
     }
+    
     render() {
         let {assignment, assignmentEmployees} = this.props
         return (

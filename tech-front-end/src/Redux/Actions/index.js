@@ -6,6 +6,7 @@ import {
     GET_ALL_PROJECTS,
     GET_ALL_PROJECT_ROLES,
     GET_ASSIGNMENT_BY_ID,
+    GET_ASSIGNMENT_EMPLOYEES,
     GET_PROJECT_BY_ID,
     ADD_ASSIGNMENT,
     ADD_EMPLOYEE,
@@ -52,6 +53,16 @@ export const getAssignmentById = id => async dispatch => {
         let response = await axios.get(`http://localhost:5000/api/assignments/id/${id}`)
         console.log("Single Assignment Response: ", response);
         dispatch({ type: GET_ASSIGNMENT_BY_ID, payload: response.data.assignment})
+    } catch(e) {
+        console.log("Get Single Assignment Error", e);
+    }
+}
+
+export const getAssignmentEmployees = id => async dispatch => {
+    try  {
+        let response = await axios.get(`http://localhost:5000/api/employees/all/assignments/a_id/${id}`)
+        console.log("Employess to an Assignment Response: ", response);
+        dispatch({ type: GET_ASSIGNMENT_EMPLOYEES, payload: response.data.assignment_employees})
     } catch(e) {
         console.log("Get Single Assignment Error", e);
     }

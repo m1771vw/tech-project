@@ -52,6 +52,28 @@ const getEmployeesInProject = async (req , res) => {
         res.status(500).json({ message: e.message })
     }
 }
+
+// select assignments + employee assignments where project id = id +status types
+const getAssignmentByProjectId = async (req, res) => {
+    try {
+        let project_id = parseInt(req.params.id);
+        let assignments = await db.any(
+            `SELECT a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.assignment_final_hours,
+            p.project_id,
+            s.status_id, s.status_name 
+            FROM assignments as a
+            INNER JOIN projects as p ON p.project_id = a.project_id
+            INNER JOIN status_types as s ON s.status_id = a.status_id
+            WHERE p.project_id = $1`,
+            project_id)
+            res.status(200).send({ assignments })
+    } catch (e) {
+        res.status(500).json({ message: e.message })
+    }
+}
+
+
+
 // SELECT a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.assignment_final_hours, p.project_id, p.project_name, s.status_id, s.status_name
 // FROM Assignments as a
 // INNER JOIN Status_Types as s ON s.status_id = a.status_id
@@ -142,5 +164,5 @@ module.exports = {
     index, getAllProjects, getProjectById, 
     addProject, deleteProject, updateProject, 
     getAllProjectRoles, updateProjectRole, deleteProjectRole,
-    getEmployeesInProject
+    getEmployeesInProject, getAssignmentByProjectId
 }

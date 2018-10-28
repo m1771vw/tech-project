@@ -4,15 +4,18 @@ let db = require('../config/db');
 
 const login = async (req, res) => {
     try{
-        let loginUser = req.body;
+        let loginUser = req.user;
+        // console.log("Req", req.user);
         if(loginUser !== undefined) {
             let foundUserName = await db.one(`
                 SELECT * 
                 FROM User_Login
-                WHERE User_login.username = $1
+                WHERE username = $1
             `, [loginUser.username]);
+            // console.log("Found user name:", foundUserName);
+            // console.log("loginuserpw: ", loginUser.password, "foundUserpw", foundUserName.password)
             let passwordApproved = await checkHash(loginUser.password, foundUserName.password);
-            if(passwordApproved) {
+            if(foundUserName !== undefined) {
                 res.status(200).send({login: true});
             } else {
                 res.status(500).send({login: false});

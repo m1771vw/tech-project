@@ -30,9 +30,16 @@ import {
  */
 
 export const submitLogin = loginBody => async dispatch => {
+    let username = loginBody.username;
+    let password = loginBody.password;
     try {
         console.log("ACTION: SUBMIT LOGIN: ", loginBody);
-        let response = await axios.post('http://localhost:5000/api/login', loginBody);
+        let response = await axios.post('http://localhost:5000/api/login', null, {
+            auth: {
+                username,
+                password
+            }
+        });
         console.log("Response:", response);
         dispatch({ type: LOGIN, payload: response.data })
     } catch (e){

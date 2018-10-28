@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getAssignmentById, getAssignmentEmployees } from '../../Redux/Actions/';
+
 class AssignmentDetails extends Component {
     async componentDidMount() {
         await this.fetchAssignmentDetails();
@@ -36,9 +37,9 @@ class AssignmentDetails extends Component {
     }
 }
 
-AssignmentDetails.propTypes = {
+// AssignmentDetails.propTypes = {
 
-};
+// };
 
 const mapStateToProps = ({assignmentReducer}) => ({
     assignment: assignmentReducer.assignment,

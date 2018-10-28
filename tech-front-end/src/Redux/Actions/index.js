@@ -28,11 +28,14 @@ import {
  * Login Actions
  */
 
-export const submitLogin = () => async dispatch => {
+export const submitLogin = loginBody => async dispatch => {
     try {
-        dispatch({ type: LOGIN, payload: "testuser" })
-    } catch {
-        console.log("ERROR")
+        console.log("ACTION: SUBMIT LOGIN: ", loginBody);
+        let response = await axios.post('http://localhost:5000/api/login', loginBody);
+        console.log("Response:", response);
+        dispatch({ type: LOGIN, payload: response.data })
+    } catch (e){
+        console.log("ERROR", e.response.data);
     }
 }
 

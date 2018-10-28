@@ -13,15 +13,15 @@ const login = async (req, res) => {
             `, [loginUser.username]);
             let passwordApproved = await checkHash(loginUser.password, foundUserName.password);
             if(passwordApproved) {
-                res.status(200).send({message: "You are logged in"});
+                res.status(200).send({login: true});
             } else {
-                res.status(500).send({error: "Your login failed"});
+                res.status(500).send({login: false});
             }
         } else {
             res.status(500).send({error: "Your login failed"});
         }
     } catch (e) {
-        res.status(500).send({message: e.message});
+        res.status(500).send({error: e.message});
     }
 
 }

@@ -5,17 +5,20 @@ const {
     updateProjectRole, deleteProjectRole, getEmployeesInProject,
     getAssignmentByProjectId
 } = require('./../controllers/projects-controllers');
+const { isAuthorized } = require('../middleware/authorization');
 
-router.get('/', index);
-router.get('/all', getAllProjects);
-router.get('/id/:id', getProjectById);
-router.post('/', addProject);
-router.put('/:id', updateProject)
-router.delete('/:id', deleteProject);
-router.get('/id/:id/employees', getEmployeesInProject)
-router.get('/id/:id/assignments', getAssignmentByProjectId)
-router.get('/roles/all', getAllProjectRoles)
-router.put('/roles/:id', updateProjectRole)
-router.delete('/roles/:id', deleteProjectRole)
+
+
+router.get('/', isAuthorized, index);
+router.get('/all', isAuthorized, getAllProjects);
+router.get('/id/:id', isAuthorized, getProjectById);
+router.post('/', isAuthorized, addProject);
+router.put('/:id', isAuthorized, updateProject)
+router.delete('/:id', isAuthorized, deleteProject);
+router.get('/id/:id/employees', isAuthorized, getEmployeesInProject)
+router.get('/id/:id/assignments', isAuthorized, getAssignmentByProjectId)
+router.get('/roles/all', isAuthorized, getAllProjectRoles)
+router.put('/roles/:id', isAuthorized, updateProjectRole)
+router.delete('/roles/:id', isAuthorized, deleteProjectRole)
 
 module.exports = router;

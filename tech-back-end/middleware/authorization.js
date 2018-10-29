@@ -1,6 +1,7 @@
 var jwt = require('jsonwebtoken');
-var config = require('../config/config');
+
 let db = require('../config/db');
+require('dotenv').load();
 
 module.exports = {
     isAuthorized: (req, res, next) => {
@@ -10,7 +11,7 @@ module.exports = {
         token = token.split(' ')[1];
         console.log("Token: ", token);
   
-        jwt.verify(token, config.secret, function(err, decoded) {
+        jwt.verify(token, process.env.SECRET_KEY, function(err, decoded) {
           if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
           console.log("Decoded: ", decoded);
         let user = db.one('SELECT user_id, username, password, isAdmin FROM User_Login WHERE username=$1', [decoded.id])
@@ -22,14 +23,6 @@ module.exports = {
             next(null, false)
         })
 
-        //   User.findById(decoded.id, 
-        //   { password: 0 }, // projection
-        //   function (err, user) {
-        //     if (err) return res.status(500).send("There was a problem finding the user.");
-        //     if (!user) return res.status(404).send("No user found.");
-        //     // res.status(200).send(user); Comment this out!
-        //     next(user); // add this line
-        //   });
         })
     }
         

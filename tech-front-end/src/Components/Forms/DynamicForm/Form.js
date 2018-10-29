@@ -8,18 +8,18 @@ class Forms extends Component {
 
     }
     componentDidMount() {
-        if(this.props.location !== undefined) { 
-        console.log("Keys:", Object.keys(this.props.location.state));
-        let stateKeys = Object.keys(this.props.location.state);
-        for(let i = 0; i < stateKeys.length; i++) {
-            this.setState({
-                [stateKeys[i]]: this.props.location.state[stateKeys[i]]
-            })
-        }
+        // if(this.props.location !== undefined) { 
+        // console.log("Keys:", Object.keys(this.props.location.state));
+        // let stateKeys = Object.keys(this.props.location.state);
+        // for(let i = 0; i < stateKeys.length; i++) {
+        //     this.setState({
+        //         [stateKeys[i]]: this.props.location.state[stateKeys[i]]
+        //     })
+        // }
     }
        
         // console.log("Forms: ", this.props.location.state);
-    }
+    
 
     shouldComponentUpdate(nextProps) {
         if(nextProps.location !== this.props.location) {
@@ -51,9 +51,7 @@ class Forms extends Component {
     //grab the model
     renderForm = () => {
         let model = this.props.model;
-        let stateValues = Object.values(this.props.location.state);
-        let stateKeys = Object.keys(this.props.location.state);
-        console.log("State:", this.state);
+
         //loop thorugh all the metadata
         let formUI = model.map((m, index) => {
             let key = m.key;

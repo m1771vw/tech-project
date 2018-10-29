@@ -4,14 +4,8 @@ import { ADD_PROJECT, REMOVE_PROJECT, UPDATE_PROJECT,
     GET_ASSIGNMENTS_IN_PROJECT
 } from '../Constants';
 const initialState = {
-    projects: [{
-        name: "AXOS",
-        startDate: "2018-10-24",
-        endDate: "2019-11-11"
-    }],
-    project_role: [{
-        role: '???',
-    }],
+    projects: [],
+    project_role: [],
     project_by_id: {},
     projectEmployees:[{}],
     projectAssignments:[{}]

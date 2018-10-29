@@ -2,12 +2,21 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getAssignmentById, getAssignmentEmployees } from '../../Redux/Actions/';
+import loginReducer from '../../Redux/Reducers/Login';
 
 class AssignmentDetails extends Component {
 
     async componentDidMount() {
         await this.fetchAssignmentDetails();
         console.log("Assignment Details: ", this.props.match.params.id);
+    }
+
+    async shouldComponentUpdate(prevProps) {
+        console.log("AssignmentDetails: Checking if component should update")
+        if(prevProps.currentUser !== this.props.currentUser)
+        {
+            await this.fetchAssignmentDetails();
+        }
     }
 
     fetchAssignmentDetails = async () => {
@@ -43,9 +52,10 @@ class AssignmentDetails extends Component {
 
 // };
 
-const mapStateToProps = ({assignmentReducer}) => ({
+const mapStateToProps = ({assignmentReducer, loginReducer}) => ({
     assignment: assignmentReducer.assignment,
     assignmentEmployees: assignmentReducer.assignmentEmployees,
+    currentUser: loginReducer.currentUser
 
     
 })

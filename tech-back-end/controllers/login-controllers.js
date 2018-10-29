@@ -2,13 +2,15 @@ const bcrypt                = require('bcryptjs');
 const saltRounds            = 10;
 let db = require('../config/db');
 var jwt = require('jsonwebtoken');
-var config = require('../config/config');
+
+require('dotenv').load();
 
 
 const login = async (req, res) => {
     try{
         let loginUser = req.user;
-        var token = jwt.sign({ id: 'admin' }, config.secret, {
+        console.log("Login Controller: ", loginUser);
+        var token = jwt.sign({ id: loginUser.username }, process.env.SECRET_KEY, {
             expiresIn: 86400 // expires in 24 hours
           });
           res.status(200).send({ auth: true, token: token });
@@ -65,7 +67,7 @@ const getAllUsers = async (req, res) => {
         // console.log('Token 2:', token2);
         if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
         
-        jwt.verify(token.split(' ')[1], config.secret, function(err, decoded) {
+        jwt.verify(token.split(' ')[1], process.env.SECRET_KEY, function(err, decoded) {
           if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
           
           res.status(200).send(decoded);

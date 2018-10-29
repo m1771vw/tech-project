@@ -1,10 +1,13 @@
 import { LOGIN, LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT } from '../Constants';
+import jwtDecode from 'jwt-decode';
 
-const initialState = {
-    currentUser: null,
+
+const initialState = (token => ({
+    currentUser: token ? jwtDecode(token).id : null,
     isAuthenticating: false, 
-    token: null
-}
+    errorMessage: null
+}))(localStorage.authToken)
+
 const loginReducer = (state = initialState, action) => {
     // console.log("LOGIN REDUCER: ", action);
     switch(action.type) {
@@ -14,21 +17,22 @@ const loginReducer = (state = initialState, action) => {
           isAuthenticating: true
         }
       case LOGIN_FAILURE:
+
         return {
           ...state,
           isAuthenticating: false,
-          token: null,
           errorMessage: action.errorMessage
         }
       case LOGIN_SUCCESS:
         return {
+          ...state,
           isAuthenticating: false,
           currentUser: action.user,
-          token: action.token,
           errorMessage: null
         }
       case LOGOUT:
         return {
+          ...state,
           isAuthenticating: false,
           currentUser: null,
           errorMessage: null

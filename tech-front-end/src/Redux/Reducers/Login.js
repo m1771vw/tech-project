@@ -1,7 +1,9 @@
 import { LOGIN } from '../Constants';
 
 const initialState = {
-    currentUser: {}
+    currentUser: null,
+    isAuthenticating: false, 
+    token: null
 }
 const loginReducer = (state = initialState, action) => {
     switch(action.type) {

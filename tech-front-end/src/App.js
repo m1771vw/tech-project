@@ -28,6 +28,7 @@ import AssignmentsPage from './Components/Assignments/AssignmentsPage';
 import ProjectsPage from './Components/Projects/ProjectsPage';
 import AssignmentDetails from './Components/Assignments/AssignmentDetails';
 import ProjectDetails from './Components/Projects/ProjectDetails';
+import EmployeeDetails from './Components/Employees/EmployeeDetails';
 
 class App extends Component {
   state = {
@@ -129,6 +130,7 @@ class App extends Component {
           <Route exact path='/assignments' component={AssignmentsPage} />
           <Route path='/projects' component={ProjectsPage} />
           <Route path='/projectdetails' component={ProjectDetails} />
+          <Route path='/employeedetails' component={EmployeeDetails} />
 
           {/* Assignment Routes */}
           <Route path='/createAssignments' render={(renderProps) =>

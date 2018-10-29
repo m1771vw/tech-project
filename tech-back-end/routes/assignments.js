@@ -8,7 +8,7 @@ router.get('/', isAuthorized, index);
 router.get('/all', isAuthorized, getAllAssignments);
 router.get('/id/:id', isAuthorized, getAssignmentById);
 router.post('/', isAuthorized, addAssignment);
-router.put('/:id', isAuthorized, updateAssignment)
+router.put('/id/:id', isAuthorized, updateAssignment)
 router.delete('/:id', isAuthorized, deleteAssignment);
 
 module.exports = router;

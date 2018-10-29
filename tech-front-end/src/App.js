@@ -63,9 +63,10 @@ class App extends Component {
 
   }
 
-  onUpdateAssignment = (assignment) => {
+  onUpdateAssignment = (assignment, index) => {
     console.log("Updating toward Map Dispatch")
-    let index = 0
+    console.log("New Assignment: ", assignment);
+    console.log("New Assignment ID: ", index);
     this.props.updateAssignment(assignment, index);
   }
 
@@ -155,17 +156,17 @@ class App extends Component {
           <Route path={`/assignments/details/:id`} render={(renderProps) => <AssignmentDetails {...renderProps} />} />
           <Route path={`/assignments/edit/:id`} render={(renderProps) =>
             <AssignmentEdit {...renderProps}
-            title="Input Assignment"
-              model={[
-                { key: "assignment_name", label: "Assign Name", type: "text", props: { required: true } },
-                { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
-                { key: "assignment_end_date", label: "End Date", type: "text", props: { required: true } },
-                { key: "status_id", label: "Status ID", type: "text", props: { required: true } },
-                { key: "project_id", label: "Project ID", type: "text", props: { required: true } },
-                { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
-                { key: "assignment_final_hours", label: "Elapsed Hours", type: "text", props: { required: true } }
-              ]}
-              onSubmit={(model) => { this.onAssignmentSubmit(model) }}
+            // title="Input Assignment"
+            //   model={[
+            //     { key: "assignment_name", label: "Assign Name", type: "text", props: { required: true } },
+            //     { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
+            //     { key: "assignment_end_date", label: "End Date", type: "text", props: { required: true } },
+            //     { key: "status_id", label: "Status ID", type: "text", props: { required: true } },
+            //     { key: "project_id", label: "Project ID", type: "text", props: { required: true } },
+            //     { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
+            //     { key: "assignment_final_hours", label: "Elapsed Hours", type: "text", props: { required: true } }
+            //   ]}
+              onSubmit={this.onUpdateAssignment}
 
 
 

@@ -28,6 +28,7 @@ import AssignmentsPage from './Components/Assignments/AssignmentsPage';
 import ProjectsPage from './Components/Projects/ProjectsPage';
 import AssignmentDetails from './Components/Assignments/AssignmentDetails';
 import ProjectDetails from './Components/Projects/ProjectDetails';
+import AssignmentEdit from './Components/Assignments/AssignmentEdit';
 
 class App extends Component {
   state = {
@@ -147,19 +148,23 @@ class App extends Component {
               onDelete={(model) => { this.onDeleteAssignment(model) }}
             />} />
           <Route path={`/assignments/details/:id`} render={(renderProps) => <AssignmentDetails {...renderProps} />} />
-          <Route path='/update-assignment' render={(renderProps) =>
-            <Form {...renderProps} className="form"
-              title="Update Assignment"
+          <Route path={`/assignments/edit/:id`} render={(renderProps) =>
+            <AssignmentEdit {...renderProps}
+            title="Input Assignment"
               model={[
                 { key: "assignment_name", label: "Assign Name", type: "text", props: { required: true } },
                 { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
                 { key: "assignment_end_date", label: "End Date", type: "text", props: { required: true } },
+                { key: "status_id", label: "Status ID", type: "text", props: { required: true } },
+                { key: "project_id", label: "Project ID", type: "text", props: { required: true } },
                 { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
                 { key: "assignment_final_hours", label: "Elapsed Hours", type: "text", props: { required: true } }
-
               ]}
-              onUpdate={(model) => { this.onUpdateAssignment(model) }}
-            />} />
+              onSubmit={(model) => { this.onAssignmentSubmit(model) }}
+
+
+
+            />}/>
 
           {/* Project Routes */}
 

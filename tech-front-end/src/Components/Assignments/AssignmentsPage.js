@@ -68,7 +68,7 @@ class AssignmentsPage extends Component {
                                             <Table.Cell selectable><Link to={`/assignments/details/${assignment_id}`}>{assignment_final_hours}</Link></Table.Cell>
                                             <Table.Cell>
                                                 <Link to={{
-                                                    pathname: '/update-assignment',
+                                                    pathname: `/assignments/edit/${assignment_id}`,
                                                     state: {
                                                         assignment_name: assignment_name,
                                                         assignment_start_date: assignment_start_date,

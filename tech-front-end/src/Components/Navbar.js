@@ -75,13 +75,26 @@ const Navbar = props => {
             // active
             // onClick
             >Login</Menu.Item> </Link>
+
+            <Link to='/logout'><Menu.Item
+            name='editorials'
+            // active
+            // onClick
+            >Logout</Menu.Item> </Link>
             
             <Link to='/signup'><Menu.Item
             name='editorials'
             // active
             // onClick
             >Signup</Menu.Item></Link>
-            
+             <Menu.Item
+            name='       '>
+            {               }
+            </Menu.Item>
+            <Menu.Item
+            name='editorials'>
+            Current User: {localStorage.currentUser}
+            </Menu.Item>
         
     </Menu>
       );

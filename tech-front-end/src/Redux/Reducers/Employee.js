@@ -2,32 +2,7 @@ import { ADD_EMPLOYEE, REMOVE_EMPLOYEE, UPDATE_EMPLOYEE, GET_ALL_EMPLOYEES } fro
 
 const initialState = {
     employees: [
-        {
-            first_name: "William",
-            last_name: "Yang",
-            position: "Software Engineer"
-        },
-        {
-            first_name: "James",
-            last_name: "Park",
-            position: "Software Engineer"
-        },
-        {
-            first_name: "John",
-            last_name: "Chu",
-            position: "Software Engineer"
-        },
-        {
-            first_name: "Pat",
-            last_name: "Truong",
-            position: "Manager"
-        },
-        {
-            employee_id: 27,
-            first_name: "CAN ",
-            last_name: "YOU ",
-            position: "FUCKING WORK"
-        }
+
     ]
 }
 const employeeReducer = (state = initialState, action) => {

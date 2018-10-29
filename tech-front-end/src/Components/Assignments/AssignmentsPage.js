@@ -91,8 +91,9 @@ class AssignmentsPage extends Component {
     }
 }
 
-const mapStateToProps = ({ assignmentReducer }) => ({
-    assignments: assignmentReducer.assignments
+const mapStateToProps = ({ assignmentReducer, loginReducer }) => ({
+    assignments: assignmentReducer.assignments,
+    token: loginReducer.token
 })
 
 const mapDispatchToProps = dispatch => ({

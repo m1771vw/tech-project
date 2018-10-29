@@ -11,8 +11,8 @@ CREATE TABLE User_Login (
 
 INSERT INTO User_Login (username, password, isAdmin)
 VALUES
-('wyang93', 'wyang123', true),
-('username', 'password', false),
+('wyang', '$2a$10$wOy4FUmf.RVWyhmGhpaFpuzOOZtQau0556wLxd6nkj7acZ3lP5dSi', true),
+('admin', '$2a$10$qWUu9afkZ01/QTIT3KRQUuFtubk39EFVq5WL/3pG/H3QRKSgEsxLK', true),
 ('password', 'username', false);
 
 CREATE TABLE Employees (

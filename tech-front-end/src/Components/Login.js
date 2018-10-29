@@ -5,13 +5,13 @@ import { Table, Form, Segment, Button, Icon, Grid, Header, Message } from 'seman
 
 class Login extends Component {
     state = {
-        userName: '',
+        username: '',
         password: ''
     }
 
     onChangeUser = e => {
         this.setState({
-            userName: e.target.value
+            username: e.target.value
         })
     }
 
@@ -22,7 +22,7 @@ class Login extends Component {
     }
 
     onSubmit = () => {
-        this.props.submitLogin()
+        this.props.submitLogin(this.state)
     }
 
     render() {
@@ -37,14 +37,15 @@ class Login extends Component {
                 <Form.Input
                     icon='user' 
                     iconPosition='left'
-                    placeholder="Username"
-                    value={this.state.userName}
+                    placeholder="User Name"
+                    value={this.state.username}
                     onChange={this.onChangeUser}>
                 </Form.Input>
                 <Form.Input
                     icon='lock'
                     iconPosition='left'
                     placeholder="Password"
+                    type='password'
                     value={this.state.password}
                     onChange={this.onChangePassword}>
                 </Form.Input>
@@ -52,9 +53,6 @@ class Login extends Component {
                     onClick={this.onSubmit}>Login</Button>
                     
             </Form>
-            <Message>
-            New to the Team? <a href='#'>Sign Up</a>
-                 </Message>
             </Segment>
             </Grid.Column>
             </Grid>
@@ -64,7 +62,7 @@ class Login extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    submitLogin: () => dispatch(submitLogin())
+    submitLogin: loginBody => dispatch(submitLogin(loginBody))
 })
 
 export default connect(null, mapDispatchToProps)(Login);

@@ -7,6 +7,7 @@ import { getAllAssignments, getAllProjects, getAllEmployees } from './Redux/Acti
 import Navbar from './Components/Navbar'
 import Loader from './Components/LazyLoad';
 import Login from './Components/Login'
+import Logout from './Components/Logout'
 import Dashboard from './Components/Dashboard/Dashboard';
 import Form from './Components/Forms/DynamicForm/Form';
 
@@ -28,6 +29,7 @@ import AssignmentsPage from './Components/Assignments/AssignmentsPage';
 import ProjectsPage from './Components/Projects/ProjectsPage';
 import AssignmentDetails from './Components/Assignments/AssignmentDetails';
 import ProjectDetails from './Components/Projects/ProjectDetails';
+import EmployeeDetails from './Components/Employees/EmployeeDetails';
 
 class App extends Component {
   state = {
@@ -38,6 +40,7 @@ class App extends Component {
 
   }
   componentDidMount() {
+    // console.log("App.js Token: ", this.props.token);
     this.props.getAllAssignments();
     this.props.getAllProjects();
     this.props.getAllEmployees();
@@ -125,8 +128,10 @@ class App extends Component {
 
           <Route exact path='/' component={Dashboard} />
           <Route path='/login' component={Login} />
+          <Route path='/logout' component={Logout} />
           <Route path='/employees' component={EmployeesPage} />
           <Route exact path='/assignments' component={AssignmentsPage} />
+          <Route path='/employeedetails' component={EmployeeDetails} />
           <Route exact path='/projects' component={ProjectsPage} />
           <Route path={`/projects/details/:id`} render={(renderProps) => <ProjectDetails {...renderProps} />} />
 
@@ -202,7 +207,6 @@ class App extends Component {
                 { key: "first_name", label: "First Name", type: "text", props: { required: true } },
                 { key: "last_name", label: "Last Name", type: "text", props: { required: true } },
                 { key: "position", label: "Position", type: "text", props: { required: true } },
-                { key: "profile", label: "Profile", type: "text ", props: { required: true } }
               ]}
               onSubmit={(model) => { this.onEmployeeSubmit(model) }}
               onDelete={(model) => { this.onDeleteEmployee(model) }}
@@ -218,7 +222,6 @@ class App extends Component {
                 { key: "first_name", label: "Name", type: "text", props: { required: true } },
                 { key: "last_name", label: "Title", type: "text", props: { required: true } },
                 { key: "position", label: "Project", type: "text", props: { required: true } },
-                { key: "profile", label: "Profile", type: "text ", props: { required: true } }
               ]}
               onUpdate={(model) => { this.onUpdateEmployee(model) }}
             />} />
@@ -243,6 +246,9 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = ({loginReducer}) => ({
+  token: loginReducer.token
+})
 const mapDispatchToProps = dispatch => ({
   // submitForms: () => dispatch(submitForms()),
   submitProject: (project) => dispatch(submitProject(project)),
@@ -261,4 +267,4 @@ const mapDispatchToProps = dispatch => ({
 
 })
 
-export default withRouter(connect(null, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

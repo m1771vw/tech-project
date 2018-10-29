@@ -114,7 +114,7 @@ export const deleteEmployee = id => async dispatch => {
 
 export const updateEmployee = (employee, id) => async dispatch => {
     try {
-        let id = 27;
+        // let id = 27;
         let response = await axios.put(`http://localhost:5000/api/employees/${id}`, employee);
         console.log('RESPONSE:', response)
         dispatch({ type: UPDATE_EMPLOYEE, payload: response.data.employee, id })

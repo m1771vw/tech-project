@@ -35,7 +35,7 @@ class App extends Component {
     employeeData: [],
     assignmentData: [],
     projectData: [],
-    signupData:[]
+    signupData: []
 
   }
   componentDidMount() {
@@ -126,12 +126,12 @@ class App extends Component {
         <Switch>
 
           <Route exact path='/' component={Dashboard} />
-          <Route path = '/login' component={Login}/>
+          <Route path='/login' component={Login} />
           <Route path='/employees' component={EmployeesPage} />
           <Route exact path='/assignments' component={AssignmentsPage} />
-          <Route path='/projects' component={ProjectsPage} />
-          <Route path='/projectdetails' component={ProjectDetails} />
           <Route path='/employeedetails' component={EmployeeDetails} />
+          <Route exact path='/projects' component={ProjectsPage} />
+          <Route path={`/projects/details/:id`} render={(renderProps) => <ProjectDetails {...renderProps} />} />
 
           {/* Assignment Routes */}
           <Route path='/createAssignments' render={(renderProps) =>
@@ -149,7 +149,7 @@ class App extends Component {
               onSubmit={(model) => { this.onAssignmentSubmit(model) }}
               onDelete={(model) => { this.onDeleteAssignment(model) }}
             />} />
-          <Route path={`/assignments/details/:id`} render={(renderProps) => <AssignmentDetails {...renderProps}/>}/>
+          <Route path={`/assignments/details/:id`} render={(renderProps) => <AssignmentDetails {...renderProps} />} />
           <Route path='/update-assignment' render={(renderProps) =>
             <Form {...renderProps} className="form"
               title="Update Assignment"
@@ -164,7 +164,7 @@ class App extends Component {
               onUpdate={(model) => { this.onUpdateAssignment(model) }}
             />} />
 
-            {/* Project Routes */}
+          {/* Project Routes */}
 
           <Route path='/createProjects' render={(renderProps) =>
             <Form {...renderProps} className="form"
@@ -182,7 +182,7 @@ class App extends Component {
 
           <Route path='/update-project' render={(renderProps) =>
             <Form className="form"
-              {...renderProps} 
+              {...renderProps}
               title="Update Project"
               model={[
                 { key: "project_name", label: "Assignment Name", type: "text", props: { required: true } },
@@ -197,8 +197,8 @@ class App extends Component {
 
           {/* Employee Routes */}
           <Route path='/createEmployees' render={(renderProps) =>
-            <Form 
-              {...renderProps} 
+            <Form
+              {...renderProps}
               className="form"
               title="Employee Form"
               model={[
@@ -213,9 +213,9 @@ class App extends Component {
             />} />
 
           <Route path='/update-employee' render={(renderProps) =>  //Design form 'to-fill' data here
-            <Form 
+            <Form
               className="form"
-              {...renderProps} 
+              {...renderProps}
               title="Update Employee"
               model={[
                 { key: "first_name", label: "Name", type: "text", props: { required: true } },
@@ -226,7 +226,7 @@ class App extends Component {
               onUpdate={(model) => { this.onUpdateEmployee(model) }}
             />} />
 
-            <Route path='/signup' component={(renderProps) =>
+          <Route path='/signup' component={(renderProps) =>
             <Form {...renderProps} className="form"
               title="Sign Up Today"
               model={[
@@ -238,7 +238,7 @@ class App extends Component {
 
               ]}
               onSubmit={(model) => { this.onSignUp(model) }}
-          
+
             />} />
         </Switch>
       </div>

@@ -10,22 +10,16 @@ class ProjectDetails extends Component {
     state = {}
 
     async componentDidMount() {
-        await this.fetchProjectById();
-        await this.fetchEmployees();
-        await this.fetchAssignments();
+        await this.fetchProjectData();
+        console.log('BIG DATA NODE MERN STACK DATA: ', this.props.match.params.id)
     }
 
-    fetchProjectById = async () => {
-        await this.props.getProjectById();
+    fetchProjectData = async () => {
+        await this.props.getProjectById(this.props.match.params.id);
+        await this.props.getEmployeesInProject(this.props.match.params.id);
+        await this.props.getAssignmentsInProject(this.props.match.params.id);
     }
-
-    fetchEmployees = async () => {
-        await this.props.getEmployeesInProject();
-    }
-
-    fetchAssignments = async () => {
-        await this.props.getAssignmentsInProject();
-    }
+    
 
     render() {
         return (
@@ -113,9 +107,9 @@ const mapStateToProps = ({ projectReducer }) => ({ projects: projectReducer.proj
 const mapDispatchToProps = dispatch => ({
     getAllProjects: () => dispatch(getAllProjects()),
     getAllProjectRoles: () => dispatch(getAllProjectRoles()),
-    getProjectById: () => dispatch(getProjectById()),
-    getEmployeesInProject: () => dispatch(getEmployeesInProject()),
-    getAssignmentsInProject: () => dispatch(getAssignmentsInProject())
+    getProjectById: (id) => dispatch(getProjectById(id)),
+    getEmployeesInProject: (id) => dispatch(getEmployeesInProject(id)),
+    getAssignmentsInProject: (id) => dispatch(getAssignmentsInProject(id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);

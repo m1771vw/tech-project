@@ -15,6 +15,7 @@ import {
     ADD_ASSIGNMENT,
     ADD_EMPLOYEE,
     ADD_PROJECT,
+    ADD_PROJECT_ROLE,
     REMOVE_ASSIGNMENT,
     REMOVE_EMPLOYEE,
     REMOVE_PROJECT,
@@ -326,6 +327,20 @@ export const getAllProjectRoles = () => async dispatch => {
         dispatch({ type: GET_ALL_PROJECT_ROLES, payload: response.data.role })
     } catch (e) {
         console.log("Get All Project Roles Error: ", e);
+    }
+}
+
+export const submitProjectRole = role => async dispatch => {
+    try {
+        let response = await axios.post(`http://localhost:5000/api/projects/roles/` , role, {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+        console.log('Adding project role: ', response)
+        dispatch({ type: ADD_PROJECT_ROLE, payload: response.data.project_role })
+    } catch (e) {
+        console.log('Submit Project Role Error: ', e);
     }
 }
 

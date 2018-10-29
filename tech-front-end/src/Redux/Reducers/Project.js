@@ -1,14 +1,15 @@
-import { ADD_PROJECT, REMOVE_PROJECT, UPDATE_PROJECT, 
-    GET_ALL_PROJECTS, GET_PROJECT_BY_ID, GET_ALL_PROJECT_ROLES, 
-    UPDATE_PROJECT_ROLES, REMOVE_PROJECT_ROLES, GET_EMPLOYEES_IN_PROJECT ,
+import {
+    ADD_PROJECT, ADD_PROJECT_ROLE, REMOVE_PROJECT, UPDATE_PROJECT,
+    GET_ALL_PROJECTS, GET_PROJECT_BY_ID, GET_ALL_PROJECT_ROLES,
+    UPDATE_PROJECT_ROLES, REMOVE_PROJECT_ROLES, GET_EMPLOYEES_IN_PROJECT,
     GET_ASSIGNMENTS_IN_PROJECT
 } from '../Constants';
 const initialState = {
     projects: [],
     project_role: [],
     project_by_id: {},
-    projectEmployees:[{}],
-    projectAssignments:[{}]
+    projectEmployees: [{}],
+    projectAssignments: [{}]
 }
 const projectReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -18,24 +19,29 @@ const projectReducer = (state = initialState, action) => {
                 projects: [...action.payload]
             };
         case GET_PROJECT_BY_ID:
-            return{
+            return {
                 ...state,
-                project_by_id:action.payload
+                project_by_id: action.payload
             };
         case GET_EMPLOYEES_IN_PROJECT:
             return {
                 ...state,
-                projectEmployees:[...action.payload]
+                projectEmployees: [...action.payload]
             };
         case GET_ASSIGNMENTS_IN_PROJECT:
-        return{
-            ...state,
-            projectAssignments: [...action.payload]
-        }
+            return {
+                ...state,
+                projectAssignments: [...action.payload]
+            };
         case ADD_PROJECT:
             return {
                 ...state,
                 projects: [...state.projects, action.payload]
+            };
+        case ADD_PROJECT_ROLE:
+            return {
+                ...state,
+                projectEmployees: [...state.projectEmployees, action.payload]
             };
         case REMOVE_PROJECT:
             let index = state.projects.findIndex(p => p.project_id === action.id)
@@ -44,7 +50,6 @@ const projectReducer = (state = initialState, action) => {
                 projects: [...state.projects.slice(0, index),
                 ...state.projects.slice(index + 1)]
             };
-
         case UPDATE_PROJECT:
             let updateIndex = state.projects.findIndex(p => p.project_id === action.id)
             return {
@@ -53,7 +58,6 @@ const projectReducer = (state = initialState, action) => {
                 action.payload,
                 ...state.projects.slice(updateIndex + 1)]
             };
-
         case GET_ALL_PROJECT_ROLES:
             return {
                 ...state,
@@ -71,9 +75,9 @@ const projectReducer = (state = initialState, action) => {
             let role_index = state.project_role.find(pr => pr.project_role_id === action.id)
             return {
                 ...state,
-                project_role: [...state.project_role.slice(0, role_index) ,
+                project_role: [...state.project_role.slice(0, role_index),
                 ...state.project_role.slice(role_index + 1)]
-            };     
+            };
 
 
         default:

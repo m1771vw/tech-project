@@ -1,17 +1,41 @@
 import React, { Component } from 'react';
+import Form from '../Forms/DynamicForm/Form';
 import projectReducer from '../../Redux/Reducers/Project';
 // import AssignmentsPage from '../Assignments/AssignmentsPage';
-import { getAllProjects, getAllProjectRoles, getProjectById, getEmployeesInProject, getAssignmentsInProject } from '../../Redux/Actions/index';
+import {
+    getAllProjects, getAllProjectRoles, getProjectById,
+    getEmployeesInProject, getAssignmentsInProject, submitAssignment,
+    submitEmployee, submitProjectRole
+} from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
-import { Table } from 'semantic-ui-react';
+import { Table, Modal, Button, Header } from 'semantic-ui-react';
 
 class ProjectDetails extends Component {
-    state = {}
+    state = {
+        employeeModal: false,
+        assignmentModal: false,
+    }
 
     async componentDidMount() {
         await this.fetchProjectData();
-        console.log('BIG DATA NODE MERN STACK DATA: ', this.props.match.params.id)
+    }
+
+    createAssignmentButton = (e) => {
+        e.preventDefault()
+        this.closeAssignmentModal();
+    }
+
+    closeAssignmentModal = () => {
+        this.setState({
+            assignmentModal: false
+        })
+    }
+
+    closeEmployeeModal = () => {
+        this.setState({
+            employeeModal: false
+        })
     }
 
     fetchProjectData = async () => {
@@ -19,7 +43,26 @@ class ProjectDetails extends Component {
         await this.props.getEmployeesInProject(this.props.match.params.id);
         await this.props.getAssignmentsInProject(this.props.match.params.id);
     }
-    
+
+    onSubmitAssignmentModal = async (model) => {
+        await this.props.submitAssignment(model);
+        await this.fetchProjectData();
+        await this.closeAssignmentModal();
+        this.setState({
+            assignmentModal: false,
+        });
+    }
+
+    onSubmitEmployeeModal = async (model) => {
+        await this.props.submitProjectRole(model);
+        await this.fetchProjectData();
+        await this.closeEmployeeModal();
+        // this.setState({
+        //     employeeModal: false,
+        // })
+    }
+
+
 
     render() {
         return (
@@ -40,6 +83,32 @@ class ProjectDetails extends Component {
                 <Table singleLine selectable>
                     <Table.Header>
                         <h1>Project Employees</h1>
+                        {/* PROJECT EMPLOYEES MODAL */}
+                        <Modal
+                            onClose={this.closeEmployeeModal}
+                            open={this.state.employeeModal}
+                            trigger={<Button onClick={() => { this.setState({ employeeModal: true }) }}>Add Employee</Button>} closeIcon>
+                            <Modal.Header>Add Employee</Modal.Header>
+                            <Modal.Content>
+                                <Modal.Description>
+                                    <Header>Add Employee To Project</Header>
+
+                                    <Form
+                                        className="form"
+                                        title="     "
+                                        model={[
+                                            { key: "employee_id", label: "Employee ID", type: "text", props: { required: true } },
+                                            { key: "project_id", label: "Project", type: "text", props: { required: true } },
+                                            { key: "role", label: "Project Role", type: "text", props: { required: true } },
+                                        ]}
+                                        onSubmit={(model) => { this.onSubmitEmployeeModal(model) }}
+                                    // onDelete={(model) => { this.onDeleteEmployee(model) }}
+                                    />
+
+                                </Modal.Description>
+                            </Modal.Content>
+                        </Modal>
+
                         <Table.Row>
                             <Table.HeaderCell>Employee ID</Table.HeaderCell>
                             <Table.HeaderCell>First Name</Table.HeaderCell>
@@ -68,6 +137,33 @@ class ProjectDetails extends Component {
                 <Table singleLine selectable>
                     <Table.Header>
                         <h1>Project Assignments</h1>
+                        {/* PROJECT ASSIGNMENTS MODAL */}
+                        <Modal
+                            onClose={this.closeAssignmentModal}
+                            open={this.state.assignmentModal}
+                            trigger={<Button onClick={() => { this.setState({ assignmentModal: true }) }}>Add Assignment</Button>} closeIcon>
+                            <Modal.Header>Create Project Assignments</Modal.Header>
+                            <Modal.Content image>
+                                <Modal.Description>
+                                    {/* <Header>Add Assignments To Project</Header> */}
+                                    <Form className="form"
+                                        title=" "
+                                        model={[
+                                            { key: "assignment_name", label: "Assignment Name", type: "text", props: { required: true } },
+                                            { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
+                                            { key: "assignment_end_date", label: "End Date", type: "text", props: { required: true } },
+                                            { key: "status_id", label: "Status ID", type: "text", props: { required: true } },
+                                            { key: "project_id", label: "Project ID", type: "text", props: { required: true } },
+                                            { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
+                                            { key: "assignment_final_hours", label: "Elapsed Hours", type: "text", props: { required: true } }
+                                        ]}
+                                        onSubmit={(model) => { this.onSubmitAssignmentModal(model); }}
+                                        onDelete={(model) => { this.onDeleteAssignment(model) }}
+                                    />
+                                </Modal.Description>
+                            </Modal.Content>
+                        </Modal>
+
                         <Table.Row>
                             <Table.HeaderCell>Assignment</Table.HeaderCell>
                             <Table.HeaderCell>Status</Table.HeaderCell>
@@ -110,6 +206,9 @@ const mapDispatchToProps = dispatch => ({
     getProjectById: (id) => dispatch(getProjectById(id)),
     getEmployeesInProject: (id) => dispatch(getEmployeesInProject(id)),
     getAssignmentsInProject: (id) => dispatch(getAssignmentsInProject(id)),
+    submitAssignment: (model) => dispatch(submitAssignment(model)),
+    submitProjectRole:(model) => dispatch(submitProjectRole(model)),
+    submitEmployee: (model) => dispatch(submitEmployee(model)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);

@@ -128,7 +128,21 @@ const getAllProjectRoles = async (req, res) => {
         res.send({ role })
     } catch (e) {
         res.status(500).json({ message: e.message })
-        res.status(404).json({ message: e })
+        res.status(404).json({ message: e.message  })
+    }
+}
+
+const createProjectRole = async (req,res) => {
+    try {
+        let { employee_id, project_id, role } = req.body;
+        let project_role = await db.one(
+            `INSERT INTO project_roles(employee_id, project_id, role)
+            VALUES($1, $2, $3)
+            RETURNING project_roles.employee_id, project_roles.project_id, project_roles.role`,
+            [employee_id, project_id, role ])
+            res.status(200).send({ project_role })
+    } catch(e) {
+        res.status(500).json({ message: e.message })
     }
 }
 
@@ -164,5 +178,5 @@ module.exports = {
     index, getAllProjects, getProjectById, 
     addProject, deleteProject, updateProject, 
     getAllProjectRoles, updateProjectRole, deleteProjectRole,
-    getEmployeesInProject, getAssignmentByProjectId
+    getEmployeesInProject, getAssignmentByProjectId, createProjectRole
 }

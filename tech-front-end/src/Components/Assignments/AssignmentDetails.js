@@ -1,7 +1,4 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { getAssignmentById, getAssignmentEmployees } from '../../Redux/Actions/';
+import PropTypes from "prop-types";
 
 class AssignmentDetails extends Component {
 

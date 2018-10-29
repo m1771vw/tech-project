@@ -45,7 +45,9 @@ class AssignmentDetails extends Component {
 
 const mapStateToProps = ({assignmentReducer}) => ({
     assignment: assignmentReducer.assignment,
-    assignmentEmployees: assignmentReducer.assignmentEmployees
+    assignmentEmployees: assignmentReducer.assignmentEmployees,
+
+    
 })
 
 const mapDispatchToProps = dispatch => ({

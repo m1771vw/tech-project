@@ -6,7 +6,7 @@ const initialState = {
     token: null
 }
 const loginReducer = (state = initialState, action) => {
-    console.log("LOGIN REDUCER: ", action);
+    // console.log("LOGIN REDUCER: ", action);
     switch(action.type) {
         case LOGIN_REQUEST:
         return {
@@ -17,6 +17,7 @@ const loginReducer = (state = initialState, action) => {
         return {
           ...state,
           isAuthenticating: false,
+          token: null,
           errorMessage: action.errorMessage
         }
       case LOGIN_SUCCESS:

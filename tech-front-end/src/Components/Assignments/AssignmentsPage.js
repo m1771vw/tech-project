@@ -15,7 +15,7 @@ class AssignmentsPage extends Component {
     }
 
     fetchAllAssignments = () => {
-        this.props.getAllAssignments();
+        this.props.getAllAssignments(this.props.token);
     }
 
     render() {
@@ -88,12 +88,13 @@ class AssignmentsPage extends Component {
     }
 }
 
-const mapStateToProps = ({ assignmentReducer }) => ({
-    assignments: assignmentReducer.assignments
+const mapStateToProps = ({ assignmentReducer, loginReducer }) => ({
+    assignments: assignmentReducer.assignments,
+    token: loginReducer.token
 })
 
 const mapDispatchToProps = dispatch => ({
-    getAllAssignments: () => dispatch(getAllAssignments()),
+    getAllAssignments: (token) => dispatch(getAllAssignments(token)),
     deleteAssignment: id => dispatch(deleteAssignment(id))
 })
 

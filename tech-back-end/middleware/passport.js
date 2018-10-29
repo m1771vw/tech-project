@@ -33,6 +33,7 @@ passport.use(new BasicStrategy((username, password, next) => {
         }
     }).catch(err => {
         console.log("Error:", err);
+        next(null, false)
     })
         // User.findOne({ username }, function(err, user) {
         //     if (err) return next(err, false) // If find error, return an error

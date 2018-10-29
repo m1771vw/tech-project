@@ -61,12 +61,17 @@ export const submitLogin = loginBody => async dispatch => {
  * Assignment Actions
  */
 
-export const getAllAssignments = () => async dispatch => {
+export const getAllAssignments = (token) => async dispatch => {
     try {
-        let response = await axios.get('http://localhost:5000/api/assignments/all');
+        console.log("Action GetAllAssignments Token:", token);
+        let response = await axios.get('http://localhost:5000/api/assignments/all', {
+            headers: {
+                'Authorization': 'bearer ' + token
+            }
+        });
         dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments })
     } catch (e) {
-        console.log("Get All Assignment Error", e);
+        console.log("Get All Assignment Error", e.response.data);
     }
 }
 

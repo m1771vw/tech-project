@@ -39,7 +39,8 @@ class App extends Component {
 
   }
   componentDidMount() {
-    this.props.getAllAssignments();
+    // console.log("App.js Token: ", this.props.token);
+    this.props.getAllAssignments(this.props.token);
     this.props.getAllProjects();
     this.props.getAllEmployees();
   }
@@ -245,6 +246,9 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = ({loginReducer}) => ({
+  token: loginReducer.token
+})
 const mapDispatchToProps = dispatch => ({
   // submitForms: () => dispatch(submitForms()),
   submitProject: (project) => dispatch(submitProject(project)),
@@ -263,4 +267,4 @@ const mapDispatchToProps = dispatch => ({
 
 })
 
-export default withRouter(connect(null, mapDispatchToProps)(App));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

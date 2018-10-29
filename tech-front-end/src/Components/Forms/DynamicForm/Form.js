@@ -7,7 +7,20 @@ class Forms extends Component {
     state = {
 
     }
-   
+    componentDidMount() {
+        if(this.props.location !== undefined) { 
+        console.log("Keys:", Object.keys(this.props.location.state));
+        let stateKeys = Object.keys(this.props.location.state);
+        for(let i = 0; i < stateKeys.length; i++) {
+            this.setState({
+                [stateKeys[i]]: this.props.location.state[stateKeys[i]]
+            })
+        }
+    }
+       
+        // console.log("Forms: ", this.props.location.state);
+    }
+
     shouldComponentUpdate(nextProps) {
         if(nextProps.location !== this.props.location) {
             return true;
@@ -38,11 +51,15 @@ class Forms extends Component {
     //grab the model
     renderForm = () => {
         let model = this.props.model;
+        let stateValues = Object.values(this.props.location.state);
+        let stateKeys = Object.keys(this.props.location.state);
+        console.log("State:", this.state);
         //loop thorugh all the metadata
-        let formUI = model.map((m) => {
+        let formUI = model.map((m, index) => {
             let key = m.key;
             let type = m.type || "text"; //default to "text"
             let props = m.props || {};  // default to empty object
+            
 
             return (
                 <div key={key} className="form-group">
@@ -59,6 +76,7 @@ class Forms extends Component {
                     className="form-input"
                     type={type}
                     key={"i" + m.key}
+                    // value={this.state[stateKeys[index]]}
                     //event handler
                     onChange={(e) => { this.onChange(e, key) }}
                 />
@@ -92,8 +110,7 @@ class Forms extends Component {
 
     render() {
         let title = this.props.title || "Default Form"  //Or render "default"
-        return (
-            
+        return (    
             <Grid className={this.props.className}>
             <Grid.Column style={{ maxWidth: 800 }}>
                 <Form >
@@ -103,8 +120,6 @@ class Forms extends Component {
                     {this.renderForm()}
                     <div className="form-group">
                         <Button primary onClick={(e) => { this.onSubmit(e) }} type="submit">Submit</Button>
-                        <Button Secondary onClick={(e) => { this.onUpdate(e) }}>Update</Button>
-                        <Button color='red' onClick={(e) => { this.onDelete(e) }}>x</Button>
                         {/* /temp button */}
                     </div>
                 </Form.Field>
@@ -114,9 +129,6 @@ class Forms extends Component {
             </Grid>
         )
     }
-
-
-
 }
 
 export default Forms;

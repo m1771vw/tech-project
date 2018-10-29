@@ -1,4 +1,5 @@
-import { ADD_ASSIGNMENT, REMOVE_ASSIGNMENT, UPDATE_ASSIGNMENT, GET_ALL_ASSIGNMENTS } from '../Constants';
+import { ADD_ASSIGNMENT, REMOVE_ASSIGNMENT, UPDATE_ASSIGNMENT, 
+    GET_ALL_ASSIGNMENTS, GET_ASSIGNMENT_BY_ID, GET_ASSIGNMENT_EMPLOYEES } from '../Constants';
 
 const initialState = {
     assignments: [
@@ -21,7 +22,9 @@ const initialState = {
     //     estHours: "1",
     //     elapsHours: "1"
     // }
-]
+    ],
+    assignment: {},
+    assignmentEmployees: []
 }
 const assignmentReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -30,6 +33,17 @@ const assignmentReducer = (state = initialState, action) => {
                 ...state,
                 assignments: [...action.payload]
             };
+        case GET_ASSIGNMENT_BY_ID:
+        console.log("Inside Assignment Reducer, GET_ASSIGNMENT_BY_ID:",action.payload);
+            return {
+                ...state,
+                assignment: action.payload
+            };
+        case GET_ASSIGNMENT_EMPLOYEES:
+            return {
+                ...state,
+                assignmentEmployees: action.payload
+            }
         case ADD_ASSIGNMENT:
         console.log("Inside ASSIGNMENT reducer add ASSIGNMENT");
         console.log('ASSIGNMENT Data:',state.assignments);

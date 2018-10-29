@@ -1,4 +1,8 @@
-import { ADD_PROJECT, REMOVE_PROJECT, UPDATE_PROJECT, GET_ALL_PROJECTS, GET_ALL_PROJECT_ROLES, UPDATE_PROJECT_ROLES, REMOVE_PROJECT_ROLES } from '../Constants';
+import { ADD_PROJECT, REMOVE_PROJECT, UPDATE_PROJECT, 
+    GET_ALL_PROJECTS, GET_PROJECT_BY_ID, GET_ALL_PROJECT_ROLES, 
+    UPDATE_PROJECT_ROLES, REMOVE_PROJECT_ROLES, GET_EMPLOYEES_IN_PROJECT ,
+    GET_ASSIGNMENTS_IN_PROJECT
+} from '../Constants';
 const initialState = {
     projects: [{
         name: "AXOS",
@@ -7,8 +11,10 @@ const initialState = {
     }],
     project_role: [{
         role: '???',
-
-    }]
+    }],
+    project_by_id: {},
+    projectEmployees:[{}],
+    projectAssignments:[{}]
 }
 const projectReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -17,6 +23,21 @@ const projectReducer = (state = initialState, action) => {
                 ...state,
                 projects: [...action.payload]
             };
+        case GET_PROJECT_BY_ID:
+            return{
+                ...state,
+                project_by_:action.payload
+            };
+        case GET_EMPLOYEES_IN_PROJECT:
+            return {
+                ...state,
+                projectEmployees:[...action.payload]
+            };
+        case GET_ASSIGNMENTS_IN_PROJECT:
+        return{
+            ...state,
+            projectAssignments: [...action.payload]
+        }
         case ADD_PROJECT:
             return {
                 ...state,

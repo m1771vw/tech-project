@@ -159,9 +159,8 @@ export const getAllProjects = () => async dispatch => {
     }
 }
 
-export const getProjectById = (id) => async dispatch => {
+export const getProjectById = id => async dispatch => {
     try {
-        let id = 1;
         let response = await axios.get(`http://localhost:5000/api/projects/id/${id}`);
         dispatch({ type: GET_PROJECT_BY_ID, payload: response.data.project})
     } catch (e) {
@@ -169,9 +168,8 @@ export const getProjectById = (id) => async dispatch => {
     }
 }
 
-export const getEmployeesInProject = () => async dispatch => {
+export const getEmployeesInProject = id => async dispatch => {
     try{
-        let id = 1;
         let response = await axios.get(`http://localhost:5000/api/projects/id/${id}/employees`);
         console.log('THIS IS THE RESPONSE: ', response)
         dispatch({ type: GET_EMPLOYEES_IN_PROJECT, payload: response.data.employees })
@@ -180,9 +178,8 @@ export const getEmployeesInProject = () => async dispatch => {
     }
 }
 
-export const getAssignmentsInProject = () => async dispatch => {
+export const getAssignmentsInProject = id => async dispatch => {
     try {
-        let id = 1;
         let response = await axios.get(`http://localhost:5000/api/projects/id/${id}/assignments`);
         console.log('assignment response: ', response)
         dispatch({ type: GET_ASSIGNMENTS_IN_PROJECT, payload: response.data.assignments })
@@ -221,7 +218,7 @@ export const updateProject = (project, id) => async dispatch => {
 
 export const getAllProjectRoles = () => async dispatch => {
     try {
-        let response = await axios.get('http://localhost:5000/api/projects/oles/all')
+        let response = await axios.get('http://localhost:5000/api/projects/roles/all')
         console.log("GET PROJECT ROLES:", response)
         dispatch({ type: GET_ALL_PROJECT_ROLES, payload: response.data.role })
     } catch (e) {

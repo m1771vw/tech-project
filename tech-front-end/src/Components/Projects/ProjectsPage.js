@@ -59,7 +59,7 @@ class ProjectsPage extends Component {
 
                                             <Table.Row key={project_id + project_name}>
                                                 <Table.Cell> {project_id}</Table.Cell>
-                                                <Table.Cell>{project_name}</Table.Cell>
+                                                <Table.Cell selectable><Link to={`/projects/details/${project_id}`}>{project_name}</Link></Table.Cell>
                                                 <Table.Cell>{project_start_date}</Table.Cell>
                                                 <Table.Cell>{project_end_date}</Table.Cell>
                                                 <Table.Cell>

@@ -1,6 +1,9 @@
 import axios from 'axios';
 import {
     LOGIN,
+    LOGIN_REQUEST,
+    LOGIN_SUCCESS,
+    LOGIN_FAILURE,
     GET_ALL_ASSIGNMENTS,
     GET_ALL_EMPLOYEES,
     GET_ALL_PROJECTS,
@@ -25,6 +28,7 @@ import {
 }
     from '../Constants';
 
+import jwtDecode from 'jwt-decode';
 /**
  * Login Actions
  */
@@ -33,6 +37,7 @@ export const submitLogin = loginBody => async dispatch => {
     let username = loginBody.username;
     let password = loginBody.password;
     try {
+        dispatch({ type: LOGIN_REQUEST })
         console.log("ACTION: SUBMIT LOGIN: ", loginBody);
         let response = await axios.post('http://localhost:5000/api/login', null, {
             auth: {
@@ -41,9 +46,14 @@ export const submitLogin = loginBody => async dispatch => {
             }
         });
         console.log("Response:", response);
-        dispatch({ type: LOGIN, payload: response.data })
+        console.log("Decode:", jwtDecode(response.data.token).id)
+        dispatch({ type: LOGIN_SUCCESS, token: response.data.token, user: jwtDecode(response.data.token).id})
     } catch (e){
-        console.log("ERROR", e.response.data);
+        dispatch({
+            type: LOGIN_FAILURE,
+            errorMessage: e.response && e.response.data
+          })
+        if(e.response !== undefined) console.log("ERROR:", e.response.data);
     }
 }
 

@@ -1,25 +1,19 @@
 import React, { Component } from 'react';
 import projectReducer from '../../Redux/Reducers/Project';
 // import AssignmentsPage from '../Assignments/AssignmentsPage';
-import { 
-    getAllProjects, getAllProjectRoles, getProjectById, 
-    getEmployeesInProject, getAssignmentsInProject 
-} from '../../Redux/Actions/index';
+import { getAllProjects, getAllProjectRoles, getProjectById, getEmployeesInProject, getAssignmentsInProject } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
 import { Table } from 'semantic-ui-react';
 
 class ProjectDetails extends Component {
-    state = {
-
-    }
+    state = {}
 
     async componentDidMount() {
         await this.fetchProjectById();
         await this.fetchEmployees();
         await this.fetchAssignments();
     }
-
 
     fetchProjectById = async () => {
         await this.props.getProjectById();
@@ -33,11 +27,11 @@ class ProjectDetails extends Component {
         await this.props.getAssignmentsInProject();
     }
 
-
     render() {
         return (
             <div>
-                <h1>Project Overview </h1>
+                <h1>Project Overview
+                </h1>
                 <Table singleLine>
                     <Table.Header>
                         <h1>{this.props.project_by_id.project_name}</h1>
@@ -60,11 +54,14 @@ class ProjectDetails extends Component {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {this.props.projectEmployees &&
-                            this.props.projectEmployees.map((e) => {
+                        {this.props.projectEmployees && this
+                            .props
+                            .projectEmployees
+                            .map((e) => {
                                 return (
                                     <Table.Row key={e.employee_id + e.first_name}>
-                                        <Table.Cell> {e.employee_id}</Table.Cell>
+                                        <Table.Cell>
+                                            {e.employee_id}</Table.Cell>
                                         <Table.Cell>{e.first_name}</Table.Cell>
                                         <Table.Cell>{e.last_name}</Table.Cell>
                                         <Table.Cell>{e.position}</Table.Cell>
@@ -87,11 +84,14 @@ class ProjectDetails extends Component {
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                        {this.props.projectAssignments &&
-                            this.props.projectAssignments.map((a) => {
+                        {this.props.projectAssignments && this
+                            .props
+                            .projectAssignments
+                            .map((a) => {
                                 return (
                                     <Table.Row key={a.assignment_id + a.assignment_name}>
-                                        <Table.Cell> {a.assignment_name}</Table.Cell>
+                                        <Table.Cell>
+                                            {a.assignment_name}</Table.Cell>
                                         <Table.Cell>{a.status_name}</Table.Cell>
                                         <Table.Cell>{a.assignment_start_date}</Table.Cell>
                                         <Table.Cell>{a.assignment_end_date}</Table.Cell>
@@ -102,29 +102,20 @@ class ProjectDetails extends Component {
                             })}
                     </Table.Body>
                 </Table>
-            
 
             </div>
         );
     }
 }
 
-
-const mapStateToProps = ({ projectReducer }) => ({
-    projects: projectReducer.projects,
-    project_roles: projectReducer.project_roles,
-    project_by_id: projectReducer.project_by_id,
-    projectEmployees: projectReducer.projectEmployees,
-    projectAssignments: projectReducer.projectAssignments
-
-})
+const mapStateToProps = ({ projectReducer }) => ({ projects: projectReducer.projects, project_roles: projectReducer.project_roles, project_by_id: projectReducer.project_by_id, projectEmployees: projectReducer.projectEmployees, projectAssignments: projectReducer.projectAssignments })
 
 const mapDispatchToProps = dispatch => ({
     getAllProjects: () => dispatch(getAllProjects()),
     getAllProjectRoles: () => dispatch(getAllProjectRoles()),
     getProjectById: () => dispatch(getProjectById()),
     getEmployeesInProject: () => dispatch(getEmployeesInProject()),
-    getAssignmentsInProject: () => dispatch(getAssignmentsInProject()),
+    getAssignmentsInProject: () => dispatch(getAssignmentsInProject())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);

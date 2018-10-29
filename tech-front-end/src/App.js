@@ -71,10 +71,9 @@ class App extends Component {
     this.props.updateAssignment(assignment, index);
   }
 
-  onUpdateEmployee = (employee) => {
+  onUpdateEmployee = (employee, id) => {
     console.log("Updating toward Map Dispatch")
-    let index = 0
-    this.props.updateEmployee(employee, index);
+    this.props.updateEmployee(employee, id);
   }
 
   onUpdateProject = (project) => {

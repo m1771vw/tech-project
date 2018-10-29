@@ -59,6 +59,7 @@ class EmployeesPage extends Component {
                                                     <Link to={{
                                                     pathname: `/employee/edit/${employee_id}`,
                                                     state: {
+                                                        employee_id: employee_id,
                                                         first_name: first_name,
                                                         last_name: last_name,
                                                         position: position,

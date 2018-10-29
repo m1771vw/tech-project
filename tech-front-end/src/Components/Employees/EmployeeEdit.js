@@ -31,7 +31,7 @@ class EmployeeEdit extends Component {
 
     onSubmit = e => {
         e.preventDefault();
-        if (this.props.onSubmit) this.props.onSubmit(this.state, this.props.location.state.assignment_id)
+        if (this.props.onSubmit) this.props.onSubmit(this.state, this.props.location.state.employee_id)
     }
 
     onDelete = e => {
@@ -41,7 +41,7 @@ class EmployeeEdit extends Component {
 
     onUpdate = e => {
         e.preventDefault();
-        this.props.onUpdate(this.state)
+        this.props.onUpdate(this.state, this.props.location.state.employee_id)
     }
 
     onChange = (e) => {

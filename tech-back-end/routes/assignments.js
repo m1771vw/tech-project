@@ -2,12 +2,13 @@ const router = require('express').Router();
 const {
     index, getAllAssignments, getAssignmentById, addAssignment, updateAssignment, deleteAssignment
 } = require('./../controllers/assignments-controllers');
+const { isAuthorized } = require('../middleware/authorization');
 
-router.get('/', index);
-router.get('/all', getAllAssignments);
-router.get('/id/:id', getAssignmentById);
-router.post('/', addAssignment);
-router.put('/:id', updateAssignment)
-router.delete('/:id', deleteAssignment);
+router.get('/', isAuthorized, index);
+router.get('/all', isAuthorized, getAllAssignments);
+router.get('/id/:id', isAuthorized, getAssignmentById);
+router.post('/', isAuthorized, addAssignment);
+router.put('/:id', isAuthorized, updateAssignment)
+router.delete('/:id', isAuthorized, deleteAssignment);
 
 module.exports = router;

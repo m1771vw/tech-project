@@ -10,7 +10,6 @@ class AssignmentsPage extends Component {
         assignments: []
     }
     componentDidMount() {
-        console.log("Trying to fetch all assignments");
         this.fetchAllAssignments();
     }
 
@@ -68,13 +67,17 @@ class AssignmentsPage extends Component {
                                             <Table.Cell selectable><Link to={`/assignments/details/${assignment_id}`}>{assignment_final_hours}</Link></Table.Cell>
                                             <Table.Cell>
                                                 <Link to={{
-                                                    pathname: '/update-assignment',
+                                                    pathname: `/assignments/edit/${assignment_id}`,
                                                     state: {
+                                                        
                                                         assignment_name: assignment_name,
                                                         assignment_start_date: assignment_start_date,
                                                         assignment_end_date: assignment_end_date,
+                                                        project_id: project_id,
+                                                        status_id: status_id,
                                                         assignment_est_hours: assignment_est_hours,
                                                         assignment_final_hours: assignment_final_hours,
+                                                        assignment_id: assignment_id
                                                     }
                                                 }}><Button secondary>Update</Button></Link>
                                                 <Button color='red' onClick={() => this.props.deleteAssignment(assignment_id)}>Delete</Button>

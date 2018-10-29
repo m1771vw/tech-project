@@ -12,7 +12,7 @@ router.get('/', isAuthorized, index);
 router.get('/all', isAuthorized, getAllEmployees);
 router.get('/id/:id', isAuthorized, getEmployeeById);
 router.post('/', isAuthorized, addEmployee);
-router.put('/:id', isAuthorized, updateEmployee)
+router.put('/id/:id', isAuthorized, updateEmployee)
 router.delete('/:id', isAuthorized, deleteEmployee);
 
 /**

@@ -74,7 +74,6 @@ export const submitLogin = loginBody => async dispatch => {
 export const getAllAssignments = () => async dispatch => {
     try {
         console.log("Action GetAllAssignments Token:", localStorage.authToken);
-        console.log("")
         let response = await axios.get('http://localhost:5000/api/assignments/all', {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
@@ -142,8 +141,7 @@ export const deleteAssignment = id => async dispatch => {
 
 export const updateAssignment = (assignment, id) => async dispatch => {
     try {
-        let id = 20;
-        let response = await axios.put(`http://localhost:5000/api/assignments/${id}`, assignment, {
+        let response = await axios.put(`http://localhost:5000/api/assignments/id/${id}`, assignment, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
@@ -205,8 +203,7 @@ export const deleteEmployee = id => async dispatch => {
 
 export const updateEmployee = (employee, id) => async dispatch => {
     try {
-        let id = 27;
-        let response = await axios.put(`http://localhost:5000/api/employees/${id}`, employee, {
+        let response = await axios.put(`http://localhost:5000/api/employees/id/${id}`, employee, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
             }

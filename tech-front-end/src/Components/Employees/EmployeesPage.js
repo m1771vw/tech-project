@@ -55,7 +55,16 @@ class EmployeesPage extends Component {
                                                 <Table.Cell>{last_name}</Table.Cell>
                                                 <Table.Cell>{position}</Table.Cell>
                                                 <Table.Cell>
-                                                    <Link to='/update-employee'><Button secondary>Update</Button></Link>
+                                                    {/* <Link to='/update-employee'><Button secondary>Update</Button></Link> */}
+                                                    <Link to={{
+                                                    pathname: `/employee/edit/${employee_id}`,
+                                                    state: {
+                                                        employee_id: employee_id,
+                                                        first_name: first_name,
+                                                        last_name: last_name,
+                                                        position: position,
+                                                    }
+                                                }}><Button secondary>Update</Button></Link>
                                                     <Button color='red' onClick={() => this.props.deleteEmployee(employee_id)}>Delete</Button>
                                                 </Table.Cell>
                                             </Table.Row>

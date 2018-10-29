@@ -32,14 +32,13 @@ import AssignmentsPage from "./Components/Assignments/AssignmentsPage";
 import ProjectsPage from "./Components/Projects/ProjectsPage";
 import AssignmentDetails from "./Components/Assignments/AssignmentDetails";
 import ProjectDetails from "./Components/Projects/ProjectDetails";
-import EmployeeDetails from "./Components/Projects/EmployeeDetails";
+import EmployeeDetails from "./Components/Employees/EmployeeDetails";
 
 class App extends Component {
   state = {
     employeeData: [],
     assignmentData: [],
-    projectData: [],
-    signupData: []
+    projectData: []
   };
   componentDidMount() {
     this.props.getAllAssignments();
@@ -101,14 +100,6 @@ class App extends Component {
     this.props.submitEmployee(model);
     this.setState({
       employeeData: [model, ...this.state.employeeData]
-    });
-  };
-
-  onSignupSubmit = model => {
-    let index = 0;
-    this.props.signUp(model);
-    this.setState({
-      signUpData: [model, ...this.state.assignmentData]
     });
   };
 

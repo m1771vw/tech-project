@@ -31,6 +31,7 @@ import AssignmentDetails from './Components/Assignments/AssignmentDetails';
 import ProjectDetails from './Components/Projects/ProjectDetails';
 import AssignmentEdit from './Components/Assignments/AssignmentEdit';
 import EmployeeDetails from './Components/Employees/EmployeeDetails';
+import EmployeeEdit from './Components/Employees/EmployeeEdit';
 
 class App extends Component {
   state = {
@@ -167,9 +168,6 @@ class App extends Component {
             //     { key: "assignment_final_hours", label: "Elapsed Hours", type: "text", props: { required: true } }
             //   ]}
               onSubmit={this.onUpdateAssignment}
-
-
-
             />}/>
 
           {/* Project Routes */}
@@ -231,7 +229,20 @@ class App extends Component {
               ]}
               onUpdate={(model) => { this.onUpdateEmployee(model) }}
             />} />
-
+          <Route path={`/employee/edit/:id`} render={(renderProps) =>
+            <EmployeeEdit {...renderProps}
+            // title="Input Assignment"
+            //   model={[
+            //     { key: "assignment_name", label: "Assign Name", type: "text", props: { required: true } },
+            //     { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
+            //     { key: "assignment_end_date", label: "End Date", type: "text", props: { required: true } },
+            //     { key: "status_id", label: "Status ID", type: "text", props: { required: true } },
+            //     { key: "project_id", label: "Project ID", type: "text", props: { required: true } },
+            //     { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
+            //     { key: "assignment_final_hours", label: "Elapsed Hours", type: "text", props: { required: true } }
+            //   ]}
+              onSubmit={this.onUpdateEmployee}
+            />}/>
           <Route path='/signup' component={(renderProps) =>
             <Form {...renderProps} className="form"
               title="Sign Up Today"

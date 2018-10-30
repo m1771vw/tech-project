@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAssignmentById, getAssignmentEmployees } from '../../Redux/Actions/';
 import loginReducer from '../../Redux/Reducers/Login';
+import {formatDate} from '../../util/DateHelper';
 
 class AssignmentDetails extends Component {
 
@@ -25,6 +26,7 @@ class AssignmentDetails extends Component {
     }
     
     render() {
+      
         let {assignment, assignmentEmployees} = this.props
         return (
             <div>
@@ -38,8 +40,8 @@ class AssignmentDetails extends Component {
                     )})}
                 </h2>
                 <h2>Status: {assignment.status_name}</h2>
-                <h2>Date Started: {assignment.assignment_start_date}</h2>
-                <h2>Date Due: {assignment.assignment_end_date}</h2>
+                <h2>Date Started: {assignment.assignment_start_date && formatDate(assignment.assignment_start_date)}</h2>
+                <h2>Date Due: {assignment.assignment_end_date && formatDate(assignment.assignment_end_date)}</h2>
                 <h2>Assignment Estimated Hours: {assignment.assignment_est_hours}</h2>
                 <h2>Assignment Final Elasped Hours: {assignment.assignment_final_hours}</h2>
                 </div>

@@ -17,6 +17,8 @@ class AssignmentsPage extends Component {
         this.props.getAllAssignments();
     }
 
+    
+
     render() {
         let { assignments } = this.props
         return (

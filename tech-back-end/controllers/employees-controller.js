@@ -80,10 +80,11 @@ const getAllEmployeeAssignments = async (req, res) => {
     try {
         let employee_id = req.params.e_id;
         let employee_assignments = await db.any(
-                `SELECT emp_assign_id, assignment_id, employee_id 
-                 FROM Employee_Assignments
-                 WHERE employee_id = $1`,
-                 [employee_id]
+            `SELECT ea.emp_assign_id, ea.assignment_id, ea.employee_id, a.assignment_id, a.assignment_name 
+             FROM Employee_Assignments as ea 
+             JOIN Assignments as a ON ea.assignment_id = a.assignment_id 
+             WHERE ea.employee_id = $1`,
+                [employee_id]
         )
         res.status(200).send({ employee_assignments })
     } catch (e) {
@@ -94,10 +95,11 @@ const getAllEmployeesToAssignment = async(req, res) => {
     try {
         let assignment_id = req.params.a_id;
         let assignment_employees = await db.any(
-                `SELECT ea.emp_assign_id, ea.assignment_id, ea.employee_id, e.first_name, e.last_name 
-                 FROM Employee_Assignments as ea
-                 INNER JOIN Employees as e ON ea.employee_id = e.employee_id
-                 WHERE assignment_id = $1`,
+                `SELECT ea.emp_assign_id, ea.assignment_id, ea.employee_id, e.first_name, e.last_name, a.assignment_id, a.assignment_name
+                FROM Employee_Assignments as ea
+                INNER JOIN Employees as e ON ea.employee_id = e.employee_id
+                INNER JOIN Assignments as a ON ea.assignment_id = a.assignment_id
+                WHERE ea.assignment_id = $1`,
                  [assignment_id]
         )
         res.status(200).send({ assignment_employees })

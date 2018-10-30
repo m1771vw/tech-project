@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
-import {Container, Button, Form, Message, Grid, Header, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
 class AssignmentEdit extends Component {
     state = {
@@ -13,25 +11,6 @@ class AssignmentEdit extends Component {
         assignment_est_hours: this.props.location.state.assignment_est_hours,
         assignment_final_hours: this.props.location.state.assignment_final_hours
     }
-//     componentDidMount() {
-//         if(this.props.location !== undefined) { 
-//         let stateKeys = Object.keys(this.props.location.state);
-//         for(let i = 0; i < stateKeys.length; i++) {
-//             this.setState({
-//                 [stateKeys[i]]: this.props.location.state[stateKeys[i]]
-//             })
-//         }
-//     }
-// }
-        // console.log("Forms: ", this.props.location.state);
-    
-
-    // shouldComponentUpdate(nextProps) {
-    //     console.log("checking component did update");
-    //     if(nextProps.location !== this.props.location) {
-    //         return true;
-    //     } return false;
-    // }
 
     onSubmit = e => {
         e.preventDefault();
@@ -120,58 +99,7 @@ class AssignmentEdit extends Component {
 
             </div>
         )
-        // let model = this.props.model;
-        // console.log("Model", model);
-        // let formUI = model.map((m, index) => {
-        //     let key = m.key;
-        //     let type = m.type || "text"; //default to "text"
-        //     let props = m.props || {};  // default to empty object
-
-
-        //     return (
-        //         <div key={index} className="form-group">
-        //         {/* form label */}
-        //         <label className="form-label"
-
-        //             htmlFor={m.key}>
-        //             {/* label text  */}
-        //             {m.label}
-        //         </label>
-        //         <input {...props}
-        //             //references every input element in array
-        //             // ref={(key) => { this[m.key] = key }}
-        //             className="form-input"
-        //             type={type}
-        //             name={this.state[key]}
-        //             value={this.state[key]}
-        //             //event handler
-        //             onChange={(e) => { this.onChange(e, key) }}
-        //         />
-        //     </div>
-                // <Form.Group key={key} className="form-group">
-                    
-                //     {/* form label */}
-                //     <Form.Input  className="form-label"
-                //         key={"l" + m.key}
-                //         htmlFor={m.key}>
-                //         {/* label text  */}
-                //         {m.label}
-                //     </Form.Input>
-                //     <Form.Input {...props}
-                //         //references every input element in array
-                //         ref={(key) => { this[m.key] = key }}
-                //         className="form-input"
-                //         type={type}
-                //         key={"i" + m.key}
-                //         //event handler
-                //         onChange={(e) => { this.onChange(e, key) }}
-                //       >
-                //       </Form.Input>
-                      
-                // </Form.Group>
-                // 
-            // );
-        // });
+        
         return formUI;
     }
 

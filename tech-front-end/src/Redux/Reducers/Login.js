@@ -1,4 +1,4 @@
-import { LOGIN, LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT } from '../Constants';
+import { LOGIN_REQUEST, LOGIN_FAILURE, LOGIN_SUCCESS, LOGOUT } from '../Constants';
 import jwtDecode from 'jwt-decode';
 
 

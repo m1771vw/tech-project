@@ -1,25 +1,10 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
-import { Container, Button, Form, Message, Grid, Header, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
 class Forms extends Component {
     state = {
 
     }
-    componentDidMount() {
-        // if(this.props.location !== undefined) { 
-        // console.log("Keys:", Object.keys(this.props.location.state));
-        // let stateKeys = Object.keys(this.props.location.state);
-        // for(let i = 0; i < stateKeys.length; i++) {
-        //     this.setState({
-        //         [stateKeys[i]]: this.props.location.state[stateKeys[i]]
-        //     })
-        // }
-    }
-       
-        // console.log("Forms: ", this.props.location.state);
-    
 
     shouldComponentUpdate(nextProps) {
         if (nextProps.location !== this.props.location) {

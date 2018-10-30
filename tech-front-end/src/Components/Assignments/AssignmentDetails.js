@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getAssignmentById, getAssignmentEmployees } from '../../Redux/Actions/';
-import loginReducer from '../../Redux/Reducers/Login';
 import {formatDate} from '../../util/DateHelper';
 
 class AssignmentDetails extends Component {

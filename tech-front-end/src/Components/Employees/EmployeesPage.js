@@ -18,9 +18,7 @@ class EmployeesPage extends Component {
   };
 
   render() {
-    console.log(this.props);
     let { employees } = this.props;
-
     return (
       <div>
         <Link to="/createEmployees">
@@ -45,7 +43,7 @@ class EmployeesPage extends Component {
                   let last_name = em.last_name;
                   let position = em.position;
                   return (
-                    <Table.Row selectable key={employee_id + first_name}>
+                    <Table.Row key={employee_id + first_name}>
                       <Table.Cell selectable>
                       <Link to={`/employees/details/${employee_id}`}>{first_name}</Link></Table.Cell>
                       <Table.Cell selectable>

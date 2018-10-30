@@ -1,6 +1,5 @@
 import axios from "axios";
 import {
-    LOGIN,
     LOGIN_REQUEST,
     LOGIN_SUCCESS,
     LOGIN_FAILURE,
@@ -75,7 +74,6 @@ export const submitLogin = loginBody => async dispatch => {
 
 export const getAllAssignments = () => async dispatch => {
     try {
-        console.log("Action GetAllAssignments Token:", localStorage.authToken);
         let response = await axios.get('http://localhost:5000/api/assignments/all', {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
@@ -166,7 +164,7 @@ export const getAllEmployees = () => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log("Assignment Response: ", response);
+        console.log("ACTION: GetAllEmployee Response: ", response);
         dispatch({ type: GET_ALL_EMPLOYEES, payload: response.data.employees })
     } catch (e) {
         console.log("Get All Employee Error", e);
@@ -182,7 +180,7 @@ export const getEmployeeById = id => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-      console.log("Single Employee Response: ", response);
+      console.log("ACTION: Single Employee Response: ", response);
       dispatch({ type: GET_EMPLOYEE_BY_ID, payload: response.data.employee });
     } catch (e) {
       console.log("Get Single Employee Error", e);
@@ -281,7 +279,7 @@ export const getAllProjects = () => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log("ALL PROJECTS Response: ", response);
+        console.log("ACTION: ALL PROJECTS Response: ", response);
         dispatch({ type: GET_ALL_PROJECTS, payload: response.data.projects })
     } catch (e) {
         console.log("Get All Projects Error", e);

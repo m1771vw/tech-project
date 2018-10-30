@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import Form from '../Forms/DynamicForm/Form';
-import projectReducer from '../../Redux/Reducers/Project';
-// import AssignmentsPage from '../Assignments/AssignmentsPage';
 import {
     getAllProjects, getAllProjectRoles, getProjectById,
     getEmployeesInProject, getAssignmentsInProject, submitAssignment,
     submitEmployee, submitProjectRole
 } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
-import LazyLoad from 'react-lazy-load';
 import { Table, Modal, Button, Header } from 'semantic-ui-react';
 import {formatDate} from '../../util/DateHelper'
 

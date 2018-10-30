@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { submitLogout } from '../Redux/Actions';
 import { connect } from 'react-redux';
-import { Table, Form, Segment, Button, Icon, Grid, Header, Message } from 'semantic-ui-react'
+import { Form, Segment, Button, Grid, Header } from 'semantic-ui-react'
 
 class Logout extends Component {
     state = {

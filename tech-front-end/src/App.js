@@ -5,7 +5,6 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { getAllAssignments, getAllProjects, getAllEmployees } from './Redux/Actions';
 
 import Navbar from './Components/Navbar'
-import Loader from './Components/LazyLoad';
 import Login from './Components/Login'
 import Logout from './Components/Logout'
 import Dashboard from './Components/Dashboard/Dashboard';
@@ -41,7 +40,7 @@ class App extends Component {
 
   }
   componentDidMount() {
-    // console.log("App.js Token: ", this.props.token);
+    console.log("Fetching initial data for store");
     this.props.getAllAssignments();
     this.props.getAllProjects();
     this.props.getAllEmployees();
@@ -61,7 +60,7 @@ class App extends Component {
     this.props.deleteProject(project, index);
   };
 
-  
+
 
   onUpdateAssignment = (assignment, index) => {
     console.log("Updating toward Map Dispatch")
@@ -118,7 +117,6 @@ class App extends Component {
           <Route path='/logout' component={Logout} />
           <Route exact path='/employees' component={EmployeesPage} />
           <Route exact path='/assignments' component={AssignmentsPage} />
-          <Route path='/employeedetails' component={EmployeeDetails} />
           <Route exact path='/projects' component={ProjectsPage} />
           <Route path={`/projects/details/:id`} render={(renderProps) => <ProjectDetails {...renderProps} />} />
 
@@ -141,18 +139,8 @@ class App extends Component {
           <Route path={`/assignments/details/:id`} render={(renderProps) => <AssignmentDetails {...renderProps} />} />
           <Route path={`/assignments/edit/:id`} render={(renderProps) =>
             <AssignmentEdit {...renderProps}
-            // title="Input Assignment"
-            //   model={[
-            //     { key: "assignment_name", label: "Assign Name", type: "text", props: { required: true } },
-            //     { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
-            //     { key: "assignment_end_date", label: "End Date", type: "text", props: { required: true } },
-            //     { key: "status_id", label: "Status ID", type: "text", props: { required: true } },
-            //     { key: "project_id", label: "Project ID", type: "text", props: { required: true } },
-            //     { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
-            //     { key: "assignment_final_hours", label: "Elapsed Hours", type: "text", props: { required: true } }
-            //   ]}
               onSubmit={this.onUpdateAssignment}
-            />}/>
+            />} />
 
           {/* Project Routes */}
 
@@ -168,21 +156,6 @@ class App extends Component {
               ]}
               onSubmit={(model) => { this.onProjectSubmit(model) }}
               onDelete={(model) => { this.onDeleteProject(model) }}
-            />} />
-
-          <Route path='/update-project' render={(renderProps) =>
-            <Form className="form"
-              {...renderProps}
-              title="Update Project"
-              model={[
-                { key: "project_name", label: "Assignment Name", type: "text", props: { required: true } },
-                { key: "project_start_date", label: "Start Date", type: "text", props: { required: true } },
-                { key: "project_end_date", label: "End Date", type: "text", props: { required: true } },
-                { key: "estHours", label: "Estimated Hours", type: "text", props: { required: true } },
-                { key: "elapsHours", label: "Elapsed Hours", type: "text", props: { required: true } }
-
-              ]}
-              onUpdate={(model) => { this.onUpdateProject(model) }}
             />} />
 
           {/* Employee Routes */}
@@ -204,32 +177,10 @@ class App extends Component {
             path={`/employees/details/:id`}
             render={renderProps => <EmployeeDetails {...renderProps} />}
           />
-          <Route path='/update-employee' render={(renderProps) =>  //Design form 'to-fill' data here
-            <Form
-              className="form"
-              {...renderProps}
-              title="Update Employee"
-              model={[
-                { key: "first_name", label: "Name", type: "text", props: { required: true } },
-                { key: "last_name", label: "Title", type: "text", props: { required: true } },
-                { key: "position", label: "Project", type: "text", props: { required: true } },
-              ]}
-              onUpdate={(model) => { this.onUpdateEmployee(model) }}
-            />} />
           <Route path={`/employee/edit/:id`} render={(renderProps) =>
             <EmployeeEdit {...renderProps}
-            // title="Input Assignment"
-            //   model={[
-            //     { key: "assignment_name", label: "Assign Name", type: "text", props: { required: true } },
-            //     { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
-            //     { key: "assignment_end_date", label: "End Date", type: "text", props: { required: true } },
-            //     { key: "status_id", label: "Status ID", type: "text", props: { required: true } },
-            //     { key: "project_id", label: "Project ID", type: "text", props: { required: true } },
-            //     { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
-            //     { key: "assignment_final_hours", label: "Elapsed Hours", type: "text", props: { required: true } }
-            //   ]}
               onSubmit={this.onUpdateEmployee}
-            />}/>
+            />} />
 
         </Switch>
       </div>
@@ -237,7 +188,7 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({loginReducer}) => ({
+const mapStateToProps = ({ loginReducer }) => ({
   token: loginReducer.token
 })
 const mapDispatchToProps = dispatch => ({

@@ -1,107 +1,18 @@
 import React, { Component } from 'react';
-import { getAllAssignments, deleteAssignment } from '../../Redux/Actions/index';
-import { connect } from 'react-redux';
-import LazyLoad from 'react-lazy-load'
-import { Button, Table, Header } from 'semantic-ui-react'
-import { Link } from 'react-router-dom';
+import AssignmentsTable from '../Assignments/AssignmentsTable';
 
 class AssignmentsPage extends Component {
-    state = {
-        assignments: []
-    }
-    componentDidMount() {
-        this.fetchAllAssignments();
-    }
-
-    fetchAllAssignments = () => {
-        this.props.getAllAssignments();
-    }
-
     render() {
-        let { assignments } = this.props
         return (
             <div>
-                <Link to='/createAssignments'><Button primary>Create</Button></Link>
-                <LazyLoad height={100} offsetVertical={300}>
-                    <div>
-                        <Header color='blue'>Assignment List</Header>
-                        <Table singleLine celled selectable>
-
-                            <Table.Header>
-                                <Table.Row>
-                                    <Table.HeaderCell>Assignment ID</Table.HeaderCell>
-                                    <Table.HeaderCell>Name</Table.HeaderCell>
-                                    <Table.HeaderCell>Project Name</Table.HeaderCell>
-                                    <Table.HeaderCell>Status</Table.HeaderCell>
-                                    <Table.HeaderCell>Start Date</Table.HeaderCell>
-                                    <Table.HeaderCell>End Date</Table.HeaderCell>
-                                    <Table.HeaderCell>Estimated Hours</Table.HeaderCell>
-                                    <Table.HeaderCell>Final Elapsed Hours</Table.HeaderCell>
-                                </Table.Row>
-                            </Table.Header>
-                            <Table.Body>
-
-                                {assignments.map((a) => {
-                                    let assignment_id = a.assignment_id || "Error Assign ID /"
-                                    let assignment_name = a.assignment_name || "Error Name /"
-                                    let project_id = a.project_id || "Error Project ID /"
-                                    let project_name = a.project_name || "Error Project ID /"
-                                    let status_id = a.status_id || "Error Status ID /"
-                                    let status_name = a.status_name || "Error Status ID /"
-                                    let assignment_start_date = a.assignment_start_date || "Error Assign Start /"
-                                    let assignment_end_date = a.assignment_end_date || "Error Assign End /"
-                                    let assignment_est_hours = a.assignment_est_hours || "Error Est Hours /"
-                                    let assignment_final_hours = a.assignment_final_hours || "Error Final Hours /"
-
-                                    return (
-                                        <Table.Row key={assignment_id + assignment_name}>
-
-
-                                            <Table.Cell selectable><Link to={`/assignments/details/${assignment_id}`}>{assignment_id}</Link></Table.Cell>
-                                            <Table.Cell selectable><Link to={`/assignments/details/${assignment_id}`}>{assignment_name}</Link></Table.Cell>
-                                            <Table.Cell selectable><Link to={`/assignments/details/${assignment_id}`}>{project_name}</Link></Table.Cell>
-                                            <Table.Cell selectable><Link to={`/assignments/details/${assignment_id}`}>{status_name}</Link></Table.Cell>
-                                            <Table.Cell selectable><Link to={`/assignments/details/${assignment_id}`}>{assignment_start_date}</Link></Table.Cell>
-                                            <Table.Cell selectable><Link to={`/assignments/details/${assignment_id}`}>{assignment_end_date}</Link></Table.Cell>
-                                            <Table.Cell selectable><Link to={`/assignments/details/${assignment_id}`}>{assignment_est_hours}</Link></Table.Cell>
-                                            <Table.Cell selectable><Link to={`/assignments/details/${assignment_id}`}>{assignment_final_hours}</Link></Table.Cell>
-                                            <Table.Cell>
-                                                <Link to={{
-                                                    pathname: `/assignments/edit/${assignment_id}`,
-                                                    state: {
-                                                        
-                                                        assignment_name: assignment_name,
-                                                        assignment_start_date: assignment_start_date,
-                                                        assignment_end_date: assignment_end_date,
-                                                        project_id: project_id,
-                                                        status_id: status_id,
-                                                        assignment_est_hours: assignment_est_hours,
-                                                        assignment_final_hours: assignment_final_hours,
-                                                        assignment_id: assignment_id
-                                                    }
-                                                }}><Button secondary>Update</Button></Link>
-                                                <Button color='red' onClick={() => this.props.deleteAssignment(assignment_id)}>Delete</Button>
-                                            </Table.Cell>
-                                        </Table.Row>
-                                    );
-                                })}
-                            </Table.Body>
-                        </Table>
-                    </div>
-                </LazyLoad>
+               <AssignmentsTable header={"All Assignments"} />
             </div>
         );
     }
 }
 
-const mapStateToProps = ({ assignmentReducer, loginReducer }) => ({
-    assignments: assignmentReducer.assignments,
-    token: loginReducer.token
-})
 
-const mapDispatchToProps = dispatch => ({
-    getAllAssignments: () => dispatch(getAllAssignments()),
-    deleteAssignment: id => dispatch(deleteAssignment(id))
-})
 
-export default connect(mapStateToProps, mapDispatchToProps)(AssignmentsPage);
+
+
+export default AssignmentsPage;

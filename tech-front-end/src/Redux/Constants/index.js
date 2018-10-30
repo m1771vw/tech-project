@@ -17,7 +17,8 @@ export const GET_ASSIGNMENT_EMPLOYEES = "GET_ASSIGNMENT_EMPLOYEES";
 export const ADD_ASSIGNMENT = "ADD_ASSIGNMENT";
 export const REMOVE_ASSIGNMENT = "REMOVE_ASSIGNMENT";
 export const UPDATE_ASSIGNMENT = "UPDATE_ASSIGNMENT";
-
+export const IN_ORDER          = "IN_ORDER";
+export const RECENT_ORDER      = "RECENT_ORDER";
 /**
  * Employee Constants
  */

@@ -140,7 +140,7 @@ class EmployeeEdit extends Component {
     }
 
     render() {
-        let title = "Assignment Edit"  //Or render "default"
+        let title = "Employee Edit"  //Or render "default"
         return (    
             <Grid className="form">
             <Grid.Column style={{ maxWidth: 800 }}>

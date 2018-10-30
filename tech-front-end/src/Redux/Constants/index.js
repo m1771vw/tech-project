@@ -1,7 +1,7 @@
 /**
- * Login Constants 
+ * Login Constants
  */
-export const LOGIN = 'LOGIN';
+export const LOGIN = "LOGIN";
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_FAILURE = 'LOGIN_FAILURE'
@@ -9,26 +9,28 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGOUT        = 'LOGOUT'
 
 /**
- * Assignment Constants 
+ * Assignment Constants
  */
-export const GET_ALL_ASSIGNMENTS = 'GET_ALL_ASSIGNMENTS';
-export const GET_ASSIGNMENT_BY_ID = 'GET_ASSIGNMENT_BY_ID';
-export const GET_ASSIGNMENT_EMPLOYEES = 'GET_ASSIGNMENT_EMPLOYEES';
-export const ADD_ASSIGNMENT     = 'ADD_ASSIGNMENT';
-export const REMOVE_ASSIGNMENT  = 'REMOVE_ASSIGNMENT';
-export const UPDATE_ASSIGNMENT  = 'UPDATE_ASSIGNMENT';
+export const GET_ALL_ASSIGNMENTS = "GET_ALL_ASSIGNMENTS";
+export const GET_ASSIGNMENT_BY_ID = "GET_ASSIGNMENT_BY_ID";
+export const GET_ASSIGNMENT_EMPLOYEES = "GET_ASSIGNMENT_EMPLOYEES";
+export const ADD_ASSIGNMENT = "ADD_ASSIGNMENT";
+export const REMOVE_ASSIGNMENT = "REMOVE_ASSIGNMENT";
+export const UPDATE_ASSIGNMENT = "UPDATE_ASSIGNMENT";
 
 /**
- * Employee Constants 
+ * Employee Constants
  */
-export const GET_ALL_EMPLOYEES   = 'GET_ALL_EMPLOYEES';
-export const ADD_EMPLOYEE       = 'ADD_EMPLOYEE';
-export const REMOVE_EMPLOYEE    = 'REMOVE_EMPLOYEE';
-export const UPDATE_EMPLOYEE    = 'UPDATE_EMPLOYEE';
-
+export const GET_ALL_EMPLOYEES = "GET_ALL_EMPLOYEES";
+export const ADD_EMPLOYEE = "ADD_EMPLOYEE";
+export const REMOVE_EMPLOYEE = "REMOVE_EMPLOYEE";
+export const UPDATE_EMPLOYEE = "UPDATE_EMPLOYEE";
+export const GET_EMPLOYEE_BY_ID = "GET_EMPLOYEE_BY_ID";
+export const GET_ALL_EMPLOYEE_TO_ASSIGNMENT = "GET_ALL_EMPLOYEE_TO_ASSIGNMENT";
+export const GET_ALL_EMPLOYEE_ASSIGNMENTS = "GET_ALL_EMPLOYEE_ASSIGNMENTS";
 
 /**
- * Project Constants 
+ * Project Constants
  */
 export const GET_ALL_PROJECTS   = 'GET_ALL_PROJECTS';
 export const GET_PROJECT_BY_ID = 'GET_PROJECT_BY_ID';

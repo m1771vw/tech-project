@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 import {
     LOGIN,
     LOGIN_REQUEST,
@@ -11,6 +11,8 @@ import {
     GET_ALL_PROJECT_ROLES,
     GET_ASSIGNMENT_BY_ID,
     GET_ASSIGNMENT_EMPLOYEES,
+    GET_ALL_EMPLOYEE_TO_ASSIGNMENT,
+    GET_ALL_EMPLOYEE_ASSIGNMENTS,
     GET_PROJECT_BY_ID,
     ADD_ASSIGNMENT,
     ADD_EMPLOYEE,
@@ -25,8 +27,8 @@ import {
     UPDATE_PROJECT,
     UPDATE_PROJECT_ROLES,
     GET_EMPLOYEES_IN_PROJECT,
-    GET_ASSIGNMENTS_IN_PROJECT
-
+    GET_ASSIGNMENTS_IN_PROJECT,
+    GET_EMPLOYEE_BY_ID
 }
     from '../Constants';
 
@@ -171,6 +173,60 @@ export const getAllEmployees = () => async dispatch => {
     }
 }
 
+export const getEmployeeById = id => async dispatch => {
+    try {
+      let response = await axios.get(
+        `http://localhost:5000/api/employees/id/${id}`
+        , {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+      console.log("Single Employee Response: ", response);
+      dispatch({ type: GET_EMPLOYEE_BY_ID, payload: response.data.employee });
+    } catch (e) {
+      console.log("Get Single Employee Error", e);
+    }
+  };
+
+  export const getAllEmployeesToAssignment = id => async dispatch => {
+    try {
+      let response = await axios.get(
+        `http://localhost:5000/api/employees/all/assignments/a_id/${id}`
+        , {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+      console.log("Assignment to all Employees Response: ", response);
+      dispatch({
+        type: GET_ALL_EMPLOYEE_TO_ASSIGNMENT,
+        payload: response.data.assignment_employees
+      });
+    } catch (e) {
+      console.log("Get Employees in Assignment Error", e);
+    }
+  };
+
+  export const getAllEmployeeAssignments = id => async dispatch => {
+    try {
+      let response = await axios.get(
+        `http://localhost:5000/api/employees/${id}/assignments/all`
+        , {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+      console.log("Assignments to the Employee Response: ", response);
+      dispatch({
+        type: GET_ALL_EMPLOYEE_ASSIGNMENTS,
+        payload: response.data.employee_assignments
+      });
+    } catch (e) {
+      console.log("Get Single Assignment Error", e);
+    }
+  };
+  
 export const submitEmployee = employee => async dispatch => {
     try {
         console.log("Trying to submit employee:", employee)

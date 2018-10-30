@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { getAllAssignments, getAllProjects, getAllEmployees } from './Redux/Actions';
@@ -22,7 +22,7 @@ import {
   updateAssignment,
   updateEmployee,
   updateProject
-} from './Redux/Actions';
+} from "./Redux/Actions";
 
 import EmployeesPage from './Components/Employees/EmployeesPage';
 import AssignmentsPage from './Components/Assignments/AssignmentsPage';
@@ -38,7 +38,6 @@ class App extends Component {
     employeeData: [],
     assignmentData: [],
     projectData: [],
-    signupData: []
 
   }
   componentDidMount() {
@@ -47,79 +46,65 @@ class App extends Component {
     this.props.getAllProjects();
     this.props.getAllEmployees();
   }
-  onDeleteEmployee = (employee) => {
-    let index = 1
+  onDeleteEmployee = employee => {
+    let index = 1;
     this.props.deleteEmployee(employee, index);
-  }
+  };
 
-  onDeleteAssignment = (assignment) => {
-    let index = 1
+  onDeleteAssignment = assignment => {
+    let index = 1;
     this.props.deleteAssignment(assignment, index);
+  };
 
-  }
-
-  onDeleteProject = (project) => {
-    let index = 1
+  onDeleteProject = project => {
+    let index = 1;
     this.props.deleteProject(project, index);
+  };
 
-  }
+  
 
   onUpdateAssignment = (assignment, index) => {
     console.log("Updating toward Map Dispatch")
     console.log("New Assignment: ", assignment);
     console.log("New Assignment ID: ", index);
     this.props.updateAssignment(assignment, index);
-  }
+  };
 
   onUpdateEmployee = (employee, id) => {
     console.log("Updating toward Map Dispatch")
     this.props.updateEmployee(employee, id);
   }
 
-  onUpdateProject = (project) => {
-    console.log("Updating toward Map Dispatch")
-    let index = 0
+  onUpdateProject = project => {
+    console.log("Updating toward Map Dispatch");
+    let index = 0;
     this.props.updateProject(project, index);
-  }
+  };
 
-
-  onProjectSubmit = (model) => {
+  onProjectSubmit = model => {
     //generate a unique model id# here
-    model.id = ""
+    model.id = "";
     this.props.submitProject(model);
     this.setState({
       projectData: [model, ...this.state.projectData]
-    })
-  }
+    });
+  };
 
-  onAssignmentSubmit = (model) => {
-    model.id = ""
+  onAssignmentSubmit = model => {
+    model.id = "";
     this.props.submitAssignment(model);
     this.setState({
       assignmentData: [model, ...this.state.assignmentData]
+    });
+  };
 
-    })
-  }
-
-  onEmployeeSubmit = (model) => {
-    model.id = ""
+  onEmployeeSubmit = model => {
+    model.id = "";
     this.props.submitEmployee(model);
     this.setState({
       employeeData: [model, ...this.state.employeeData]
-
-    })
-  }
-
-  onSignupSubmit = (model) => {
-    let index = 0
-    this.props.signUp(model);
-    this.setState({
-      signUpData: [model, ...this.state.assignmentData]
-
-    })
-  }
-
-
+    });
+  };
 
   render() {
     return (
@@ -131,7 +116,7 @@ class App extends Component {
           <Route exact path='/' component={Dashboard} />
           <Route path='/login' component={Login} />
           <Route path='/logout' component={Logout} />
-          <Route path='/employees' component={EmployeesPage} />
+          <Route exact path='/employees' component={EmployeesPage} />
           <Route exact path='/assignments' component={AssignmentsPage} />
           <Route path='/employeedetails' component={EmployeeDetails} />
           <Route exact path='/projects' component={ProjectsPage} />
@@ -215,7 +200,10 @@ class App extends Component {
               onDelete={(model) => { this.onDeleteEmployee(model) }}
 
             />} />
-
+          <Route
+            path={`/employees/details/:id`}
+            render={renderProps => <EmployeeDetails {...renderProps} />}
+          />
           <Route path='/update-employee' render={(renderProps) =>  //Design form 'to-fill' data here
             <Form
               className="form"
@@ -242,20 +230,7 @@ class App extends Component {
             //   ]}
               onSubmit={this.onUpdateEmployee}
             />}/>
-          <Route path='/signup' component={(renderProps) =>
-            <Form {...renderProps} className="form"
-              title="Sign Up Today"
-              model={[
-                { key: "First Name", label: "First Name", type: "text", props: { required: true } },
-                { key: "Last Name", label: "Last Name", type: "text", props: { required: true } },
-                { key: "Email", label: "Email", type: "text", props: { required: true } },
-                { key: "Password", label: "Password", type: "text", props: { required: true } },
-                { key: "Confirm Password", label: "Confirm Password", type: "text", props: { required: true } }
 
-              ]}
-              onSubmit={(model) => { this.onSignUp(model) }}
-
-            />} />
         </Switch>
       </div>
     );
@@ -267,15 +242,19 @@ const mapStateToProps = ({loginReducer}) => ({
 })
 const mapDispatchToProps = dispatch => ({
   // submitForms: () => dispatch(submitForms()),
-  submitProject: (project) => dispatch(submitProject(project)),
+  submitProject: project => dispatch(submitProject(project)),
   deleteProject: (project, index) => dispatch(deleteProject(project, index)),
   updateProject: (project, index) => dispatch(updateProject(project, index)),
-  submitEmployee: (employee) => dispatch(submitEmployee(employee)),
-  deleteEmployee: (employee, index) => dispatch(deleteEmployee(employee, index)),
-  updateEmployee: (employee, index) => dispatch(updateEmployee(employee, index)),
-  submitAssignment: (assignment) => dispatch(submitAssignment(assignment)),
-  deleteAssignment: (assignment, index) => dispatch(deleteAssignment(assignment, index)),
-  updateAssignment: (assignment, index) => dispatch(updateAssignment(assignment, index)),
+  submitEmployee: employee => dispatch(submitEmployee(employee)),
+  deleteEmployee: (employee, index) =>
+    dispatch(deleteEmployee(employee, index)),
+  updateEmployee: (employee, index) =>
+    dispatch(updateEmployee(employee, index)),
+  submitAssignment: assignment => dispatch(submitAssignment(assignment)),
+  deleteAssignment: (assignment, index) =>
+    dispatch(deleteAssignment(assignment, index)),
+  updateAssignment: (assignment, index) =>
+    dispatch(updateAssignment(assignment, index)),
   getAllAssignments: () => dispatch(getAllAssignments()),
   getAllProjects: () => dispatch(getAllProjects()),
   getAllEmployees: () => dispatch(getAllEmployees()),

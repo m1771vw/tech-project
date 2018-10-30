@@ -4,19 +4,21 @@ import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load'
 import { Button, Table, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
+import {formatDate} from '../../util/DateHelper'
 
 class AssignmentsPage extends Component {
     state = {
         assignments: []
     }
     componentDidMount() {
-        console.log("Trying to fetch all assignments");
         this.fetchAllAssignments();
     }
 
     fetchAllAssignments = () => {
         this.props.getAllAssignments();
     }
+
+
 
     render() {
         let { assignments } = this.props
@@ -49,8 +51,8 @@ class AssignmentsPage extends Component {
                                     let project_name = a.project_name || "Error Project ID /"
                                     let status_id = a.status_id || "Error Status ID /"
                                     let status_name = a.status_name || "Error Status ID /"
-                                    let assignment_start_date = a.assignment_start_date || "Error Assign Start /"
-                                    let assignment_end_date = a.assignment_end_date || "Error Assign End /"
+                                    let assignment_start_date = a.assignment_start_date && formatDate(a.assignment_start_date)
+                                    let assignment_end_date = a.assignment_end_date && formatDate(a.assignment_end_date)
                                     let assignment_est_hours = a.assignment_est_hours || "Error Est Hours /"
                                     let assignment_final_hours = a.assignment_final_hours || "Error Final Hours /"
 
@@ -68,13 +70,17 @@ class AssignmentsPage extends Component {
                                             <Table.Cell selectable><Link to={`/assignments/details/${assignment_id}`}>{assignment_final_hours}</Link></Table.Cell>
                                             <Table.Cell>
                                                 <Link to={{
-                                                    pathname: '/update-assignment',
+                                                    pathname: `/assignments/edit/${assignment_id}`,
                                                     state: {
+                                                        
                                                         assignment_name: assignment_name,
                                                         assignment_start_date: assignment_start_date,
                                                         assignment_end_date: assignment_end_date,
+                                                        project_id: project_id,
+                                                        status_id: status_id,
                                                         assignment_est_hours: assignment_est_hours,
                                                         assignment_final_hours: assignment_final_hours,
+                                                        assignment_id: assignment_id
                                                     }
                                                 }}><Button secondary>Update</Button></Link>
                                                 <Button color='red' onClick={() => this.props.deleteAssignment(assignment_id)}>Delete</Button>

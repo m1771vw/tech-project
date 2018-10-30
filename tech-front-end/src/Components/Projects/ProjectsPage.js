@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
 import { Button, Table, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
+import {formatDate} from '../../util/DateHelper'
 
 class ProjectsPage extends Component {
     state = {
@@ -60,8 +61,8 @@ class ProjectsPage extends Component {
                                             <Table.Row key={project_id + project_name}>
                                                 <Table.Cell> {project_id}</Table.Cell>
                                                 <Table.Cell selectable><Link to={`/projects/details/${project_id}`}>{project_name}</Link></Table.Cell>
-                                                <Table.Cell>{project_start_date}</Table.Cell>
-                                                <Table.Cell>{project_end_date}</Table.Cell>
+                                                <Table.Cell>{project_start_date && formatDate(project_start_date)}</Table.Cell>
+                                                <Table.Cell>{project_end_date && formatDate(project_end_date)}</Table.Cell>
                                                 <Table.Cell>
                                                     <Link to='/update-project'><Button secondary>Update</Button></Link>
                                                     <Button color='red' onClick={() => this.props.deleteProject(project_id)}>Delete</Button>

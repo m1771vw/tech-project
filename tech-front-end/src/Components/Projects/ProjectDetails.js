@@ -10,7 +10,7 @@ import {
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
 import { Table, Modal, Button, Header, Dropdown } from 'semantic-ui-react';
-
+import {formatDate} from '../../util/DateHelper'
 
 class ProjectDetails extends Component {
     state = {
@@ -84,8 +84,8 @@ class ProjectDetails extends Component {
                 <Table singleLine>
                     <Table.Header>
                         <h1>{this.props.project_by_id.project_name}</h1>
-                        <h5>Start Date: {this.props.project_by_id.project_start_date}</h5>
-                        <h5>End Date: {this.props.project_by_id.project_end_date}</h5>
+                        <h5>Start Date: {this.props.project_by_id.project_start_date && formatDate(this.props.project_by_id.project_start_date)}</h5>
+                        <h5>End Date: {this.props.project_by_id.project_end_date && formatDate(this.props.project_by_id.project_end_date)}</h5>
                         <Table.Row>
                             <Table.HeaderCell></Table.HeaderCell>
                         </Table.Row>
@@ -202,8 +202,8 @@ class ProjectDetails extends Component {
                                         <Table.Cell>
                                             {a.assignment_name}</Table.Cell>
                                         <Table.Cell>{a.status_name}</Table.Cell>
-                                        <Table.Cell>{a.assignment_start_date}</Table.Cell>
-                                        <Table.Cell>{a.assignment_end_date}</Table.Cell>
+                                        <Table.Cell>{a.assignment_start_date && formatDate(a.assignment_start_date)}</Table.Cell>
+                                        <Table.Cell>{a.assignment_end_date && formatDate(a.assignment_end_date)}</Table.Cell>
                                         <Table.Cell>{a.assignment_est_hours}</Table.Cell>
                                         <Table.Cell>{a.assignment_final_hours}</Table.Cell>
                                     </Table.Row>

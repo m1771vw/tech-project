@@ -84,7 +84,7 @@ const updateAssignment = async (req, res) => {
         } = req.body;
         let assignment_id = parseInt(req.params.id);
         await db.any('UPDATE assignments ' +
-            'SET assignment_name = $1, status_id = $2, assignment_start_date = $3, assignment_end_date = $4, assignment_est_hours = $5, assignment_final_hours = $6' +
+            'SET assignment_name = $1, status_id = $2, assignment_start_date = $3, assignment_end_date = $4, assignment_est_hours = $5, assignment_final_hours = $6 ' +
             'WHERE assignment_id = $7',
             [assignment_name,
             status_id,
@@ -105,6 +105,7 @@ const deleteAssignment = async (req, res) => {
         let assignment_id = parseInt(req.params.id);
         let assignment = await db.one('SELECT * FROM assignments WHERE assignment_id = $1', assignment_id);
         console.log("Assignment MESSAGE:", assignment)
+        await db.none(`DELETE FROM employee_assignments WHERE assignment_id = $1`, assignment_id);
         await db.none('DELETE FROM assignments WHERE assignment_id = $1', assignment_id);
         res.status(200).send({ message: assignment })
     } catch (e) {

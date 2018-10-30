@@ -5,7 +5,7 @@ import projectReducer from '../../Redux/Reducers/Project';
 import {
     getAllProjects, getAllProjectRoles, getProjectById,
     getEmployeesInProject, getAssignmentsInProject, submitAssignment,
-    submitEmployee, submitProjectRole
+    submitEmployee, submitProjectRole, searchEmployees
 } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
@@ -30,6 +30,7 @@ class ProjectDetails extends Component {
 
     async componentDidMount() {
         await this.fetchProjectData();
+        await this.searchEmployees
     }
 
     createAssignmentButton = (e) => {
@@ -107,16 +108,21 @@ class ProjectDetails extends Component {
                                     <Form
                                         className="form"
                                         title="     "
+                                        // renderDrop= {true}   
+                                        // placeholder='Testing'
+                                        options={this.state.dropDown}
+                                        // label='Choose Employee'
                                         model={[
-                                            { key: "employee_id", label: "Employee ID", type: "text", props: { required: true } },
+                                            // { key: "employee_id", label: "Employee ID", type: "text", props: { required: true } },
                                             { key: "project_id", label: "Project", type: "text", props: { required: true } },
                                             { key: "role", label: "Project Role", type: "text", props: { required: true } },
-                                            <Dropdown placeholder='Select Employee' fluid search selection options={this.state.dropDown} />
 
+                                            
                                         ]}
                                         onSubmit={(model) => { this.onSubmitEmployeeModal(model) }}
                                     // onDelete={(model) => { this.onDeleteEmployee(model) }}
                                     />
+                                        {/* <Dropdown placeholder='Select Employee' fluid search selection options={this.state.dropDown} /> */}
 
                                 </Modal.Description>
                             </Modal.Content>
@@ -226,6 +232,7 @@ const mapDispatchToProps = dispatch => ({
     submitAssignment: (model) => dispatch(submitAssignment(model)),
     submitProjectRole:(model) => dispatch(submitProjectRole(model)),
     submitEmployee: (model) => dispatch(submitEmployee(model)),
+    searchEmployees:() => dispatch(searchEmployees()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);

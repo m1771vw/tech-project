@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
-import { Container, Button, Form, Message, Grid, Header, Segment } from 'semantic-ui-react';
+import { Container, Button, Form, Message, Grid, Header, Segment, Dropdown } from 'semantic-ui-react';
 
 class Forms extends Component {
     state = {
@@ -115,6 +115,8 @@ class Forms extends Component {
                             <Header color='blue'>{title}</Header>
                             <Form.Field className="dynamic-form" onSubmit={(e) => { this.onSubmit(e) }}>
                                 {this.renderForm()}
+                
+
                                 <div className="form-group">
                                     <Button primary onClick={(e) => { this.onSubmit(e) }} type="submit">Submit</Button>
                                     {/* /temp button */}

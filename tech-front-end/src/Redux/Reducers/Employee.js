@@ -1,9 +1,13 @@
-import { ADD_EMPLOYEE, REMOVE_EMPLOYEE, UPDATE_EMPLOYEE, GET_ALL_EMPLOYEES } from '../Constants';
+import { ADD_EMPLOYEE, REMOVE_EMPLOYEE, UPDATE_EMPLOYEE, GET_ALL_EMPLOYEES, SEARCH_EMPLOYEES } from '../Constants';
 
 const initialState = {
     employees: [
 
-    ]
+    ],
+    searchEmployees: [{
+        value:'',
+        text:''
+    }]
 }
 const employeeReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -12,6 +16,11 @@ const employeeReducer = (state = initialState, action) => {
                 ...state,
                 employees: [...action.payload]
             };
+        case SEARCH_EMPLOYEES:
+            return {
+                ...state,
+                searchEmployees: [...action.payload]
+            }
         case ADD_EMPLOYEE:
             console.log("Inside employee reducer add employee");
             console.log('Employee Data:', state.employees);

@@ -173,7 +173,14 @@ export const getAllEmployees = () => async dispatch => {
     }
 }
 
-
+export const searchEmployees = () => async dispatch => {
+    try {
+        let response = await this.getAllEmployees()
+        console.log('TESTING OUT COMBOBOX' , response )
+    } catch (e) {
+        console.log(e.message);
+    }
+}
 
 export const submitEmployee = employee => async dispatch => {
     try {

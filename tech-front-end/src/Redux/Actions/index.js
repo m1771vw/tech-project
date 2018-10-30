@@ -173,6 +173,8 @@ export const getAllEmployees = () => async dispatch => {
     }
 }
 
+
+
 export const submitEmployee = employee => async dispatch => {
     try {
         console.log("Trying to submit employee:", employee)

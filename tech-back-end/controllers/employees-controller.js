@@ -13,6 +13,8 @@ const getAllEmployees = async (req, res) => {
     }
 }
 
+// const getSearchEmployees = async()
+
 const getEmployeeById = async (req, res) => {
     try {
         let employee_id = parseInt(req.params.id);

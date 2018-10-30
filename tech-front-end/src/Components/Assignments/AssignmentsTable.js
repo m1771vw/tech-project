@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getAllAssignments, deleteAssignment } from '../../Redux/Actions/index';
+import { getAllAssignments, getAllAssignmentsOrdered, getAllAssignmentsReversed, deleteAssignment } from '../../Redux/Actions/index';
 import { IN_ORDER, RECENT_ORDER } from '../../Redux/Constants/';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load'
@@ -11,36 +11,26 @@ import {formatDate} from '../../util/DateHelper'
 class AssignmentsTable extends Component {
     componentDidMount() {
         this.fetchAllAssignments()
-            
-        
-        
+
     }
 
     fetchAllAssignments = async () => {
-        await this.props.getAllAssignments();
-    }
-
-    sortAssignments = (sortOrder) => {
-        let { assignments } = this.props;
-        console.log("ATable: Sort Assignment, SortOrder: ", sortOrder)
-        console.log("Assignments:", assignments);
-        switch(sortOrder) {
+        let { assignments } = this.props
+        switch(this.props.sortOrder) {
             case IN_ORDER:
+                await this.props.getAllAssignmentsOrdered();
                 return assignments;
             case RECENT_ORDER:
-                console.log("Tryin to return recent_order");
-                assignments.reverse();
-                console.log("Reversed Assignments: ", assignments);
+                await this.props.getAllAssignmentsReversed();
                 return assignments;
             default:
                 return assignments;
         }
-
     }
 
     render() {
         let { assignments, header } = this.props
-        this.sortAssignments(this.props.sortOrder)
+        // this.sortAssignments(this.props.sortOrder)
             return (
                 <div>
                 
@@ -109,11 +99,14 @@ class AssignmentsTable extends Component {
 }
 
 const mapStateToProps = ({ assignmentReducer }) => ({
-    // assignments: assignmentReducer.assignments,
+    assignments: assignmentReducer.assignments,
+    reversedAssignments: assignmentReducer.reversedAssignments
 })
 
 const mapDispatchToProps = dispatch => ({
     getAllAssignments: () => dispatch(getAllAssignments()),
+    getAllAssignmentsOrdered: () => dispatch(getAllAssignmentsOrdered()),
+    getAllAssignmentsReversed: () => dispatch(getAllAssignmentsReversed()),
     deleteAssignment: id => dispatch(deleteAssignment(id))
 })
 

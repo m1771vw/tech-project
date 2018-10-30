@@ -85,6 +85,33 @@ export const getAllAssignments = () => async dispatch => {
     }
 }
 
+export const getAllAssignmentsOrdered = () => async dispatch => {
+    try {
+        let response = await axios.get('http://localhost:5000/api/assignments/all/ascending', {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+        dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments })
+    } catch (e) {
+        console.log("Get All Assignment Error", e.response.data);
+    }
+}
+
+export const getAllAssignmentsReversed = () => async dispatch => {
+    try {
+        let response = await axios.get('http://localhost:5000/api/assignments/all', {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+        console.log("ACTION: Reverse All Assignments: ");
+        dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments.reverse() })
+    } catch (e) {
+        console.log("Get All Assignment Error", e.response.data);
+    }
+}
+
 export const getAssignmentById = id => async dispatch => {
     try  {
         let response = await axios.get(`http://localhost:5000/api/assignments/id/${id}`, {

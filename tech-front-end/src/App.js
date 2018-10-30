@@ -41,7 +41,7 @@ class App extends Component {
   }
   componentDidMount() {
     console.log("Fetching initial data for store");
-    this.props.getAllAssignments();
+    // this.props.getAllAssignments();
     this.props.getAllProjects();
     this.props.getAllEmployees();
   }

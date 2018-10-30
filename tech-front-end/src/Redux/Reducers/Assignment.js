@@ -1,5 +1,5 @@
 import { ADD_ASSIGNMENT, REMOVE_ASSIGNMENT, UPDATE_ASSIGNMENT, 
-    GET_ALL_ASSIGNMENTS, GET_ASSIGNMENT_BY_ID, GET_ASSIGNMENT_EMPLOYEES } from '../Constants';
+    GET_ALL_ASSIGNMENTS, GET_ALL_ASSIGNMENTS_REVERSED, GET_ASSIGNMENT_BY_ID, GET_ASSIGNMENT_EMPLOYEES } from '../Constants';
 
 const initialState = {
     assignments: [],
@@ -9,10 +9,16 @@ const initialState = {
 const assignmentReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_ASSIGNMENTS:
+        console.log("REDUCER: Assignment - GET ALL ASSIGNMENTS");
             return {
                 ...state,
                 assignments: [...action.payload]
             };
+        case GET_ALL_ASSIGNMENTS_REVERSED:
+            return {
+                ...state,
+                reversedAssignments: [...action.payload]
+            }
         case GET_ASSIGNMENT_BY_ID:
         console.log("Inside Assignment Reducer, GET_ASSIGNMENT_BY_ID:",action.payload);
             return {

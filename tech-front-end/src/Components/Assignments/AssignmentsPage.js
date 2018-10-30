@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load'
 import { Button, Table, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
+import {formatDate} from '../../util/DateHelper'
 
 class AssignmentsPage extends Component {
     state = {
@@ -17,7 +18,7 @@ class AssignmentsPage extends Component {
         this.props.getAllAssignments();
     }
 
-    
+
 
     render() {
         let { assignments } = this.props
@@ -50,8 +51,8 @@ class AssignmentsPage extends Component {
                                     let project_name = a.project_name || "Error Project ID /"
                                     let status_id = a.status_id || "Error Status ID /"
                                     let status_name = a.status_name || "Error Status ID /"
-                                    let assignment_start_date = a.assignment_start_date || "Error Assign Start /"
-                                    let assignment_end_date = a.assignment_end_date || "Error Assign End /"
+                                    let assignment_start_date = a.assignment_start_date && formatDate(a.assignment_start_date)
+                                    let assignment_end_date = a.assignment_end_date && formatDate(a.assignment_end_date)
                                     let assignment_est_hours = a.assignment_est_hours || "Error Est Hours /"
                                     let assignment_final_hours = a.assignment_final_hours || "Error Final Hours /"
 

@@ -111,6 +111,7 @@ const deleteProject = async (req, res) => {
         let project_id = parseInt(req.params.id);
         let project = await db.one('SELECT * FROM projects WHERE project_id = $1', project_id);
         console.log("PROJECT MESSAGE:", project)
+        await db.none('DELETE FROM project_roles WHERE project_id = $1', project_id);
         await db.none('DELETE FROM projects WHERE project_id = $1', project_id);
         res.status(200).send({ message: project })
     } catch (e) {

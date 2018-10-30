@@ -10,21 +10,27 @@ import {formatDate} from '../../util/DateHelper'
 
 class AssignmentsTable extends Component {
     componentDidMount() {
-        this.fetchAllAssignments();
-        this.sortAssignments();
+        this.fetchAllAssignments()
+            
+        
+        
     }
 
-    fetchAllAssignments = () => {
-        this.props.getAllAssignments();
+    fetchAllAssignments = async () => {
+        await this.props.getAllAssignments();
     }
 
     sortAssignments = (sortOrder) => {
         let { assignments } = this.props;
         console.log("ATable: Sort Assignment, SortOrder: ", sortOrder)
+        console.log("Assignments:", assignments);
         switch(sortOrder) {
             case IN_ORDER:
                 return assignments;
             case RECENT_ORDER:
+                console.log("Tryin to return recent_order");
+                assignments.reverse();
+                console.log("Reversed Assignments: ", assignments);
                 return assignments;
             default:
                 return assignments;
@@ -34,9 +40,10 @@ class AssignmentsTable extends Component {
 
     render() {
         let { assignments, header } = this.props
+        this.sortAssignments(this.props.sortOrder)
             return (
                 <div>
-                <Link to='/createAssignments'><Button primary>Create</Button></Link>
+                
                         <LazyLoad height={100} offsetVertical={300}>
                             <div>
                                 <Header color='blue'>{header}</Header>
@@ -102,7 +109,7 @@ class AssignmentsTable extends Component {
 }
 
 const mapStateToProps = ({ assignmentReducer }) => ({
-    assignments: assignmentReducer.assignments,
+    // assignments: assignmentReducer.assignments,
 })
 
 const mapDispatchToProps = dispatch => ({

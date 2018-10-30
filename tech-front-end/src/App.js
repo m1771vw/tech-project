@@ -109,9 +109,7 @@ class App extends Component {
     return (
       <div>
         <Navbar />
-        {/* <Loader /> */}
         <Switch>
-
           <Route exact path='/' component={Dashboard} />
           <Route path='/login' component={Login} />
           <Route path='/logout' component={Logout} />
@@ -121,7 +119,7 @@ class App extends Component {
           <Route path={`/projects/details/:id`} render={(renderProps) => <ProjectDetails {...renderProps} />} />
 
           {/* Assignment Routes */}
-          <Route path='/createAssignments' render={(renderProps) =>
+          <Route path='/create/assignment' render={(renderProps) =>
             <Form className="form"
               title="Input Assignment"
               model={[
@@ -144,7 +142,7 @@ class App extends Component {
 
           {/* Project Routes */}
 
-          <Route path='/createProjects' render={(renderProps) =>
+          <Route path='/create/project' render={(renderProps) =>
             <Form {...renderProps} className="form"
               title="Project Form"
               model={[
@@ -159,7 +157,7 @@ class App extends Component {
             />} />
 
           {/* Employee Routes */}
-          <Route path='/createEmployees' render={(renderProps) =>
+          <Route path='/create/employee' render={(renderProps) =>
             <Form
               {...renderProps}
               className="form"

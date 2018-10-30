@@ -90,7 +90,6 @@ class ProjectDetails extends Component {
                             <Modal.Content>
                                 <Modal.Description>
                                     <Header>Add Employee To Project</Header>
-
                                     <Form
                                         className="form"
                                         title="     "
@@ -102,7 +101,6 @@ class ProjectDetails extends Component {
                                         onSubmit={(model) => { this.onSubmitEmployeeModal(model) }}
                                     // onDelete={(model) => { this.onDeleteEmployee(model) }}
                                     />
-
                                 </Modal.Description>
                             </Modal.Content>
                         </Modal>

@@ -7,15 +7,9 @@ import { Link } from 'react-router-dom';
 import {formatDate} from '../../util/DateHelper'
 
 class ProjectsPage extends Component {
-    state = {
-        projects: [],
-        project_roles: [],
-    }
-
     componentDidMount() {
         this.fetchAllProjects();
         this.fetchAllProjectRoles();
-
     }
 
     fetchAllProjects = () => {
@@ -31,7 +25,7 @@ class ProjectsPage extends Component {
 
         return (
             <div>
-                <Link to='/createAssignments'><Button primary>Create</Button></Link>
+                <Link to='/create/assignment'><Button primary>Create</Button></Link>
 
 
                 <LazyLoad height={100} offsetVertical={300}>

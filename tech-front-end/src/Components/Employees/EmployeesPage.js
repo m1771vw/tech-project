@@ -21,7 +21,7 @@ class EmployeesPage extends Component {
     let { employees } = this.props;
     return (
       <div>
-        <Link to="/createEmployees">
+        <Link to="/create/employee">
           <Button primary>Create</Button>
         </Link>
 

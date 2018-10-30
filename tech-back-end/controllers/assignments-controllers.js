@@ -87,12 +87,12 @@ const updateAssignment = async (req, res) => {
             'SET assignment_name = $1, status_id = $2, assignment_start_date = $3, assignment_end_date = $4, assignment_est_hours = $5, assignment_final_hours = $6' +
             'WHERE assignment_id = $7',
             [assignment_name,
-                status_id,
-                assignment_start_date,
-                assignment_end_date,
-                assignment_est_hours,
-                assignment_final_hours,
-                assignment_id])
+            status_id,
+            assignment_start_date,
+            assignment_end_date,
+            assignment_est_hours,
+            assignment_final_hours,
+            assignment_id])
         let updatedAssignment = await db.one('SELECT * FROM assignments WHERE assignment_id = $1', assignment_id);
         res.status(200).json({ message: updatedAssignment })
     } catch (e) {

@@ -5,16 +5,27 @@ import projectReducer from '../../Redux/Reducers/Project';
 import {
     getAllProjects, getAllProjectRoles, getProjectById,
     getEmployeesInProject, getAssignmentsInProject, submitAssignment,
-    submitEmployee, submitProjectRole
+    submitEmployee, submitProjectRole, deleteAssignment
 } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
-import { Table, Modal, Button, Header } from 'semantic-ui-react';
+import { Table, Modal, Button, Header, Dropdown } from 'semantic-ui-react';
 
 class ProjectDetails extends Component {
     state = {
         employeeModal: false,
         assignmentModal: false,
+        dropDown:[{
+            key: 'WY', 
+            value: 1,
+            text: 'William Yang'
+        },
+        {
+            key: 'JP',
+            value: 2,
+            text:'James Park'
+        }
+    ],
     }
 
     async componentDidMount() {
@@ -104,6 +115,7 @@ class ProjectDetails extends Component {
                                         onSubmit={(model) => { this.onSubmitEmployeeModal(model) }}
                                     // onDelete={(model) => { this.onDeleteEmployee(model) }}
                                     />
+                                    <Dropdown placeholder='Select Employee' fluid search selection options={this.state.dropDown} />
 
                                 </Modal.Description>
                             </Modal.Content>
@@ -123,11 +135,11 @@ class ProjectDetails extends Component {
                             .map((e) => {
                                 return (
                                     <Table.Row key={e.employee_id + e.first_name}>
-                                        <Table.Cell>
-                                            {e.employee_id}</Table.Cell>
+                                        <Table.Cell>{e.employee_id}</Table.Cell>
                                         <Table.Cell>{e.first_name}</Table.Cell>
                                         <Table.Cell>{e.last_name}</Table.Cell>
                                         <Table.Cell>{e.position}</Table.Cell>
+                                        {/* <Table.Cell><Button color='red' onClick={() => this.props.deleteAssignment(e.employee_id)}>Delete</Button></Table.Cell> */}
                                     </Table.Row>
                                 );
                             })}
@@ -180,13 +192,13 @@ class ProjectDetails extends Component {
                             .map((a) => {
                                 return (
                                     <Table.Row key={a.assignment_id + a.assignment_name}>
-                                        <Table.Cell>
-                                            {a.assignment_name}</Table.Cell>
+                                        <Table.Cell>{a.assignment_name}</Table.Cell>
                                         <Table.Cell>{a.status_name}</Table.Cell>
                                         <Table.Cell>{a.assignment_start_date}</Table.Cell>
                                         <Table.Cell>{a.assignment_end_date}</Table.Cell>
                                         <Table.Cell>{a.assignment_est_hours}</Table.Cell>
                                         <Table.Cell>{a.assignment_final_hours}</Table.Cell>
+                                        <Table.Cell><Table.Cell><Button color='red' onClick={() => this.props.deleteAssignment(a.assignment_id)}>Delete</Button></Table.Cell></Table.Cell>
                                     </Table.Row>
                                 );
                             })}
@@ -209,6 +221,7 @@ const mapDispatchToProps = dispatch => ({
     submitAssignment: (model) => dispatch(submitAssignment(model)),
     submitProjectRole:(model) => dispatch(submitProjectRole(model)),
     submitEmployee: (model) => dispatch(submitEmployee(model)),
+    deleteAssignment:(id) => dispatch(deleteAssignment(id)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);

@@ -11,7 +11,6 @@ import {formatDate} from '../../util/DateHelper'
 class AssignmentsTable extends Component {
     componentDidMount() {
         this.fetchAllAssignments()
-
     }
 
     fetchAllAssignments = async () => {
@@ -28,8 +27,21 @@ class AssignmentsTable extends Component {
         }
     }
 
+    determineStatus = (status_name) => {
+        switch(status_name) {
+            case 'Blocked':
+                return 'error';
+            case 'Waiting Merge':
+                return 'warning';
+            case 'Completed' || 'Release':
+                return 'positive';
+            case 'Not Started':
+            default:
+                return "";
+        }
+    }
     render() {
-        let { assignments, header } = this.props
+        let { assignments, header, showUpdate } = this.props
         // this.sortAssignments(this.props.sortOrder)
             return (
                 <div>
@@ -62,7 +74,7 @@ class AssignmentsTable extends Component {
                                             let assignment_est_hours = a.assignment_est_hours || "Error Est Hours /"
                                             let assignment_final_hours = a.assignment_final_hours || "Error Final Hours /"
                                             return (
-                                                <Table.Row key={assignment_id + assignment_name}>
+                                                <tr className={this.determineStatus(status_name)} key={assignment_id + assignment_name}>
                                                     <Table.Cell selectable><Link to={`/assignments/details/${assignment_id}`}>{assignment_name}</Link></Table.Cell>
                                                     <Table.Cell selectable><Link to={`/projects/details/${project_id}`}>{project_name}</Link></Table.Cell>
                                                     <Table.Cell>{status_name}</Table.Cell>
@@ -70,7 +82,9 @@ class AssignmentsTable extends Component {
                                                     <Table.Cell>{assignment_end_date}</Table.Cell>
                                                     <Table.Cell>{assignment_est_hours}</Table.Cell>
                                                     <Table.Cell>{assignment_final_hours}</Table.Cell>
+                                                    
                                                     <Table.Cell>
+                                                    { showUpdate && 
                                                         <Link to={{
                                                             pathname: `/assignments/edit/${assignment_id}`,
                                                             state: {
@@ -83,10 +97,10 @@ class AssignmentsTable extends Component {
                                                                 assignment_final_hours: assignment_final_hours,
                                                                 assignment_id: assignment_id
                                                             }
-                                                        }}><Button secondary>Update</Button></Link>
+                                                        }}><Button secondary>Update</Button></Link> }
                                                         <Button color='red' onClick={() => this.props.deleteAssignment(assignment_id)}>Delete</Button>
                                                     </Table.Cell>
-                                                </Table.Row>
+                                                </tr>
                                             );
                                         })}
                                     </Table.Body>

@@ -10,7 +10,7 @@ class Dashboard extends Component {
             <div>
 
                 <h1>Welcome to your Dashboard</h1>
-                <AssignmentsTable assignments={assignments} header={"Recent Updated Assignments"} sortOrder={RECENT_ORDER}/>
+                <AssignmentsTable showUpdate={true} assignments={assignments} header={"Recent Updated Assignments"} sortOrder={RECENT_ORDER}/>
 
             </div>
         );

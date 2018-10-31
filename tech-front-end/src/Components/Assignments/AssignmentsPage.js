@@ -10,7 +10,7 @@ class AssignmentsPage extends Component {
         return (
             <div>
                <Link to='/create/assignment'><Button primary>Create</Button></Link>
-               <AssignmentsTable assignments={assignments} header={"All Assignments"} sortOrder={IN_ORDER} />
+               <AssignmentsTable showUpdate={true} assignments={assignments} header={"All Assignments"} sortOrder={IN_ORDER} />
             </div>
         );
     }

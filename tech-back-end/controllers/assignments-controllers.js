@@ -18,6 +18,19 @@ const getAllAssignments = async (req, res) => {
     }
 }
 
+const getAllBlockedAssignments = async(req, res) => {
+    try {
+        let assignments = await db.any(
+            'SELECT a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.assignment_final_hours, p.project_id, p.project_name, s.status_id, s.status_name ' +
+            'FROM Assignments as a ' +
+            'INNER JOIN Status_Types as s ON s.status_id = a.status_id ' +
+            'INNER JOIN Projects as p ON p.project_id = a.project_id ' +
+            "WHERE s.status_name = 'Blocked'")
+        res.status(200).send({ assignments })
+    } catch (e) {
+        res.status(500).json({ message: e.message })
+    }
+}
 const getAllAssignmentsOrdered = async(req, res) => {
     try {
         let assignments = await db.any(
@@ -127,4 +140,4 @@ const deleteAssignment = async (req, res) => {
     }
 }
 
-module.exports = { index, getAllAssignments, getAllAssignmentsOrdered, getAssignmentById, addAssignment, updateAssignment, deleteAssignment }
+module.exports = { index, getAllAssignments, getAllBlockedAssignments, getAllAssignmentsOrdered, getAssignmentById, addAssignment, updateAssignment, deleteAssignment }

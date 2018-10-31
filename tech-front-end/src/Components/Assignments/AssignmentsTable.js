@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { getAllAssignments, getAllAssignmentsOrdered, getAllAssignmentsReversed, deleteAssignment } from '../../Redux/Actions/index';
-import { IN_ORDER, RECENT_ORDER } from '../../Redux/Constants/';
+import { IN_ORDER, RECENT_ORDER, NEED_ATTENTION } from '../../Redux/Constants/';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load'
 import { Button, Table, Header } from 'semantic-ui-react'
@@ -10,22 +10,25 @@ import {formatDate} from '../../util/DateHelper'
 
 class AssignmentsTable extends Component {
     componentDidMount() {
-        this.fetchAllAssignments()
+        // this.fetchAllAssignments()
     }
 
-    fetchAllAssignments = async () => {
-        let { assignments } = this.props
-        switch(this.props.sortOrder) {
-            case IN_ORDER:
-                await this.props.getAllAssignmentsOrdered();
-                return assignments;
-            case RECENT_ORDER:
-                await this.props.getAllAssignmentsReversed();
-                return assignments;
-            default:
-                return assignments;
-        }
-    }
+    // fetchAllAssignments = async () => {
+    //     let { assignments } = this.props
+    //     switch(this.props.sortOrder) {
+    //         case IN_ORDER:
+    //             await this.props.getAllAssignmentsOrdered();
+    //             return assignments;
+    //         case RECENT_ORDER:
+    //             await this.props.getAllAssignmentsReversed();
+    //             return assignments;
+    //         case NEED_ATTENTION:
+    //             await this.props.getAllAttentionAssignments();
+    //             return assignments;
+    //         default:
+    //             return assignments;
+    //     }
+    // }
 
     determineStatus = (status_name) => {
         switch(status_name) {
@@ -45,8 +48,7 @@ class AssignmentsTable extends Component {
         // this.sortAssignments(this.props.sortOrder)
             return (
                 <div>
-                
-                        <LazyLoad height={100} offsetVertical={300}>
+                        {/* <LazyLoad height={300} offsetVertical={200}> */}
                             <div>
                                 <Header color='blue'>{header}</Header>
                                 <Table singleLine celled selectable>
@@ -59,10 +61,11 @@ class AssignmentsTable extends Component {
                                             <Table.HeaderCell>End Date</Table.HeaderCell>
                                             <Table.HeaderCell>Estimated Hours</Table.HeaderCell>
                                             <Table.HeaderCell>Final Elapsed Hours</Table.HeaderCell>
+                                            <Table.HeaderCell> </Table.HeaderCell>
                                         </Table.Row>
                                     </Table.Header>
                                     <Table.Body>
-                                        {assignments.map((a) => {
+                                        {assignments && assignments.map((a) => {
                                             let assignment_id = a.assignment_id || "Error Assign ID /"
                                             let assignment_name = a.assignment_name || "Error Name /"
                                             let project_id = a.project_id || "Error Project ID /"
@@ -106,21 +109,20 @@ class AssignmentsTable extends Component {
                                     </Table.Body>
                                 </Table>
                             </div>
-                        </LazyLoad>
+                        {/* </LazyLoad> */}
                 </div>
             );
     }
 }
 
 const mapStateToProps = ({ assignmentReducer }) => ({
-    assignments: assignmentReducer.assignments,
-    reversedAssignments: assignmentReducer.reversedAssignments
+    // assignments: assignmentReducer.assignments,
+    // reversedAssignments: assignmentReducer.reversedAssignments
 })
 
 const mapDispatchToProps = dispatch => ({
-    getAllAssignments: () => dispatch(getAllAssignments()),
-    getAllAssignmentsOrdered: () => dispatch(getAllAssignmentsOrdered()),
-    getAllAssignmentsReversed: () => dispatch(getAllAssignmentsReversed()),
+    // getAllAssignments: () => dispatch(getAllAssignments()),
+    
     deleteAssignment: id => dispatch(deleteAssignment(id))
 })
 

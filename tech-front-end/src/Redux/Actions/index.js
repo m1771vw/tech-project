@@ -5,6 +5,7 @@ import {
     LOGIN_FAILURE,
     LOGOUT,
     GET_ALL_ASSIGNMENTS,
+    GET_ALL_BLOCKED_ASSIGNMENTS,
     GET_ALL_EMPLOYEES,
     GET_ALL_PROJECTS,
     GET_ALL_PROJECT_ROLES,
@@ -93,6 +94,19 @@ export const getAllAssignmentsOrdered = () => async dispatch => {
             }
         });
         dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments })
+    } catch (e) {
+        console.log("Get All Assignment Error", e.response.data);
+    }
+}
+
+export const getAllAssignmentsBlocked = () => async dispatch => {
+    try {
+        let response = await axios.get('http://localhost:5000/api/assignments/all/blocked', {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+        dispatch({ type: GET_ALL_BLOCKED_ASSIGNMENTS, payload: response.data.assignments })
     } catch (e) {
         console.log("Get All Assignment Error", e.response.data);
     }

@@ -5,7 +5,8 @@ import jwtDecode from 'jwt-decode';
 const initialState = (token => ({
     currentUser: token ? jwtDecode(token).id : null,
     isAuthenticating: false, 
-    errorMessage: null
+    errorMessage: null,
+    isAuthorized: false
 }))(localStorage.authToken)
 
 const loginReducer = (state = initialState, action) => {
@@ -21,6 +22,7 @@ const loginReducer = (state = initialState, action) => {
         return {
           ...state,
           isAuthenticating: false,
+          isAuthorized: false,
           errorMessage: action.errorMessage
         }
       case LOGIN_SUCCESS:
@@ -28,14 +30,16 @@ const loginReducer = (state = initialState, action) => {
           ...state,
           isAuthenticating: false,
           currentUser: action.user,
-          errorMessage: null
+          errorMessage: null,
+          isAuthorized: true
         }
       case LOGOUT:
         return {
           ...state,
           isAuthenticating: false,
           currentUser: null,
-          errorMessage: null
+          errorMessage: null,
+          isAuthorized: false
         } 
         default:
             return state;

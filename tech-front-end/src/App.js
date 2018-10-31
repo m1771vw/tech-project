@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, withRouter, Redirect } from 'react-router-dom';
 import { getAllAssignments, getAllProjects, getAllEmployees } from './Redux/Actions';
 
 import Navbar from './Components/Navbar'
@@ -32,6 +32,8 @@ import AssignmentEdit from './Components/Assignments/AssignmentEdit';
 import EmployeeDetails from './Components/Employees/EmployeeDetails';
 import EmployeeEdit from './Components/Employees/EmployeeEdit';
 
+import PrivateRoute from './PrivateRoute';
+
 class App extends Component {
   state = {
     employeeData: [],
@@ -59,8 +61,6 @@ class App extends Component {
     let index = 1;
     this.props.deleteProject(project, index);
   };
-
-
 
   onUpdateAssignment = (assignment, index) => {
     console.log("Updating toward Map Dispatch")
@@ -106,16 +106,23 @@ class App extends Component {
   };
 
   render() {
+    let { isAuthorized } = this.props
     return (
       <div>
         <Navbar />
         <Switch>
-          <Route exact path='/' component={Dashboard} />
+          <PrivateRoute authed={isAuthorized} path='/dashboard' component={Dashboard} />
+
+          {/* <Route exact path='/' component={Dashboard} /> */}
+          <PrivateRoute authed={isAuthorized} exact path='/' component={Dashboard} />
           <Route path='/login' component={Login} />
           <Route path='/logout' component={Logout} />
-          <Route exact path='/employees' component={EmployeesPage} />
-          <Route exact path='/assignments' component={AssignmentsPage} />
-          <Route exact path='/projects' component={ProjectsPage} />
+          <PrivateRoute authed={isAuthorized} exact path='/employees' component={EmployeesPage} />
+          {/* <Route exact path='/employees' component={EmployeesPage} /> */}
+          <PrivateRoute authed={isAuthorized} exact path='/assignments' component={AssignmentsPage} />
+          {/* <Route exact path='/assignments' component={AssignmentsPage} /> */}
+          <PrivateRoute authed={isAuthorized} exact path='/projects' component={ProjectsPage} />
+          {/* <Route exact path='/projects' component={ProjectsPage} /> */}
           <Route path={`/projects/details/:id`} render={(renderProps) => <ProjectDetails {...renderProps} />} />
 
           {/* Assignment Routes */}
@@ -187,7 +194,8 @@ class App extends Component {
 }
 
 const mapStateToProps = ({ loginReducer }) => ({
-  token: loginReducer.token
+  token: loginReducer.token,
+  isAuthorized: loginReducer.isAuthorized
 })
 const mapDispatchToProps = dispatch => ({
   // submitForms: () => dispatch(submitForms()),

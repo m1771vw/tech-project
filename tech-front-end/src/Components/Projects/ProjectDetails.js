@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import Form from '../Forms/DynamicForm/Form';
 import ProjectEmployees from './ProjectEmployees';
-import projectReducer from '../../Redux/Reducers/Project';
 import {
     getAllProjects, getAllProjectRoles, getProjectById,
     getEmployeesInProject, getAssignmentsInProject, submitAssignment,
     submitEmployee, submitProjectRole, getAllAssignments
 } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
-import LazyLoad from 'react-lazy-load';
-import { Table, Modal, Button, Header, Dropdown } from 'semantic-ui-react';
+// import LazyLoad from 'react-lazy-load';
+import { Table, Modal, Button, Header } from 'semantic-ui-react';
 import {formatDate} from '../../util/DateHelper'
 import ProjectAssignments from './ProjectAssignments';
 
@@ -119,8 +117,6 @@ class ProjectDetails extends Component {
                             .map((e) => {
                                 return (
                                     <Table.Row key={e.employee_id + e.first_name}>
-                                        {/* <Table.Cell>
-                                            {e.employee_id}</Table.Cell> */}
                                         <Table.Cell>{e.first_name}</Table.Cell>
                                         <Table.Cell>{e.last_name}</Table.Cell>
                                         <Table.Cell>{e.role}</Table.Cell>
@@ -141,24 +137,11 @@ class ProjectDetails extends Component {
                             <Modal.Header>Create Project Assignments</Modal.Header>
                             <Modal.Content image>
                                 <Modal.Description>
-                                    {/* <Header>Add Assignments To Project</Header> */}
-                                    {/* <Form className="form"
-                                        title=" "
-                                        model={[
-                                            { key: "assignment_name", label: "Assignment Name", type: "text", props: { required: true } },
-                                            { key: "assignment_start_date", label: "Start Date", type: "text", props: { required: true } },
-                                            { key: "assignment_end_date", label: "End Date", type: "text", props: { required: true } },
-                                            { key: "status_id", label: "Status ID", type: "text", props: { required: true } },
-                                            { key: "project_id", label: "Project ID", type: "text", props: { required: true } },
-                                            { key: "assignment_est_hours", label: "Estimated Hours", type: "text", props: { required: true } },
-                                            { key: "assignment_final_hours", label: "Elapsed Hours", type: "text", props: { required: true } }
-                                        ]}
-                                        onSubmit={(model) => { this.onSubmitAssignmentModal(model); }}
-                                        onDelete={(model) => { this.onDeleteAssignment(model) }}
-                                    /> */}
+
                                     <ProjectAssignments
                                     onSubmit={this.onSubmitAssignmentModal} 
                                     />
+
                                 </Modal.Description>
                             </Modal.Content>
                         </Modal>

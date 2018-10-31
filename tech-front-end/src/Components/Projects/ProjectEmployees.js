@@ -51,11 +51,6 @@ class ProjectEmployees extends Component {
                 onChange={this.onInputChange}
                 fluid search selection options={this.props.searchEmployees} />
 
-
-
-
-
-
                 <label className="form-label">Role</label>
                 <input className="form-input"
                     required

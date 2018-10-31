@@ -11,6 +11,7 @@ import { Header } from "semantic-ui-react";
 import { Table } from "semantic-ui-react"
 import { formatDate } from '../../util/DateHelper'
 import { format } from "url";
+import { Link } from "react-router-dom"
 
 class EmployeeDetails extends Component {
   state = {
@@ -45,13 +46,26 @@ class EmployeeDetails extends Component {
     return totalHours;
   }
 
+  uniqueProjectNames = () => {
+    let { AllEmployeeAssignments } = this.props;
+    let name = [];
+    for(let i = 0; i < AllEmployeeAssignments.length; i++) {
+      name.push(AllEmployeeAssignments[i].project_name);
+    }
+
+   return [...new Set(name)]
+
+    }
+    
+  
+
   render() {
     let {
       EmployeeById,
       AllEmployeeAssignments,
       AllEmployeesToAssignment
     } = this.props;
-    console.log("LOOK HERE", AllEmployeesToAssignment)
+  
     return (
       <LazyLoad>
         <div>
@@ -94,11 +108,10 @@ class EmployeeDetails extends Component {
             <Table.Body>
               {
                 AllEmployeeAssignments.map(ea => {
-                  console.log("AllEmployeeAssignments EmployeeDetail: ", AllEmployeeAssignments);
                   return (
                     <Table.Row key={ea.assignment_id}>
-                      <Table.Cell> {ea.assignment_name}</Table.Cell>
-                      <Table.Cell>{ea.project_name && ea.project_name}</Table.Cell>
+                      <Table.Cell selectable> <Link to={`/assignments/details/${ea.assignment_id}`}>{ea.assignment_name}</Link></Table.Cell>
+                      <Table.Cell selectable> <Link to={`/projects/details/${ea.project_id}`}>{ea.project_name && ea.project_name}</Link></Table.Cell>
                       <Table.Cell>{ea.status_name && ea.status_name}</Table.Cell>
                       <Table.Cell>{ea.assignment_start_date && formatDate(ea.assignment_start_date)}</Table.Cell>
                       <Table.Cell>{ea.assignment_end_date && formatDate(ea.assignment_end_date)}</Table.Cell>
@@ -124,12 +137,25 @@ class EmployeeDetails extends Component {
           {
             this.calculateTotalEstimatedHours('assignment_est_hours')
           }
-          </Table.Cell>
+        </Table.Cell>
         <Table.Cell>
             {
               this.calculateTotalEstimatedHours('assignment_final_hours')
             }
         </Table.Cell>
+          </Table.Body>
+        </Table>
+
+        <Table>
+          <Table.Header>
+          <Table.HeaderCell>Projects {EmployeeById.first_name} is Currently In:</Table.HeaderCell>
+          </Table.Header>
+          <Table.Body>
+            {this.uniqueProjectNames().map(name => {
+              return (
+                <Table.Row><Table.Cell> <Link to={`/projects/details/${AllEmployeeAssignments.project_id}`}>{name}</Link></Table.Cell></Table.Row>
+              )
+            })}
           </Table.Body>
         </Table>
         </div>

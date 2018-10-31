@@ -21,7 +21,7 @@ class EmployeesPage extends Component {
     let { employees } = this.props;
     return (
       <div>
-        <Link to="/create/employee">
+        <Link to="/employees/create">
           <Button primary>Create</Button>
         </Link>
 
@@ -51,7 +51,7 @@ class EmployeesPage extends Component {
                       <Table.Cell>{position}</Table.Cell>
                       <Table.Cell>
                       <Link to={{
-                            pathname: `/employee/edit/${employee_id}`,
+                            pathname: `/employees/edit/${employee_id}`,
                             state: {
                                 employee_id: employee_id,
                                 first_name: first_name,

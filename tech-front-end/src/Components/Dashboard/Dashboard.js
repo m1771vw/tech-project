@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import AssignmentsTable from '../Assignments/AssignmentsTable';
-import { RECENT_ORDER, NEED_ATTENTION } from '../../Redux/Constants';
 import {getAllAssignmentsBlocked,
     getAllAssignmentsReversed} from '../../Redux/Actions';
 import { connect } from 'react-redux';

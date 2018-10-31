@@ -42,6 +42,7 @@ import jwtDecode from 'jwt-decode';
 export const submitLogout = () => async dispatch => {
     delete localStorage.authToken
     delete localStorage.currentUser
+    delete localStorage.isAuthorized
     dispatch({ type: LOGOUT })
 }
 export const submitLogin = loginBody => async dispatch => {
@@ -59,6 +60,7 @@ export const submitLogin = loginBody => async dispatch => {
         console.log("Submit LoginResponse:", response);
         console.log("Decode JWTToken:", jwtDecode(response.data.token).id)
         localStorage.authToken = response.data.token
+        localStorage.isAuthorized = true
         localStorage.currentUser = jwtDecode(response.data.token).id
 
         dispatch({ type: LOGIN_SUCCESS, user: jwtDecode(response.data.token).id })

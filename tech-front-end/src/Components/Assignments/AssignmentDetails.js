@@ -30,7 +30,7 @@ class AssignmentDetails extends Component {
         return (
             <div>
                 <h1>Assignment Details Page</h1>
-                <AssignmentsTable showUpdate={true} assignments={[assignment]} header={"Recent Updated Assignments"} />
+                <AssignmentsTable showDates={true} showUpdate={true} assignments={[assignment]} header={"Recent Updated Assignments"} />
                 {/* <h2>Assignment Name: {assignment.assignment_name}</h2>
                 <h2>Project Name: {assignment.project_name}</h2> */}
                 <h2>Employees on Assignment: 

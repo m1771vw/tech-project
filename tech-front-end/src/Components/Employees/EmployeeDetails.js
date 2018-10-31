@@ -40,27 +40,30 @@ class EmployeeDetails extends Component {
   calculateTotalEstimatedHours = (typeOfHours) => {
     let { AllEmployeeAssignments } = this.props;
     let totalHours = 0;
-    for(let i = 0; i < AllEmployeeAssignments.length; i++) {
-        totalHours += parseFloat(AllEmployeeAssignments[i][typeOfHours]);
+    for (let i = 0; i < AllEmployeeAssignments.length; i++) {
+      totalHours += parseFloat(AllEmployeeAssignments[i][typeOfHours]);
     }
     return totalHours;
   }
 
   uniqueProjectNames = () => {
     let { AllEmployeeAssignments } = this.props;
-    let name = {};
-    for(let i = 0; i < AllEmployeeAssignments.length; i++) {
-      name[AllEmployeeAssignments[i].project_name] = AllEmployeeAssignments[i].project_name
-      name[AllEmployeeAssignments[i].project_id] = AllEmployeeAssignments[i].project_id
-     
+    let name = [];
+    for (let i = 0; i < AllEmployeeAssignments.length; i++) {
+      let newObj = {};
+      newObj.project_id = AllEmployeeAssignments[i].project_id;
+      newObj.project_name = AllEmployeeAssignments[i].project_name;
+      // name[AllEmployeeAssignments[i].project_name] = AllEmployeeAssignments[i].project_name
+      // name[AllEmployeeAssignments[i].project_id] = AllEmployeeAssignments[i].project_id
+
     }
     console.log("Look Toward the Sun", name)
 
-   return [...new Set(name)]
+    return [...new Set(name)]
 
-    }
-    
-  
+  }
+
+
 
   render() {
     let {
@@ -68,51 +71,37 @@ class EmployeeDetails extends Component {
       AllEmployeeAssignments,
       AllEmployeesToAssignment
     } = this.props;
-  
+
     return (
       <LazyLoad>
         <div>
           <Header color="blue">Employee Details Page</Header>
           <Table singleLine>
-            <Table.Row>
-              <Table.HeaderCell />
-            </Table.Row>
             <Table.Header>
-              <Header as="h3">Employee Name: {EmployeeById.first_name + " "}{EmployeeById.last_name}</Header>
-              <Header as="h3">Position: {EmployeeById.position}</Header>
+              <Table.Row>
+              <Table.HeaderCell>Employee Name: {EmployeeById.first_name + " "}{EmployeeById.last_name}</Table.HeaderCell>
+              <Table.HeaderCell>Position: {EmployeeById.position}</Table.HeaderCell>
+              </Table.Row>
             </Table.Header>
           </Table>
 
-          <Table singleLine Selectable>
+          <Table singleLine selectable>
             <Table.Header>
-              <Table.HeaderCell>
-                All Assignments Assigned to {EmployeeById.first_name}:
-        </Table.HeaderCell>
-              <Table.HeaderCell>
-                From Project
-        </Table.HeaderCell>
-              <Table.HeaderCell>
-                Status
-              </Table.HeaderCell>
-              <Table.HeaderCell>
-                Start Date
-        </Table.HeaderCell>
-              <Table.HeaderCell>
-                Due Date
-        </Table.HeaderCell>
-              <Table.HeaderCell>
-                Total Estimated Hours
-        </Table.HeaderCell>
-              <Table.HeaderCell>
-                Total Elapsed Hours
-        </Table.HeaderCell>
-
+              <Table.Row>
+                <Table.HeaderCell>All Assignments Assigned to {EmployeeById.first_name}:</Table.HeaderCell>
+                <Table.HeaderCell>From Project</Table.HeaderCell>
+                <Table.HeaderCell>Status</Table.HeaderCell>
+                <Table.HeaderCell>Start Date</Table.HeaderCell>
+                <Table.HeaderCell>Due Date</Table.HeaderCell>
+                <Table.HeaderCell>Total Estimated Hours</Table.HeaderCell>
+                <Table.HeaderCell>Total Elapsed Hours</Table.HeaderCell>
+              </Table.Row>
             </Table.Header>
             <Table.Body>
               {
                 AllEmployeeAssignments.map(ea => {
                   return (
-                    <Table.Row key={ea.assignment_id}>
+                    <Table.Row key={ea.assignment_id+ea.assignment_name}>
                       <Table.Cell selectable> <Link to={`/assignments/details/${ea.assignment_id}`}>{ea.assignment_name}</Link></Table.Cell>
                       <Table.Cell selectable> <Link to={`/projects/details/${ea.project_id}`}>{ea.project_name && ea.project_name}</Link></Table.Cell>
                       <Table.Cell>{ea.status_name && ea.status_name}</Table.Cell>
@@ -127,40 +116,42 @@ class EmployeeDetails extends Component {
           </Table>
 
           <Table singleLine selectable>
-        <Table.Header>
-        <Table.HeaderCell>
-          Total Estimated Hours
-        </Table.HeaderCell>
-        <Table.HeaderCell>
-          Total Elapsed Hours
-        </Table.HeaderCell>
-        </Table.Header>
-        <Table.Body>
-        <Table.Cell>
-          {
-            this.calculateTotalEstimatedHours('assignment_est_hours')
-          }
-        </Table.Cell>
-        <Table.Cell>
-            {
-              this.calculateTotalEstimatedHours('assignment_final_hours')
-            }
-        </Table.Cell>
-          </Table.Body>
-        </Table>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Total Estimated Hours</Table.HeaderCell>
+                <Table.HeaderCell>Total Elapsed Hours</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
+                <Table.Row>
+                <Table.Cell>
+                  {
+                    this.calculateTotalEstimatedHours('assignment_est_hours')
+                  }
+                </Table.Cell>
+                <Table.Cell>
+                  {
+                    this.calculateTotalEstimatedHours('assignment_final_hours')
+                  }
+                </Table.Cell>
+              </Table.Row>
+            </Table.Body>
+          </Table>
 
-        <Table>
-          <Table.Header>
-          <Table.HeaderCell>Projects {EmployeeById.first_name} is Currently In:</Table.HeaderCell>
-          </Table.Header>
-          <Table.Body>
-            {/* {this.uniqueProjectNames().map(name => {
+          <Table>
+            <Table.Header>
+                <Table.Row>
+                 <Table.HeaderCell>Projects {EmployeeById.first_name} is Currently In:</Table.HeaderCell>
+                </Table.Row>
+            </Table.Header>
+            <Table.Body>
+              {/* {this.uniqueProjectNames().map(name => {
               return (
                 <Table.Row><Table.Cell> <Link to={`/projects/details/${AllEmployeeAssignments.project_id}`}>{name}</Link></Table.Cell></Table.Row>
               )
             })} */}
-          </Table.Body>
-        </Table>
+            </Table.Body>
+          </Table>
         </div>
       </LazyLoad>
     );

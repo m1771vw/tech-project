@@ -140,4 +140,60 @@ const deleteAssignment = async (req, res) => {
     }
 }
 
-module.exports = { index, getAllAssignments, getAllBlockedAssignments, getAllAssignmentsOrdered, getAssignmentById, addAssignment, updateAssignment, deleteAssignment }
+/**
+ * Assignment Comment Controllers
+ */
+const getAllAssignmentComments = async (req, res) => {
+    try{
+        let comments = await db.any(`
+        SELECT *
+        FROM Assignment_Comments`);
+        res.status(200).send({ comments });
+    } catch(e) {
+        res.status(500).json({ error: e.message });
+    }
+}
+const addAssignmentComment = async (req, res) => {
+    try{
+        let { assignment_id, comment } = req.body;
+        let newComment = await db.one(`
+        INSERT INTO Assignment_Comments(assignment_id, comment)
+        VALUES($1, $2)
+        RETURNING assignment_comments.assignment_comment_id, assignment_comments.assignment_id, assignment_comments.comment`, 
+        [assignment_id, comment]);
+        res.status(200).send({ comment: newComment });
+    } catch(e) {
+        res.status(500).json({ error: e.message });
+    }
+}
+const updateAssignmentComment = async (req, res) => {
+    try{
+        let assignment_comment_id = req.params.cid;
+        let {comment} = req.body;
+        await db.none(`
+        UPDATE Assignment_Comments
+        SET comment = $2
+        WHERE assignment_comment_id = $1`, [assignment_comment_id, comment]);
+        let newComment = await db.one(`
+        SELECT * FROM Assignment_Comments WHERE assignment_comment_id = $1`, assignment_comment_id)
+        res.status(200).send({ comment: newComment });
+    } catch(e) {
+        res.status(500).json({ error: e.message });
+    }
+}
+const deleteAssignmentComment = async (req, res) => {
+    try{
+        let assignment_comment_id = req.params.cid;
+        let comment = await db.one(`
+        SELECT *
+        FROM Assignment_Comments
+        WHERE assignment_comment_id = $1`, assignment_comment_id);
+        await db.none(`DELETE FROM Assignment_Comments WHERE assignment_comment_id = $1`, assignment_comment_id);
+        res.status(200).send({ comment });
+    } catch(e) {
+        res.status(500).json({ error: e.message });
+    }
+}
+module.exports = { index, getAllAssignments, getAllBlockedAssignments, getAllAssignmentsOrdered, getAssignmentById, 
+    addAssignment, updateAssignment, deleteAssignment,
+    getAllAssignmentComments, addAssignmentComment, updateAssignmentComment, deleteAssignmentComment }

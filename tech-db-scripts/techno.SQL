@@ -112,3 +112,16 @@ VALUES
 (4, 2),
 (5, 1),
 (6, 1);
+
+CREATE TABLE Assignment_Comments (
+    assignment_comment_id   SERIAL PRIMARY KEY,
+    assignment_id           int REFERENCES Assignments (assignment_id),
+    comment                 varchar(500)
+);
+
+INSERT INTO Assignment_Comments (assignment_id, comment)
+VALUES
+(1, 'Created the quiz component but need a random card generator. Changing status to blocked.'),
+(1, 'Requested for random card generator'),
+(2, 'Needed for quiz component'),
+(2, 'Random Card Generator created, unblocking Create Quiz Component.');

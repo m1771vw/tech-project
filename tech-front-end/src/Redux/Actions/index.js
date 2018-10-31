@@ -30,7 +30,11 @@ import {
     GET_EMPLOYEES_IN_PROJECT,
     GET_ASSIGNMENTS_IN_PROJECT,
     GET_EMPLOYEE_BY_ID,
-    SEARCH_EMPLOYEES
+    SEARCH_EMPLOYEES,
+    GET_ALL_ASSIGNMENT_COMMENTS,
+    ADD_ASSIGNMENT_COMMENT,
+    UPDATE_ASSIGNMENT_COMMENT,
+    DELETE_ASSIGNMENT_COMMENT
 }
     from '../Constants';
 
@@ -216,6 +220,59 @@ export const updateAssignment = (assignment, id) => async dispatch => {
         dispatch({ type: UPDATE_ASSIGNMENT, payload: response.data.message, id })
     } catch {
         console.log("ERROR")
+    }
+}
+
+/** Assignment Comment Actions */
+export const getAllAssignmentComments = () => async dispatch => {
+    try {
+        let response = await axios.get(`http://localhost:5000/api/assignments/id/${id}/comments/all`, {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+        dispatch({ type: GET_ALL_ASSIGNMENT_COMMENTS, payload: response.data.comments })
+    } catch (e) {
+        console.log("Assignment Comment Error: ", e);
+    }
+}
+
+export const addAssignmentComment = comment => async dispatch => {
+    try {
+        let response = await axios.post(`http://localhost:5000/api/assignments/id/${id}/comments/all`, comment, {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+        dispatch({ type: ADD_ASSIGNMENT_COMMENT, payload: response.data.comment })
+    } catch (e) {
+        console.log("Assignment Comment Error: ", e);
+    }
+}
+
+export const updateAssignmentComment = (comment, id, cid) => async dispatch => {
+    try {
+        let response = await axios.put(`http://localhost:5000/api/assignments/id/${id}/comments/${cid}`, comment, {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+        dispatch({ type: UPDATE_ASSIGNMENT_COMMENT, payload: response.data.comment })
+    } catch (e) {
+        console.log("Assignment Comment Error: ", e);
+    }
+}
+
+export const deleteAssignmentComment = (id, cid) => async dispatch => {
+    try {
+        let response = await axios.delete(`http://localhost:5000/api/assignments/id/${id}/comments/${cid}`, {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+        dispatch({ type: DELETE_ASSIGNMENT_COMMENT, payload: response.data.comment })
+    } catch (e) {
+        console.log("Assignment Comment Error: ", e);
     }
 }
 

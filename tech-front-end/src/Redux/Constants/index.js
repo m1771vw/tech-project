@@ -23,6 +23,14 @@ export const UPDATE_ASSIGNMENT = "UPDATE_ASSIGNMENT";
 export const IN_ORDER          = "IN_ORDER";
 export const RECENT_ORDER      = "RECENT_ORDER";
 export const NEED_ATTENTION    = 'NEED_ATTENTION';
+
+/**
+ * Assignment Comment Constants
+ */
+export const GET_ALL_ASSIGNMENT_COMMENTS = 'GET_ALL_ASSIGNMENT_COMMENTS';
+export const ADD_ASSIGNMENT_COMMENT = 'ADD_ASSIGNMENT_COMMENT';
+export const UPDATE_ASSIGNMENT_COMMENT = 'UPDATE_ASSIGNMENT_COMMENT';
+export const DELETE_ASSIGNMENT_COMMENT = 'DELETE_ASSIGNMENT_COMMENT';
 /**
  * Employee Constants
  */

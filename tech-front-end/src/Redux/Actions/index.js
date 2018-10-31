@@ -19,6 +19,7 @@ import {
     ADD_EMPLOYEE,
     ADD_PROJECT,
     ADD_PROJECT_ROLE,
+    ADD_EMPLOYEE_TO_ASSIGNMENT,
     REMOVE_ASSIGNMENT,
     REMOVE_EMPLOYEE,
     REMOVE_PROJECT,
@@ -180,6 +181,7 @@ export const getAssignmentEmployees = id => async dispatch => {
 }
 export const submitAssignment = assignment => async dispatch => {
     try {
+        let { employee_id, ...newAssignment } = assignment
         console.log("Trying to submit to assignment:", assignment);
         let response = await axios.post('http://localhost:5000/api/assignments', assignment, {
             headers: {
@@ -187,6 +189,17 @@ export const submitAssignment = assignment => async dispatch => {
             }
         });
         dispatch({ type: ADD_ASSIGNMENT, payload: response.data.assignment })
+        let newEmpAssign = {
+            employee_id : assignment.employee_id,
+            assignment_id: response.data.assignment.assignment_id
+        }
+        let response2 = await axios.post(`http://localhost:5000/api/employees/${employee_id}/assignments`, newEmpAssign, {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+        console.log('SUBMITTING EMPLOYEE TO ASSIGNMENT: ', response2);
+        dispatch({ type: ADD_EMPLOYEE_TO_ASSIGNMENT, payload: response2.data.employee_assignment})
     } catch (e) {
         console.log("ERROR:", e)
     }

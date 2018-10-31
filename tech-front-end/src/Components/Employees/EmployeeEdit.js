@@ -36,29 +36,29 @@ class EmployeeEdit extends Component {
             <div className="form-group">
                 <label className="form-label">First Name</label>
                 <input className="form-input"
-                       required
-                       name="first_name"
-                       type="text"
-                       value={this.state.first_name}
-                       onChange={this.onChange}
-                       />
+                    required
+                    name="first_name"
+                    type="text"
+                    value={this.state.first_name}
+                    onChange={this.onChange}
+                />
                 <label className="form-label">Last Name</label>
                 <input className="form-input"
-                       required
-                       name="last_name"
-                       type="text"
-                       value={this.state.last_name}
-                       onChange={this.onChange}
-                       />
+                    required
+                    name="last_name"
+                    type="text"
+                    value={this.state.last_name}
+                    onChange={this.onChange}
+                />
                 <label className="form-label">Position</label>
                 <input className="form-input"
-                       required
-                       name="position"
-                       type="text"
-                       value={this.state.position}
-                       onChange={this.onChange}
-                       />
-                
+                    required
+                    name="position"
+                    type="text"
+                    value={this.state.position}
+                    onChange={this.onChange}
+                />
+
             </div>
         )
         return formUI;
@@ -66,22 +66,22 @@ class EmployeeEdit extends Component {
 
     render() {
         let title = "Employee Edit"  //Or render "default"
-        return (    
+        return (
             <Grid className="form">
-            <Grid.Column style={{ maxWidth: 800 }}>
-                <Form >
-                <Segment stacked>
-                <Header color='blue'>{title}</Header>
-                <Form.Field  className="dynamic-form" onSubmit={(e) => { this.onSubmit(e) }}>
-                    {this.renderForm()}
-                    <div className="form-group">
-                        <Button primary onClick={(e) => { this.onSubmit(e) }} type="submit">Submit</Button>
-                        {/* /temp button */}
-                    </div>
-                </Form.Field>
-                </Segment>
-                </Form>
-            </Grid.Column>    
+                <Grid.Column style={{ maxWidth: 800 }}>
+                    <Form >
+                        <Segment stacked>
+                            <Header color='blue'>{title}</Header>
+                            <Form.Field className="dynamic-form" onSubmit={(e) => { this.onSubmit(e) }}>
+                                {this.renderForm()}
+                                <div className="form-group">
+                                    <Button primary onClick={(e) => { this.onSubmit(e) }} type="submit">Submit</Button>
+                                    {/* /temp button */}
+                                </div>
+                            </Form.Field>
+                        </Segment>
+                    </Form>
+                </Grid.Column>
             </Grid>
         )
     }

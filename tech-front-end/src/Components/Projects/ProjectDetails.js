@@ -148,6 +148,7 @@ class ProjectDetails extends Component {
 
                         <Table.Row>
                             <Table.HeaderCell>Assignment</Table.HeaderCell>
+                            <Table.HeaderCell>Assigned To</Table.HeaderCell>                            
                             <Table.HeaderCell>Status</Table.HeaderCell>
                             <Table.HeaderCell>Start Date</Table.HeaderCell>
                             <Table.HeaderCell>End Date</Table.HeaderCell>
@@ -162,8 +163,8 @@ class ProjectDetails extends Component {
                             .map((a) => {
                                 return (
                                     <Table.Row key={a.assignment_id + a.assignment_name}>
-                                        <Table.Cell>
-                                            {a.assignment_name}</Table.Cell>
+                                        <Table.Cell>{a.assignment_name}</Table.Cell>
+                                        <Table.Cell>{a.first_name} {a.last_name}</Table.Cell>
                                         <Table.Cell>{a.status_name}</Table.Cell>
                                         <Table.Cell>{a.assignment_start_date && formatDate(a.assignment_start_date)}</Table.Cell>
                                         <Table.Cell>{a.assignment_end_date && formatDate(a.assignment_end_date)}</Table.Cell>

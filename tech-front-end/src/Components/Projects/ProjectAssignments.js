@@ -12,6 +12,7 @@ class ProjectAssignments extends Component {
         project_id: '',
         assignment_est_hours: '',
         assignment_final_hours: '',
+        employee_id:'',
     }
 
     componentDidMount() {
@@ -48,6 +49,13 @@ class ProjectAssignments extends Component {
             status_id: value
         })
     }
+
+    onInputChange2 = (e, { value }) => {
+        e.preventDefault();
+        this.setState({
+            employee_id: value
+        })
+    }
     //grab the model
     renderForm = () => {
         //loop thorugh all the metadata
@@ -59,6 +67,13 @@ class ProjectAssignments extends Component {
                     value={this.state.status_id}
                     onChange={this.onInputChange}
                     fluid search selection options={this.props.assignmentStatus} />
+
+                <label className="form-label">Assign to Employee</label>
+                <Dropdown
+                    placeholder='Employee'
+                    value={this.state.employee_id}
+                    onChange={this.onInputChange2}
+                    fluid search selection options={this.props.searchEmployees} />    
 
 
                 <label className="form-label">Assignment</label>
@@ -128,8 +143,9 @@ class ProjectAssignments extends Component {
         )
     }
 }
-const mapStateToProps = ({ assignmentReducer }) => ({
-    assignmentStatus: assignmentReducer.assignmentStatus
+const mapStateToProps = ({ assignmentReducer, employeeReducer }) => ({
+    assignmentStatus: assignmentReducer.assignmentStatus,
+    searchEmployees: employeeReducer.searchEmployees
 })
 
 const mapDispatchToProps = dispatch => ({

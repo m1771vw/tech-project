@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Table, Button, Modal } from 'semantic-ui-react';
 import EmployeeEdit from './EmployeeEdit'
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { updateEmployee } from '../../Redux/Actions/';
 class EmployeeRow extends Component {
     state={
         employeeModal: false
@@ -15,8 +17,7 @@ class EmployeeRow extends Component {
     ;}
 
     onUpdateEmployeeModal = async (model) =>{
-        model = {...model, employee_id: this.props.employee_id }
-        await this.props.updateEmployee(model);
+        this.props.updateEmployee(model, this.props.employee.employee_id);
         this.closeEmployeeModal();
       }
 
@@ -64,4 +65,8 @@ EmployeeRow.propTypes = {
 
 };
 
-export default EmployeeRow;
+const mapDispatchToProps = dispatch => ({
+    updateEmployee: (model, id) => dispatch(updateEmployee(model, id))
+  });
+
+export default connect(null, mapDispatchToProps)(EmployeeRow);

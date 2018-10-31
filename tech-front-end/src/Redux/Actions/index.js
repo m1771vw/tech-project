@@ -330,7 +330,6 @@ export const updateEmployee = (employee, id) => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log('RESPONSE:', response)
         dispatch({ type: UPDATE_EMPLOYEE, payload: response.data.employee, id })
     } catch (e) {
         console.log("ERROR:", e)

@@ -206,7 +206,6 @@ export const getAllEmployees = () => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        // console.log("Assignment Response: ", response);
         let newArray = response.data.employees.map((x) => ({
             key: x.employee_id,
             value: x.employee_id,

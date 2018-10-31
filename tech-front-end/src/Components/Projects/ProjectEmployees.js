@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom'
-import {searchEmployees} from '../../Redux/Actions/index';
-import { Container, Button, Form, Message, Grid, Header, Segment, Dropdown } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment, Dropdown } from 'semantic-ui-react';
 
 class ProjectEmployees extends Component {
     state = {

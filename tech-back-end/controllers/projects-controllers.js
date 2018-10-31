@@ -40,7 +40,7 @@ const getEmployeesInProject = async (req , res) => {
         let project_id = parseInt(req.params.id);
         let employees = await db.any(
             `SELECT p.project_id, p.project_name, p.project_start_date, p.project_end_date, 
-            pr.employee_id, 
+            pr.employee_id, pr.role,
             e.first_name, e.last_name, e.position
             FROM projects as p
             INNER JOIN project_roles as pr ON pr.project_id = p.project_id

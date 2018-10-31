@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Form from '../Forms/DynamicForm/Form';
 import ProjectEmployees from './ProjectEmployees';
 import projectReducer from '../../Redux/Reducers/Project';
-// import AssignmentsPage from '../Assignments/AssignmentsPage';
 import {
     getAllProjects, getAllProjectRoles, getProjectById,
     getEmployeesInProject, getAssignmentsInProject, submitAssignment,
@@ -13,6 +12,7 @@ import LazyLoad from 'react-lazy-load';
 import { Table, Modal, Button, Header, Dropdown } from 'semantic-ui-react';
 import {formatDate} from '../../util/DateHelper'
 import ProjectAssignments from './ProjectAssignments';
+
 
 class ProjectDetails extends Component {
     state = {
@@ -49,7 +49,7 @@ class ProjectDetails extends Component {
     }
 
     onSubmitAssignmentModal = async (model) => {
-        
+        model = {...model, project_id: this.props.match.params.id }        
         await this.props.submitAssignment(model);
         await this.fetchProjectData();
         await this.closeAssignmentModal();
@@ -60,13 +60,9 @@ class ProjectDetails extends Component {
 
     onSubmitEmployeeModal = async (model) => {
         model = {...model, project_id: this.props.match.params.id }
-        console.log('MODEL TEST: ', model)
         await this.props.submitProjectRole(model);
         await this.fetchProjectData();
         await this.closeEmployeeModal();
-        // this.setState({
-        //     employeeModal: false,
-        // })
     }
 
 
@@ -109,10 +105,10 @@ class ProjectDetails extends Component {
                         </Modal>
 
                         <Table.Row>
-                            <Table.HeaderCell>Employee ID</Table.HeaderCell>
+                            {/* <Table.HeaderCell>Employee ID</Table.HeaderCell> */}
                             <Table.HeaderCell>First Name</Table.HeaderCell>
                             <Table.HeaderCell>Last Name</Table.HeaderCell>
-                            <Table.HeaderCell>Position</Table.HeaderCell>
+                            <Table.HeaderCell>Role</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -122,11 +118,11 @@ class ProjectDetails extends Component {
                             .map((e) => {
                                 return (
                                     <Table.Row key={e.employee_id + e.first_name}>
-                                        <Table.Cell>
-                                            {e.employee_id}</Table.Cell>
+                                        {/* <Table.Cell>
+                                            {e.employee_id}</Table.Cell> */}
                                         <Table.Cell>{e.first_name}</Table.Cell>
                                         <Table.Cell>{e.last_name}</Table.Cell>
-                                        <Table.Cell>{e.position}</Table.Cell>
+                                        <Table.Cell>{e.role}</Table.Cell>
                                     </Table.Row>
                                 );
                             })}

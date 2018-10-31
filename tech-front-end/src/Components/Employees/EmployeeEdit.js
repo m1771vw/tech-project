@@ -3,14 +3,14 @@ import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
 class EmployeeEdit extends Component {
     state = {
-        first_name: this.props.location.state.first_name,
-        last_name: this.props.location.state.last_name,
-        position: this.props.location.state.position
+            first_name: this.props.first_name,
+            last_name: this.props.last_name,
+            position: this.props.position
     }
 
     onSubmit = e => {
         e.preventDefault();
-        if (this.props.onSubmit) this.props.onSubmit(this.state, this.props.location.state.employee_id)
+        if (this.props.onSubmit) this.props.onSubmit(this.state, this.props.employee_id)
     }
 
     onDelete = e => {
@@ -20,7 +20,7 @@ class EmployeeEdit extends Component {
 
     onUpdate = e => {
         e.preventDefault();
-        this.props.onUpdate(this.state, this.props.location.state.employee_id)
+        this.props.onUpdate(this.state, this.props.employee_id)
     }
 
     onChange = (e) => {
@@ -31,6 +31,7 @@ class EmployeeEdit extends Component {
     }
     //grab the model
     renderForm = () => {
+    
         //loop thorugh all the metadata
         let formUI = (
             <div className="form-group">
@@ -86,5 +87,9 @@ class EmployeeEdit extends Component {
         )
     }
 }
+
+const mapStateToProps = ({ employeeReducer }) => ({
+    employees: employeeReducer.employees
+  });
 
 export default EmployeeEdit;

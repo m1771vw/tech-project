@@ -86,6 +86,7 @@ class ProjectsPage extends Component {
                                     <Table.HeaderCell>Name</Table.HeaderCell>
                                     <Table.HeaderCell>Start Date</Table.HeaderCell>
                                     <Table.HeaderCell>End Date</Table.HeaderCell>
+                                    <Table.HeaderCell></Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>

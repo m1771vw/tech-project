@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import { getAllEmployees, deleteEmployee, submitEmployee } from "../../Redux/Actions/index";
+import { getAllEmployees, deleteEmployee, submitEmployee, updateEmployee } from "../../Redux/Actions/index";
 import { connect } from "react-redux";
 import LazyLoad from "react-lazy-load";
 import { Modal, Button, Table, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import EmployeeCreate from './EmployeeCreate'
+import EmployeeEdit from './EmployeeEdit'
 
 class EmployeesPage extends Component {
   state = {
@@ -32,6 +33,15 @@ onSubmitEmployeeModal = async (model) => {
   await this.closeEmployeeModal();
 }
 
+onUpdateEmployeeModal = async (model) =>{
+  model = {...model, project_id: this.props.match.params.id }
+  await this.props.updateEmployee(model);
+  await this.fetchAllEmployees();
+  await this.closeEmployeeModal();
+}
+
+
+
 
   render() {
     let { employees } = this.props;
@@ -40,7 +50,7 @@ onSubmitEmployeeModal = async (model) => {
                       <Modal
                             onClose={this.closeEmployeeModal}
                             open={this.state.employeeModal}
-                            trigger={<Button onClick={() => { this.setState({ employeeModal: true }) }}>Add Employee</Button>} closeIcon>
+                            trigger={<Button primary onClick={() => { this.setState({ employeeModal: true }) }}>Add Employee</Button>} closeIcon>
                             <Modal.Header>Add Employee</Modal.Header>
                             <Modal.Content>
                                 <Modal.Description>
@@ -53,6 +63,7 @@ onSubmitEmployeeModal = async (model) => {
                                 </Modal.Description>
                             </Modal.Content>
                         </Modal>
+                        
 
         <LazyLoad height={100} offsetVertical={300}>
           <div>
@@ -63,6 +74,7 @@ onSubmitEmployeeModal = async (model) => {
                   <Table.HeaderCell>First Name</Table.HeaderCell>
                   <Table.HeaderCell>Last Name</Table.HeaderCell>
                   <Table.HeaderCell>Position</Table.HeaderCell>
+                  <Table.HeaderCell></Table.HeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
@@ -79,15 +91,21 @@ onSubmitEmployeeModal = async (model) => {
                       <Link to={`/employees/details/${employee_id}`}>{last_name}</Link></Table.Cell>
                       <Table.Cell>{position}</Table.Cell>
                       <Table.Cell>
-                      <Link to={{
-                            pathname: `/employee/edit/${employee_id}`,
-                            state: {
-                                employee_id: employee_id,
-                                first_name: first_name,
-                                last_name: last_name,
-                                position: position,
-                            }
-                        }}><Button secondary>Update</Button></Link>
+                      <Modal
+                            onClose={this.closeEmployeeModal}
+                            open={this.state.employeeModal}
+                            trigger={<Button primary onClick={() => { this.setState({ employeeModal: true }) }}>Update</Button>} closeIcon>
+                            <Modal.Header>Update Employee</Modal.Header>
+                            <Modal.Content>
+                                <Modal.Description>
+                                    <EmployeeEdit onSubmit={this.onUpdateEmployeeModal}
+                                      employee_id = {employee_id}
+                                      first_name = {first_name}
+                                      last_name = {last_name}
+                                      position = {position}/>
+                                </Modal.Description>
+                            </Modal.Content>
+                        </Modal>
                         <Button
                           color="red"
                           onClick={() => this.props.deleteEmployee(employee_id)}
@@ -114,7 +132,8 @@ const mapStateToProps = ({ employeeReducer }) => ({
 const mapDispatchToProps = dispatch => ({
   getAllEmployees: () => dispatch(getAllEmployees()),
   deleteEmployee: id => dispatch(deleteEmployee(id)),
-  submitEmployee: (model) => dispatch(submitEmployee(model))
+  submitEmployee: (model) => dispatch(submitEmployee(model)),
+  updateEmployee: (model) => dispatch(updateEmployee(model))
 });
 
 export default connect(

@@ -53,16 +53,10 @@ class EmployeeDetails extends Component {
       let newObj = {};
       newObj.project_id = AllEmployeeAssignments[i].project_id;
       newObj.project_name = AllEmployeeAssignments[i].project_name;
-      // name[AllEmployeeAssignments[i].project_name] = AllEmployeeAssignments[i].project_name
-      // name[AllEmployeeAssignments[i].project_id] = AllEmployeeAssignments[i].project_id
-      console.log("AllEmployeeAssignmentsprojectID", AllEmployeeAssignments[i].project_id);
       if(!name.some(o => o['project_id'] === AllEmployeeAssignments[i].project_id))
         name.push(newObj) 
     }
-    // console.log("Look Toward the Sun", name)
     return name;
-    // return [...new Set(name)]
-
   }
 
 
@@ -147,9 +141,7 @@ class EmployeeDetails extends Component {
                 </Table.Row>
             </Table.Header>
             <Table.Body>
-            {console.table(this.uniqueProjectNames())}
               {this.uniqueProjectNames().map(name => {
-                console.log(name);
               return (
                 <Table.Row>
                   <Table.Cell selectable> 

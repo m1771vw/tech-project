@@ -1,10 +1,12 @@
 import { ADD_ASSIGNMENT, REMOVE_ASSIGNMENT, UPDATE_ASSIGNMENT, 
-    GET_ALL_ASSIGNMENTS, GET_ALL_BLOCKED_ASSIGNMENTS, GET_ALL_ASSIGNMENTS_REVERSED, GET_ASSIGNMENT_BY_ID, GET_ASSIGNMENT_EMPLOYEES } from '../Constants';
+    GET_ALL_ASSIGNMENTS, GET_ALL_BLOCKED_ASSIGNMENTS, GET_ALL_ASSIGNMENTS_REVERSED,
+    GET_ASSIGNMENT_BY_ID, GET_ASSIGNMENT_EMPLOYEES, GET_ASSIGNMENT_STATUS } from '../Constants';
 
 const initialState = {
     assignments: [],
     assignment: {},
-    assignmentEmployees: []
+    assignmentEmployees: [],
+    assignmentStatus:[{}]
 }
 const assignmentReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -18,7 +20,13 @@ const assignmentReducer = (state = initialState, action) => {
             return {
                 ...state,
                 reversedAssignments: [...action.payload]
-            }
+            };
+        case GET_ASSIGNMENT_STATUS:
+        console.log('REDUCER: GET ASSIGNMENT STATUS', action.payload)
+            return {
+                ...state,
+                assignmentStatus: [...action.payload]
+            };
         case GET_ALL_BLOCKED_ASSIGNMENTS:
             return {
                 ...state,

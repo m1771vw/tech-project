@@ -1,7 +1,7 @@
 let db = require('../config/db');
 
 const index = (req, res) => {
-    res.send({message: "Welcome to Status Types API"})
+    res.send({ message: "Welcome to Status Types API" })
 };
 
 const getAllStatusTypes = async (req, res) => {
@@ -13,7 +13,7 @@ const getAllStatusTypes = async (req, res) => {
             `
         );
         res.status(200).send({ statusTypes });
-    } catch(e) {
+    } catch (e) {
         res.status(500).json({ error: e.message });
     }
 };
@@ -22,7 +22,7 @@ const getStatusTypeById = async (req, res) => {
     try {
         let status_id = parseInt(req.params.id);
         let statusType = await db.one(`SELECT status_id, status_name 
-                                     FROM status_types 
+                                      FROM status_types 
                                      WHERE status_id = $1`, status_id);
         res.status(200).send({ statusType })
     } catch (e) {
@@ -68,4 +68,4 @@ const deleteStatusType = async (req, res) => {
     }
 };
 
-module.exports =  { index, getAllStatusTypes, getStatusTypeById, addStatusType, updateStatusType, deleteStatusType }
+module.exports = { index, getAllStatusTypes, getStatusTypeById, addStatusType, updateStatusType, deleteStatusType }

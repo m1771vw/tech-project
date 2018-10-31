@@ -5,7 +5,7 @@ import projectReducer from '../../Redux/Reducers/Project';
 import {
     getAllProjects, getAllProjectRoles, getProjectById,
     getEmployeesInProject, getAssignmentsInProject, submitAssignment,
-    submitEmployee, submitProjectRole, searchEmployees
+    submitEmployee, submitProjectRole, getAllAssignments
 } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
@@ -23,6 +23,7 @@ class ProjectDetails extends Component {
     async componentDidMount() {
         await this.fetchProjectData();
         // await this.searchEmployees
+        await getAllAssignments();
     }
 
     createAssignmentButton = (e) => {
@@ -155,7 +156,9 @@ class ProjectDetails extends Component {
                                         onSubmit={(model) => { this.onSubmitAssignmentModal(model); }}
                                         onDelete={(model) => { this.onDeleteAssignment(model) }}
                                     /> */}
-                                    <ProjectAssignments />
+                                    <ProjectAssignments
+                                    onSubmit={this.onSubmitAssignmentModal} 
+                                    />
                                 </Modal.Description>
                             </Modal.Content>
                         </Modal>
@@ -209,7 +212,7 @@ const mapDispatchToProps = dispatch => ({
     submitAssignment: (model) => dispatch(submitAssignment(model)),
     submitProjectRole:(model) => dispatch(submitProjectRole(model)),
     submitEmployee: (model) => dispatch(submitEmployee(model)),
-    // searchEmployees:() => dispatch(searchEmployees()),
+    getAllAssignments:() => dispatch(getAllAssignments()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);

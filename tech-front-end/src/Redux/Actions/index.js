@@ -6,6 +6,7 @@ import {
     LOGOUT,
     GET_ALL_ASSIGNMENTS,
     GET_ALL_BLOCKED_ASSIGNMENTS,
+    GET_ASSIGNMENT_STATUS,
     GET_ALL_EMPLOYEES,
     GET_ALL_PROJECTS,
     GET_ALL_PROJECT_ROLES,
@@ -73,6 +74,26 @@ export const submitLogin = loginBody => async dispatch => {
 /**
  * Assignment Actions
  */
+export const getStatusTypes = () => async dispatch => {
+    try {
+        let response = await axios.get('http://localhost:5000/api/statustypes/all', {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+        let newArray = response.data.statusTypes.map((x) => ({
+            key: x.status_id,
+            value: x.status_id,
+            text: x.status_name,
+        }))
+        console.log('PROJECT ASSIGNMENTS: ', newArray)
+        dispatch({ type: GET_ASSIGNMENT_STATUS, payload: newArray })
+    } catch(e) {
+        console.log('Status Type Error :' , e)
+    }
+}
+
+
 
 export const getAllAssignments = () => async dispatch => {
     try {
@@ -82,6 +103,7 @@ export const getAllAssignments = () => async dispatch => {
             }
         });
         dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments })
+        
     } catch (e) {
         console.log("Get All Assignment Error", e.response.data);
     }
@@ -352,7 +374,7 @@ export const getEmployeesInProject = id => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log('THIS IS THE RESPONSE: ', response)
+        // console.log('THIS IS THE RESPONSE: ', response)
         dispatch({ type: GET_EMPLOYEES_IN_PROJECT, payload: response.data.employees })
     } catch (e) {
         console.log('ERROR MESSAGE GETTING EMPLOYEES IN PROJECT: ', e)
@@ -368,6 +390,7 @@ export const getAssignmentsInProject = id => async dispatch => {
         });
         console.log('assignment response: ', response)
         dispatch({ type: GET_ASSIGNMENTS_IN_PROJECT, payload: response.data.assignments })
+        // dispatch({ type: GET_ASSIGNMENT_STATUS, payload: newArray})
     } catch (e) {
         console.log('ERROR MESSAGE GETTING ASSIGNMENTS IN PROJECT: ', e)
     }

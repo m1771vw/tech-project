@@ -91,7 +91,7 @@ class ProjectEmployees extends Component {
         )
     }
 }
-const mapStateToProps = ({ projectReducer, employeeReducer }) => ({ 
+const mapStateToProps = ({ employeeReducer }) => ({ 
     searchEmployees: employeeReducer.searchEmployees
 })
 

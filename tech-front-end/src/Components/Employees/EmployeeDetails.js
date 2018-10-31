@@ -52,11 +52,11 @@ class EmployeeDetails extends Component {
     for(let i = 0; i < AllEmployeeAssignments.length; i++) {
       name[AllEmployeeAssignments[i].project_name] = AllEmployeeAssignments[i].project_name
       name[AllEmployeeAssignments[i].project_id] = AllEmployeeAssignments[i].project_id
-      console.log(name)
+     
     }
     console.log("Look Toward the Sun", name)
 
-  //  return [...new Set(name)]
+   return [...new Set(name)]
 
     }
     

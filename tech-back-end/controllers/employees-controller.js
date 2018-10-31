@@ -6,7 +6,8 @@ const index = (req, res) => {
 
 const getAllEmployees = async (req, res) => {
     try {
-        let employees = await db.any('SELECT e.employee_id, e.first_name, e.last_name, e.position FROM employees AS e')
+        let employees = await db.any(`SELECT e.employee_id, e.first_name, e.last_name, e.position 
+                                    FROM employees AS e`)
         res.send({ employees })
     } catch (e) {
         res.status(500).json({ message: e.message })

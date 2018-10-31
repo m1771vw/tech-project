@@ -398,6 +398,7 @@ export const getAssignmentsInProject = id => async dispatch => {
 
 export const submitProject = project => async dispatch => {
     try {
+      console.log("ACTION: Project:", project);
         let response = await axios.post('http://localhost:5000/api/projects/', project, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`

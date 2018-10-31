@@ -1,23 +1,52 @@
 import React, { Component } from 'react';
-import { getAllProjects, getAllProjectRoles, deleteProject } from '../../Redux/Actions/index';
+import { submitProject, getAllProjects, getAllProjectRoles, deleteProject } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
-import { Button, Table, Header } from 'semantic-ui-react'
+import { Button, Table, Header, Modal } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import {formatDate} from '../../util/DateHelper'
+import ProjectCreate from './ProjectCreate'
 
 class ProjectsPage extends Component {
-    componentDidMount() {
-        this.fetchAllProjects();
-        this.fetchAllProjectRoles();
+    state = {
+        projectModal: false,
+
     }
 
-    fetchAllProjects = () => {
-        this.props.getAllProjects();
+
+    async componentDidMount() {
+       await this.fetchAllProjects();
+        await this.fetchAllProjectRoles();
+    }
+
+    createAssignmentButton = (e) => {
+        e.preventDefault()
+        this.closeProjectModal();
+    }
+
+    closeProjectModal = () => {
+        this.setState({
+            projectModal: false
+        })
+    }
+
+    fetchAllProjects = async () => {
+        await this.props.getAllProjects();
     }
 
     fetchAllProjectRoles = () => {
         this.props.getAllProjectRoles();
+    }
+
+    onSubmitProjectModal = async (model) => {
+        model = {...model, project_id: this.props.match.params.id }        
+        await this.props.submitProject(model);
+        await this.fetchAllProjects();
+        await this.closeProjectModal();
+        this.setState({
+            assignmentModal: false,
+        });
+        
     }
 
     render() {
@@ -25,7 +54,24 @@ class ProjectsPage extends Component {
 
         return (
             <div>
-                <Link to='/create/assignment'><Button primary>Create</Button></Link>
+
+                <Modal
+                            onClose={this.closeProjectModal}
+                            open={this.state.projectModal}
+                            trigger={<Button onClick={() => { this.setState({ projectModal: true }) }}>Add Project</Button>} closeIcon>
+                            <Modal.Header>Add Project</Modal.Header>
+                            <Modal.Content>
+                                <Modal.Description>
+                                    
+                                    <ProjectCreate
+                                    onSubmit={this.onSubmitProjectModal}
+                                    // key={this.props.key}
+                                    />
+                                    
+                                </Modal.Description>
+                            </Modal.Content>
+                </Modal>
+                
 
 
                 <LazyLoad height={100} offsetVertical={300}>
@@ -83,7 +129,8 @@ const mapStateToProps = ({ projectReducer }) => ({
 const mapDispatchToProps = dispatch => ({
     getAllProjects: () => dispatch(getAllProjects()),
     getAllProjectRoles: () => dispatch(getAllProjectRoles()),
-    deleteProject: id => dispatch(deleteProject(id))
+    deleteProject: id => dispatch(deleteProject(id)),
+    submitProject: (model) => dispatch(submitProject(model))
 
 })
 

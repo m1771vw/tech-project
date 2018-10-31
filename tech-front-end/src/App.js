@@ -33,7 +33,7 @@ import EmployeeDetails from './Components/Employees/EmployeeDetails';
 import EmployeeEdit from './Components/Employees/EmployeeEdit';
 
 import PrivateRoute from './PrivateRoute';
-
+import NoMatch from './NoMatch';
 class App extends Component {
   state = {
     employeeData: [],
@@ -106,27 +106,22 @@ class App extends Component {
   };
 
   render() {
-    let { isAuthorized } = this.props
     return (
       <div>
         <Navbar />
         <Switch>
-          <PrivateRoute authed={isAuthorized} path='/dashboard' component={Dashboard} />
+          <PrivateRoute authed={localStorage.isAuthorized == 'true'} path='/dashboard' component={Dashboard} />
 
-          {/* <Route exact path='/' component={Dashboard} /> */}
-          <PrivateRoute authed={isAuthorized} exact path='/' component={Dashboard} />
+          <PrivateRoute authed={localStorage.isAuthorized == 'true'} exact path='/' component={Dashboard} />
           <Route path='/login' component={Login} />
           <Route path='/logout' component={Logout} />
-          <PrivateRoute authed={isAuthorized} exact path='/employees' component={EmployeesPage} />
-          {/* <Route exact path='/employees' component={EmployeesPage} /> */}
-          <PrivateRoute authed={isAuthorized} exact path='/assignments' component={AssignmentsPage} />
-          {/* <Route exact path='/assignments' component={AssignmentsPage} /> */}
-          <PrivateRoute authed={isAuthorized} exact path='/projects' component={ProjectsPage} />
-          {/* <Route exact path='/projects' component={ProjectsPage} /> */}
-          <Route path={`/projects/details/:id`} render={(renderProps) => <ProjectDetails {...renderProps} />} />
+          <PrivateRoute authed={localStorage.isAuthorized == 'true'} exact path='/employees' component={EmployeesPage} />
+          <PrivateRoute authed={localStorage.isAuthorized == 'true'} exact path='/assignments' component={AssignmentsPage} />
+          <PrivateRoute authed={localStorage.isAuthorized == 'true'} exact path='/projects' component={ProjectsPage} />
+          <PrivateRoute authed={localStorage.isAuthorized == 'true'}  path={`/projects/details/:id`} render={(renderProps) => <ProjectDetails {...renderProps} />} />
 
           {/* Assignment Routes */}
-          <Route path='/create/assignment' render={(renderProps) =>
+          <PrivateRoute authed={localStorage.isAuthorized == 'true'}  path='/create/assignment' render={(renderProps) =>
             <Form className="form"
               title="Input Assignment"
               model={[
@@ -141,15 +136,15 @@ class App extends Component {
               onSubmit={(model) => { this.onAssignmentSubmit(model) }}
               onDelete={(model) => { this.onDeleteAssignment(model) }}
             />} />
-          <Route path={`/assignments/details/:id`} render={(renderProps) => <AssignmentDetails {...renderProps} />} />
-          <Route path={`/assignments/edit/:id`} render={(renderProps) =>
+          <PrivateRoute authed={localStorage.isAuthorized == 'true'}  path={`/assignments/details/:id`} render={(renderProps) => <AssignmentDetails {...renderProps} />} />
+          <PrivateRoute authed={localStorage.isAuthorized == 'true'}  path={`/assignments/edit/:id`} render={(renderProps) =>
             <AssignmentEdit {...renderProps}
               onSubmit={this.onUpdateAssignment}
             />} />
 
           {/* Project Routes */}
 
-          <Route path='/create/project' render={(renderProps) =>
+          <PrivateRoute authed={localStorage.isAuthorized == 'true'}  path='/create/project' render={(renderProps) =>
             <Form {...renderProps} className="form"
               title="Project Form"
               model={[
@@ -164,7 +159,7 @@ class App extends Component {
             />} />
 
           {/* Employee Routes */}
-          <Route path='/create/employee' render={(renderProps) =>
+          <PrivateRoute authed={localStorage.isAuthorized == 'true'}  path='/create/employee' render={(renderProps) =>
             <Form
               {...renderProps}
               className="form"
@@ -178,14 +173,14 @@ class App extends Component {
               onDelete={(model) => { this.onDeleteEmployee(model) }}
 
             />} />
-          <Route
-            path={`/employees/details/:id`}
+          <PrivateRoute authed={localStorage.isAuthorized == 'true'} 
             render={renderProps => <EmployeeDetails {...renderProps} />}
           />
-          <Route path={`/employee/edit/:id`} render={(renderProps) =>
+          <PrivateRoute authed={localStorage.isAuthorized == 'true'}  path={`/employee/edit/:id`} render={(renderProps) =>
             <EmployeeEdit {...renderProps}
               onSubmit={this.onUpdateEmployee}
             />} />
+          <PrivateRoute authed={localStorage.isAuthorized == 'true'} component={NoMatch} />
 
         </Switch>
       </div>
@@ -193,10 +188,6 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ loginReducer }) => ({
-  token: loginReducer.token,
-  isAuthorized: loginReducer.isAuthorized
-})
 const mapDispatchToProps = dispatch => ({
   // submitForms: () => dispatch(submitForms()),
   submitProject: project => dispatch(submitProject(project)),
@@ -219,4 +210,4 @@ const mapDispatchToProps = dispatch => ({
 
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(connect(null, mapDispatchToProps)(App));

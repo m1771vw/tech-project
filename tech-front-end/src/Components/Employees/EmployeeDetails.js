@@ -55,11 +55,13 @@ class EmployeeDetails extends Component {
       newObj.project_name = AllEmployeeAssignments[i].project_name;
       // name[AllEmployeeAssignments[i].project_name] = AllEmployeeAssignments[i].project_name
       // name[AllEmployeeAssignments[i].project_id] = AllEmployeeAssignments[i].project_id
-
+      console.log("AllEmployeeAssignmentsprojectID", AllEmployeeAssignments[i].project_id);
+      if(!name.some(o => o['project_id'] === AllEmployeeAssignments[i].project_id))
+        name.push(newObj) 
     }
-    console.log("Look Toward the Sun", name)
-
-    return [...new Set(name)]
+    // console.log("Look Toward the Sun", name)
+    return name;
+    // return [...new Set(name)]
 
   }
 
@@ -145,11 +147,17 @@ class EmployeeDetails extends Component {
                 </Table.Row>
             </Table.Header>
             <Table.Body>
-              {/* {this.uniqueProjectNames().map(name => {
+            {console.table(this.uniqueProjectNames())}
+              {this.uniqueProjectNames().map(name => {
+                console.log(name);
               return (
-                <Table.Row><Table.Cell> <Link to={`/projects/details/${AllEmployeeAssignments.project_id}`}>{name}</Link></Table.Cell></Table.Row>
+                <Table.Row>
+                  <Table.Cell selectable> 
+                     <Link to={`/projects/details/${name.project_id}`}>{name.project_name}</Link>
+                  </Table.Cell>
+               </Table.Row>
               )
-            })} */}
+            })}
             </Table.Body>
           </Table>
         </div>

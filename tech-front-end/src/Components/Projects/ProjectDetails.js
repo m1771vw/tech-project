@@ -18,16 +18,6 @@ class ProjectDetails extends Component {
     state = {
         employeeModal: false,
         assignmentModal: false,
-        dropDown:[{
-            key: 'WY', 
-            value: 1,
-            text: 'William Yang'
-        },
-        {
-            key: 'JP',
-            value: 2,
-            text:'James Park'
-        }],
     }
 
     async componentDidMount() {
@@ -59,6 +49,7 @@ class ProjectDetails extends Component {
     }
 
     onSubmitAssignmentModal = async (model) => {
+        
         await this.props.submitAssignment(model);
         await this.fetchProjectData();
         await this.closeAssignmentModal();
@@ -68,6 +59,8 @@ class ProjectDetails extends Component {
     }
 
     onSubmitEmployeeModal = async (model) => {
+        model = {...model, project_id: this.props.match.params.id }
+        console.log('MODEL TEST: ', model)
         await this.props.submitProjectRole(model);
         await this.fetchProjectData();
         await this.closeEmployeeModal();
@@ -106,10 +99,11 @@ class ProjectDetails extends Component {
                             <Modal.Content>
                                 <Modal.Description>
                                     <Header>Add Employee To Project</Header>
-
-                                    <ProjectEmployees />
-                                        {/* <Dropdown placeholder='Select Employee' fluid search selection options={this.state.dropDown} /> */}
-
+                                    <ProjectEmployees 
+                                    onSubmit={this.onSubmitEmployeeModal}
+                                    // key={this.props.key}
+                                    />
+                                    {/* <Dropdown placeholder='Select Employee' fluid search selection options={this.state.dropDown} /> */}
                                 </Modal.Description>
                             </Modal.Content>
                         </Modal>

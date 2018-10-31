@@ -6,15 +6,14 @@ import { Container, Button, Form, Message, Grid, Header, Segment, Dropdown } fro
 
 class ProjectEmployees extends Component {
     state = {
-        first_name: '',
-        last_name: '',
-        position: '',
-        searchEmployees: [{}],
+        role: '',
+        employee_id: '',
     }
 
     onSubmit = e => {
         e.preventDefault();
-        if (this.props.onSubmit) this.props.onSubmit(this.state, this.props.location.state.employee_id)
+        this.props.onSubmit(this.state)
+        // use action
     }
 
     onDelete = e => {
@@ -34,19 +33,37 @@ class ProjectEmployees extends Component {
 
         })
     }
+
+    onInputChange = (e, {value})  => {
+        e.preventDefault();
+        this.setState({
+            employee_id: value
+        })
+    }
     //grab the model
     renderForm = () => {
         //loop thorugh all the metadata
         let formUI = (
             <div className="form-group">
                 <label className="form-label">Select Employee</label>
-                <Dropdown placeholder='Select Employee' fluid search selection options={this.props.searchEmployees} />
-                <label className="form-label">Position</label>
+                <Dropdown 
+                placeholder='Select Employee' 
+                value={this.state.employee_id}
+                // key={this.props.key}
+                onChange={this.onInputChange}
+                fluid search selection options={this.props.searchEmployees} />
+
+
+
+
+
+
+                <label className="form-label">Role</label>
                 <input className="form-input"
                     required
-                    name="position"
+                    name="role"
                     type="text"
-                    value={this.state.position}
+                    value={this.state.role}
                     onChange={this.onChange}
                 />
 

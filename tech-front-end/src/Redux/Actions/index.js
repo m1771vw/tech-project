@@ -208,6 +208,7 @@ export const getAllEmployees = () => async dispatch => {
         });
         // console.log("Assignment Response: ", response);
         let newArray = response.data.employees.map((x) => ({
+            key: x.employee_id,
             value: x.employee_id,
             text: `${x.first_name} ${x.last_name}`
         }))
@@ -386,6 +387,7 @@ export const submitProject = project => async dispatch => {
         console.log("ERROR:", e)
     }
 }
+
 export const deleteProject = id => async dispatch => {
     try {
         await axios.delete(`http://localhost:5000/api/projects/${id}`, {

@@ -57,12 +57,8 @@ class AssignmentsTable extends Component {
                                             <Table.HeaderCell>Name</Table.HeaderCell>
                                             <Table.HeaderCell>Project Name</Table.HeaderCell>
                                             <Table.HeaderCell>Status</Table.HeaderCell>
-                                            { showDates && (
-                                                <div>
-                                            <Table.HeaderCell>Start Date</Table.HeaderCell>
-                                            <Table.HeaderCell>End Date</Table.HeaderCell>
-                                            </div>
-                                            )}
+                                            { showDates && <Table.HeaderCell>Start Date</Table.HeaderCell> }
+                                            { showDates && <Table.HeaderCell>End Date</Table.HeaderCell> }
                                             <Table.HeaderCell>Estimated Hours</Table.HeaderCell>
                                             <Table.HeaderCell>Final Elapsed Hours</Table.HeaderCell>
                                             <Table.HeaderCell> </Table.HeaderCell>
@@ -86,12 +82,8 @@ class AssignmentsTable extends Component {
                                                     <Table.Cell selectable><Link to={`/assignments/details/${assignment_id}`}>{assignment_name}</Link></Table.Cell>
                                                     <Table.Cell selectable><Link to={`/projects/details/${project_id}`}>{project_name}</Link></Table.Cell>
                                                     <Table.Cell>{status_name}</Table.Cell>
-                                                    { showDates && (
-                                                        <div>
-                                                    <Table.Cell>{assignment_start_date}</Table.Cell>
-                                                    <Table.Cell>{assignment_end_date}</Table.Cell> 
-                                                        </div>
-                                                    )}
+                                                    { showDates && <Table.Cell>{assignment_start_date}</Table.Cell> }
+                                                    { showDates && <Table.Cell>{assignment_end_date}</Table.Cell> }
                                                     <Table.Cell>{assignment_est_hours}</Table.Cell>
                                                     <Table.Cell>{assignment_final_hours}</Table.Cell>
                                                     

@@ -224,7 +224,7 @@ export const updateAssignment = (assignment, id) => async dispatch => {
 }
 
 /** Assignment Comment Actions */
-export const getAllAssignmentComments = () => async dispatch => {
+export const getAllAssignmentComments = (id) => async dispatch => {
     try {
         let response = await axios.get(`http://localhost:5000/api/assignments/id/${id}/comments/all`, {
             headers: {
@@ -237,7 +237,7 @@ export const getAllAssignmentComments = () => async dispatch => {
     }
 }
 
-export const addAssignmentComment = comment => async dispatch => {
+export const addAssignmentComment = (id, comment) => async dispatch => {
     try {
         let response = await axios.post(`http://localhost:5000/api/assignments/id/${id}/comments/all`, comment, {
             headers: {

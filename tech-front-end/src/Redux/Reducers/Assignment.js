@@ -11,6 +11,7 @@ const initialState = {
     assignment_comments: []
 }
 const assignmentReducer = (state = initialState, action) => {
+    let index;
     switch (action.type) {
         case GET_ALL_ASSIGNMENTS:
         console.log("REDUCER: Assignment - GET ALL ASSIGNMENTS");
@@ -54,7 +55,7 @@ const assignmentReducer = (state = initialState, action) => {
             };
         case REMOVE_ASSIGNMENT:
             // Need some action.index
-            let index = state.assignments.findIndex(a => a.assignment_id === action.id)
+            index = state.assignments.findIndex(a => a.assignment_id === action.id)
             return {
                 ...state,
                 assignments: [...state.assignments.slice(0, index),
@@ -62,12 +63,12 @@ const assignmentReducer = (state = initialState, action) => {
             };
 
         case UPDATE_ASSIGNMENT:
-            let updateIndex = state.assignments.findIndex(a => a.assignment_id === action.id);
+            index = state.assignments.findIndex(a => a.assignment_id === action.id);
             return {
                 ...state,
-                assignments: [...state.assignments.slice(0, updateIndex),
+                assignments: [...state.assignments.slice(0, index),
                 action.payload,
-                ...state.assignments.slice(updateIndex + 1)]
+                ...state.assignments.slice(index + 1)]
             };
 
         case GET_ALL_ASSIGNMENT_COMMENTS:
@@ -81,15 +82,15 @@ const assignmentReducer = (state = initialState, action) => {
                 assignment_comments: [...state.assignment_comments, action.payload]
             }
         case UPDATE_ASSIGNMENT_COMMENT:
-        let updateIndex = state.assignment_comments.findIndex(a => a.assignment_comments_id === action.id)
+        index = state.assignment_comments.findIndex(a => a.assignment_comments_id === action.id)
         return {
             ...state,
-            assignment_comments: [...state.assignment_comments.slice(0, updateIndex),
+            assignment_comments: [...state.assignment_comments.slice(0, index),
             action.payload,
-            ...state.assignment_comments.slice(updateIndex + 1)]
+            ...state.assignment_comments.slice(index + 1)]
         };
         case DELETE_ASSIGNMENT_COMMENT:
-        let index = state.assignment_comments.findIndex(a => a.assignment_comments_id === action.id)
+        index = state.assignment_comments.findIndex(a => a.assignment_comments_id === action.id)
         return {
             ...state,
             assignment_comments: [...state.assignment_comments.slice(0, index),

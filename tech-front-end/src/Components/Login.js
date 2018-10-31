@@ -9,7 +9,6 @@ class Login extends Component {
         username: '',
         password: '',
         submitClicked: false
-
     }
 
     onChangeUser = e => {
@@ -40,7 +39,7 @@ class Login extends Component {
             <div>
             { this.state.submitClicked ? <Redirect to='/'/>
             :
-
+                <div>
                 <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450 }}>   
                 <Header color='blue'>Log In</Header>
@@ -65,8 +64,14 @@ class Login extends Component {
                         onClick={this.onSubmit}>Login</Button>    
                 </Form>
                 </Segment>
+                {this.props.location.state && this.props.location.state.failed ? 
+                 <Header color='red'>You are not authorized. Please log in!</Header>
+                :<div></div> }
                 </Grid.Column>
+                
                 </Grid>
+                    
+                </div>
             }   
             </div>
         );

@@ -110,18 +110,18 @@ class App extends Component {
       <div>
         <Navbar />
         <Switch>
-          <PrivateRoute authed={localStorage.isAuthorized == 'true'} path='/dashboard' component={Dashboard} />
+          <PrivateRoute authed={localStorage.isAuthorized === 'true'} path='/dashboard' component={Dashboard} />
 
-          <PrivateRoute authed={localStorage.isAuthorized == 'true'} exact path='/' component={Dashboard} />
+          <PrivateRoute authed={localStorage.isAuthorized === 'true'} exact path='/' component={Dashboard} />
           <Route path='/login' component={Login} />
           <Route path='/logout' component={Logout} />
-          <PrivateRoute authed={localStorage.isAuthorized == 'true'} exact path='/employees' component={EmployeesPage} />
-          <PrivateRoute authed={localStorage.isAuthorized == 'true'} exact path='/assignments' component={AssignmentsPage} />
-          <PrivateRoute authed={localStorage.isAuthorized == 'true'} exact path='/projects' component={ProjectsPage} />
-          <PrivateRoute authed={localStorage.isAuthorized == 'true'}  path={`/projects/details/:id`} render={(renderProps) => <ProjectDetails {...renderProps} />} />
+          <PrivateRoute authed={localStorage.isAuthorized === 'true'} exact path='/employees' component={EmployeesPage} />
+          <PrivateRoute authed={localStorage.isAuthorized === 'true'} exact path='/assignments' component={AssignmentsPage} />
+          <PrivateRoute authed={localStorage.isAuthorized === 'true'} exact path='/projects' component={ProjectsPage} />
+          <PrivateRoute authed={localStorage.isAuthorized === 'true'}  path={`/projects/details/:id`} render={(renderProps) => <ProjectDetails {...renderProps} />} />
 
           {/* Assignment Routes */}
-          <PrivateRoute authed={localStorage.isAuthorized == 'true'}  path='/create/assignment' render={(renderProps) =>
+          <PrivateRoute authed={localStorage.isAuthorized === 'true'}  path='/create/assignment' render={(renderProps) =>
             <Form className="form"
               title="Input Assignment"
               model={[
@@ -136,15 +136,15 @@ class App extends Component {
               onSubmit={(model) => { this.onAssignmentSubmit(model) }}
               onDelete={(model) => { this.onDeleteAssignment(model) }}
             />} />
-          <PrivateRoute authed={localStorage.isAuthorized == 'true'}  path={`/assignments/details/:id`} render={(renderProps) => <AssignmentDetails {...renderProps} />} />
-          <PrivateRoute authed={localStorage.isAuthorized == 'true'}  path={`/assignments/edit/:id`} render={(renderProps) =>
+          <PrivateRoute authed={localStorage.isAuthorized === 'true'}  path={`/assignments/details/:id`} render={(renderProps) => <AssignmentDetails {...renderProps} />} />
+          <PrivateRoute authed={localStorage.isAuthorized === 'true'}  path={`/assignments/edit/:id`} render={(renderProps) =>
             <AssignmentEdit {...renderProps}
               onSubmit={this.onUpdateAssignment}
             />} />
 
           {/* Project Routes */}
 
-          <PrivateRoute authed={localStorage.isAuthorized == 'true'}  path='/create/project' render={(renderProps) =>
+          <PrivateRoute authed={localStorage.isAuthorized === 'true'}  path='/create/project' render={(renderProps) =>
             <Form {...renderProps} className="form"
               title="Project Form"
               model={[
@@ -159,7 +159,7 @@ class App extends Component {
             />} />
 
           {/* Employee Routes */}
-          <PrivateRoute authed={localStorage.isAuthorized == 'true'}  path='/create/employee' render={(renderProps) =>
+          <PrivateRoute authed={localStorage.isAuthorized === 'true'}  path='/create/employee' render={(renderProps) =>
             <Form
               {...renderProps}
               className="form"
@@ -173,14 +173,14 @@ class App extends Component {
               onDelete={(model) => { this.onDeleteEmployee(model) }}
 
             />} />
-          <PrivateRoute authed={localStorage.isAuthorized == 'true'} 
+          <PrivateRoute authed={localStorage.isAuthorized === 'true'} 
             render={renderProps => <EmployeeDetails {...renderProps} />}
           />
-          <PrivateRoute authed={localStorage.isAuthorized == 'true'}  path={`/employee/edit/:id`} render={(renderProps) =>
+          <PrivateRoute authed={localStorage.isAuthorized === 'true'}  path={`/employee/edit/:id`} render={(renderProps) =>
             <EmployeeEdit {...renderProps}
               onSubmit={this.onUpdateEmployee}
             />} />
-          <PrivateRoute authed={localStorage.isAuthorized == 'true'} component={NoMatch} />
+          <PrivateRoute authed={localStorage.isAuthorized === 'true'} component={NoMatch} />
 
         </Switch>
       </div>

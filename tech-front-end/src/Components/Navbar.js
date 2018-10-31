@@ -46,17 +46,27 @@ const Navbar = props => {
         >
           Projects
         </Menu.Item>
-      </Link><Link to='/login'><Menu.Item
-        name='editorials'
-      // active
-      // onClick
-      >Login</Menu.Item> </Link>
+      </Link>
+      {localStorage.isAuthorized === 'true' ? 
+          <Link to='/logout'><Menu.Item
+            name='editorials'
+          // active
+          // onClick
+          >Logout</Menu.Item> </Link>
+          : <Link to='/login'><Menu.Item
+            name='editorials'
+          // active
+          // onClick
+          >Login</Menu.Item> </Link> 
+        
+      }
+     
 
-      <Link to='/logout'><Menu.Item
+      {/* <Link to='/logout'><Menu.Item
         name='editorials'
       // active
       // onClick
-      >Logout</Menu.Item> </Link>
+      >Logout</Menu.Item> </Link> */}
 
       <Menu.Item
         name='       '>

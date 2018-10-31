@@ -22,7 +22,7 @@ class Logout extends Component {
             :
                 <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450 }}>   
-                <Header color='blue'>Log Out</Header>
+                <Header color='blue'>Are you sure you want to log out?</Header>
                 <Segment>
         
                 <Form size='large'>

@@ -48,9 +48,7 @@ class EmployeeEdit extends Component {
         e.preventDefault();
         this.setState({
             [e.target.name]: e.target.value
-
         })
-
     }
     //grab the model
     renderForm = () => {

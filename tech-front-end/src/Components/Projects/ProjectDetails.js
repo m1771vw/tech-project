@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Form from '../Forms/DynamicForm/Form';
+import ProjectEmployees from './ProjectEmployees';
 import projectReducer from '../../Redux/Reducers/Project';
 // import AssignmentsPage from '../Assignments/AssignmentsPage';
 import {
@@ -11,6 +12,7 @@ import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
 import { Table, Modal, Button, Header, Dropdown } from 'semantic-ui-react';
 import {formatDate} from '../../util/DateHelper'
+import ProjectAssignments from './ProjectAssignments';
 
 class ProjectDetails extends Component {
     state = {
@@ -30,7 +32,7 @@ class ProjectDetails extends Component {
 
     async componentDidMount() {
         await this.fetchProjectData();
-        await this.searchEmployees
+        // await this.searchEmployees
     }
 
     createAssignmentButton = (e) => {
@@ -105,23 +107,7 @@ class ProjectDetails extends Component {
                                 <Modal.Description>
                                     <Header>Add Employee To Project</Header>
 
-                                    <Form
-                                        className="form"
-                                        title="     "
-                                        // renderDrop= {true}   
-                                        // placeholder='Testing'
-                                        options={this.state.dropDown}
-                                        // label='Choose Employee'
-                                        model={[
-                                            // { key: "employee_id", label: "Employee ID", type: "text", props: { required: true } },
-                                            { key: "project_id", label: "Project", type: "text", props: { required: true } },
-                                            { key: "role", label: "Project Role", type: "text", props: { required: true } },
-
-                                            
-                                        ]}
-                                        onSubmit={(model) => { this.onSubmitEmployeeModal(model) }}
-                                    // onDelete={(model) => { this.onDeleteEmployee(model) }}
-                                    />
+                                    <ProjectEmployees />
                                         {/* <Dropdown placeholder='Select Employee' fluid search selection options={this.state.dropDown} /> */}
 
                                 </Modal.Description>
@@ -165,7 +151,7 @@ class ProjectDetails extends Component {
                             <Modal.Content image>
                                 <Modal.Description>
                                     {/* <Header>Add Assignments To Project</Header> */}
-                                    <Form className="form"
+                                    {/* <Form className="form"
                                         title=" "
                                         model={[
                                             { key: "assignment_name", label: "Assignment Name", type: "text", props: { required: true } },
@@ -178,7 +164,8 @@ class ProjectDetails extends Component {
                                         ]}
                                         onSubmit={(model) => { this.onSubmitAssignmentModal(model); }}
                                         onDelete={(model) => { this.onDeleteAssignment(model) }}
-                                    />
+                                    /> */}
+                                    <ProjectAssignments />
                                 </Modal.Description>
                             </Modal.Content>
                         </Modal>
@@ -232,7 +219,7 @@ const mapDispatchToProps = dispatch => ({
     submitAssignment: (model) => dispatch(submitAssignment(model)),
     submitProjectRole:(model) => dispatch(submitProjectRole(model)),
     submitEmployee: (model) => dispatch(submitEmployee(model)),
-    searchEmployees:() => dispatch(searchEmployees()),
+    // searchEmployees:() => dispatch(searchEmployees()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);

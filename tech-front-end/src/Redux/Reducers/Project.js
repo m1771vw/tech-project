@@ -9,7 +9,8 @@ const initialState = {
     project_role: [],
     project_by_id: {},
     projectEmployees: [{}],
-    projectAssignments: [{}]
+    projectAssignments: [{}],
+    // searchEmployees: [{}]
 }
 const projectReducer = (state = initialState, action) => {
     switch (action.type) {

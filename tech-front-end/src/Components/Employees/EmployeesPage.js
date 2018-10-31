@@ -1,29 +1,58 @@
 import React, { Component } from "react";
-import { getAllEmployees, deleteEmployee } from "../../Redux/Actions/index";
+import { getAllEmployees, deleteEmployee, submitEmployee } from "../../Redux/Actions/index";
 import { connect } from "react-redux";
 import LazyLoad from "react-lazy-load";
-import { Button, Table, Header } from "semantic-ui-react";
+import { Modal, Button, Table, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
+import EmployeeCreate from './EmployeeCreate'
 
 class EmployeesPage extends Component {
   state = {
-    employees: []
+    employees: [],
+    employeeModal: false
   };
   componentDidMount() {
    this.fetchAllEmployees();
   }
 
-  fetchAllEmployees = () => {
-  this.props.getAllEmployees();
+  fetchAllEmployees = async () => {
+  await this.props.getAllEmployees();
   };
+
+  closeEmployeeModal = () => {
+    this.setState({
+        employeeModal: false
+    })
+;}
+
+onSubmitEmployeeModal = async (model) => {
+  model = {...model, project_id: this.props.match.params.id }
+  await this.props.submitEmployee(model);
+  await this.fetchAllEmployees();
+  await this.closeEmployeeModal();
+}
+
 
   render() {
     let { employees } = this.props;
     return (
       <div>
-        <Link to="/create/employee">
-          <Button primary>Create</Button>
-        </Link>
+                      <Modal
+                            onClose={this.closeEmployeeModal}
+                            open={this.state.employeeModal}
+                            trigger={<Button onClick={() => { this.setState({ employeeModal: true }) }}>Add Employee</Button>} closeIcon>
+                            <Modal.Header>Add Employee</Modal.Header>
+                            <Modal.Content>
+                                <Modal.Description>
+                                    <Header>Add Employee To Project</Header>
+                                    <EmployeeCreate
+                                    onSubmit={this.onSubmitEmployeeModal}
+                                    // key={this.props.key}
+                                    />
+                                    {/* <Dropdown placeholder='Select Employee' fluid search selection options={this.state.dropDown} /> */}
+                                </Modal.Description>
+                            </Modal.Content>
+                        </Modal>
 
         <LazyLoad height={100} offsetVertical={300}>
           <div>
@@ -84,7 +113,8 @@ const mapStateToProps = ({ employeeReducer }) => ({
 
 const mapDispatchToProps = dispatch => ({
   getAllEmployees: () => dispatch(getAllEmployees()),
-  deleteEmployee: id => dispatch(deleteEmployee(id))
+  deleteEmployee: id => dispatch(deleteEmployee(id)),
+  submitEmployee: (model) => dispatch(submitEmployee(model))
 });
 
 export default connect(

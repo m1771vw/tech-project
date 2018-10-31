@@ -21,6 +21,8 @@ import {
     ADD_PROJECT_ROLE,
     ADD_EMPLOYEE_TO_ASSIGNMENT,
     REMOVE_ASSIGNMENT,
+    REMOVE_PROJECT_ASSIGNMENT,
+    REMOVE_EMPLOYEE_FROM_PROJECT,
     REMOVE_EMPLOYEE,
     REMOVE_PROJECT,
     REMOVE_PROJECT_ROLES,
@@ -91,8 +93,8 @@ export const getStatusTypes = () => async dispatch => {
         }))
         console.log('PROJECT ASSIGNMENTS: ', newArray)
         dispatch({ type: GET_ASSIGNMENT_STATUS, payload: newArray })
-    } catch(e) {
-        console.log('Status Type Error :' , e)
+    } catch (e) {
+        console.log('Status Type Error :', e)
     }
 }
 
@@ -106,7 +108,7 @@ export const getAllAssignments = () => async dispatch => {
             }
         });
         dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments })
-        
+
     } catch (e) {
         console.log("Get All Assignment Error", e.response.data);
     }
@@ -190,7 +192,7 @@ export const submitAssignment = assignment => async dispatch => {
         });
         dispatch({ type: ADD_ASSIGNMENT, payload: response.data.assignment })
         let newEmpAssign = {
-            employee_id : assignment.employee_id,
+            employee_id: assignment.employee_id,
             assignment_id: response.data.assignment.assignment_id
         }
         let response2 = await axios.post(`http://localhost:5000/api/employees/${employee_id}/assignments`, newEmpAssign, {
@@ -199,7 +201,7 @@ export const submitAssignment = assignment => async dispatch => {
             }
         });
         console.log('SUBMITTING EMPLOYEE TO ASSIGNMENT: ', response2);
-        dispatch({ type: ADD_EMPLOYEE_TO_ASSIGNMENT, payload: response2.data.employee_assignment})
+        dispatch({ type: ADD_EMPLOYEE_TO_ASSIGNMENT, payload: response2.data.employee_assignment })
     } catch (e) {
         console.log("ERROR:", e)
     }
@@ -207,12 +209,13 @@ export const submitAssignment = assignment => async dispatch => {
 
 export const deleteAssignment = id => async dispatch => {
     try {
-        await axios.delete(`http://localhost:5000/api/assignments/${id}`, {
+        console.log('DELETEING ID#: ', id)
+        let { data } = await axios.delete(`http://localhost:5000/api/assignments/${id}`, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        dispatch({ type: REMOVE_ASSIGNMENT, id })
+        dispatch({ type: REMOVE_PROJECT_ASSIGNMENT, id: data.message.assignment_id })
     } catch (e) {
         console.log("ERROR:", e)
     }
@@ -257,14 +260,14 @@ export const getAllEmployees = () => async dispatch => {
 
 export const getEmployeeById = id => async dispatch => {
     try {
-      let response = await axios.get(
-        `http://localhost:5000/api/employees/id/${id}`
-        , {
-            headers: {
-                'Authorization': `bearer ${localStorage.authToken}`
-            }
-        });
-      dispatch({ type: GET_EMPLOYEE_BY_ID, payload: response.data.employee });
+        let response = await axios.get(
+            `http://localhost:5000/api/employees/id/${id}`
+            , {
+                headers: {
+                    'Authorization': `bearer ${localStorage.authToken}`
+                }
+            });
+        dispatch({ type: GET_EMPLOYEE_BY_ID, payload: response.data.employee });
     } catch (e) {
         console.log("Get Single Employee Error", e);
     }
@@ -335,6 +338,19 @@ export const deleteEmployee = id => async dispatch => {
         dispatch({ type: REMOVE_EMPLOYEE, id })
     } catch (e) {
         console.log("ERROR:", e)
+    }
+}
+
+export const deleteEmployeeFromProject = id => async dispatch => {
+    try {
+        await axios.delete(`http://localhost:5000/api/projects/roles/${id}`, {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+        dispatch({ type: REMOVE_EMPLOYEE_FROM_PROJECT, id })
+    } catch (e) {
+        console.log('ERROR:', e)
     }
 }
 

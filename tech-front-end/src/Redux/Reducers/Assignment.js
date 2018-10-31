@@ -1,17 +1,19 @@
-import { ADD_ASSIGNMENT, REMOVE_ASSIGNMENT, UPDATE_ASSIGNMENT, 
+import {
+    ADD_ASSIGNMENT, REMOVE_ASSIGNMENT, UPDATE_ASSIGNMENT,
     GET_ALL_ASSIGNMENTS, GET_ALL_BLOCKED_ASSIGNMENTS, GET_ALL_ASSIGNMENTS_REVERSED,
-    GET_ASSIGNMENT_BY_ID, GET_ASSIGNMENT_EMPLOYEES, GET_ASSIGNMENT_STATUS, ADD_EMPLOYEE_TO_ASSIGNMENT } from '../Constants';
+    GET_ASSIGNMENT_BY_ID, GET_ASSIGNMENT_EMPLOYEES, GET_ASSIGNMENT_STATUS, ADD_EMPLOYEE_TO_ASSIGNMENT
+} from '../Constants';
 
 const initialState = {
     assignments: [],
     assignment: {},
     assignmentEmployees: [],
-    assignmentStatus:[{}]
+    assignmentStatus: [{}]
 }
 const assignmentReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_ASSIGNMENTS:
-        console.log("REDUCER: Assignment - GET ALL ASSIGNMENTS");
+            console.log("REDUCER: Assignment - GET ALL ASSIGNMENTS");
             return {
                 ...state,
                 assignments: [...action.payload]
@@ -22,7 +24,7 @@ const assignmentReducer = (state = initialState, action) => {
                 reversedAssignments: [...action.payload]
             };
         case GET_ASSIGNMENT_STATUS:
-        console.log('REDUCER: GET ASSIGNMENT STATUS', action.payload)
+            console.log('REDUCER: GET ASSIGNMENT STATUS', action.payload)
             return {
                 ...state,
                 assignmentStatus: [...action.payload]
@@ -33,7 +35,7 @@ const assignmentReducer = (state = initialState, action) => {
                 blockedAssignments: [...action.payload]
             }
         case GET_ASSIGNMENT_BY_ID:
-        console.log("Inside Assignment Reducer, GET_ASSIGNMENT_BY_ID:",action.payload);
+            console.log("Inside Assignment Reducer, GET_ASSIGNMENT_BY_ID:", action.payload);
             return {
                 ...state,
                 assignment: action.payload
@@ -45,12 +47,12 @@ const assignmentReducer = (state = initialState, action) => {
             }
         case ADD_EMPLOYEE_TO_ASSIGNMENT:
             return {
-                ...state, 
-                assignmentEmployees:[...state.assignmentEmployees, action.payload]
-            }    
+                ...state,
+                assignmentEmployees: [...state.assignmentEmployees, action.payload]
+            }
         case ADD_ASSIGNMENT:
-        console.log("Inside ASSIGNMENT reducer add ASSIGNMENT");
-        console.log('ASSIGNMENT Data:',state.assignments);
+            console.log("Inside ASSIGNMENT reducer add ASSIGNMENT");
+            console.log('ASSIGNMENT Data:', state.assignments);
             return {
                 ...state,
                 assignments: [...state.assignments, action.payload]
@@ -60,8 +62,10 @@ const assignmentReducer = (state = initialState, action) => {
             let index = state.assignments.findIndex(a => a.assignment_id === action.id)
             return {
                 ...state,
-                assignments: [...state.assignments.slice(0, index),
-                ...state.assignments.slice(index + 1)]
+                assignments: [
+                    ...state.assignments.slice(0, index),
+                    ...state.assignments.slice(index + 1)
+                ]
             };
 
         case UPDATE_ASSIGNMENT:

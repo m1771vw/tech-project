@@ -31,10 +31,6 @@ const getProjectById = async (req, res) => {
     }
 }
 
-
-// 1st query: get employees by project roles + employees
-// 2nd query: get assignments by project.project_id = assignment.project_id also status_types
-
 const getEmployeesInProject = async (req , res) => {
     try {
         let project_id = parseInt(req.params.id);
@@ -53,7 +49,6 @@ const getEmployeesInProject = async (req , res) => {
     }
 }
 
-// select assignments + employee assignments where project id = id +status types
 const getAssignmentByProjectId = async (req, res) => {
     try {
         let project_id = parseInt(req.params.id);
@@ -75,8 +70,6 @@ const getAssignmentByProjectId = async (req, res) => {
         res.status(500).json({ message: e.message })
     }
 }
-
-
 
 // SELECT a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.assignment_final_hours, p.project_id, p.project_name, s.status_id, s.status_name
 // FROM Assignments as a

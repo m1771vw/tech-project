@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { formatDate } from '../../util/DateHelper'
 import ProjectCreate from './ProjectCreate'
 import ProjectEdit from './ProjectEdit'
+import ProjectRow from './ProjectRow'
 
 class ProjectsPage extends Component {
     state = {
@@ -86,7 +87,7 @@ class ProjectsPage extends Component {
                 </Modal>
 
 
-a
+                a
                 <LazyLoad height={100} offsetVertical={300}>
                     <div>
                         <Header color='blue'>Projects</Header>
@@ -111,32 +112,11 @@ a
                                         let project_start_date = p.project_start_date;
                                         let project_end_date = p.project_end_date;
                                         return (
-
-                                            <Table.Row key={project_id + project_name}>
-                                                <Table.Cell selectable><Link to={`/projects/details/${project_id}`}>{project_name}</Link></Table.Cell>
-                                                <Table.Cell>{project_start_date && formatDate(project_start_date)}</Table.Cell>
-                                                <Table.Cell>{project_end_date && formatDate(project_end_date)}</Table.Cell>
-                                                <Table.Cell>
-                                                    <Modal
-                                                        onClose={this.closeProjectModal}
-                                                        open={this.state.projectModal}
-                                                        trigger={<Button color="black" onClick={() => { this.setState({ projectModal: true }) }}>Update</Button>} closeIcon>
-                                                        <Modal.Header>Update Project</Modal.Header>
-                                                        <Modal.Content>
-                                                            <Modal.Description>
-                                                                <ProjectEdit onSubmit={this.onUpdateProjectModal}
-                                                                    project_id = {project_id}
-                                                                    project_name = {project_name}
-                                                                    project_start_date ={project_start_date}
-                                                                    project_end_date ={project_end_date}
-                                                                />
-
-                                                            </Modal.Description>
-                                                        </Modal.Content>
-                                                    </Modal>
-                                                    <Button color='red' onClick={() => this.props.deleteProject(project_id)}>Delete</Button>
-                                                </Table.Cell>
-                                            </Table.Row>
+                                            <ProjectRow
+                                                key={project_id + project_name}
+                                                project={p}
+                                                onSubmit={this.onUpdateProjectModal}
+                                            />
                                         );
 
                                     })}

@@ -48,12 +48,15 @@ class EmployeeDetails extends Component {
 
   uniqueProjectNames = () => {
     let { AllEmployeeAssignments } = this.props;
-    let name = [];
+    let name = {};
     for(let i = 0; i < AllEmployeeAssignments.length; i++) {
-      name.push(AllEmployeeAssignments[i].project_name);
+      name[AllEmployeeAssignments[i].project_name] = AllEmployeeAssignments[i].project_name
+      name[AllEmployeeAssignments[i].project_id] = AllEmployeeAssignments[i].project_id
+      console.log(name)
     }
+    console.log("Look Toward the Sun", name)
 
-   return [...new Set(name)]
+  //  return [...new Set(name)]
 
     }
     
@@ -151,11 +154,11 @@ class EmployeeDetails extends Component {
           <Table.HeaderCell>Projects {EmployeeById.first_name} is Currently In:</Table.HeaderCell>
           </Table.Header>
           <Table.Body>
-            {this.uniqueProjectNames().map(name => {
+            {/* {this.uniqueProjectNames().map(name => {
               return (
                 <Table.Row><Table.Cell> <Link to={`/projects/details/${AllEmployeeAssignments.project_id}`}>{name}</Link></Table.Cell></Table.Row>
               )
-            })}
+            })} */}
           </Table.Body>
         </Table>
         </div>

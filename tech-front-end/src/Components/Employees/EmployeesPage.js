@@ -6,7 +6,7 @@ import { Modal, Button, Table, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import EmployeeCreate from './EmployeeCreate'
 import EmployeeEdit from './EmployeeEdit'
-
+import EmployeeRow from './EmployeeRow';
 class EmployeesPage extends Component {
   state = {
     employees: [],
@@ -39,9 +39,6 @@ onUpdateEmployeeModal = async (model) =>{
   await this.fetchAllEmployees();
   await this.closeEmployeeModal();
 }
-
-
-
 
   render() {
     let { employees } = this.props;
@@ -84,36 +81,11 @@ onUpdateEmployeeModal = async (model) =>{
                   let last_name = em.last_name;
                   let position = em.position;
                   return (
-                    <Table.Row key={employee_id + first_name}>
-                      <Table.Cell selectable>
-                      <Link to={`/employees/details/${employee_id}`}>{first_name}</Link></Table.Cell>
-                      <Table.Cell selectable>
-                      <Link to={`/employees/details/${employee_id}`}>{last_name}</Link></Table.Cell>
-                      <Table.Cell>{position}</Table.Cell>
-                      <Table.Cell>
-                      <Modal
-                            onClose={this.closeEmployeeModal}
-                            open={this.state.employeeModal}
-                            trigger={<Button primary onClick={() => { this.setState({ employeeModal: true }) }}>Update</Button>} closeIcon>
-                            <Modal.Header>Update Employee</Modal.Header>
-                            <Modal.Content>
-                                <Modal.Description>
-                                    <EmployeeEdit onSubmit={this.onUpdateEmployeeModal}
-                                      employee_id = {employee_id}
-                                      first_name = {first_name}
-                                      last_name = {last_name}
-                                      position = {position}/>
-                                </Modal.Description>
-                            </Modal.Content>
-                        </Modal>
-                        <Button
-                          color="red"
-                          onClick={() => this.props.deleteEmployee(employee_id)}
-                        >
-                          Delete
-                        </Button>
-                      </Table.Cell>
-                    </Table.Row>
+                    <EmployeeRow 
+                      key={employee_id+first_name+last_name}
+                      employee={em}
+                      onSubmit={this.onUpdateEmployeeModal}
+                    />
                   );
                 })}
               </Table.Body>

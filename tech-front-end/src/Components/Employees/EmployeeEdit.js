@@ -12,17 +12,7 @@ class EmployeeEdit extends Component {
         e.preventDefault();
         if (this.props.onSubmit) this.props.onSubmit(this.state, this.props.employee_id)
     }
-
-    onDelete = e => {
-        e.preventDefault();
-        this.props.onDelete(this.state)
-    }
-
-    onUpdate = e => {
-        e.preventDefault();
-        this.props.onUpdate(this.state, this.props.employee_id)
-    }
-
+    
     onChange = (e) => {
         e.preventDefault();
         this.setState({
@@ -87,9 +77,5 @@ class EmployeeEdit extends Component {
         )
     }
 }
-
-const mapStateToProps = ({ employeeReducer }) => ({
-    employees: employeeReducer.employees
-  });
 
 export default EmployeeEdit;

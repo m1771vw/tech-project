@@ -60,10 +60,14 @@ const getAssignmentByProjectId = async (req, res) => {
         let assignments = await db.any(
             `SELECT a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.assignment_final_hours,
             p.project_id,
-            s.status_id, s.status_name 
+            s.status_id, s.status_name, 
+            ea.emp_assign_id, ea.employee_id,
+            e.first_name, e.last_name
             FROM assignments as a
             INNER JOIN projects as p ON p.project_id = a.project_id
             INNER JOIN status_types as s ON s.status_id = a.status_id
+            INNER JOIN employee_assignments as ea ON ea.assignment_id = a.assignment_id
+            INNER JOIN employees as e ON e.employee_id = ea.employee_id
             WHERE p.project_id = $1`,
             project_id)
             res.status(200).send({ assignments })

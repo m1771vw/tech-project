@@ -1,6 +1,6 @@
 import { ADD_ASSIGNMENT, REMOVE_ASSIGNMENT, UPDATE_ASSIGNMENT, 
     GET_ALL_ASSIGNMENTS, GET_ALL_BLOCKED_ASSIGNMENTS, GET_ALL_ASSIGNMENTS_REVERSED,
-    GET_ASSIGNMENT_BY_ID, GET_ASSIGNMENT_EMPLOYEES, GET_ASSIGNMENT_STATUS } from '../Constants';
+    GET_ASSIGNMENT_BY_ID, GET_ASSIGNMENT_EMPLOYEES, GET_ASSIGNMENT_STATUS, ADD_EMPLOYEE_TO_ASSIGNMENT } from '../Constants';
 
 const initialState = {
     assignments: [],
@@ -43,6 +43,11 @@ const assignmentReducer = (state = initialState, action) => {
                 ...state,
                 assignmentEmployees: action.payload
             }
+        case ADD_EMPLOYEE_TO_ASSIGNMENT:
+            return {
+                ...state, 
+                assignmentEmployees:[...state.assignmentEmployees, action.payload]
+            }    
         case ADD_ASSIGNMENT:
         console.log("Inside ASSIGNMENT reducer add ASSIGNMENT");
         console.log('ASSIGNMENT Data:',state.assignments);

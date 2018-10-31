@@ -10,6 +10,7 @@ const initialState = {
     project_by_id: {},
     projectEmployees: [{}],
     projectAssignments: [{}],
+    
     // searchEmployees: [{}]
 }
 const projectReducer = (state = initialState, action) => {

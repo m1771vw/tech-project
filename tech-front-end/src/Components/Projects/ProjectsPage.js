@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { submitProject, getAllProjects, getAllProjectRoles, deleteProject } from '../../Redux/Actions/index';
+import { submitProject, getAllProjects, getAllProjectRoles, deleteProject, updateProject } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
 import { Button, Table, Header, Modal } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
-import {formatDate} from '../../util/DateHelper'
+import { formatDate } from '../../util/DateHelper'
 import ProjectCreate from './ProjectCreate'
+import ProjectEdit from './ProjectEdit'
 
 class ProjectsPage extends Component {
     state = {
@@ -15,7 +16,7 @@ class ProjectsPage extends Component {
 
 
     async componentDidMount() {
-       await this.fetchAllProjects();
+        await this.fetchAllProjects();
         await this.fetchAllProjectRoles();
     }
 
@@ -39,15 +40,27 @@ class ProjectsPage extends Component {
     }
 
     onSubmitProjectModal = async (model) => {
-        model = {...model, project_id: this.props.match.params.id }        
+        model = { ...model, project_id: this.props.match.params.id }
         await this.props.submitProject(model);
         await this.fetchAllProjects();
         await this.closeProjectModal();
         this.setState({
             assignmentModal: false,
         });
-        
+
     }
+
+    onUpdateProjectModal = async (model) => {
+        model = { ...model, project_id: this.props.match.params.id }
+        await this.props.updateProject(model);
+        await this.fetchAllProjects();
+        await this.closeProjectModal();
+        this.setState({
+            assignmentModal: false,
+        });
+
+    }
+
 
     render() {
         let { projects } = this.props
@@ -56,24 +69,24 @@ class ProjectsPage extends Component {
             <div>
 
                 <Modal
-                            onClose={this.closeProjectModal}
-                            open={this.state.projectModal}
-                            trigger={<Button onClick={() => { this.setState({ projectModal: true }) }}>Add Project</Button>} closeIcon>
-                            <Modal.Header>Add Project</Modal.Header>
-                            <Modal.Content>
-                                <Modal.Description>
-                                    
-                                    <ProjectCreate
-                                    onSubmit={this.onSubmitProjectModal}
-                                    // key={this.props.key}
-                                    />
-                                    
-                                </Modal.Description>
-                            </Modal.Content>
+                    onClose={this.closeProjectModal}
+                    open={this.state.projectModal}
+                    trigger={<Button onClick={() => { this.setState({ projectModal: true }) }}>Add Project</Button>} closeIcon>
+                    <Modal.Header>Add Project</Modal.Header>
+                    <Modal.Content>
+                        <Modal.Description>
+
+                            <ProjectCreate
+                                onSubmit={this.onSubmitProjectModal}
+                            // key={this.props.key}
+                            />
+
+                        </Modal.Description>
+                    </Modal.Content>
                 </Modal>
-                
 
 
+a
                 <LazyLoad height={100} offsetVertical={300}>
                     <div>
                         <Header color='blue'>Projects</Header>
@@ -104,7 +117,23 @@ class ProjectsPage extends Component {
                                                 <Table.Cell>{project_start_date && formatDate(project_start_date)}</Table.Cell>
                                                 <Table.Cell>{project_end_date && formatDate(project_end_date)}</Table.Cell>
                                                 <Table.Cell>
-                                                    <Link to='/update-project'><Button secondary>Update</Button></Link>
+                                                    <Modal
+                                                        onClose={this.closeProjectModal}
+                                                        open={this.state.projectModal}
+                                                        trigger={<Button color="black" onClick={() => { this.setState({ projectModal: true }) }}>Update</Button>} closeIcon>
+                                                        <Modal.Header>Update Project</Modal.Header>
+                                                        <Modal.Content>
+                                                            <Modal.Description>
+                                                                <ProjectEdit onSubmit={this.onUpdateProjectModal}
+                                                                    project_id = {project_id}
+                                                                    project_name = {project_name}
+                                                                    project_start_date ={project_start_date}
+                                                                    project_end_date ={project_end_date}
+                                                                />
+
+                                                            </Modal.Description>
+                                                        </Modal.Content>
+                                                    </Modal>
                                                     <Button color='red' onClick={() => this.props.deleteProject(project_id)}>Delete</Button>
                                                 </Table.Cell>
                                             </Table.Row>
@@ -116,7 +145,7 @@ class ProjectsPage extends Component {
                         </Table>
                     </div>
                 </LazyLoad>
-                
+
             </div>
         );
     }
@@ -131,8 +160,8 @@ const mapDispatchToProps = dispatch => ({
     getAllProjects: () => dispatch(getAllProjects()),
     getAllProjectRoles: () => dispatch(getAllProjectRoles()),
     deleteProject: id => dispatch(deleteProject(id)),
-    submitProject: (model) => dispatch(submitProject(model))
-
+    submitProject: (model) => dispatch(submitProject(model)),
+    updateProject: (model) => dispatch(updateProject(model))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectsPage);

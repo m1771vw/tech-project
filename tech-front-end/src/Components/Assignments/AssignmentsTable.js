@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-import { getAllAssignments, getAllAssignmentsOrdered, getAllAssignmentsReversed, deleteAssignment } from '../../Redux/Actions/index';
+import { getAllAssignments, getAllAssignmentsOrdered, getAllAssignmentsReversed, deleteAssignment, updateAssignment, submitAssignment } from '../../Redux/Actions/index';
 import { IN_ORDER, RECENT_ORDER, NEED_ATTENTION } from '../../Redux/Constants/';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load'
-import { Button, Table, Header } from 'semantic-ui-react'
+import {Modal, Button, Table, Header } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import {formatDate} from '../../util/DateHelper'
+import AssignmentEdit from './AssignmentEdit'
 
 
 class AssignmentsTable extends Component {
+    state = {
+        assignmentModal: false,
+
+    }
+
     componentDidMount() {
-        // this.fetchAllAssignments()
+        this.fetchAllAssignments()
     }
 
     // fetchAllAssignments = async () => {
@@ -30,6 +36,12 @@ class AssignmentsTable extends Component {
     //     }
     // }
 
+    //Added Below to temporarily work
+    fetchAllAssignments = async() =>{
+        await this.props.getAllAssignments()
+
+    }
+
     determineStatus = (status_name) => {
         switch(status_name) {
             case 'Blocked':
@@ -42,13 +54,44 @@ class AssignmentsTable extends Component {
             default:
                 return "";
         }
+    };
+
+    closeAssignmentModal = () => {
+        this.setState({
+            assignmentModal: false
+        })
     }
+
+    onSubmitAssignmentModal = async (model) => {
+        model = { ...model, assignment_id: this.props.match.params.id }
+        await this.props.submitAssignment(model);
+        await this.fetchAllAssignments();
+        await this.closeAssignmentModal();
+        this.setState({
+            assignmentModal: false,
+        });
+    }
+
+    onUpdateAssignmentModal = async (model) => {
+        model = { ...model }
+        await this.props.updateAssignment(model);
+        await this.fetchAllAssignments();
+        await this.closeAssignmentModal();
+        this.setState({
+            assignmentModal: false,
+        });
+    }
+
+
+
+
+
     render() {
         let { assignments, header, showUpdate } = this.props
         // this.sortAssignments(this.props.sortOrder)
             return (
                 <div>
-                        {/* <LazyLoad height={300} offsetVertical={200}> */}
+                        <LazyLoad height={300} offsetVertical={200}>
                             <div>
                                 <Header color='blue'>{header}</Header>
                                 <Table singleLine celled selectable>
@@ -87,20 +130,25 @@ class AssignmentsTable extends Component {
                                                     <Table.Cell>{assignment_final_hours}</Table.Cell>
                                                     
                                                     <Table.Cell>
-                                                    { showUpdate && 
-                                                        <Link to={{
-                                                            pathname: `/assignments/edit/${assignment_id}`,
-                                                            state: {
-                                                                assignment_name: assignment_name,
-                                                                assignment_start_date: assignment_start_date,
-                                                                assignment_end_date: assignment_end_date,
-                                                                project_id: project_id,
-                                                                status_id: status_id,
-                                                                assignment_est_hours: assignment_est_hours,
-                                                                assignment_final_hours: assignment_final_hours,
-                                                                assignment_id: assignment_id
-                                                            }
-                                                        }}><Button secondary>Update</Button></Link> }
+                                                    <Modal
+                                                        onClose={this.closeAssignmentModal}
+                                                        open={this.state.assignmentModal}
+                                                        trigger={<Button color="black" onClick={() => { this.setState({ assignmentModal: true }) }}>Update</Button>} closeIcon>
+                                                        <Modal.Header>Update Assignment</Modal.Header>
+                                                        <Modal.Content>
+                                                            <Modal.Description>
+                                                                <AssignmentEdit onSubmit={this.onUpdateAssignmentModal}
+                                                                    assignment_id = {assignment_id}
+                                                                    assignment_name = {assignment_name}
+                                                                    status_name = {status_name}
+                                                                    assignment_start_date ={assignment_start_date}
+                                                                    assignment_end_date ={assignment_end_date}
+                                                                    assignment_est_hours = {assignment_est_hours}
+                                                                    assignment_final_hours = {assignment_final_hours}
+                                                                />
+                                                            </Modal.Description>
+                                                        </Modal.Content>
+                                                    </Modal>
                                                         <Button color='red' onClick={() => this.props.deleteAssignment(assignment_id)}>Delete</Button>
                                                     </Table.Cell>
                                                 </tr>
@@ -109,7 +157,7 @@ class AssignmentsTable extends Component {
                                     </Table.Body>
                                 </Table>
                             </div>
-                        {/* </LazyLoad> */}
+                        </LazyLoad>
                 </div>
             );
     }
@@ -121,9 +169,10 @@ const mapStateToProps = ({ assignmentReducer }) => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    // getAllAssignments: () => dispatch(getAllAssignments()),
-    
-    deleteAssignment: id => dispatch(deleteAssignment(id))
+    getAllAssignments: () => dispatch(getAllAssignments()),
+    submitAssignment: (model)=> dispatch(submitAssignment(model)),
+    deleteAssignment: id => dispatch(deleteAssignment(id)),
+    updateAssignment: (model) => dispatch(updateAssignment(model))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AssignmentsTable);

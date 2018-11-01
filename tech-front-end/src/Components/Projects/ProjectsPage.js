@@ -105,7 +105,6 @@ class ProjectsPage extends Component {
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
-
                                 {projects &&
                                     projects.map((p) => {
                                         let project_id = p.project_id || "i"
@@ -121,10 +120,13 @@ class ProjectsPage extends Component {
                                         );
 
                                     })}
-
                             </Table.Body>
                         </Table>
                         </Segment>
+                        { this.props.deleteProjectFail ? 
+                             <Header color='red'>Unable to Delete That Project!</Header>
+                             : <div></div>
+                        }
                     </div>
                 {/* </LazyLoad> */}
 
@@ -135,7 +137,8 @@ class ProjectsPage extends Component {
 
 const mapStateToProps = ({ projectReducer }) => ({
     projects: projectReducer.projects,
-    project_roles: projectReducer.project_roles
+    project_roles: projectReducer.project_roles,
+    deleteProjectFail: projectReducer.deleteProjectFail
 })
 
 const mapDispatchToProps = dispatch => ({

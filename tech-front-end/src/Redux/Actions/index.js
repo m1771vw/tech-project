@@ -526,6 +526,7 @@ export const deleteProject = id => async dispatch => {
         dispatch({ type: REMOVE_PROJECT, id })
     } catch (e) {
         console.log("ERROR", e)
+        dispatch({ type: "DELETE_PROJECT_FAIL"})
     }
 }
 

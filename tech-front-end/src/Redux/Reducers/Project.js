@@ -11,6 +11,7 @@ const initialState = {
     project_by_id: {},
     projectEmployees: [{}],
     projectAssignments: [{}],
+    deleteProjectFail: false
     
     // searchEmployees: [{}]
 }
@@ -56,7 +57,8 @@ const projectReducer = (state = initialState, action) => {
         case ADD_PROJECT:
             return {
                 ...state,
-                projects: [...state.projects, action.payload]
+                projects: [...state.projects, action.payload],
+                deleteProjectFail: false
             };
         case ADD_PROJECT_ROLE:
             return {
@@ -68,7 +70,8 @@ const projectReducer = (state = initialState, action) => {
             return {
                 ...state,
                 projects: [...state.projects.slice(0, index),
-                ...state.projects.slice(index + 1)]
+                ...state.projects.slice(index + 1)],
+                deleteProjectFail: false
             };
         case UPDATE_PROJECT:
             let updateIndex = state.projects.findIndex(p => p.project_id === action.id)
@@ -76,7 +79,8 @@ const projectReducer = (state = initialState, action) => {
                 ...state,
                 projects: [...state.projects.slice(0, updateIndex),
                 action.payload,
-                ...state.projects.slice(updateIndex + 1)]
+                ...state.projects.slice(updateIndex + 1)],
+                deleteProjectFail: false
             };
         case GET_ALL_PROJECT_ROLES:
             return {
@@ -99,7 +103,11 @@ const projectReducer = (state = initialState, action) => {
                 ...state.projectEmployees.slice(role_index + 1)]
             };
 
-
+        case "DELETE_PROJECT_FAIL":
+            return {
+                ...state,
+                deleteProjectFail: true
+            }
         default:
             return state;
     }

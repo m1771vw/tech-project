@@ -10,6 +10,14 @@ class Dashboard extends Component {
         this.props.getAllAssignmentsBlocked()
         this.props.getAllAssignmentsReversed()
     }
+
+    overHour = (est, elap) =>{
+    for (let i = 0; i < Array.length, i++){
+        if (elap.elap_hours > )
+    }
+
+    }
+
     render() {
         let { assignments, blockedAssignments } = this.props;
         return (

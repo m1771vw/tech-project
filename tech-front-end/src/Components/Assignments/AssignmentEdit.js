@@ -3,8 +3,6 @@ import { Button, Form, Grid, Header, Segment, Dropdown } from 'semantic-ui-react
 import { connect } from 'react-redux';
 import { getStatusTypes } from '../../Redux/Actions/index';
 
-
-
 class AssignmentEdit extends Component {
     state = {
         assignment_name: this.props.assignment_name,
@@ -13,7 +11,8 @@ class AssignmentEdit extends Component {
         project_id: this.props.project_id,
         status_id: this.props.status_id,
         assignment_est_hours: this.props.assignment_est_hours,
-        assignment_final_hours: this.props.assignment_final_hours
+        assignment_final_hours: this.props.assignment_final_hours,
+        employee_id: this.props.employee_id
     }
     componentDidMount() {
         this.props.getStatusTypes();
@@ -49,6 +48,7 @@ class AssignmentEdit extends Component {
             status_id: value
         })
     }
+    
     //grab the model
     renderForm = () => {
         //loop thorugh all the metadata

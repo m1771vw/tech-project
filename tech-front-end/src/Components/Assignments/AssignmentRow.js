@@ -38,7 +38,7 @@ class AssignmentRow extends Component {
     };
     render() {
         let {assignment_id, assignment_name, status_name, assignment_start_date, assignment_end_date, assignment_est_hours, 
-            assignment_final_hours, project_id, project_name, status_id, first_name, last_name} = this.props.assignment
+            assignment_final_hours, project_id, project_name, status_id, first_name, last_name, employee_id} = this.props.assignment
             let {showDates, showProjectName} = this.props;
             assignment_start_date = formatDate(assignment_start_date);
             assignment_end_date = formatDate(assignment_end_date);
@@ -73,6 +73,7 @@ class AssignmentRow extends Component {
                                     assignment_final_hours={assignment_final_hours}
                                     project_id={project_id}
                                     status_id={status_id}
+                                    employee_id={employee_id}
                                 />
                             </Modal.Description>
                         </Modal.Content>

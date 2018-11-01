@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
-import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment, Dropdown } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { getStatusTypes } from '../../Redux/Actions/index';
+
+
 
 class AssignmentEdit extends Component {
     state = {
@@ -10,6 +14,9 @@ class AssignmentEdit extends Component {
         status_id: this.props.status_id,
         assignment_est_hours: this.props.assignment_est_hours,
         assignment_final_hours: this.props.assignment_final_hours
+    }
+    componentDidMount() {
+        this.props.getStatusTypes();
     }
 
     onSubmit = e => {
@@ -35,6 +42,13 @@ class AssignmentEdit extends Component {
         })
 
     }
+
+    onInputChange = (e, { value }) => {
+        e.preventDefault();
+        this.setState({
+            status_id: value
+        })
+    }
     //grab the model
     renderForm = () => {
         //loop thorugh all the metadata
@@ -42,92 +56,94 @@ class AssignmentEdit extends Component {
             <div className="form-group">
                 <label className="form-label">Assignment Name</label>
                 <input className="form-input"
-                       required
-                       name="assignment_name"
-                       type="text"
-                       value={this.state.assignment_name}
-                       onChange={this.onChange}
-                       />
+                    required
+                    name="assignment_name"
+                    type="text"
+                    value={this.state.assignment_name}
+                    onChange={this.onChange}
+                />
                 <label className="form-label">Start Date</label>
                 <input className="form-input"
-                       required
-                       name="assignment_start_date"
-                       type="text"
-                       value={this.state.assignment_start_date}
-                       onChange={this.onChange}
-                       />
+                    required
+                    name="assignment_start_date"
+                    type="text"
+                    value={this.state.assignment_start_date}
+                    onChange={this.onChange}
+                />
                 <label className="form-label">End Date</label>
                 <input className="form-input"
-                       required
-                       name="assignment_end_date"
-                       type="text"
-                       value={this.state.assignment_end_date}
-                       onChange={this.onChange}
-                       />
-                <label className="form-label">Project ID</label>
+                    required
+                    name="assignment_end_date"
+                    type="text"
+                    value={this.state.assignment_end_date}
+                    onChange={this.onChange}
+                />
+                {/* <label className="form-label">Project ID</label>
                 <input className="form-input"
                        required
                        name="project_id"
                        type="text"
                        value={this.state.project_id}
                        onChange={this.onChange}
-                       />
-                <label className="form-label">Status ID</label>
-                <input className="form-input"
-                       required
-                       name="status_id"
-                       type="text"
-                       value={this.state.status_id}
-                       onChange={this.onChange}
-                       />
+                       /> */}
+                <label className="form-label">Status</label>
+                <Dropdown
+                    placeholder='Status'
+                    value={this.state.status_id}
+                    onChange={this.onInputChange}
+                    fluid search selection options={this.props.assignmentStatus} />
+
                 <label className="form-label">Estimated Hours</label>
                 <input className="form-input"
-                       required
-                       name="assignment_est_hours"
-                       type="text"
-                       value={this.state.assignment_est_hours}
-                       onChange={this.onChange}
-                       />
+                    required
+                    name="assignment_est_hours"
+                    type="text"
+                    value={this.state.assignment_est_hours}
+                    onChange={this.onChange}
+                />
                 <label className="form-label">Final Hours</label>
                 <input className="form-input"
-                       required
-                       name="assignment_final_hours"
-                       type="text"
-                       value={this.state.assignment_final_hours}
-                       onChange={this.onChange}
-                       />
+                    required
+                    name="assignment_final_hours"
+                    type="text"
+                    value={this.state.assignment_final_hours}
+                    onChange={this.onChange}
+                />
 
             </div>
         )
-        
+
         return formUI;
     }
 
     render() {
         let title = "Assignment Edit"  //Or render "default"
-        return (    
+        return (
             <Grid className="form">
-            <Grid.Column style={{ maxWidth: 800 }}>
-                <Form >
-                <Segment stacked>
-                <Header color='blue'>{title}</Header>
-                <Form.Field  className="dynamic-form" onSubmit={(e) => { this.onSubmit(e) }}>
-                    {this.renderForm()}
-                    <div className="form-group">
-                        <Button primary onClick={(e) => { this.onSubmit(e) }} type="submit">Submit</Button>
-                        {/* /temp button */}
-                    </div>
-                </Form.Field>
-                </Segment>
-                </Form>
-            </Grid.Column>    
+                <Grid.Column style={{ maxWidth: 800 }}>
+                    <Form >
+                        <Segment stacked>
+                            <Header color='blue'>{title}</Header>
+                            <Form.Field className="dynamic-form" onSubmit={(e) => { this.onSubmit(e) }}>
+                                {this.renderForm()}
+                                <div className="form-group">
+                                    <Button primary onClick={(e) => { this.onSubmit(e) }} type="submit">Submit</Button>
+                                    {/* /temp button */}
+                                </div>
+                            </Form.Field>
+                        </Segment>
+                    </Form>
+                </Grid.Column>
             </Grid>
         )
     }
 }
 
 const mapStateToProps = ({ assignmentReducer }) => ({
-    assignments: assignmentReducer.assignments
-  });
-
-export default AssignmentEdit;
+    assignments: assignmentReducer.assignments,
+    assignmentStatus: assignmentReducer.assignmentStatus
+});
+const mapDispatchToProps = dispatch => ({
+    getStatusTypes: () => dispatch(getStatusTypes()),
+})
+export default connect(mapStateToProps, mapDispatchToProps)(AssignmentEdit);

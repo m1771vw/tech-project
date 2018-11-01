@@ -54,6 +54,8 @@ const getAllAssignmentsOrdered = async(req, res) => {
         res.status(500).json({ message: e.message })
     }
 }
+
+
 // SELECT a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.assignment_final_hours, p.project_id, p.project_name, s.status_id, s.status_name
 // FROM Assignments as a
 // INNER JOIN Status_Types as s ON s.status_id = a.status_id

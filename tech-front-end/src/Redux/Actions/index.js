@@ -34,7 +34,8 @@ import {
     GET_EMPLOYEES_IN_PROJECT,
     GET_ASSIGNMENTS_IN_PROJECT,
     GET_EMPLOYEE_BY_ID,
-    SEARCH_EMPLOYEES
+    SEARCH_EMPLOYEES,
+    IN_ORDER, RECENT_ORDER
 }
     from '../Constants';
 
@@ -146,7 +147,7 @@ export const getAllAssignmentsReversed = () => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log("ACTION: Reverse All Assignments: ");
+        console.log("ACTION: Reverse All Assignments: ", response);
         dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments.reverse() })
     } catch (e) {
         console.log("Get All Assignment Error", e.response.data);
@@ -220,7 +221,7 @@ export const deleteAssignment = id => async dispatch => {
     }
 }
 
-export const updateAssignment = (assignment, id) => async dispatch => {
+export const updateAssignment = (assignment, id, order) => async dispatch => {
     try {
         console.log("ACTION: Update Assignment: ", assignment)
         let response = await axios.put(`http://localhost:5000/api/assignments/id/${id}`, assignment, {
@@ -228,9 +229,22 @@ export const updateAssignment = (assignment, id) => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log('RESPONSE: ', response)
+        console.log('Update Assignment RESPONSE: ', response)
         dispatch({ type: UPDATE_ASSIGNMENT, payload: response.data.message, id })
-        dispatch(getAllAssignmentsOrdered());
+        console.log("SWTCHING: ", order);
+        switch(order) {
+            
+            case IN_ORDER:
+                dispatch(getAllAssignmentsOrdered());
+                break;
+            case RECENT_ORDER:
+                console.log("ACTION SWITCH: REVERSE ASSIGNMENT");
+                dispatch(getAllAssignmentsReversed());
+                break;
+            default:
+                dispatch(getAllAssignments());
+        }
+        
     } catch {
         console.log("ERROR")
     }

@@ -38,8 +38,8 @@ class AssignmentRow extends Component {
         let assignment_id = this.props.assignment.assignment_id
         let assignment_name = this.props.assignment.assignment_name
         let status_name = this.props.assignment.status_name || "i";
-        let assignment_start_date = this.props.assignment.assignment_start_date;
-        let assignment_end_date = this.props.assignment.assignment_end_date;
+        let assignment_start_date = this.props.assignment.assignment_start_date && formatDate(this.props.assignment.assignment_start_date);
+        let assignment_end_date = this.props.assignment.assignment_end_date && formatDate(this.props.assignment.assignment_end_date);
         let assignment_est_hours = this.props.assignment.assignment_est_hours;
         let assignment_final_hours = this.props.assignment.assignment_final_hours;
         let project_id = this.props.assignment.project_id;  

@@ -35,6 +35,7 @@ import {
     GET_ASSIGNMENTS_IN_PROJECT,
     GET_EMPLOYEE_BY_ID,
     SEARCH_EMPLOYEES,
+    UPDATE_EMPLOYEE_TO_ASSIGNMENT,
     IN_ORDER, RECENT_ORDER
 }
     from '../Constants';
@@ -405,6 +406,20 @@ export const updateEmployee = (employee, id) => async dispatch => {
         dispatch({ type: UPDATE_EMPLOYEE, payload: response.data.employee, id })
     } catch (e) {
         console.log("ERROR:", e)
+    }
+}
+
+export const updateEmployeeToAssignment = (body, id) => async dispatch => {
+    try {
+        let response = await axios.put(`http://localhost:5000/api/employees/all/assignments/ea_id/${id}`, body , {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+        dispatch({ type: UPDATE_EMPLOYEE_TO_ASSIGNMENT, payload: response.data.employee, id})
+        dispatch(getAssignmentsInProject())
+    } catch(e) {
+        console.log("ERROR:", e);
     }
 }
 

@@ -23,15 +23,15 @@ class AssignmentEdit extends Component {
         if (this.props.onSubmit) this.props.onSubmit(this.state, this.props.assignment_id)
     }
 
-    onDelete = e => {
-        e.preventDefault();
-        this.props.onDelete(this.state)
-    }
+    // onDelete = e => {
+    //     e.preventDefault();
+    //     this.props.onDelete(this.state)
+    // }
 
-    onUpdate = e => {
-        e.preventDefault();
-        this.props.onUpdate(this.state, this.props.assignment_id)
-    }
+    // onUpdate = e => {
+    //     e.preventDefault();
+    //     this.props.onUpdate(this.state, this.props.assignment_id)
+    // }
 
     onChange = (e) => {
         e.preventDefault();
@@ -46,6 +46,13 @@ class AssignmentEdit extends Component {
         e.preventDefault();
         this.setState({
             status_id: value
+        })
+    }
+
+    onEmployeeChange = (e, { value }) => {
+        e.preventDefault();
+        this.setState({
+            employee_id: value
         })
     }
     
@@ -90,7 +97,7 @@ class AssignmentEdit extends Component {
                 <Dropdown
                     placeholder='Employee'
                     value={this.state.employee_id}
-                    onChange={this.onInputChange}
+                    onChange={this.onEmployeeChange}
                     fluid search selection options={this.props.searchEmployees} />
                 <label className="form-label">Status</label>
                 <Dropdown

@@ -5,7 +5,7 @@ import AssignmentEdit from './AssignmentEdit'
 import { Link } from 'react-router-dom';
 import { formatDate } from '../../util/DateHelper'
 import { connect } from 'react-redux';
-import { updateAssignment, deleteAssignment } from '../../Redux/Actions/';
+import { updateAssignment, deleteAssignment, updateEmployeeToAssignment } from '../../Redux/Actions/';
 
 class AssignmentRow extends Component {
     state={
@@ -19,8 +19,14 @@ class AssignmentRow extends Component {
     ;}
 
     onUpdateAssignmentModal = (model) =>{
-        console.log("trying to update order: ", this.props.order);
+        let emp_assign_body = {
+            assignment_id: this.props.assignment.assignment_id,
+            employee_id: model.employee_id
+        }
+        let emp_assign_id = this.props.assignment.emp_assign_id
+        this.props.updateEmployeeToAssignment(emp_assign_body, emp_assign_id);
         this.props.updateAssignment(model, this.props.assignment.assignment_id, this.props.order);
+
         this.closeAssignmentModal();
     }
     determineStatus = (status_name) => {
@@ -87,7 +93,8 @@ class AssignmentRow extends Component {
 
 const mapDispatchToProps = dispatch => ({
     updateAssignment: (model, id, order) => dispatch(updateAssignment(model, id, order)),
-    deleteAssignment: (id) => dispatch(deleteAssignment(id))
+    deleteAssignment: (id) => dispatch(deleteAssignment(id)),
+    updateEmployeeToAssignment: (body, id) => dispatch(updateEmployeeToAssignment(body, id))
 });
 
 export default connect(null, mapDispatchToProps)(AssignmentRow);

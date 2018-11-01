@@ -3,7 +3,7 @@ const {
     index, getAllProjects, getProjectById, addProject, 
     deleteProject, updateProject, getAllProjectRoles, 
     updateProjectRole, deleteProjectRole, getEmployeesInProject,
-    getAssignmentByProjectId, createProjectRole
+    getAssignmentByProjectId, createProjectRole, getAllProjectRolesForEmployee
 } = require('./../controllers/projects-controllers');
 const { isAuthorized } = require('../middleware/authorization');
 
@@ -18,6 +18,7 @@ router.delete('/:id', isAuthorized, deleteProject);
 router.get('/id/:id/employees', isAuthorized, getEmployeesInProject)
 router.get('/id/:id/assignments', isAuthorized, getAssignmentByProjectId)
 router.get('/roles/all', isAuthorized, getAllProjectRoles)
+router.get('/roles/all/employee/id/:id', isAuthorized, getAllProjectRolesForEmployee)
 router.post('/roles/', isAuthorized, createProjectRole)
 router.put('/roles/:id', isAuthorized, updateProjectRole)
 router.delete('/roles/:id', isAuthorized, deleteProjectRole)

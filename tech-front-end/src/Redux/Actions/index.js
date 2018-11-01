@@ -14,6 +14,7 @@ import {
     GET_ASSIGNMENT_EMPLOYEES,
     GET_ALL_EMPLOYEE_TO_ASSIGNMENT,
     GET_ALL_EMPLOYEE_ASSIGNMENTS,
+    GET_ALL_EMPLOYEE_PROJECTS,
     GET_PROJECT_BY_ID,
     ADD_ASSIGNMENT,
     ADD_EMPLOYEE,
@@ -97,8 +98,6 @@ export const getStatusTypes = () => async dispatch => {
         console.log('Status Type Error :', e)
     }
 }
-
-
 
 export const getAllAssignments = () => async dispatch => {
     try {
@@ -312,6 +311,25 @@ export const getAllEmployeeAssignments = id => async dispatch => {
         console.log("Get Single Assignment Error", e);
     }
 };
+
+export const getAllEmployeeProjects = id => async dispatch => {
+    try {
+        let response = await axios.get(
+            `http://localhost:5000/api/projects/roles/all/employee/id/${id}`
+            , {
+                headers: {
+                    'Authorization': `bearer ${localStorage.authToken}`
+                }
+            });
+        console.log("AllEmployeeProjects: ", response);
+        dispatch({
+            type: GET_ALL_EMPLOYEE_PROJECTS,
+            payload: response.data.role
+        });
+    } catch (e) {
+        console.log("Get Single Assignment Error", e);
+    }
+}
 
 export const submitEmployee = employee => async dispatch => {
     try {

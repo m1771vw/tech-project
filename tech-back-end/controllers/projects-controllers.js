@@ -169,7 +169,20 @@ const deleteProjectRole = async (req, res) => {
     }
 }
 
-
+const getAllProjectRolesForEmployee = async (req, res) => {
+    try {
+        let employee_id = req.params.id;
+        let role = await db.any('SELECT pr.project_roles_id, e.employee_id, e.first_name, e.last_name, p.project_id, p.project_name, pr.role ' +
+                                'FROM project_roles AS pr ' +
+                                'INNER JOIN employees AS e ON e.employee_id = pr.employee_id ' +
+                                'INNER JOIN projects AS p ON p.project_id = pr.project_id ' +
+                                'WHERE e.employee_id = $1', employee_id);
+        console.log(role)
+        res.status(200).send({ role })
+    } catch(e) {
+        res.status(500).json({ message: e.message })
+    }
+}
 
 
 
@@ -177,5 +190,6 @@ module.exports = {
     index, getAllProjects, getProjectById, 
     addProject, deleteProject, updateProject, 
     getAllProjectRoles, updateProjectRole, deleteProjectRole,
-    getEmployeesInProject, getAssignmentByProjectId, createProjectRole
+    getEmployeesInProject, getAssignmentByProjectId, createProjectRole,
+    getAllProjectRolesForEmployee
 }

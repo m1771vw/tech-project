@@ -38,7 +38,7 @@ class ProjectRow extends Component {
                 <Modal
                     onClose={this.closeProjectModal}
                     open={this.state.projectModal}
-                    trigger={<Button color="black" onClick={() => { this.setState({ projectModal: true }) }}>Update</Button>} closeIcon>
+                    trigger={<Button color="blue" onClick={() => { this.setState({ projectModal: true }) }}>Update</Button>} closeIcon>
                     <Modal.Header>Update Project</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>

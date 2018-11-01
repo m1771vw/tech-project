@@ -71,7 +71,7 @@ class ProjectsPage extends Component {
                 <Modal
                     onClose={this.closeProjectModal}
                     open={this.state.projectModal}
-                    trigger={<Button onClick={() => { this.setState({ projectModal: true }) }}>Add Project</Button>} closeIcon>
+                    trigger={<Button primary onClick={() => { this.setState({ projectModal: true }) }}>Add Project</Button>} closeIcon>
                     <Modal.Header>Add Project</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>
@@ -87,7 +87,7 @@ class ProjectsPage extends Component {
 
 
                 
-                <LazyLoad height={100} offsetVertical={300}>
+                {/* <LazyLoad height={100} offsetVertical={300}> */}
                     <div>
                         <Header color='blue'>Projects</Header>
 
@@ -123,7 +123,7 @@ class ProjectsPage extends Component {
                             </Table.Body>
                         </Table>
                     </div>
-                </LazyLoad>
+                {/* </LazyLoad> */}
 
             </div>
         );

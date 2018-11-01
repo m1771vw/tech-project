@@ -19,6 +19,14 @@ class Dashboard extends Component {
                 <div>
                 <AssignmentsTable showUpdate={true} assignments={blockedAssignments} header={"Assignments Needing Attention"} />
                 </div>
+
+                {/* Show employees who are over hours
+                    - Function to check if they are over hours, if so add them to an array
+                    - Map over teh array as a table
+                
+            */}
+
+
                 <div>
                 <AssignmentsTable showUpdate={true} assignments={assignments} header={"Recent Updated Assignments"} />
                 </div>

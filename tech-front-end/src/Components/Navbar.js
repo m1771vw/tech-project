@@ -7,7 +7,10 @@ import "../App.css";
 
 const Navbar = props => {
   return (
-    <Menu className='menu-bar'>
+    <Menu 
+    className='menu-bar'
+    inverted
+    color='blue'>
 
       <Link to="/">
         <Menu.Item
@@ -69,14 +72,15 @@ const Navbar = props => {
       // onClick
       >Logout</Menu.Item> </Link> */}
 
-      <Menu.Item
+      {/* <Menu.Item
         name='       '>
         {}
-      </Menu.Item>
+      </Menu.Item> */}
       <Menu.Item
         className='menu-icon'
+        position='right'
         name='editorials'>
-              <Icon circular color='blue' name='user' /> {localStorage.currentUser}
+              <Icon circular color='white' name='user' /> {localStorage.currentUser}
       </Menu.Item>
 
     </Menu>

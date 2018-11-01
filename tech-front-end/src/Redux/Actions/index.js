@@ -205,6 +205,7 @@ export const deleteAssignment = id => async dispatch => {
 
 export const updateAssignment = (assignment, id) => async dispatch => {
     try {
+        console.log("ACTION: Update Assignment: ", assignment)
         let response = await axios.put(`http://localhost:5000/api/assignments/id/${id}`, assignment, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
@@ -212,6 +213,7 @@ export const updateAssignment = (assignment, id) => async dispatch => {
         });
         console.log('RESPONSE: ', response)
         dispatch({ type: UPDATE_ASSIGNMENT, payload: response.data.message, id })
+        dispatch(getAllAssignmentsOrdered());
     } catch {
         console.log("ERROR")
     }

@@ -20,23 +20,6 @@ class AssignmentsTable extends Component {
         this.fetchAllAssignments()
     }
 
-    // fetchAllAssignments = async () => {
-    //     let { assignments } = this.props
-    //     switch(this.props.sortOrder) {
-    //         case IN_ORDER:
-    //             await this.props.getAllAssignmentsOrdered();
-    //             return assignments;
-    //         case RECENT_ORDER:
-    //             await this.props.getAllAssignmentsReversed();
-    //             return assignments;
-    //         case NEED_ATTENTION:
-    //             await this.props.getAllAttentionAssignments();
-    //             return assignments;
-    //         default:
-    //             return assignments;
-    //     }
-    // }
-
     //Added Below to temporarily work
     fetchAllAssignments = async () => {
         await this.props.getAllAssignments()
@@ -110,54 +93,15 @@ class AssignmentsTable extends Component {
                             </Table.Header>
                             <Table.Body>
                                 {assignments && assignments.map((a) => {
-                                    let assignment_id = a.assignment_id || "Error Assign ID /"
-                                    let assignment_name = a.assignment_name || "Error Name /"
-                                    let project_id = a.project_id || "Error Project ID /"
-                                    let project_name = a.project_name || "Error Project ID /"
-                                    let status_id = a.status_id || "Error Status ID /"
-                                    let status_name = a.status_name || "Error Status ID /"
-                                    let assignment_start_date = a.assignment_start_date && formatDate(a.assignment_start_date)
-                                    let assignment_end_date = a.assignment_end_date && formatDate(a.assignment_end_date)
-                                    let assignment_est_hours = a.assignment_est_hours || "Error Est Hours /"
-                                    let assignment_final_hours = a.assignment_final_hours || "Error Final Hours /"
+                                    let assignment_id = a.assignment_id || "Error Assign ID /";
+                                    let assignment_name = a.assignment_name || "Error Name /";
                                     return (
                                         <AssignmentRow 
                                             key={assignment_id + assignment_name}
                                             assignment={a}
                                             onSubmit={this.onUpdateAssignmentModal}
                                         />
-                                        // <Table.Row className={this.determineStatus(status_name)} key={assignment_id + assignment_name}>
-                                        //     <Table.Cell selectable><Link to={`/assignments/details/${assignment_id}`}>{assignment_name}</Link></Table.Cell>
-                                        //     <Table.Cell selectable><Link to={`/projects/details/${project_id}`}>{project_name}</Link></Table.Cell>
-                                        //     <Table.Cell>{status_name}</Table.Cell>
-                                        //     <Table.Cell>{assignment_start_date}</Table.Cell>
-                                        //     <Table.Cell>{assignment_end_date}</Table.Cell>
-                                        //     <Table.Cell>{assignment_est_hours}</Table.Cell>
-                                        //     <Table.Cell>{assignment_final_hours}</Table.Cell>
-
-                                        //     <Table.Cell>
-                                        //         <Modal
-                                        //             onClose={this.closeAssignmentModal}
-                                        //             open={this.state.assignmentModal}
-                                        //             trigger={<Button color="black" onClick={() => { this.setState({ assignmentModal: true }) }}>Update</Button>} closeIcon>
-                                        //             <Modal.Header>Update Assignment</Modal.Header>
-                                        //             <Modal.Content>
-                                        //                 <Modal.Description>
-                                        //                     <AssignmentEdit onSubmit={this.onUpdateAssignmentModal}
-                                        //                         assignment_id={assignment_id}
-                                        //                         assignment_name={assignment_name}
-                                        //                         status_name={status_name}
-                                        //                         assignment_start_date={assignment_start_date}
-                                        //                         assignment_end_date={assignment_end_date}
-                                        //                         assignment_est_hours={assignment_est_hours}
-                                        //                         assignment_final_hours={assignment_final_hours}
-                                        //                     />
-                                        //                 </Modal.Description>
-                                        //             </Modal.Content>
-                                        //         </Modal>
-                                        //         <Button color='red' onClick={() => this.props.deleteAssignment(assignment_id)}>Delete</Button>
-                                        //     </Table.Cell>
-                                        // </Table.Row>
+                                        
                                     );
                                 })}
                             </Table.Body>

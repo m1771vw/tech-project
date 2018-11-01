@@ -231,6 +231,7 @@ export const updateAssignment = (assignment, id, order) => async dispatch => {
         });
         console.log('Update Assignment RESPONSE: ', response)
         dispatch({ type: UPDATE_ASSIGNMENT, payload: response.data.message, id })
+        dispatch(getAssignmentsInProject(id))
         console.log("SWTCHING: ", order);
         switch(order) {
             

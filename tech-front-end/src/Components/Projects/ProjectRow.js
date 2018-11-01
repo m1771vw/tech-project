@@ -5,7 +5,7 @@ import ProjectEdit from './ProjectEdit'
 import { Link } from 'react-router-dom';
 import { formatDate } from '../../util/DateHelper'
 import { connect } from 'react-redux';
-import { updateProject } from '../../Redux/Actions/';
+import { updateProject, deleteProject } from '../../Redux/Actions/';
 
 
 class ProjectRow extends Component {
@@ -61,7 +61,9 @@ class ProjectRow extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-    updateProject: (model, id) => dispatch(updateProject(model, id))
+    updateProject: (model, id) => dispatch(updateProject(model, id)),
+    deleteProject: id => dispatch(deleteProject(id)),
+
   });
 
 export default connect(null, mapDispatchToProps)(ProjectRow);

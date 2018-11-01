@@ -7,6 +7,7 @@ import {
     deleteEmployeeFromProject
 } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
+import { Link } from "react-router-dom"
 // import LazyLoad from 'react-lazy-load';
 import { Table, Modal, Button, Header } from 'semantic-ui-react';
 import { formatDate } from '../../util/DateHelper'
@@ -76,7 +77,7 @@ class ProjectDetails extends Component {
             <div>
                 <h1>Project Overview
                 </h1>
-                <Table padded color='blue' singleLine>
+                <Table striped padded color='blue' singleLine>
                     <Table.Header>
                         <h1>{this.props.project_by_id.project_name}</h1>
                         <h5>Start Date: {this.props.project_by_id.project_start_date && formatDate(this.props.project_by_id.project_start_date)}</h5>
@@ -87,7 +88,7 @@ class ProjectDetails extends Component {
                     </Table.Header>
                 </Table>
 
-                <Table padded color='blue' singleLine selectable>
+                <Table striped padded color='blue' singleLine selectable>
                     <Table.Header>
                         <h1>Project Employees</h1>
                         {/* PROJECT EMPLOYEES MODAL */}
@@ -137,7 +138,7 @@ class ProjectDetails extends Component {
                     </Table.Body>
                 </Table>
 
-                <Table padded color='blue' singleLine selectable>
+                <Table striped padded color='blue' singleLine selectable>
                     <Table.Header>
                         <h1>Project Assignments</h1>
                         {/* PROJECT ASSIGNMENTS MODAL */}
@@ -172,7 +173,9 @@ class ProjectDetails extends Component {
                                 return (
                                     <Table.Row key={a.assignment_id}>
                                         <Table.Cell>{a.assignment_name}</Table.Cell>
-                                        <Table.Cell>{a.first_name} {a.last_name}</Table.Cell>
+                                        <Link to={`/employees/details/${a.employee_id}`}>
+                                        <Table.Cell>{a.first_name} {a.last_name}</Table.Cell>        
+                                        </Link>
                                         <Table.Cell>{a.status_name}</Table.Cell>
                                         <Table.Cell>{a.assignment_start_date && formatDate(a.assignment_start_date)}</Table.Cell>
                                         <Table.Cell>{a.assignment_end_date && formatDate(a.assignment_end_date)}</Table.Cell>

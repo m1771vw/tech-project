@@ -364,6 +364,7 @@ export const submitEmployee = employee => async dispatch => {
         });
         console.log("New Response:", response);
         dispatch({ type: ADD_EMPLOYEE, payload: response.data.employee })
+        dispatch(getAllEmployees());
     } catch {
         console.log("ERROR")
     }
@@ -404,6 +405,7 @@ export const updateEmployee = (employee, id) => async dispatch => {
             }
         });
         dispatch({ type: UPDATE_EMPLOYEE, payload: response.data.employee, id })
+        dispatch(getAllEmployees());
     } catch (e) {
         console.log("ERROR:", e)
     }

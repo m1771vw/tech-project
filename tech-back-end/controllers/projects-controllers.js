@@ -161,7 +161,7 @@ const deleteProjectRole = async (req, res) => {
     try {
         let project_roles_id = req.params.id;
         let role = await db.one('SELECT project_roles_id FROM project_roles WHERE project_roles_id = $1', project_roles_id);
-        console.log('WTF HAPPENED: ', role)
+        // console.log('WTF HAPPENED: ', role)
         await db.none('DELETE FROM project_roles WHERE project_roles_id = $1', project_roles_id);
         res.status(200).send({ role })
     } catch (e) {
@@ -177,7 +177,7 @@ const getAllProjectRolesForEmployee = async (req, res) => {
                                 'INNER JOIN employees AS e ON e.employee_id = pr.employee_id ' +
                                 'INNER JOIN projects AS p ON p.project_id = pr.project_id ' +
                                 'WHERE e.employee_id = $1', employee_id);
-        console.log(role)
+        // console.log(role)
         res.status(200).send({ role })
     } catch(e) {
         res.status(500).json({ message: e.message })

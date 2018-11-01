@@ -218,7 +218,7 @@ export const deleteAssignment = id => async dispatch => {
         dispatch({ type: REMOVE_PROJECT_ASSIGNMENT, id: data.message.assignment_id })
         dispatch({ type: REMOVE_ASSIGNMENT, id})
         dispatch(getAllAssignments());
-        dispatch(getAssignmentsInProject(id));
+        dispatch(getAssignmentsInProject(data.message.project_id));
         dispatch(getAllAssignmentsBlocked());
     } catch (e) {
         console.log("ERROR:", e)
@@ -236,7 +236,7 @@ export const updateAssignment = (assignment, id, order) => async dispatch => {
         console.log('Update Assignment RESPONSE: ', response)
         dispatch({ type: UPDATE_ASSIGNMENT, payload: response.data.message, id })
         dispatch(getAllAssignments());
-        dispatch(getAssignmentsInProject(id))
+        dispatch(getAssignmentsInProject(response.data.message.project_id))
         dispatch(getAssignmentById(id));
         dispatch(getAllAssignmentsBlocked());
         // console.log("SWTCHING: ", order);

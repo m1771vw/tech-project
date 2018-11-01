@@ -9,6 +9,7 @@ import {
 import { RECENT_ORDER } from '../../Redux/Constants';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
+import "../../App.css";
 
 class Dashboard extends Component {
     componentDidMount() {
@@ -18,7 +19,7 @@ class Dashboard extends Component {
     render() {
         let { assignments, blockedAssignments } = this.props;
         return (
-            <div>
+            <div className='dashboard'>
 
                 <h1>Welcome to your Dashboard</h1>
                 <div>

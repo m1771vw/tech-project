@@ -107,7 +107,7 @@ class App extends Component {
 
   render() {
     return (
-      <div>
+      <div className='dashboard'>
         <Navbar />
         <Switch>
           <PrivateRoute authed={localStorage.isAuthorized === 'true'} path='/dashboard' component={Dashboard} />

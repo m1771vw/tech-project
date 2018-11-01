@@ -53,7 +53,7 @@ class ProjectRow extends Component {
                         </Modal.Description>
                     </Modal.Content>
                 </Modal>
-                <Button color='red' onClick={() => this.props.deleteProject(project_id)}>Delete</Button>
+                <Button className='need-pad' color='red' onClick={() => this.props.deleteProject(project_id)}>Delete</Button>
             </Table.Cell>
         </Table.Row>
         );

@@ -77,7 +77,7 @@ class AssignmentsTable extends Component {
                     <div>
                         <Header color='blue'>{header}</Header>
 
-                            <Table color='blue'  singleLine celled selectable>
+                            <Table striped padded color='blue'  singleLine celled selectable>
                                 <Table.Header>
                                     <Table.Row>
                                         <Table.HeaderCell>Assignment</Table.HeaderCell>

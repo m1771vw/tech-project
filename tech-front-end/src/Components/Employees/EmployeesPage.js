@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import EmployeeCreate from './EmployeeCreate';
 import EmployeeEdit from './EmployeeEdit';
 import EmployeeRow from './EmployeeRow';
+import "../../App.css";
 
 class EmployeesPage extends Component {
   state = {
@@ -59,7 +60,7 @@ class EmployeesPage extends Component {
           <Modal.Header>Add Employee</Modal.Header>
           <Modal.Content>
             <Modal.Description>
-              <Header>Add Employee To Project</Header>
+              {/* <Header>Add Employee To Project</Header> */}
               <EmployeeCreate
                 onSubmit={this.onSubmitEmployeeModal}
               // key={this.props.key}
@@ -71,10 +72,10 @@ class EmployeesPage extends Component {
 
 
         {/* <LazyLoad height={100} offsetVertical={300}> */}
-          <div>
+          <div className='need-pad'>
             <Header color="blue">Employee Roster</Header>
             <Segment style={{overflow: 'auto', maxHeight: 500, maxWidth:1425 }}>
-            <Table padded color='blue' singleLine selectable>
+            <Table striped padded color='blue' singleLine selectable>
 
               <Table.Header>
                 <Table.Row>

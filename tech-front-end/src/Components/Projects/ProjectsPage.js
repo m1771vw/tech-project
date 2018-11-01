@@ -8,6 +8,7 @@ import { formatDate } from '../../util/DateHelper'
 import ProjectCreate from './ProjectCreate'
 import ProjectEdit from './ProjectEdit'
 import ProjectRow from './ProjectRow'
+import "../../App.css";
 
 class ProjectsPage extends Component {
     state = {
@@ -88,11 +89,11 @@ class ProjectsPage extends Component {
 
                 
                 {/* <LazyLoad height={100} offsetVertical={300}> */}
-                    <div>
+                    <div className='need-pad'>
                         <Header color='blue'>Projects</Header>
                         <Segment style={{overflow: 'auto', maxHeight: 500, maxWidth:1425 }}>
 
-                        <Table padded color='blue' singleLine selectable>
+                        <Table striped padded color='blue' singleLine selectable>
 
                             <Table.Header>
                                 <Table.Row>

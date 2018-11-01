@@ -36,7 +36,7 @@ const employeeReducer = (state = initialState, action) => {
             return {
                 ...state,
                 getAllEmployeesHours: [...action.payload]
-            }
+            };
             
         case ADD_EMPLOYEE:
             console.log("Inside employee reducer add employee");

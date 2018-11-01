@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import AssignmentsTable from '../Assignments/AssignmentsTable';
 import {
-    getAllAssignmentsBlocked,
+  getAllAssignmentsBlocked,
   getAllEmployeeAssignments,
   getAllAssignmentsReversed,
   getAllAssignments,
@@ -31,27 +31,42 @@ class Dashboard extends Component {
   fetchAllEmployeeAssignments = () => {
     this.props.getAllEmployeeAssignments(1);
   };
-  overHours = () => {
-    let { AllEmployeeAssignments } = this.props;
-    let overTime = [];
 
-    for (let i = 0; i < AllEmployeeAssignments.length; i++) {
-      if (AllEmployeeAssignments[i].assignment_final_hours > AllEmployeeAssignments[i].assignment_est_hours) {
-        overTime.push(AllEmployeeAssignments[i]);
-      }
-    }
+  overHours = (arr) => {
+    
+    let overTime = [];
+    // if(employeesHours !== undefined) {
+        for (let i = 0; i < arr.length; i++) {
+          if (arr[i].assignment_final_hours > arr[i].assignment_est_hours) {
+            overTime.push(arr[i]);
+          }
+        }
+    // }
     return overTime;
   };
 
-  calculateTotalEstimatedHours = (typeOfHours) => {
-    let { AllEmployeeAssignments } = this.props;
-    let totalHours = 0;
-    for (let i = 0; i < AllEmployeeAssignments.length; i++) {
-      totalHours += parseFloat(AllEmployeeAssignments[i][typeOfHours]);
-    }
-    return totalHours;
+  checkIfIdExists = (arr, id) => {
+    var found = arr.some(x => {
+      return x.employee_id === id
+    })
+    return found;
   }
-
+  
+  addHoursTogether = (arr) => {
+    let newArr = [];
+    for(let i = 0; i < arr.length; i++) {
+      if(this.checkIfIdExists(newArr, arr[i].employee_id)) {
+        
+        let indexOfPerson = newArr.findIndex(x => x.employee_id === arr[i].employee_id)
+        newArr[indexOfPerson].assignment_est_hours = parseFloat(newArr[indexOfPerson].assignment_est_hours) + parseFloat(arr[i].assignment_est_hours)
+        newArr[indexOfPerson].assignment_final_hours = parseFloat(newArr[indexOfPerson].assignment_final_hours) + parseFloat(arr[i].assignment_final_hours)
+      } else {
+        newArr.push(arr[i])
+      }
+    }
+    console.log("New Arr: ", newArr);
+    return newArr
+  }
 
   render() {
       
@@ -83,31 +98,21 @@ class Dashboard extends Component {
         <Table selectable>
           <Table.Header>
             <Table.Row>
-              <Table.HeaderCell>Assignment Name</Table.HeaderCell>
-              <Table.HeaderCell>Employee on Assignment</Table.HeaderCell>
-              <Table.HeaderCell>Assignment Elapsed Hours</Table.HeaderCell>
-              <Table.HeaderCell>Assignment Estimated Hours</Table.HeaderCell>
-              <Table.HeaderCell>Total Hours Put In</Table.HeaderCell>
-              <Table.HeaderCell>Total Booked Hours</Table.HeaderCell>
+              <Table.HeaderCell>Employee Name</Table.HeaderCell>
+              <Table.HeaderCell>Total Estimated Assigned Hours </Table.HeaderCell>
+              <Table.HeaderCell>Total Accrued Hours</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
             {
-                this.overHours(AllEmployeeAssignments).map(ea => {
+                employeesHours && this.overHours(this.addHoursTogether(employeesHours)).map(ea => {
+                   
               return (
                 <Table.Row error>
-                  <Table.Cell key={ea.assignment_id}>
-                    {ea.assignment_name}
-                  </Table.Cell>
-                  <Table.Cell>{ea.first_name} {ea.last_name}</Table.Cell>
-                  <Table.Cell ><Icon name='attention' />{ea.assignment_final_hours}</Table.Cell>
+                  <Table.Cell key={ea.id}>{ea.first_name} {ea.last_name}</Table.Cell>
                   <Table.Cell>{ea.assignment_est_hours}</Table.Cell>
-                  <Table.Cell>{
-                    this.calculateTotalEstimatedHours('assignment_final_hours')
-                  }</Table.Cell>
-                  <Table.Cell>{
-                    this.calculateTotalEstimatedHours('assignment_est_hours')
-                  }</Table.Cell>
+                  <Table.Cell >{ea.assignment_final_hours}</Table.Cell>
+                
                 </Table.Row>
               );
             })

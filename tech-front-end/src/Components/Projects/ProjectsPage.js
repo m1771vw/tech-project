@@ -68,28 +68,28 @@ class ProjectsPage extends Component {
 
         return (
             <div>
+                <div className='need-left-right-margin'>
+                    <Modal
+                        onClose={this.closeProjectModal}
+                        open={this.state.projectModal}
+                        trigger={<Button color='teal' onClick={() => { this.setState({ projectModal: true }) }}>Add Project</Button>} closeIcon>
+                        <Modal.Header>Add Project</Modal.Header>
+                        <Modal.Content>
+                            <Modal.Description>
 
-                <Modal
-                    onClose={this.closeProjectModal}
-                    open={this.state.projectModal}
-                    trigger={<Button color='teal' onClick={() => { this.setState({ projectModal: true }) }}>Add Project</Button>} closeIcon>
-                    <Modal.Header>Add Project</Modal.Header>
-                    <Modal.Content>
-                        <Modal.Description>
+                                <ProjectCreate
+                                    onSubmit={this.onSubmitProjectModal}
+                                // key={this.props.key}
+                                />
 
-                            <ProjectCreate
-                                onSubmit={this.onSubmitProjectModal}
-                            // key={this.props.key}
-                            />
-
-                        </Modal.Description>
-                    </Modal.Content>
-                </Modal>
-
+                            </Modal.Description>
+                        </Modal.Content>
+                    </Modal>
+                </div>
 
                 
                 {/* <LazyLoad height={100} offsetVertical={300}> */}
-                    <div className='need-pad'>
+                    <div className='need-pad need-left-right-margin'>
                         <Header color='teal'>Projects</Header>
                         <Segment style={{overflow: 'auto', maxHeight: 500, maxWidth:1425 }}>
 

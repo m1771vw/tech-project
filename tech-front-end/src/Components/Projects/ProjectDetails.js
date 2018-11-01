@@ -67,10 +67,9 @@ class ProjectDetails extends Component {
 
     render() {
         return (
-            <div>
+            <div className='need-left-right-margin'>
                 {/* <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}> */}
-                <h1>Project Overview
-                </h1>
+                <h1>Project Overview</h1>
                 <Table striped padded color='teal' singleLine>
                     <Table.Header>
                         <h1>{this.props.project_by_id.project_name}</h1>

@@ -41,6 +41,7 @@ class EmployeesPage extends Component {
     let { employees } = this.props;
     return (
       <div>
+      <div className='need-left-right-margin'>
         <Modal
           onClose={this.closeEmployeeModal}
           open={this.state.employeeModal}
@@ -57,8 +58,9 @@ class EmployeesPage extends Component {
             </Modal.Description>
           </Modal.Content>
         </Modal>
+        </div>
         {/* <LazyLoad height={100} offsetVertical={300}> */}
-          <div className='need-pad'>
+          <div className='need-pad need-left-right-margin'>
             <Header color="teal">Employee Roster</Header>
             <Segment style={{overflow: 'auto', maxHeight: 500, maxWidth:1425 }}>
             <Table striped padded color='teal' singleLine selectable>

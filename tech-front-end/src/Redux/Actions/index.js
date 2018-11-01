@@ -35,7 +35,8 @@ import {
     GET_ASSIGNMENTS_IN_PROJECT,
     GET_EMPLOYEE_BY_ID,
     SEARCH_EMPLOYEES,
-    IN_ORDER, RECENT_ORDER
+    IN_ORDER, RECENT_ORDER,
+    GET_ALL_EMPLOYEES_HOURS
 }
     from '../Constants';
 
@@ -280,6 +281,21 @@ export const getAllEmployees = () => async dispatch => {
         console.log("Get All Employee Error", e);
     }
 }
+
+export const getAllEmployeesHours = () => async dispatch => {
+    try {
+        let response = await axios.get('http://localhost:5000/api/employees/all/hours', {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+       
+        dispatch({ type: GET_ALL_EMPLOYEES_HOURS, payload: response.data.employees_hours })
+    } catch (e) {
+        console.log("Get All Employee Hours Error", e);
+    }
+}
+
 
 export const getEmployeeById = id => async dispatch => {
     try {

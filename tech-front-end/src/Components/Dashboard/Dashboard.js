@@ -5,45 +5,67 @@ import {
   getAllAssignmentsBlocked,
   getAllEmployeeAssignments,
   getAllAssignmentsReversed,
-  getAllAssignments
-
+  getAllAssignments,
+  getAllEmployeesHours
 } from "../../Redux/Actions";
-import { connect } from "react-redux";
 import LazyLoad from "react-lazy-load";
-import { Table, Header} from "semantic-ui-react";
+import { connect } from "react-redux";
+import { Icon, Table, Header} from "semantic-ui-react";
 
 class Dashboard extends Component {
-  state = {
-    getAllemployeeAssignments: []
-  };
+ 
+
   componentDidMount() {
-    this.props.getAllAssignmentsBlocked()
-    this.props.getAllAssignments()
+    this.props.getAllAssignmentsBlocked();
+    this.props.getAllAssignments();
     this.fetchAllEmployeeAssignments();
+    this.fetchAllEmployeesHours();
+}
+
+  fetchAllEmployeesHours = () =>{
+    this.props.getAllEmployeesHours();
+
   }
 
   fetchAllEmployeeAssignments = () => {
-    this.props.getAllEmployeeAssignments(this.props.match.params.id);
+    this.props.getAllEmployeeAssignments(1);
   };
 
   overHours = () => {
-    let {AllEmployeeAssignments} = this.props;
+    let { AllEmployeeAssignments } = this.props;
     let overTime = [];
 
     for (let i = 0; i < AllEmployeeAssignments.length; i++) {
-      if (AllEmployeeAssignments[i].assignment_final_hours > AllEmployeeAssignments[i].assignment_estimated_hours) {
+      if (AllEmployeeAssignments[i].assignment_final_hours > AllEmployeeAssignments[i].assignment_est_hours) {
         overTime.push(AllEmployeeAssignments[i]);
       }
     }
     return overTime;
   };
+
+  calculateTotalEstimatedHours = (typeOfHours) => {
+    let { AllEmployeeAssignments } = this.props;
+    let totalHours = 0;
+    for (let i = 0; i < AllEmployeeAssignments.length; i++) {
+      totalHours += parseFloat(AllEmployeeAssignments[i][typeOfHours]);
+    }
+    return totalHours;
+  }
+
+
   render() {
+      
     let {
       assignments,
       blockedAssignments,
-      AllEmployeeAssignments
+      AllEmployeeAssignments,
+      employeesHours
     } = this.props;
+
+    console.log("LOOK FOR THIS", employeesHours)
+
     return (
+        <LazyLoad>
       <div>
         <h1>Welcome to your Dashboard</h1>
         <div>
@@ -54,26 +76,34 @@ class Dashboard extends Component {
                                       header={"Assignments Needing Attention"} />
                 </div>
         <Header header = 'h2' color ='blue'>Over Time</Header>
-        <Table singleLine>
+        <Table selectable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Assignment Name</Table.HeaderCell>
               <Table.HeaderCell>Employee on Assignment</Table.HeaderCell>
               <Table.HeaderCell>Assignment Elapsed Hours</Table.HeaderCell>
               <Table.HeaderCell>Assignment Estimated Hours</Table.HeaderCell>
+              <Table.HeaderCell>Total Hours Put In</Table.HeaderCell>
+              <Table.HeaderCell>Total Booked Hours</Table.HeaderCell>
             </Table.Row>
           </Table.Header>
           <Table.Body>
             {
                 this.overHours(AllEmployeeAssignments).map(ea => {
               return (
-                <Table.Row>
+                <Table.Row error>
                   <Table.Cell key={ea.assignment_id}>
                     {ea.assignment_name}
                   </Table.Cell>
-                  <Table.Cell>{ea.emplyoyee_id}</Table.Cell>
-                  <Table.Cell>{ea.assignment_final_hours}</Table.Cell>
-                  <Table.Cell>{ea.assignment_estimated_hours}</Table.Cell>
+                  <Table.Cell>{ea.first_name} {ea.last_name}</Table.Cell>
+                  <Table.Cell ><Icon name='attention' />{ea.assignment_final_hours}</Table.Cell>
+                  <Table.Cell>{ea.assignment_est_hours}</Table.Cell>
+                  <Table.Cell>{
+                    this.calculateTotalEstimatedHours('assignment_final_hours')
+                  }</Table.Cell>
+                  <Table.Cell>{
+                    this.calculateTotalEstimatedHours('assignment_est_hours')
+                  }</Table.Cell>
                 </Table.Row>
               );
             })
@@ -90,6 +120,7 @@ class Dashboard extends Component {
                 </div>
 
       </div>
+      </LazyLoad>
     );
   }
 }
@@ -101,14 +132,16 @@ class Dashboard extends Component {
 const mapStateToProps = ({ assignmentReducer, employeeReducer }) => ({
   assignments: assignmentReducer.assignments,
   blockedAssignments: assignmentReducer.blockedAssignments,
-  AllEmployeeAssignments: employeeReducer.getAllEmployeeAssignments
+  AllEmployeeAssignments: employeeReducer.getAllEmployeeAssignments,
+  employeesHours: employeeReducer.getAllEmployeesHours
 });
 
 const mapDispatchToProps = dispatch => ({
   getAllAssignmentsBlocked: () => dispatch(getAllAssignmentsBlocked()),
-  getAllAssignmentsReversed: () => dispatch(getAllAssignmentsReversed()),
-  getAllEmployeeAssignments: () => dispatch(getAllEmployeeAssignments()),
+  getAllAssignmentsReversed: id => dispatch(getAllAssignmentsReversed(id)),
+  getAllEmployeeAssignments: id => dispatch(getAllEmployeeAssignments(id)),
   getAllAssignments: () => dispatch(getAllAssignments()),
+  getAllEmployeesHours:() => dispatch(getAllEmployeesHours())
 
 });
 

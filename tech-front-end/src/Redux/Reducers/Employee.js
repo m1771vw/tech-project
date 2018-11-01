@@ -7,7 +7,8 @@ import {
     GET_ALL_EMPLOYEE_TO_ASSIGNMENT,
     GET_ALL_EMPLOYEE_ASSIGNMENTS,
     GET_ALL_EMPLOYEE_PROJECTS,
-    SEARCH_EMPLOYEES
+    SEARCH_EMPLOYEES,
+    GET_ALL_EMPLOYEES_HOURS
 } from "../Constants";
 
 const initialState = {
@@ -30,6 +31,13 @@ const employeeReducer = (state = initialState, action) => {
                 ...state,
                 employees: [...action.payload]
             };
+
+        case GET_ALL_EMPLOYEES_HOURS:
+            return {
+                ...state,
+                getAllEmployeesHours: [...action.payload]
+            }
+            
         case ADD_EMPLOYEE:
             console.log("Inside employee reducer add employee");
             console.log('Employee Data:', state.employees);

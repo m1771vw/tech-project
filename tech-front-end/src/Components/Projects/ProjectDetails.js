@@ -4,7 +4,7 @@ import {
     getAllProjects, getAllProjectRoles, getProjectById,
     getEmployeesInProject, getAssignmentsInProject, submitAssignment,
     submitEmployee, submitProjectRole, getAllAssignments, deleteAssignment,
-    deleteEmployeeFromProject
+    deleteEmployeeFromProject, deleteProjectRole
 } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom"
@@ -20,15 +20,10 @@ class ProjectDetails extends Component {
         assignmentModal: false,
     }
 
-    async componentDidMount() {
+    componentDidMount() {
         this.fetchProjectData();
-        // await this.searchEmployees
         this.props.getAllAssignments();
     }
-
-    // async componentDidUpdate() {
-
-    // }
 
     createAssignmentButton = (e) => {
         e.preventDefault()
@@ -132,7 +127,7 @@ class ProjectDetails extends Component {
                                         <Table.Cell>{e.role}</Table.Cell>
                                         <Button
                                             color="red"
-                                            onClick={() => this.props.deleteEmployeeFromProject(e.employee_id)}
+                                            onClick={() => this.props.deleteProjectRole(e.project_roles_id)}
                                         >
                                         Delete
                                         </Button>
@@ -231,7 +226,8 @@ const mapDispatchToProps = dispatch => ({
     submitEmployee: (model) => dispatch(submitEmployee(model)),
     getAllAssignments: () => dispatch(getAllAssignments()),
     deleteAssignment:(id) => dispatch(deleteAssignment(id)),
-    deleteEmployeeFromProject:(id) => dispatch(deleteEmployeeFromProject(id)),
+    deleteProjectRole:(id) => dispatch(deleteProjectRole(id)),
+    
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);

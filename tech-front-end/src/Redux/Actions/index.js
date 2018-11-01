@@ -343,11 +343,12 @@ export const deleteEmployee = id => async dispatch => {
 
 export const deleteEmployeeFromProject = id => async dispatch => {
     try {
-        await axios.delete(`http://localhost:5000/api/projects/roles/${id}`, {
+        let deleting = await axios.delete(`http://localhost:5000/api/projects/roles/${id}`, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
+        console.log('WHAT IS GOING ON: ', deleting)
         dispatch({ type: REMOVE_EMPLOYEE_FROM_PROJECT, id })
     } catch (e) {
         console.log('ERROR:', e)
@@ -511,7 +512,6 @@ export const updateProjectRole = (project_role, id) => async dispatch => {
 
 export const deleteProjectRole = id => async dispatch => {
     try {
-        let id = 10;
         await axios.delete(`http://localhost:5000/api/projects/roles/${id}`, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`

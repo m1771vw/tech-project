@@ -36,7 +36,7 @@ const projectReducer = (state = initialState, action) => {
                 ...state,
                 projectEmployees: [...state.projectEmployees.slice(0, index3),
                 ...state.projectEmployees.slice(index3 + 1)]
-            };
+            };  
         case GET_ASSIGNMENTS_IN_PROJECT:
             return {
                 ...state,
@@ -91,11 +91,11 @@ const projectReducer = (state = initialState, action) => {
                 ...state.project_role.slice(roleUpdateIndex + 1)]
             };
         case REMOVE_PROJECT_ROLES:
-            let role_index = state.project_role.find(pr => pr.project_role_id === action.id)
+            let role_index = state.projectEmployees.findIndex(pr => pr.project_roles_id === action.id)
             return {
                 ...state,
-                project_role: [...state.project_role.slice(0, role_index),
-                ...state.project_role.slice(role_index + 1)]
+                projectEmployees: [...state.projectEmployees.slice(0, role_index),
+                ...state.projectEmployees.slice(role_index + 1)]
             };
 
 

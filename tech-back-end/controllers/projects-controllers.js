@@ -36,7 +36,7 @@ const getEmployeesInProject = async (req , res) => {
         let project_id = parseInt(req.params.id);
         let employees = await db.any(
             `SELECT p.project_id, p.project_name, p.project_start_date, p.project_end_date, 
-            pr.employee_id, pr.role,
+            pr.employee_id, pr.role, pr.project_roles_id,
             e.first_name, e.last_name, e.position
             FROM projects as p
             INNER JOIN project_roles as pr ON pr.project_id = p.project_id
@@ -159,9 +159,10 @@ const updateProjectRole = async (req, res) => {
 
 const deleteProjectRole = async (req, res) => {
     try {
-        let project_role_id = req.params.id;
-        let role = await db.one('SELECT project_roles_id FROM project_roles WHERE project_roles_id = $1', project_role_id);
-        await db.none('DELETE FROM project_roles WHERE project_roles_id = $1', project_role_id);
+        let project_roles_id = req.params.id;
+        let role = await db.one('SELECT project_roles_id FROM project_roles WHERE project_roles_id = $1', project_roles_id);
+        console.log('WTF HAPPENED: ', role)
+        await db.none('DELETE FROM project_roles WHERE project_roles_id = $1', project_roles_id);
         res.status(200).send({ role })
     } catch (e) {
         res.status(500).json({ message: e.message })

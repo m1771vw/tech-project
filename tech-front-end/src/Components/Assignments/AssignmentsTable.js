@@ -16,15 +16,15 @@ class AssignmentsTable extends Component {
 
     }
 
-    componentDidMount() {
-        this.fetchAllAssignments()
-    }
+    // componentDidMount() {
+    //     this.fetchAllAssignments()
+    // }
 
-    //Added Below to temporarily work
-    fetchAllAssignments = async () => {
-        await this.props.getAllAssignments()
+    // //Added Below to temporarily work
+    // fetchAllAssignments = async () => {
+    //     await this.props.getAllAssignments()
 
-    }
+    // }
 
     determineStatus = (status_name) => {
         switch (status_name) {
@@ -46,25 +46,25 @@ class AssignmentsTable extends Component {
         })
     }
 
-    onSubmitAssignmentModal = async (model) => {
-        model = { ...model, assignment_id: this.props.match.params.id }
-        await this.props.submitAssignment(model);
-        await this.fetchAllAssignments();
-        await this.closeAssignmentModal();
-        this.setState({
-            assignmentModal: false,
-        });
-    }
+    // onSubmitAssignmentModal = async (model) => {
+    //     model = { ...model, assignment_id: this.props.match.params.id }
+    //     await this.props.submitAssignment(model);
+    //     await this.fetchAllAssignments();
+    //     await this.closeAssignmentModal();
+    //     this.setState({
+    //         assignmentModal: false,
+    //     });
+    // }
 
-    onUpdateAssignmentModal = async (model) => {
-        model = { ...model }
-        await this.props.updateAssignment(model);
-        await this.fetchAllAssignments();
-        await this.closeAssignmentModal();
-        this.setState({
-            assignmentModal: false,
-        });
-    }
+    // onUpdateAssignmentModal = async (model) => {
+    //     model = { ...model }
+    //     await this.props.updateAssignment(model);
+    //     await this.fetchAllAssignments();
+    //     await this.closeAssignmentModal();
+    //     this.setState({
+    //         assignmentModal: false,
+    //     });
+    // }
 
 
 
@@ -99,7 +99,8 @@ class AssignmentsTable extends Component {
                                             key={assignment_id + assignment_name}
                                             assignment={a}
                                             showProjectName={showProjectName}
-                                            onSubmit={this.onUpdateAssignmentModal}
+                                            order={this.props.order}
+                                            // onSubmit={this.onUpdateAssignmentModal}
                                             showDates={showDates}
                                         />
                                         
@@ -122,8 +123,8 @@ const mapStateToProps = ({ assignmentReducer }) => ({
 const mapDispatchToProps = dispatch => ({
     getAllAssignments: () => dispatch(getAllAssignments()),
     submitAssignment: (model) => dispatch(submitAssignment(model)),
-    deleteAssignment: id => dispatch(deleteAssignment(id)),
-    updateAssignment: (model) => dispatch(updateAssignment(model))
+    // deleteAssignment: id => dispatch(deleteAssignment(id)),
+    // updateAssignment: (model, id, order) => dispatch(updateAssignment(model, id, order))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(AssignmentsTable);

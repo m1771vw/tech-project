@@ -18,7 +18,7 @@ const Navbar = props => {
         </Menu.Item>{" "}
       </Link>
 
-      <Link to="/assignments">
+      {/* <Link to="/assignments">
         <Menu.Item
           name="editorials"
         // active
@@ -26,7 +26,7 @@ const Navbar = props => {
         >
           Assignments
         </Menu.Item>
-      </Link>
+      </Link> */}
 
       <Link to="/employees">
         <Menu.Item

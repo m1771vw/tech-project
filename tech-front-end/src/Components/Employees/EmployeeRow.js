@@ -4,7 +4,7 @@ import { Table, Button, Modal } from 'semantic-ui-react';
 import EmployeeEdit from './EmployeeEdit'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { updateEmployee } from '../../Redux/Actions/';
+import { updateEmployee, deleteEmployee } from '../../Redux/Actions/';
 
 class EmployeeRow extends Component {
     state={
@@ -67,7 +67,8 @@ EmployeeRow.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-    updateEmployee: (model, id) => dispatch(updateEmployee(model, id))
+    updateEmployee: (model, id) => dispatch(updateEmployee(model, id)),
+    deleteEmployee:(id) => dispatch(deleteEmployee(id)),
   });
 
 export default connect(null, mapDispatchToProps)(EmployeeRow);

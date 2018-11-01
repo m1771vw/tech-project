@@ -8,6 +8,7 @@ import { formatDate } from '../../util/DateHelper'
 import ProjectCreate from './ProjectCreate'
 import ProjectEdit from './ProjectEdit'
 import ProjectRow from './ProjectRow'
+import "../../App.css";
 
 class ProjectsPage extends Component {
     state = {
@@ -67,32 +68,32 @@ class ProjectsPage extends Component {
 
         return (
             <div>
+                <div className='need-left-right-margin'>
+                    <Modal
+                        onClose={this.closeProjectModal}
+                        open={this.state.projectModal}
+                        trigger={<Button color='teal' onClick={() => { this.setState({ projectModal: true }) }}>Add Project</Button>} closeIcon>
+                        <Modal.Header>Add Project</Modal.Header>
+                        <Modal.Content>
+                            <Modal.Description>
 
-                <Modal
-                    onClose={this.closeProjectModal}
-                    open={this.state.projectModal}
-                    trigger={<Button primary onClick={() => { this.setState({ projectModal: true }) }}>Add Project</Button>} closeIcon>
-                    <Modal.Header>Add Project</Modal.Header>
-                    <Modal.Content>
-                        <Modal.Description>
+                                <ProjectCreate
+                                    onSubmit={this.onSubmitProjectModal}
+                                // key={this.props.key}
+                                />
 
-                            <ProjectCreate
-                                onSubmit={this.onSubmitProjectModal}
-                            // key={this.props.key}
-                            />
-
-                        </Modal.Description>
-                    </Modal.Content>
-                </Modal>
-
+                            </Modal.Description>
+                        </Modal.Content>
+                    </Modal>
+                </div>
 
                 
                 {/* <LazyLoad height={100} offsetVertical={300}> */}
-                    <div>
-                        <Header color='blue'>Projects</Header>
+                    <div className='need-pad need-left-right-margin'>
+                        <Header color='teal'>Projects</Header>
                         <Segment style={{overflow: 'auto', maxHeight: 500, maxWidth:1425 }}>
 
-                        <Table padded color='blue' singleLine selectable>
+                        <Table striped padded color='teal' singleLine selectable>
 
                             <Table.Header>
                                 <Table.Row>

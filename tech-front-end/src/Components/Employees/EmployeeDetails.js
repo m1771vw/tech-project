@@ -72,9 +72,9 @@ class EmployeeDetails extends Component {
 
     return (
       <div>
-        <Header color="blue">Employee Details Page</Header>
+        <Header color="teal">Employee Details Page</Header>
         <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
-        <Table padded color='blue' singleLine>
+        <Table padded color='teal' singleLine>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Employee Name: {EmployeeById.first_name + " "}{EmployeeById.last_name}</Table.HeaderCell>
@@ -85,7 +85,7 @@ class EmployeeDetails extends Component {
         </Segment>
 
         <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
-        <Table padded color='blue' singleLine selectable>
+        <Table padded color='teal' singleLine selectable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>All Assignments Assigned to {EmployeeById.first_name}:</Table.HeaderCell>
@@ -117,7 +117,7 @@ class EmployeeDetails extends Component {
         </Segment>
 
         <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
-        <Table padded color='blue' singleLine selectable>
+        <Table padded color='teal' singleLine selectable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Total Estimated Hours</Table.HeaderCell>
@@ -142,7 +142,7 @@ class EmployeeDetails extends Component {
         </Segment>
         
         <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
-        <Table padded color='blue'>
+        <Table padded color='teal'>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Projects {EmployeeById.first_name} is Currently In:</Table.HeaderCell>

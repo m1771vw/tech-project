@@ -4,13 +4,13 @@ import { connect } from "react-redux";
 import {
   getEmployeeById,
   getAllEmployeesToAssignment,
-  getAllEmployeeAssignments
+  getAllEmployeeAssignments,
+  getAllEmployeeProjects
 } from "../../Redux/Actions/";
 import LazyLoad from "react-lazy-load";
 import { Header } from "semantic-ui-react";
 import { Table } from "semantic-ui-react"
 import { formatDate } from '../../util/DateHelper'
-import { format } from "url";
 import { Link } from "react-router-dom"
 
 class EmployeeDetails extends Component {
@@ -20,23 +20,28 @@ class EmployeeDetails extends Component {
     getAllEmployeesToAssignment: []
   };
 
-  async componentDidMount() {
-    await this.fetchAllEmployeesToAssignment();
-    await this.fetchEmployeeById();
-    await this.fetchAllEmployeeAssignments();
+  componentDidMount() {
+    this.fetchAllEmployeesToAssignment();
+    this.fetchEmployeeById();
+    this.fetchAllEmployeeAssignments();
+    this.fetchAllEmployeeProjects();
   }
-  fetchEmployeeById = async () => {
-    await this.props.getEmployeeById(this.props.match.params.id);
+
+  fetchEmployeeById = () => {
+    this.props.getEmployeeById(this.props.match.params.id);
   };
 
-  fetchAllEmployeesToAssignment = async () => {
-    await this.props.getAllEmployeesToAssignment(this.props.match.params.id);
+  fetchAllEmployeesToAssignment = () => {
+    this.props.getAllEmployeesToAssignment(this.props.match.params.id);
   };
 
-  fetchAllEmployeeAssignments = async () => {
-    await this.props.getAllEmployeeAssignments(this.props.match.params.id);
+  fetchAllEmployeeAssignments = () => {
+    this.props.getAllEmployeeAssignments(this.props.match.params.id);
   };
 
+  fetchAllEmployeeProjects = () => {
+    this.props.getAllEmployeeProjects(this.props.match.params.id);
+  }
   calculateTotalEstimatedHours = (typeOfHours) => {
     let { AllEmployeeAssignments } = this.props;
     let totalHours = 0;
@@ -141,7 +146,7 @@ class EmployeeDetails extends Component {
                 </Table.Row>
             </Table.Header>
             <Table.Body>
-              {this.uniqueProjectNames().map(name => {
+              {this.props.employee_projects.map(name => {
               return (
                 <Table.Row>
                   <Table.Cell selectable> 
@@ -165,13 +170,15 @@ const mapStateToProps = ({ employeeReducer }) => ({
   Employees: employeeReducer.employees,
   EmployeeById: employeeReducer.getEmployeeById,
   AllEmployeeAssignments: employeeReducer.getAllEmployeeAssignments,
-  AllEmployeesToAssignment: employeeReducer.getAllEmployeesToAssignment
+  AllEmployeesToAssignment: employeeReducer.getAllEmployeesToAssignment,
+  employee_projects: employeeReducer.employee_projects
 });
 
 const mapDispatchToProps = dispatch => ({
   getEmployeeById: id => dispatch(getEmployeeById(id)),
   getAllEmployeeAssignments: id => dispatch(getAllEmployeeAssignments(id)),
-  getAllEmployeesToAssignment: id => dispatch(getAllEmployeesToAssignment(id))
+  getAllEmployeesToAssignment: id => dispatch(getAllEmployeesToAssignment(id)),
+  getAllEmployeeProjects: id => dispatch(getAllEmployeeProjects(id))
 });
 export default connect(
   mapStateToProps,

@@ -71,7 +71,7 @@ class ProjectsPage extends Component {
                 <Modal
                     onClose={this.closeProjectModal}
                     open={this.state.projectModal}
-                    trigger={<Button onClick={() => { this.setState({ projectModal: true }) }}>Add Project</Button>} closeIcon>
+                    trigger={<Button primary onClick={() => { this.setState({ projectModal: true }) }}>Add Project</Button>} closeIcon>
                     <Modal.Header>Add Project</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>

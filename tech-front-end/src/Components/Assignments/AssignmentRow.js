@@ -58,7 +58,7 @@ class AssignmentRow extends Component {
                     <Modal
                         onClose={this.closeAssignmentModal}
                         open={this.state.assignmentModal}
-                        trigger={<Button color="black" onClick={() => { this.setState({ assignmentModal: true }) }}>Update</Button>} closeIcon>
+                        trigger={<Button color="blue" onClick={() => { this.setState({ assignmentModal: true }) }}>Update</Button>} closeIcon>
                         <Modal.Header>Update Assignment</Modal.Header>
                         <Modal.Content>
                             <Modal.Description>

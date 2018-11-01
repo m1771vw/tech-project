@@ -87,7 +87,7 @@ class ProjectsPage extends Component {
 
 
                 
-                <LazyLoad height={100} offsetVertical={300}>
+                {/* <LazyLoad height={100} offsetVertical={300}> */}
                     <div>
                         <Header color='blue'>Projects</Header>
 
@@ -123,7 +123,7 @@ class ProjectsPage extends Component {
                             </Table.Body>
                         </Table>
                     </div>
-                </LazyLoad>
+                {/* </LazyLoad> */}
 
             </div>
         );

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { getAllEmployees, deleteEmployee, submitEmployee, updateEmployee } from "../../Redux/Actions/index";
 import { connect } from "react-redux";
 import LazyLoad from "react-lazy-load";
-import { Modal, Button, Table, Header } from "semantic-ui-react";
+import { Modal, Button, Table, Header, Segment } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import EmployeeCreate from './EmployeeCreate';
 import EmployeeEdit from './EmployeeEdit';
@@ -70,10 +70,12 @@ class EmployeesPage extends Component {
         </Modal>
 
 
-        <LazyLoad height={100} offsetVertical={300}>
+        {/* <LazyLoad height={100} offsetVertical={300}> */}
           <div>
             <Header color="blue">Employee Roster</Header>
+            <Segment style={{overflow: 'auto', maxHeight: 500, maxWidth:1425 }}>
             <Table padded color='blue' singleLine selectable>
+
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>First Name</Table.HeaderCell>
@@ -98,8 +100,9 @@ class EmployeesPage extends Component {
                 })}
               </Table.Body>
             </Table>
+              </Segment>
           </div>
-        </LazyLoad>
+        {/* </LazyLoad> */}
       </div>
     );
   }

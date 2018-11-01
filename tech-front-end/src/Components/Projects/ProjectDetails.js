@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom"
 // import LazyLoad from 'react-lazy-load';
-import { Table, Modal, Button, Header } from 'semantic-ui-react';
+import { Table, Modal, Button, Header, Segment } from 'semantic-ui-react';
 import { formatDate } from '../../util/DateHelper'
 import ProjectAssignments from './ProjectAssignments';
 import AssignmentsTable from '../Assignments/AssignmentsTable';
@@ -72,6 +72,7 @@ class ProjectDetails extends Component {
             <div>
                 <h1>Project Overview
                 </h1>
+                <Segment style={{overflow: 'auto', maxHeight: 400, maxWidth:1425 }}>
                 <Table striped padded color='blue' singleLine>
                     <Table.Header>
                         <h1>{this.props.project_by_id.project_name}</h1>
@@ -82,7 +83,6 @@ class ProjectDetails extends Component {
                         </Table.Row>
                     </Table.Header>
                 </Table>
-
                 <Table striped padded color='blue' singleLine selectable>
                     <Table.Header>
                         <h1>Project Employees</h1>
@@ -136,9 +136,11 @@ class ProjectDetails extends Component {
                             })}
                     </Table.Body>
                 </Table>
+                </Segment>
 
                 {/* <Table striped padded color='blue' singleLine selectable> */}
                     {/* <Table.Header> */}
+                        <Segment style={{overflow: 'auto', maxHeight: 400, maxWidth:1425 }}>
                         <h1>Project Assignments</h1>
                         {/* PROJECT ASSIGNMENTS MODAL */}
                         <Modal
@@ -156,10 +158,12 @@ class ProjectDetails extends Component {
                                 </Modal.Description>
                             </Modal.Content>
                         </Modal>
+
                         <AssignmentsTable assignments={this.props.projectAssignments}
                                           showDates={true}
                                           header={""}
                         />
+                        </Segment>
                         {/* <Table.Row>
                             <Table.HeaderCell>Assignment</Table.HeaderCell>
                             <Table.HeaderCell>Assigned To</Table.HeaderCell>

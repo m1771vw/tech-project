@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 // import PropTypes from 'prop-types';
 import AssignmentsTable from '../Assignments/AssignmentsTable';
-import {getAllAssignmentsBlocked,
-    getAllAssignmentsReversed} from '../../Redux/Actions';
+import {
+    getAllAssignmentsBlocked,
+    getAllAssignmentsReversed
+} from '../../Redux/Actions';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
-
 
 class Dashboard extends Component {
     componentDidMount() {
@@ -19,16 +20,22 @@ class Dashboard extends Component {
 
                 <h1>Welcome to your Dashboard</h1>
                 <div>
-                <AssignmentsTable showUpdate={true} assignments={blockedAssignments} header={"Assignments Needing Attention"} />
+                    <AssignmentsTable showUpdate={true} 
+                                      assignments={blockedAssignments} 
+                                      showProjectName={true}
+                                      header={"Assignments Needing Attention"} />
                 </div>
                 <div>
-                <AssignmentsTable showUpdate={true} assignments={assignments} header={"Recent Updated Assignments"} />
+                    <AssignmentsTable showUpdate={true} 
+                                      assignments={assignments} 
+                                      showProjectName={true}
+                                      header={"Recent Updated Assignments"} />
                 </div>
 
 
-                 {/* Scroll to load images.
+                {/* Scroll to load images.
     <div className="filler" /> */}
-    {/* <LazyLoad height={762} offsetVertical={300}>
+                {/* <LazyLoad height={762} offsetVertical={300}>
       <img src='http://apod.nasa.gov/apod/image/1502/HDR_MVMQ20Feb2015ouellet1024.jpg' />
     </LazyLoad>
     <div className="filler" />
@@ -55,7 +62,7 @@ class Dashboard extends Component {
 
 // };
 
-const mapStateToProps = ({assignmentReducer}) => ({
+const mapStateToProps = ({ assignmentReducer }) => ({
     assignments: assignmentReducer.assignments,
     blockedAssignments: assignmentReducer.blockedAssignments,
 

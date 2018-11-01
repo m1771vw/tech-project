@@ -15,7 +15,6 @@ class ProjectsPage extends Component {
 
     }
 
-
     async componentDidMount() {
         await this.fetchAllProjects();
         await this.fetchAllProjectRoles();
@@ -46,7 +45,7 @@ class ProjectsPage extends Component {
         await this.fetchAllProjects();
         await this.closeProjectModal();
         this.setState({
-            assignmentModal: false,
+            projectModal: false,
         });
 
     }
@@ -55,10 +54,10 @@ class ProjectsPage extends Component {
         model = { ...model, project_id: this.props.match.params.id }
         await this.props.updateProject(model);
         await this.fetchAllProjects();
-        await this.closeProjectModal();
-        this.setState({
-            assignmentModal: false,
-        });
+        // await this.closeProjectModal();
+        // this.setState({
+        //     assignmentModal: false,
+        // });
 
     }
 

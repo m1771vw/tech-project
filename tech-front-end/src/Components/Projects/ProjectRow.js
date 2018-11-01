@@ -4,6 +4,8 @@ import { Table, Button, Modal } from 'semantic-ui-react';
 import ProjectEdit from './ProjectEdit'
 import { Link } from 'react-router-dom';
 import { formatDate } from '../../util/DateHelper'
+import { connect } from 'react-redux';
+import { updateProject } from '../../Redux/Actions/';
 
 
 class ProjectRow extends Component {
@@ -18,22 +20,21 @@ class ProjectRow extends Component {
     ;}
 
     onUpdateProjectModal = async (model) =>{
-        model = {...model, project_id: this.props.project_id }
-        await this.props.updateProject(model);
+        this.props.updateProject(model, this.props.project.project_id);
         this.closeProjectModal();
       }
 
     render() {
         let project_id = this.props.project.project_id || "i";
         let project_name = this.props.project.project_name;
-        let project_start_date = this.props.project.project_start_date;
-        let project_end_date = this.props.project.project_end_date;
+        let project_start_date = this.props.project.project_start_date && formatDate(this.props.project.project_start_date);
+        let project_end_date = this.props.project.project_end_date && formatDate(this.props.project.project_end_date);
         
         return (
             <Table.Row key={project_id + project_name}>
             <Table.Cell selectable><Link to={`/projects/details/${project_id}`}>{project_name}</Link></Table.Cell>
-            <Table.Cell>{project_start_date && formatDate(project_start_date)}</Table.Cell>
-            <Table.Cell>{project_end_date && formatDate(project_end_date)}</Table.Cell>
+            <Table.Cell>{project_start_date}</Table.Cell>
+            <Table.Cell>{project_end_date}</Table.Cell>
             <Table.Cell>
                 <Modal
                     onClose={this.closeProjectModal}
@@ -59,8 +60,8 @@ class ProjectRow extends Component {
     }
 }
 
-ProjectRow.propTypes = {
+const mapDispatchToProps = dispatch => ({
+    updateProject: (model, id) => dispatch(updateProject(model, id))
+  });
 
-};
-
-export default ProjectRow;
+export default connect(null, mapDispatchToProps)(ProjectRow);

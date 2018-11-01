@@ -71,7 +71,7 @@ class AssignmentsTable extends Component {
 
 
     render() {
-        let { assignments, header, showUpdate, showDates } = this.props
+        let { assignments, header, showUpdate, showDates, showProjectName } = this.props
         // this.sortAssignments(this.props.sortOrder)
         return (
             <div>
@@ -81,12 +81,12 @@ class AssignmentsTable extends Component {
                         <Table singleLine celled selectable>
                             <Table.Header>
                                 <Table.Row>
-                                    <Table.HeaderCell>Name</Table.HeaderCell>
-                                    <Table.HeaderCell>Project Name</Table.HeaderCell>
-                                    <Table.HeaderCell>Assigned To</Table.HeaderCell>
+                                    <Table.HeaderCell>Assignment</Table.HeaderCell>
+                                    { showProjectName && <Table.HeaderCell>Project Name</Table.HeaderCell> }
+                                    <Table.HeaderCell>Assigned To</Table.HeaderCell>                            
                                     <Table.HeaderCell>Status</Table.HeaderCell>
-                                    <Table.HeaderCell>Start Date</Table.HeaderCell>
-                                    <Table.HeaderCell>End Date</Table.HeaderCell>
+                                    { showDates && <Table.HeaderCell>Start Date</Table.HeaderCell>}
+                                    { showDates && <Table.HeaderCell>End Date</Table.HeaderCell> }
                                     <Table.HeaderCell>Estimated Hours</Table.HeaderCell>
                                     <Table.HeaderCell>Final Elapsed Hours</Table.HeaderCell>
                                     <Table.HeaderCell> </Table.HeaderCell>
@@ -100,7 +100,9 @@ class AssignmentsTable extends Component {
                                         <AssignmentRow 
                                             key={assignment_id + assignment_name}
                                             assignment={a}
+                                            showProjectName={showProjectName}
                                             onSubmit={this.onUpdateAssignmentModal}
+                                            showDates={showDates}
                                         />
                                         
                                     );

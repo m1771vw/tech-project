@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { Modal, Button, Table, Header, Segment } from "semantic-ui-react";
 import EmployeeCreate from './EmployeeCreate';
 import EmployeeRow from './EmployeeRow';
+import "../../App.css";
 
 class EmployeesPage extends Component {
   state = {
@@ -43,20 +44,25 @@ class EmployeesPage extends Component {
         <Modal
           onClose={this.closeEmployeeModal}
           open={this.state.employeeModal}
-          trigger={<Button primary onClick={() => { this.setState({ employeeModal: true }) }}>Add Employee</Button>} closeIcon>
+          trigger={<Button color='teal' onClick={() => { this.setState({ employeeModal: true }) }}>Add Employee</Button>} closeIcon>
           <Modal.Header>Add Employee</Modal.Header>
           <Modal.Content>
             <Modal.Description>
-              <Header>Add Employee To Project</Header>
-              <EmployeeCreate onSubmit={this.onSubmitEmployeeModal}/>
+              {/* <Header>Add Employee To Project</Header> */}
+              <EmployeeCreate
+                onSubmit={this.onSubmitEmployeeModal}
+              // key={this.props.key}
+              />
+              {/* <Dropdown placeholder='Select Employee' fluid search selection options={this.state.dropDown} /> */}
             </Modal.Description>
           </Modal.Content>
         </Modal>
         {/* <LazyLoad height={100} offsetVertical={300}> */}
-          <div>
-            <Header color="blue">Employee Roster</Header>
+          <div className='need-pad'>
+            <Header color="teal">Employee Roster</Header>
             <Segment style={{overflow: 'auto', maxHeight: 500, maxWidth:1425 }}>
-            <Table padded color='blue' singleLine selectable>
+            <Table striped padded color='teal' singleLine selectable>
+
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>First Name</Table.HeaderCell>

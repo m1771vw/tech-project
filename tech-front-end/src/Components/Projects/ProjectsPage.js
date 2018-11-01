@@ -8,6 +8,7 @@ import { formatDate } from '../../util/DateHelper'
 import ProjectCreate from './ProjectCreate'
 import ProjectEdit from './ProjectEdit'
 import ProjectRow from './ProjectRow'
+import "../../App.css";
 
 class ProjectsPage extends Component {
     state = {
@@ -71,7 +72,7 @@ class ProjectsPage extends Component {
                 <Modal
                     onClose={this.closeProjectModal}
                     open={this.state.projectModal}
-                    trigger={<Button primary onClick={() => { this.setState({ projectModal: true }) }}>Add Project</Button>} closeIcon>
+                    trigger={<Button color='teal' onClick={() => { this.setState({ projectModal: true }) }}>Add Project</Button>} closeIcon>
                     <Modal.Header>Add Project</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>
@@ -88,11 +89,11 @@ class ProjectsPage extends Component {
 
                 
                 {/* <LazyLoad height={100} offsetVertical={300}> */}
-                    <div>
-                        <Header color='blue'>Projects</Header>
+                    <div className='need-pad'>
+                        <Header color='teal'>Projects</Header>
                         <Segment style={{overflow: 'auto', maxHeight: 500, maxWidth:1425 }}>
 
-                        <Table padded color='blue' singleLine selectable>
+                        <Table striped padded color='teal' singleLine selectable>
 
                             <Table.Header>
                                 <Table.Row>

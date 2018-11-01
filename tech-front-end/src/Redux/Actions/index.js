@@ -108,6 +108,7 @@ export const getAllAssignments = () => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
+        console.log("ACTION: Get All Assignments: ", response);
         dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments })
 
     } catch (e) {

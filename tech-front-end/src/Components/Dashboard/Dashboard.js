@@ -6,7 +6,7 @@ import {
     getAllAssignments
 } from '../../Redux/Actions';
 import { connect } from 'react-redux';
-import LazyLoad from 'react-lazy-load';
+import { Segment } from 'semantic-ui-react';
 import "../../App.css";
 
 class Dashboard extends Component {
@@ -21,16 +21,20 @@ class Dashboard extends Component {
 
                 <h1>Welcome to your Dashboard</h1>
                 <div>
-                    <AssignmentsTable showUpdate={true}
-                        assignments={blockedAssignments}
-                        showProjectName={true}
-                        header={"Assignments Needing Attention"} />
+                    <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
+                        <AssignmentsTable showUpdate={true}
+                            assignments={blockedAssignments}
+                            showProjectName={true}
+                            header={"Assignments Needing Attention"} />
+                    </Segment>
                 </div>
                 <div>
-                    <AssignmentsTable showUpdate={true}
-                        assignments={assignments}
-                        showProjectName={true}
-                        header={"All Assignments"} />
+                    <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
+                        <AssignmentsTable showUpdate={true}
+                            assignments={assignments}
+                            showProjectName={true}
+                            header={"All Assignments"} />
+                    </Segment>
                 </div>
             </div>
         );

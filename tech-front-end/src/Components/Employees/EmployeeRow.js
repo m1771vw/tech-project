@@ -38,7 +38,7 @@ class EmployeeRow extends Component {
                       <Modal
                             onClose={this.closeEmployeeModal}
                             open={this.state.employeeModal}
-                            trigger={<Button color="black" onClick={() => { this.setState({ employeeModal: true }) }}>Update</Button>} closeIcon>
+                            trigger={<Button primary onClick={() => { this.setState({ employeeModal: true }) }}>Update</Button>} closeIcon>
                             <Modal.Header>Update Employee</Modal.Header>
                             <Modal.Content>
                                 <Modal.Description>

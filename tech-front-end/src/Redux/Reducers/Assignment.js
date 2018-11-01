@@ -60,12 +60,14 @@ const assignmentReducer = (state = initialState, action) => {
         case REMOVE_ASSIGNMENT:
             // Need some action.index
             let index = state.assignments.findIndex(a => a.assignment_id === action.id)
+            console.log("REDUCER: REMOVE ASSIGNMENT:", index);
             return {
                 ...state,
                 assignments: [
                     ...state.assignments.slice(0, index),
                     ...state.assignments.slice(index + 1)
-                ]
+                ],
+                assignment: {}
             };
 
         case UPDATE_ASSIGNMENT:

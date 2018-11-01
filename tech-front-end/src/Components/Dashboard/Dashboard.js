@@ -3,7 +3,8 @@ import React, { Component } from 'react';
 import AssignmentsTable from '../Assignments/AssignmentsTable';
 import {
     getAllAssignmentsBlocked,
-    getAllAssignmentsReversed
+    getAllAssignmentsReversed,
+    getAllAssignments
 } from '../../Redux/Actions';
 import { RECENT_ORDER } from '../../Redux/Constants';
 import { connect } from 'react-redux';
@@ -12,7 +13,7 @@ import LazyLoad from 'react-lazy-load';
 class Dashboard extends Component {
     componentDidMount() {
         this.props.getAllAssignmentsBlocked()
-        this.props.getAllAssignmentsReversed()
+        this.props.getAllAssignments()
     }
     render() {
         let { assignments, blockedAssignments } = this.props;
@@ -31,8 +32,8 @@ class Dashboard extends Component {
                     <AssignmentsTable showUpdate={true} 
                                       assignments={assignments} 
                                       showProjectName={true}
-                                      order={RECENT_ORDER}
-                                      header={"Recent Updated Assignments"} />
+                                    //   order={RECENT_ORDER}
+                                      header={"All Assignments"} />
                 </div>
             </div>
         );
@@ -52,6 +53,8 @@ const mapStateToProps = ({ assignmentReducer }) => ({
 const mapDispatchToProps = dispatch => ({
     getAllAssignmentsBlocked: () => dispatch(getAllAssignmentsBlocked()),
     getAllAssignmentsReversed: () => dispatch(getAllAssignmentsReversed()),
+    getAllAssignments: () => dispatch(getAllAssignments()),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);

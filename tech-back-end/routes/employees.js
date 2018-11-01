@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const {
-    index, getAllEmployees, addEmployee, deleteEmployee, getEmployeeById, updateEmployee,
+    index, getAllEmployees, addEmployee, deleteEmployee, getEmployeeById, updateEmployee, getAllEmployeesHours,
     getAllEmployeesAssignments, getAllEmployeeAssignments, getEmployeeAssignment, getAllEmployeesToAssignment, addAssignmentToEmployee, updateEmployeeToAssignment, deleteAssignmentToEmployee
 } = require('./../controllers/employees-controller');
 const { isAuthorized } = require('../middleware/authorization');
@@ -10,6 +10,7 @@ const { isAuthorized } = require('../middleware/authorization');
  */
 router.get('/', isAuthorized, index);
 router.get('/all', isAuthorized, getAllEmployees);
+router.get('/all/hours', isAuthorized, getAllEmployeesHours);
 router.get('/id/:id', isAuthorized, getEmployeeById);
 router.post('/', isAuthorized, addEmployee);
 router.put('/id/:id', isAuthorized, updateEmployee)

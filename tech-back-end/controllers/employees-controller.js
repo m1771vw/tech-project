@@ -14,6 +14,7 @@ const getAllEmployees = async (req, res) => {
     }
 }
 
+
 const getEmployeeById = async (req, res) => {
     try {
         let employee_id = parseInt(req.params.id);
@@ -63,6 +64,17 @@ const deleteEmployee = async (req, res) => {
     }
 }
 
+const getAllEmployeesHours = async (req, res) => {
+    try {
+        let employees_hours = await db.any(`SELECT a.assignment_est_hours, a.assignment_final_hours, e.first_name, e.last_name
+            FROM employee_assignments as ea
+            INNER JOIN assignments as a ON ea.assignment_id = a.assignment_id
+            INNER JOIN employees as e ON e.employee_id = ea.employee_id;`)
+        res.status(200).send({ employees_hours })
+    } catch (e) {
+        res.status(500).json({ message: e.message })
+    }
+}
 
 /**
  * Employee Assignment Controllers
@@ -79,15 +91,18 @@ const getAllEmployeesAssignments = async (req, res) => {
     }
 }
 
+
+
 const getAllEmployeeAssignments = async (req, res) => {
     try {
         let employee_id = req.params.e_id;
         let employee_assignments = await db.any(
-            `SELECT ea.emp_assign_id, ea.assignment_id, ea.employee_id, a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.status_id, a.assignment_final_hours, p.project_id, p.project_name, s.status_id, s.status_name 
+            `SELECT ea.emp_assign_id, ea.assignment_id, ea.employee_id, e.first_name, e.last_name, a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.status_id, a.assignment_final_hours, p.project_id, p.project_name, s.status_id, s.status_name 
              FROM Employee_Assignments as ea 
              JOIN Assignments as a ON ea.assignment_id = a.assignment_id 
              JOIN Projects as p ON p.project_id = a.project_id
              JOIN Status_Types as s ON a.status_id = s.status_id
+             JOIN Employees as e ON e.employee_id = ea.employee_id
              WHERE ea.employee_id = $1`,
                 [employee_id]
         )
@@ -184,5 +199,6 @@ module.exports = {
     getEmployeeAssignment,
     addAssignmentToEmployee,
     updateEmployeeToAssignment,
-    deleteAssignmentToEmployee
+    deleteAssignmentToEmployee,
+    getAllEmployeesHours
 }

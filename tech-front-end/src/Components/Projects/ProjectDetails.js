@@ -73,7 +73,7 @@ class ProjectDetails extends Component {
                 {/* <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}> */}
                 <h1>Project Overview
                 </h1>
-                <Table striped padded color='blue' singleLine>
+                <Table striped padded color='teal' singleLine>
                     <Table.Header>
                         <h1>{this.props.project_by_id.project_name}</h1>
                         <h5>Start Date: {this.props.project_by_id.project_start_date && formatDate(this.props.project_by_id.project_start_date)}</h5>
@@ -103,7 +103,7 @@ class ProjectDetails extends Component {
                                     </Modal.Description>
                                 </Modal.Content>
                             </Modal>
-                    <Table striped padded color='blue' singleLine selectable>
+                    <Table striped padded color='teal' singleLine selectable>
                         <Table.Header>
 
                             <Table.Row>

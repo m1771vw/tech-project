@@ -56,7 +56,7 @@ class EmployeesPage extends Component {
         <Modal
           onClose={this.closeEmployeeModal}
           open={this.state.employeeModal}
-          trigger={<Button primary onClick={() => { this.setState({ employeeModal: true }) }}>Add Employee</Button>} closeIcon>
+          trigger={<Button color='teal' onClick={() => { this.setState({ employeeModal: true }) }}>Add Employee</Button>} closeIcon>
           <Modal.Header>Add Employee</Modal.Header>
           <Modal.Content>
             <Modal.Description>
@@ -73,9 +73,9 @@ class EmployeesPage extends Component {
 
         {/* <LazyLoad height={100} offsetVertical={300}> */}
           <div className='need-pad'>
-            <Header color="blue">Employee Roster</Header>
+            <Header color="teal">Employee Roster</Header>
             <Segment style={{overflow: 'auto', maxHeight: 500, maxWidth:1425 }}>
-            <Table striped padded color='blue' singleLine selectable>
+            <Table striped padded color='teal' singleLine selectable>
 
               <Table.Header>
                 <Table.Row>

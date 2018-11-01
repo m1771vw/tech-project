@@ -123,7 +123,7 @@ class AssignmentEdit extends Component {
                 <Grid.Column style={{ maxWidth: 800 }}>
                     <Form >
                         <Segment stacked>
-                            <Header color='blue'>{title}</Header>
+                            <Header color='teal'>{title}</Header>
                             <Form.Field className="dynamic-form" onSubmit={(e) => { this.onSubmit(e) }}>
                                 {this.renderForm()}
                                 <div className="form-group">

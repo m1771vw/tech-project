@@ -18,7 +18,7 @@ class Navbar extends Component {
         className='menu-bar'
         inverted
         size='huge'
-        color='blue' >
+        color='teal' >
 
         <Link to="/">
           <Menu.Item

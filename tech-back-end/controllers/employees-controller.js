@@ -160,13 +160,13 @@ const addAssignmentToEmployee = async (req, res) => {
 
 const updateEmployeeToAssignment = async (req, res) => {
     try {
-        let e_id = req.params.e_id;
+        let ea_id = req.params.ea_id;
         let { assignment_id, employee_id } = req.body;
         await db.any('UPDATE Employee_Assignments ' +
                      'SET assignment_id = $1, employee_id = $2 ' +
-                     'WHERE employee_id = $4',
-            [first_name, last_name, position, employee_id])
-        let updatedEmployee = await db.one('SELECT * FROM employees WHERE employee_id = $1', employee_id);
+                     'WHERE emp_assign_id = $3',
+            [assignment_id, employee_id, ea_id])
+        let updatedEmployee = await db.one('SELECT * FROM Employee_assignments WHERE emp_assign_id = $1', employee_id);
         res.status(200).json({ employee: updatedEmployee })
     } catch (e) {
         res.status(500).json({ message: e.message })

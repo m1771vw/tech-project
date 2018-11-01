@@ -5,7 +5,7 @@ import AssignmentEdit from './AssignmentEdit'
 import { Link } from 'react-router-dom';
 import { formatDate } from '../../util/DateHelper'
 import { connect } from 'react-redux';
-import { updateAssignment, deleteAssignment } from '../../Redux/Actions/';
+import { updateAssignment, deleteAssignment, updateEmployeeToAssignment } from '../../Redux/Actions/';
 
 class AssignmentRow extends Component {
     state={
@@ -19,8 +19,14 @@ class AssignmentRow extends Component {
     ;}
 
     onUpdateAssignmentModal = (model) =>{
-        console.log("trying to update order: ", this.props.order);
+        let emp_assign_body = {
+            assignment_id: this.props.assignment.assignment_id,
+            employee_id: model.employee_id
+        }
+        let emp_assign_id = this.props.assignment.emp_assign_id
+        this.props.updateEmployeeToAssignment(emp_assign_body, emp_assign_id);
         this.props.updateAssignment(model, this.props.assignment.assignment_id, this.props.order);
+
         this.closeAssignmentModal();
     }
     determineStatus = (status_name) => {
@@ -38,7 +44,7 @@ class AssignmentRow extends Component {
     };
     render() {
         let {assignment_id, assignment_name, status_name, assignment_start_date, assignment_end_date, assignment_est_hours, 
-            assignment_final_hours, project_id, project_name, status_id, first_name, last_name} = this.props.assignment
+            assignment_final_hours, project_id, project_name, status_id, first_name, last_name, employee_id} = this.props.assignment
             let {showDates, showProjectName} = this.props;
             assignment_start_date = formatDate(assignment_start_date);
             assignment_end_date = formatDate(assignment_end_date);
@@ -58,7 +64,7 @@ class AssignmentRow extends Component {
                     <Modal
                         onClose={this.closeAssignmentModal}
                         open={this.state.assignmentModal}
-                        trigger={<Button color="black" onClick={() => { this.setState({ assignmentModal: true }) }}>Update</Button>} closeIcon>
+                        trigger={<Button color="blue" onClick={() => { this.setState({ assignmentModal: true }) }}>Update</Button>} closeIcon>
                         <Modal.Header>Update Assignment</Modal.Header>
                         <Modal.Content>
                             <Modal.Description>
@@ -73,6 +79,7 @@ class AssignmentRow extends Component {
                                     assignment_final_hours={assignment_final_hours}
                                     project_id={project_id}
                                     status_id={status_id}
+                                    employee_id={employee_id}
                                 />
                             </Modal.Description>
                         </Modal.Content>
@@ -86,7 +93,8 @@ class AssignmentRow extends Component {
 
 const mapDispatchToProps = dispatch => ({
     updateAssignment: (model, id, order) => dispatch(updateAssignment(model, id, order)),
-    deleteAssignment: (id) => dispatch(deleteAssignment(id))
+    deleteAssignment: (id) => dispatch(deleteAssignment(id)),
+    updateEmployeeToAssignment: (body, id) => dispatch(updateEmployeeToAssignment(body, id))
 });
 
 export default connect(null, mapDispatchToProps)(AssignmentRow);

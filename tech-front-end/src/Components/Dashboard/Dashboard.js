@@ -1,20 +1,21 @@
-import React, { Component } from "react";
-// import PropTypes from 'prop-types';
-import AssignmentsTable from "../Assignments/AssignmentsTable";
+import React, { Component } from 'react';
+import AssignmentsTable from '../Assignments/AssignmentsTable';
 import {
-  getAllAssignmentsBlocked,
+    getAllAssignmentsBlocked,
   getAllEmployeeAssignments,
   getAllAssignmentsReversed,
   getAllAssignments,
   getAllEmployeesHours
 } from "../../Redux/Actions";
-import LazyLoad from "react-lazy-load";
 import { connect } from "react-redux";
+import { Segment } from 'semantic-ui-react';
 import { Icon, Table, Header} from "semantic-ui-react";
+import "../../App.css";
 
 class Dashboard extends Component {
- 
-
+    state = {
+        getAllemployeeAssignments: []
+      }
   componentDidMount() {
     this.props.getAllAssignmentsBlocked();
     this.props.getAllAssignments();
@@ -30,7 +31,6 @@ class Dashboard extends Component {
   fetchAllEmployeeAssignments = () => {
     this.props.getAllEmployeeAssignments(1);
   };
-
   overHours = () => {
     let { AllEmployeeAssignments } = this.props;
     let overTime = [];
@@ -65,16 +65,20 @@ class Dashboard extends Component {
     console.log("LOOK FOR THIS", employeesHours)
 
     return (
-        <LazyLoad>
-      <div>
+        <div className='dashboard'>
+
+
         <h1>Welcome to your Dashboard</h1>
         <div>
-                    <AssignmentsTable showUpdate={true} 
-                                      assignments={blockedAssignments} 
-                                      showProjectName={true}
+            <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
+                <AssignmentsTable showUpdate={true}
+                    assignments={blockedAssignments}
+                    showProjectName={true}
+                    header={"Assignments Needing Attention"} />
+            </Segment>
+        </div>
+        <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
 
-                                      header={"Assignments Needing Attention"} />
-                </div>
         <Header header = 'h2' color ='blue'>Over Time</Header>
         <Table selectable>
           <Table.Header>
@@ -110,24 +114,22 @@ class Dashboard extends Component {
             }
           </Table.Body>
         </Table>
+        </Segment>
 
-                <div>
-                    <AssignmentsTable showUpdate={true} 
-                                      assignments={assignments} 
-                                      showProjectName={true}
-                                    //   order={RECENT_ORDER}
-                                      header={"All Assignments"} />
-                </div>
 
+        <div>
+            <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
+                <AssignmentsTable showUpdate={true}
+                    assignments={assignments}
+                    showProjectName={true}
+                    header={"All Assignments"} />
+            </Segment>
+        </div>
       </div>
-      </LazyLoad>
+    
     );
   }
 }
-
-// Dashboard.propTypes = {
-
-// };
 
 const mapStateToProps = ({ assignmentReducer, employeeReducer }) => ({
   assignments: assignmentReducer.assignments,
@@ -138,7 +140,7 @@ const mapStateToProps = ({ assignmentReducer, employeeReducer }) => ({
 
 const mapDispatchToProps = dispatch => ({
   getAllAssignmentsBlocked: () => dispatch(getAllAssignmentsBlocked()),
-  getAllAssignmentsReversed: id => dispatch(getAllAssignmentsReversed(id)),
+  getAllAssignmentsReversed: () => dispatch(getAllAssignmentsReversed()),
   getAllEmployeeAssignments: id => dispatch(getAllEmployeeAssignments(id)),
   getAllAssignments: () => dispatch(getAllAssignments()),
   getAllEmployeesHours:() => dispatch(getAllEmployeesHours())

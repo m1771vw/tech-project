@@ -35,8 +35,9 @@ import {
     GET_ASSIGNMENTS_IN_PROJECT,
     GET_EMPLOYEE_BY_ID,
     SEARCH_EMPLOYEES,
-    IN_ORDER, RECENT_ORDER,
-    GET_ALL_EMPLOYEES_HOURS
+    GET_ALL_EMPLOYEES_HOURS,
+    UPDATE_EMPLOYEE_TO_ASSIGNMENT,
+    IN_ORDER, RECENT_ORDER
 }
     from '../Constants';
 
@@ -108,6 +109,7 @@ export const getAllAssignments = () => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
+        console.log("ACTION: Get All Assignments: ", response);
         dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments })
 
     } catch (e) {
@@ -379,6 +381,7 @@ export const submitEmployee = employee => async dispatch => {
         });
         console.log("New Response:", response);
         dispatch({ type: ADD_EMPLOYEE, payload: response.data.employee })
+        dispatch(getAllEmployees());
     } catch {
         console.log("ERROR")
     }
@@ -419,8 +422,23 @@ export const updateEmployee = (employee, id) => async dispatch => {
             }
         });
         dispatch({ type: UPDATE_EMPLOYEE, payload: response.data.employee, id })
+        dispatch(getAllEmployees());
     } catch (e) {
         console.log("ERROR:", e)
+    }
+}
+
+export const updateEmployeeToAssignment = (body, id) => async dispatch => {
+    try {
+        let response = await axios.put(`http://localhost:5000/api/employees/all/assignments/ea_id/${id}`, body , {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+        dispatch({ type: UPDATE_EMPLOYEE_TO_ASSIGNMENT, payload: response.data.employee, id})
+        dispatch(getAssignmentsInProject())
+    } catch(e) {
+        console.log("ERROR:", e);
     }
 }
 

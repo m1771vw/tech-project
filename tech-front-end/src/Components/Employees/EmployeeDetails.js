@@ -71,7 +71,7 @@ class EmployeeDetails extends Component {
     } = this.props;
 
     return (
-      <div>
+      <div className='need-left-right-margin'>
         <Header color="teal">Employee Details Page</Header>
         <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
         <Table padded color='teal' singleLine>

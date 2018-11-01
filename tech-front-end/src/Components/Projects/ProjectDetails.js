@@ -72,9 +72,11 @@ class ProjectDetails extends Component {
                 <h1>Project Overview</h1>
                 <Table striped padded color='teal' singleLine>
                     <Table.Header>
+                    <div className='need-left-right-margin'>
                         <h1>{this.props.project_by_id.project_name}</h1>
                         <h5>Start Date: {this.props.project_by_id.project_start_date && formatDate(this.props.project_by_id.project_start_date)}</h5>
                         <h5>End Date: {this.props.project_by_id.project_end_date && formatDate(this.props.project_by_id.project_end_date)}</h5>
+                        </div>
                         <Table.Row>
                             <Table.HeaderCell></Table.HeaderCell>
                         </Table.Row>
@@ -124,12 +126,15 @@ class ProjectDetails extends Component {
                                                 </Link>
                                             </Table.Cell>
                                             <Table.Cell>{e.role}</Table.Cell>
+                                            <div className='need-little-pad'>
                                             <Button
+                                                
                                                 color="red"
                                                 onClick={() => this.props.deleteProjectRole(e.project_roles_id)}
                                             >
                                                 Delete
                                         </Button>
+                                        </div>
                                         </Table.Row>
                                     );
                                 })}

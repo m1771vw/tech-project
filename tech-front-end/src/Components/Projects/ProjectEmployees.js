@@ -74,7 +74,7 @@ class ProjectEmployees extends Component {
                             <Header color='teal'>{title}</Header>
                             <Form.Field className="dynamic-form" onSubmit={(e) => { this.onSubmit(e) }}>
                                 {this.renderForm()}
-                                <div className="form-group">
+                                <div className=" form-group">
                                     <Button primary onClick={(e) => { this.onSubmit(e) }} type="submit">Submit</Button>
                                     {/* /temp button */}
                                 </div>

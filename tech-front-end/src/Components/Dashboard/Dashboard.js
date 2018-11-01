@@ -55,9 +55,9 @@ class Dashboard extends Component {
   
   addHoursTogether = (arr) => {
     let newArr = [];
+    console.log("Add Hours Together: ", arr);
     for(let i = 0; i < arr.length; i++) {
       if(this.checkIfIdExists(newArr, arr[i].employee_id)) {
-        
         let indexOfPerson = newArr.findIndex(x => x.employee_id === arr[i].employee_id)
         newArr[indexOfPerson].assignment_est_hours = parseFloat(newArr[indexOfPerson].assignment_est_hours) + parseFloat(arr[i].assignment_est_hours)
         newArr[indexOfPerson].assignment_final_hours = parseFloat(newArr[indexOfPerson].assignment_final_hours) + parseFloat(arr[i].assignment_final_hours)
@@ -78,13 +78,9 @@ class Dashboard extends Component {
       employeesHours
     } = this.props;
 
-    console.log("LOOK FOR THIS", employeesHours)
-
     return (
-        <div className='dashboard'>
-
-
-        <h1>Welcome to your Dashboard</h1>
+        <div className='dashboard need-left-right-margin'>
+        <h1 className='need-left-right-margin'>Welcome to your Dashboard</h1>
         <div>
             <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
                 <AssignmentsTable showUpdate={true}
@@ -109,7 +105,7 @@ class Dashboard extends Component {
                 employeesHours && this.overHours(this.addHoursTogether(employeesHours)).map(ea => {
                    
               return (
-                <Table.Row error>
+                <Table.Row key={ea.id + ea.assignment_est_hours + ea.assignment_final_hours} error>
                   <Table.Cell key={ea.id} selectable><Link to={`/employees/details/${ea.id}`}>{ea.first_name} {ea.last_name}</Link></Table.Cell>
                   <Table.Cell>{ea.assignment_est_hours}</Table.Cell>
                   <Table.Cell >{ea.assignment_final_hours}</Table.Cell>

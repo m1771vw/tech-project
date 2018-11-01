@@ -66,7 +66,8 @@ const deleteEmployee = async (req, res) => {
 
 const getAllEmployeesHours = async (req, res) => {
     try {
-        let employees_hours = await db.any(`SELECT a.assignment_est_hours, a.assignment_final_hours, e.first_name, e.last_name
+        let employees_hours = await db.any(`
+            SELECT a.assignment_est_hours, a.assignment_final_hours, e.first_name, e.last_name, e.employee_id
             FROM employee_assignments as ea
             INNER JOIN assignments as a ON ea.assignment_id = a.assignment_id
             INNER JOIN employees as e ON e.employee_id = ea.employee_id;`)

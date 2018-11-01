@@ -1,12 +1,16 @@
 import React from "react";
 // import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
-import { Menu } from "semantic-ui-react";
+import { Menu, Icon } from "semantic-ui-react";
+import "../App.css";
 
 
 const Navbar = props => {
   return (
-    <Menu>
+    <Menu 
+    className='menu-bar'
+    inverted
+    color='blue'>
 
       <Link to="/">
         <Menu.Item
@@ -18,7 +22,7 @@ const Navbar = props => {
         </Menu.Item>{" "}
       </Link>
 
-      <Link to="/assignments">
+      {/* <Link to="/assignments">
         <Menu.Item
           name="editorials"
         // active
@@ -26,7 +30,7 @@ const Navbar = props => {
         >
           Assignments
         </Menu.Item>
-      </Link>
+      </Link> */}
 
       <Link to="/employees">
         <Menu.Item
@@ -68,13 +72,15 @@ const Navbar = props => {
       // onClick
       >Logout</Menu.Item> </Link> */}
 
-      <Menu.Item
+      {/* <Menu.Item
         name='       '>
         {}
-      </Menu.Item>
+      </Menu.Item> */}
       <Menu.Item
+        className='menu-icon'
+        position='right'
         name='editorials'>
-        Current User: {localStorage.currentUser}
+              <Icon circular color='white' name='user' /> {localStorage.currentUser}
       </Menu.Item>
 
     </Menu>

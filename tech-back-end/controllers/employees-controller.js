@@ -54,6 +54,8 @@ const deleteEmployee = async (req, res) => {
     try {
         let employee_id = parseInt(req.params.id);
         let employee = await db.one('SELECT * FROM employees WHERE employee_id = $1', employee_id);
+        await db.none('DELETE FROM employee_assignments WHERE employee_id = $1', employee_id);
+        await db.none('DELETE FROM project_roles WHERE employee_id = $1', employee_id);
         await db.none('DELETE FROM employees WHERE employee_id = $1', employee_id);
         res.status(200).send({ message: employee });
     } catch (e) {

@@ -14,6 +14,7 @@ import {
     GET_ASSIGNMENT_EMPLOYEES,
     GET_ALL_EMPLOYEE_TO_ASSIGNMENT,
     GET_ALL_EMPLOYEE_ASSIGNMENTS,
+    GET_ALL_EMPLOYEE_PROJECTS,
     GET_PROJECT_BY_ID,
     ADD_ASSIGNMENT,
     ADD_EMPLOYEE,
@@ -21,6 +22,8 @@ import {
     ADD_PROJECT_ROLE,
     ADD_EMPLOYEE_TO_ASSIGNMENT,
     REMOVE_ASSIGNMENT,
+    REMOVE_PROJECT_ASSIGNMENT,
+    REMOVE_EMPLOYEE_FROM_PROJECT,
     REMOVE_EMPLOYEE,
     REMOVE_PROJECT,
     REMOVE_PROJECT_ROLES,
@@ -31,7 +34,8 @@ import {
     GET_EMPLOYEES_IN_PROJECT,
     GET_ASSIGNMENTS_IN_PROJECT,
     GET_EMPLOYEE_BY_ID,
-    SEARCH_EMPLOYEES
+    SEARCH_EMPLOYEES,
+    IN_ORDER, RECENT_ORDER
 }
     from '../Constants';
 
@@ -91,12 +95,10 @@ export const getStatusTypes = () => async dispatch => {
         }))
         console.log('PROJECT ASSIGNMENTS: ', newArray)
         dispatch({ type: GET_ASSIGNMENT_STATUS, payload: newArray })
-    } catch(e) {
-        console.log('Status Type Error :' , e)
+    } catch (e) {
+        console.log('Status Type Error :', e)
     }
 }
-
-
 
 export const getAllAssignments = () => async dispatch => {
     try {
@@ -106,7 +108,7 @@ export const getAllAssignments = () => async dispatch => {
             }
         });
         dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments })
-        
+
     } catch (e) {
         console.log("Get All Assignment Error", e.response.data);
     }
@@ -145,7 +147,7 @@ export const getAllAssignmentsReversed = () => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log("ACTION: Reverse All Assignments: ");
+        console.log("ACTION: Reverse All Assignments: ", response);
         dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments.reverse() })
     } catch (e) {
         console.log("Get All Assignment Error", e.response.data);
@@ -190,7 +192,7 @@ export const submitAssignment = assignment => async dispatch => {
         });
         dispatch({ type: ADD_ASSIGNMENT, payload: response.data.assignment })
         let newEmpAssign = {
-            employee_id : assignment.employee_id,
+            employee_id: assignment.employee_id,
             assignment_id: response.data.assignment.assignment_id
         }
         let response2 = await axios.post(`http://localhost:5000/api/employees/${employee_id}/assignments`, newEmpAssign, {
@@ -199,7 +201,7 @@ export const submitAssignment = assignment => async dispatch => {
             }
         });
         console.log('SUBMITTING EMPLOYEE TO ASSIGNMENT: ', response2);
-        dispatch({ type: ADD_EMPLOYEE_TO_ASSIGNMENT, payload: response2.data.employee_assignment})
+        dispatch({ type: ADD_EMPLOYEE_TO_ASSIGNMENT, payload: response2.data.employee_assignment })
     } catch (e) {
         console.log("ERROR:", e)
     }
@@ -207,26 +209,50 @@ export const submitAssignment = assignment => async dispatch => {
 
 export const deleteAssignment = id => async dispatch => {
     try {
-        await axios.delete(`http://localhost:5000/api/assignments/${id}`, {
+        console.log('DELETEING ID#: ', id)
+        let { data } = await axios.delete(`http://localhost:5000/api/assignments/${id}`, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        dispatch({ type: REMOVE_ASSIGNMENT, id })
+        dispatch({ type: REMOVE_PROJECT_ASSIGNMENT, id: data.message.assignment_id })
+        dispatch({ type: REMOVE_ASSIGNMENT, id})
+        dispatch(getAllAssignments());
+        dispatch(getAssignmentsInProject(data.message.project_id));
+        dispatch(getAllAssignmentsBlocked());
     } catch (e) {
         console.log("ERROR:", e)
     }
 }
 
-export const updateAssignment = (assignment, id) => async dispatch => {
+export const updateAssignment = (assignment, id, order) => async dispatch => {
     try {
+        console.log("ACTION: Update Assignment: ", assignment)
         let response = await axios.put(`http://localhost:5000/api/assignments/id/${id}`, assignment, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log('RESPONSE: ', response)
+        console.log('Update Assignment RESPONSE: ', response)
         dispatch({ type: UPDATE_ASSIGNMENT, payload: response.data.message, id })
+        dispatch(getAllAssignments());
+        dispatch(getAssignmentsInProject(response.data.message.project_id))
+        dispatch(getAssignmentById(id));
+        dispatch(getAllAssignmentsBlocked());
+        // console.log("SWTCHING: ", order);
+        // switch(order) {
+            
+        //     case IN_ORDER:
+        //         dispatch(getAllAssignmentsOrdered());
+        //         break;
+        //     case RECENT_ORDER:
+        //         console.log("ACTION SWITCH: REVERSE ASSIGNMENT");
+        //         dispatch(getAllAssignmentsReversed());
+        //         break;
+        //     default:
+        //         dispatch(getAllAssignments());
+        // }
+        
     } catch {
         console.log("ERROR")
     }
@@ -257,14 +283,14 @@ export const getAllEmployees = () => async dispatch => {
 
 export const getEmployeeById = id => async dispatch => {
     try {
-      let response = await axios.get(
-        `http://localhost:5000/api/employees/id/${id}`
-        , {
-            headers: {
-                'Authorization': `bearer ${localStorage.authToken}`
-            }
-        });
-      dispatch({ type: GET_EMPLOYEE_BY_ID, payload: response.data.employee });
+        let response = await axios.get(
+            `http://localhost:5000/api/employees/id/${id}`
+            , {
+                headers: {
+                    'Authorization': `bearer ${localStorage.authToken}`
+                }
+            });
+        dispatch({ type: GET_EMPLOYEE_BY_ID, payload: response.data.employee });
     } catch (e) {
         console.log("Get Single Employee Error", e);
     }
@@ -308,6 +334,25 @@ export const getAllEmployeeAssignments = id => async dispatch => {
     }
 };
 
+export const getAllEmployeeProjects = id => async dispatch => {
+    try {
+        let response = await axios.get(
+            `http://localhost:5000/api/projects/roles/all/employee/id/${id}`
+            , {
+                headers: {
+                    'Authorization': `bearer ${localStorage.authToken}`
+                }
+            });
+        console.log("AllEmployeeProjects: ", response);
+        dispatch({
+            type: GET_ALL_EMPLOYEE_PROJECTS,
+            payload: response.data.role
+        });
+    } catch (e) {
+        console.log("Get Single Assignment Error", e);
+    }
+}
+
 export const submitEmployee = employee => async dispatch => {
     try {
         console.log("Trying to submit employee:", employee)
@@ -325,8 +370,6 @@ export const submitEmployee = employee => async dispatch => {
 
 export const deleteEmployee = id => async dispatch => {
     try {
-        // hard coded for now since getall does not exist
-        // let id = 31;
         await axios.delete(`http://localhost:5000/api/employees/${id}`, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
@@ -338,6 +381,20 @@ export const deleteEmployee = id => async dispatch => {
     }
 }
 
+export const deleteEmployeeFromProject = id => async dispatch => {
+    try {
+        let deleting = await axios.delete(`http://localhost:5000/api/projects/roles/${id}`, {
+            headers: {
+                'Authorization': `bearer ${localStorage.authToken}`
+            }
+        });
+        console.log('WHAT IS GOING ON: ', deleting)
+        dispatch({ type: REMOVE_EMPLOYEE_FROM_PROJECT, id })
+    } catch (e) {
+        console.log('ERROR:', e)
+    }
+}
+
 export const updateEmployee = (employee, id) => async dispatch => {
     try {
         let response = await axios.put(`http://localhost:5000/api/employees/id/${id}`, employee, {
@@ -345,7 +402,6 @@ export const updateEmployee = (employee, id) => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log('RESPONSE:', response)
         dispatch({ type: UPDATE_EMPLOYEE, payload: response.data.employee, id })
     } catch (e) {
         console.log("ERROR:", e)
@@ -413,6 +469,7 @@ export const getAssignmentsInProject = id => async dispatch => {
 
 export const submitProject = project => async dispatch => {
     try {
+      console.log("ACTION: Project:", project);
         let response = await axios.post('http://localhost:5000/api/projects/', project, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
@@ -440,8 +497,7 @@ export const deleteProject = id => async dispatch => {
 
 export const updateProject = (project, id) => async dispatch => {
     try {
-        let id = 13;
-        let response = await axios.put(`http://localhost:5000/api/projects/${id}`, project, {
+        let response = await axios.put(`http://localhost:5000/api/projects/id/${id}`, project, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
@@ -496,7 +552,6 @@ export const updateProjectRole = (project_role, id) => async dispatch => {
 
 export const deleteProjectRole = id => async dispatch => {
     try {
-        let id = 10;
         await axios.delete(`http://localhost:5000/api/projects/roles/${id}`, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`

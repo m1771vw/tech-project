@@ -17,13 +17,11 @@ class ProjectAssignments extends Component {
 
     componentDidMount() {
         this.props.getStatusTypes();
-        // console.log('TESTING TESTING TESTING')
     }
 
     onSubmit = e => {
         e.preventDefault();
         this.props.onSubmit(this.state)
-        // use action
     }
 
     onDelete = e => {

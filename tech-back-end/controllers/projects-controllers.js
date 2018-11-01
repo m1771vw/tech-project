@@ -31,16 +31,12 @@ const getProjectById = async (req, res) => {
     }
 }
 
-
-// 1st query: get employees by project roles + employees
-// 2nd query: get assignments by project.project_id = assignment.project_id also status_types
-
 const getEmployeesInProject = async (req , res) => {
     try {
         let project_id = parseInt(req.params.id);
         let employees = await db.any(
             `SELECT p.project_id, p.project_name, p.project_start_date, p.project_end_date, 
-            pr.employee_id, pr.role,
+            pr.employee_id, pr.role, pr.project_roles_id,
             e.first_name, e.last_name, e.position
             FROM projects as p
             INNER JOIN project_roles as pr ON pr.project_id = p.project_id
@@ -53,7 +49,6 @@ const getEmployeesInProject = async (req , res) => {
     }
 }
 
-// select assignments + employee assignments where project id = id +status types
 const getAssignmentByProjectId = async (req, res) => {
     try {
         let project_id = parseInt(req.params.id);
@@ -75,8 +70,6 @@ const getAssignmentByProjectId = async (req, res) => {
         res.status(500).json({ message: e.message })
     }
 }
-
-
 
 // SELECT a.assignment_id, a.assignment_name, a.assignment_start_date, a.assignment_end_date, a.assignment_est_hours, a.assignment_final_hours, p.project_id, p.project_name, s.status_id, s.status_name
 // FROM Assignments as a
@@ -166,16 +159,30 @@ const updateProjectRole = async (req, res) => {
 
 const deleteProjectRole = async (req, res) => {
     try {
-        let project_role_id = req.params.id;
-        let role = await db.one('SELECT project_roles_id FROM project_roles WHERE project_roles_id = $1', project_role_id);
-        await db.none('DELETE FROM project_roles WHERE project_roles_id = $1', project_role_id);
+        let project_roles_id = req.params.id;
+        let role = await db.one('SELECT project_roles_id FROM project_roles WHERE project_roles_id = $1', project_roles_id);
+        // console.log('WTF HAPPENED: ', role)
+        await db.none('DELETE FROM project_roles WHERE project_roles_id = $1', project_roles_id);
         res.status(200).send({ role })
     } catch (e) {
         res.status(500).json({ message: e.message })
     }
 }
 
-
+const getAllProjectRolesForEmployee = async (req, res) => {
+    try {
+        let employee_id = req.params.id;
+        let role = await db.any('SELECT pr.project_roles_id, e.employee_id, e.first_name, e.last_name, p.project_id, p.project_name, pr.role ' +
+                                'FROM project_roles AS pr ' +
+                                'INNER JOIN employees AS e ON e.employee_id = pr.employee_id ' +
+                                'INNER JOIN projects AS p ON p.project_id = pr.project_id ' +
+                                'WHERE e.employee_id = $1', employee_id);
+        // console.log(role)
+        res.status(200).send({ role })
+    } catch(e) {
+        res.status(500).json({ message: e.message })
+    }
+}
 
 
 
@@ -183,5 +190,6 @@ module.exports = {
     index, getAllProjects, getProjectById, 
     addProject, deleteProject, updateProject, 
     getAllProjectRoles, updateProjectRole, deleteProjectRole,
-    getEmployeesInProject, getAssignmentByProjectId, createProjectRole
+    getEmployeesInProject, getAssignmentByProjectId, createProjectRole,
+    getAllProjectRolesForEmployee
 }

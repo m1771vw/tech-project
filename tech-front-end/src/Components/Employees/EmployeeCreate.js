@@ -1,30 +1,47 @@
 import React, { Component } from 'react'
-import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { Button, Form, Grid, Header, Segment, Dropdown } from 'semantic-ui-react';
 
-class EmployeeEdit extends Component {
+class EmployeeCreate extends Component {
     state = {
-            first_name: this.props.first_name,
-            last_name: this.props.last_name,
-            position: this.props.position
+        first_name:'',
+        last_name:'',
+        position:''
     }
-
+  
     onSubmit = e => {
         e.preventDefault();
-        if (this.props.onSubmit) this.props.onSubmit(this.state, this.props.employee_id)
+        this.props.onSubmit(this.state)
+        // use action
     }
-    
+
+    onDelete = e => {
+        e.preventDefault();
+        this.props.onDelete(this.state)
+    }
+
+    onUpdate = e => {
+        e.preventDefault();
+        this.props.onUpdate(this.state, this.props.location.state.project_id)
+    }
+
     onChange = (e) => {
         e.preventDefault();
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
+            
         })
     }
+
     //grab the model
-    renderForm = () => {
+
+
     
+    renderForm = () => {
         //loop thorugh all the metadata
         let formUI = (
             <div className="form-group">
+               
                 <label className="form-label">First Name</label>
                 <input className="form-input"
                     required
@@ -53,10 +70,9 @@ class EmployeeEdit extends Component {
             </div>
         )
         return formUI;
-    }
-
+    }                                   
     render() {
-        let title = "Employee Edit"  //Or render "default"
+        let title = " "  //Or render "default"
         return (
             <Grid className="form">
                 <Grid.Column style={{ maxWidth: 800 }}>
@@ -77,5 +93,12 @@ class EmployeeEdit extends Component {
         )
     }
 }
+const mapStateToProps = ({ projectReducer }) => ({ 
+    // projects: projectReducer.projects
+})
 
-export default EmployeeEdit;
+const mapDispatchToProps = dispatch => ({
+    // tosubmitProject:() => dispatch(submitProject())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeeCreate);

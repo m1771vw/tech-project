@@ -4,7 +4,9 @@ import AssignmentsTable from "../Assignments/AssignmentsTable";
 import {
   getAllAssignmentsBlocked,
   getAllEmployeeAssignments,
-  getAllAssignmentsReversed
+  getAllAssignmentsReversed,
+  getAllAssignments
+
 } from "../../Redux/Actions";
 import { connect } from "react-redux";
 import LazyLoad from "react-lazy-load";
@@ -15,8 +17,8 @@ class Dashboard extends Component {
     getAllemployeeAssignments: []
   };
   componentDidMount() {
-    // this.props.getAllAssignmentsBlocked();
-    // this.props.getAllAssignmentsReversed();
+    this.props.getAllAssignmentsBlocked()
+    this.props.getAllAssignments()
     this.fetchAllEmployeeAssignments();
   }
 
@@ -45,12 +47,12 @@ class Dashboard extends Component {
       <div>
         <h1>Welcome to your Dashboard</h1>
         <div>
-          <AssignmentsTable
-            showUpdate={true}
-            assignments={blockedAssignments}
-            header={"Assignments Needing Attention"}
-          />
-        </div>
+                    <AssignmentsTable showUpdate={true} 
+                                      assignments={blockedAssignments} 
+                                      showProjectName={true}
+
+                                      header={"Assignments Needing Attention"} />
+                </div>
         <Header header = 'h2' color ='blue'>Over Time</Header>
         <Table singleLine>
           <Table.Header>
@@ -79,34 +81,14 @@ class Dashboard extends Component {
           </Table.Body>
         </Table>
 
-        <div>
-          <AssignmentsTable
-            showUpdate={true}
-            assignments={assignments}
-            header={"Recent Updated Assignments"}
-          />
-        </div>
+                <div>
+                    <AssignmentsTable showUpdate={true} 
+                                      assignments={assignments} 
+                                      showProjectName={true}
+                                    //   order={RECENT_ORDER}
+                                      header={"All Assignments"} />
+                </div>
 
-        {/* Scroll to load images.
-    <div className="filler" /> */}
-        {/* <LazyLoad height={762} offsetVertical={300}>
-      <img src='http://apod.nasa.gov/apod/image/1502/HDR_MVMQ20Feb2015ouellet1024.jpg' />
-    </LazyLoad>
-    <div className="filler" />
-    <LazyLoad height={683} offsetTop={200}>
-      <img src='http://apod.nasa.gov/apod/image/1502/2015_02_20_conj_bourque1024.jpg' />
-    </LazyLoad>
-    <div className="filler" />
-    <LazyLoad height={480} offsetHorizontal={50}>
-      <img src='http://apod.nasa.gov/apod/image/1502/MarsPlume_jaeschke_480.gif' />
-    </LazyLoad>
-    <div className="filler" />
-    <LazyLoad
-      height={720}
-      onContentVisible={() => console.log('look ma I have been lazyloaded!')}
-    >
-      <img src='http://apod.nasa.gov/apod/image/1502/ToadSky_Lane_1080_annotated.jpg' />
-    </LazyLoad> */}
       </div>
     );
   }
@@ -125,7 +107,9 @@ const mapStateToProps = ({ assignmentReducer, employeeReducer }) => ({
 const mapDispatchToProps = dispatch => ({
   getAllAssignmentsBlocked: () => dispatch(getAllAssignmentsBlocked()),
   getAllAssignmentsReversed: () => dispatch(getAllAssignmentsReversed()),
-  getAllEmployeeAssignments: () => dispatch(getAllEmployeeAssignments())
+  getAllEmployeeAssignments: () => dispatch(getAllEmployeeAssignments()),
+  getAllAssignments: () => dispatch(getAllAssignments()),
+
 });
 
 export default connect(

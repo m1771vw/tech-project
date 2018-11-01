@@ -9,7 +9,7 @@ require('dotenv').load();
 const login = async (req, res) => {
     try{
         let loginUser = req.user;
-        console.log("Login Controller: ", loginUser);
+        // console.log("Login Controller: ", loginUser);
         var token = jwt.sign({ id: loginUser.username }, process.env.SECRET_KEY, {
             expiresIn: 86400 // expires in 24 hours
           });
@@ -118,7 +118,7 @@ const saltPassword = async (password) => {
 
 const checkHash = async (password, hashPw) => { 
     let authenticated = await bcrypt.compareSync(password, hashPw);
-    console.log("Inside check hash: ", authenticated);  
+    // console.log("Inside check hash: ", authenticated);  
     return authenticated;
 }
 

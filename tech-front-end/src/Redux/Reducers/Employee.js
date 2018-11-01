@@ -6,6 +6,7 @@ import {
     GET_EMPLOYEE_BY_ID,
     GET_ALL_EMPLOYEE_TO_ASSIGNMENT,
     GET_ALL_EMPLOYEE_ASSIGNMENTS,
+    GET_ALL_EMPLOYEE_PROJECTS,
     SEARCH_EMPLOYEES
 } from "../Constants";
 
@@ -19,7 +20,8 @@ const initialState = {
     }],
     getEmployeeById: {},
     getAllEmployeeAssignments: [{}],
-    getAllEmployeesToAssignment: [{}]
+    getAllEmployeesToAssignment: [{}],
+    employee_projects: []
 }
 const employeeReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -84,6 +86,12 @@ const employeeReducer = (state = initialState, action) => {
                 ...state,
                 getAllEmployeeAssignments: [...action.payload]
             };
+        case GET_ALL_EMPLOYEE_PROJECTS:
+        console.log("REDUCER: Get_ALL_EMPLOYEE_PROJECTS: ", action.payload);
+            return{
+                ...state,
+                employee_projects: action.payload
+            }
         default:
             return state;
     }

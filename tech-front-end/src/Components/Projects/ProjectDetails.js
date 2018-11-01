@@ -12,7 +12,7 @@ import { Link } from "react-router-dom"
 import { Table, Modal, Button, Header } from 'semantic-ui-react';
 import { formatDate } from '../../util/DateHelper'
 import ProjectAssignments from './ProjectAssignments';
-
+import AssignmentsTable from '../Assignments/AssignmentsTable';
 
 class ProjectDetails extends Component {
     state = {
@@ -113,6 +113,8 @@ class ProjectDetails extends Component {
                             {/* <Table.HeaderCell>Employee ID</Table.HeaderCell> */}
                             <Table.HeaderCell>Employee Name</Table.HeaderCell>
                             <Table.HeaderCell>Role</Table.HeaderCell>
+                            <Table.HeaderCell> </Table.HeaderCell>
+
                         </Table.Row>
                     </Table.Header>
                     <Table.Body>
@@ -140,8 +142,8 @@ class ProjectDetails extends Component {
                     </Table.Body>
                 </Table>
 
-                <Table striped padded color='blue' singleLine selectable>
-                    <Table.Header>
+                {/* <Table striped padded color='blue' singleLine selectable> */}
+                    {/* <Table.Header> */}
                         <h1>Project Assignments</h1>
                         {/* PROJECT ASSIGNMENTS MODAL */}
                         <Modal
@@ -159,8 +161,11 @@ class ProjectDetails extends Component {
                                 </Modal.Description>
                             </Modal.Content>
                         </Modal>
-
-                        <Table.Row>
+                        <AssignmentsTable assignments={this.props.projectAssignments}
+                                          showDates={true}
+                                          header={""}
+                        />
+                        {/* <Table.Row>
                             <Table.HeaderCell>Assignment</Table.HeaderCell>
                             <Table.HeaderCell>Assigned To</Table.HeaderCell>
                             <Table.HeaderCell>Status</Table.HeaderCell>
@@ -195,14 +200,15 @@ class ProjectDetails extends Component {
                                             color="red"
                                             onClick={() => this.props.deleteAssignment(a.assignment_id)}
                                         >
-                                            Delete
+                                        Delete
                                         </Button>
+                                        
                                     </Table.Row>
                                 );
                             })}
                     </Table.Body>
-                </Table>
-
+                 
+                        </Table>*/}
             </div>
         );
     }

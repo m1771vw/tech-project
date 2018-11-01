@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 import LazyLoad from "react-lazy-load";
 import { Modal, Button, Table, Header } from "semantic-ui-react";
 import { Link } from "react-router-dom";
-import EmployeeCreate from './EmployeeCreate'
-import EmployeeEdit from './EmployeeEdit'
+import EmployeeCreate from './EmployeeCreate';
+import EmployeeEdit from './EmployeeEdit';
 import EmployeeRow from './EmployeeRow';
 
 class EmployeesPage extends Component {

@@ -14,16 +14,6 @@ class ProjectEdit extends Component {
         if (this.props.onSubmit) this.props.onSubmit(this.state, this.props.project_id)
     }
 
-    onDelete = e => {
-        e.preventDefault();
-        this.props.onDelete(this.state)
-    }
-
-    onUpdate = e => {
-        e.preventDefault();
-        this.props.onUpdate(this.state, this.props.project_id)
-    }
-
     onChange = (e) => {
         e.preventDefault();
         this.setState({
@@ -88,9 +78,5 @@ class ProjectEdit extends Component {
         )
     }
 }
-
-const mapStateToProps = ({ projectReducer }) => ({
-    projects: projectReducer.projects
-  });
 
 export default ProjectEdit;

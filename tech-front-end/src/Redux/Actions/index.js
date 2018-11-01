@@ -427,8 +427,7 @@ export const deleteProject = id => async dispatch => {
 
 export const updateProject = (project, id) => async dispatch => {
     try {
-        let id = 13;
-        let response = await axios.put(`http://localhost:5000/api/projects/${id}`, project, {
+        let response = await axios.put(`http://localhost:5000/api/projects/id/${id}`, project, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
             }

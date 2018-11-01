@@ -87,7 +87,6 @@ class EmployeesPage extends Component {
                   let employee_id = em.employee_id || "i";
                   let first_name = em.first_name;
                   let last_name = em.last_name;
-                  let position = em.position;
                   return (
                     <EmployeeRow 
                       key={employee_id+first_name+last_name}

@@ -11,32 +11,18 @@ const Navbar = props => {
     className='menu-bar'
     inverted
     color='blue'>
-
       <Link to="/">
         <Menu.Item
           name="editorials"
         // active
-        // onClick
         >
           Dashboard
         </Menu.Item>{" "}
       </Link>
-
-      {/* <Link to="/assignments">
-        <Menu.Item
-          name="editorials"
-        // active
-        // onClick
-        >
-          Assignments
-        </Menu.Item>
-      </Link> */}
-
       <Link to="/employees">
         <Menu.Item
           name="editorials"
         // active
-        // onClick
         >
           Employees
         </Menu.Item>
@@ -46,7 +32,6 @@ const Navbar = props => {
         <Menu.Item
           name="editorials"
         // active
-        // onClick
         >
           Projects
         </Menu.Item>
@@ -55,27 +40,12 @@ const Navbar = props => {
           <Link to='/logout'><Menu.Item
             name='editorials'
           // active
-          // onClick
           >Logout</Menu.Item> </Link>
           : <Link to='/login'><Menu.Item
             name='editorials'
           // active
-          // onClick
           >Login</Menu.Item> </Link> 
-        
       }
-     
-
-      {/* <Link to='/logout'><Menu.Item
-        name='editorials'
-      // active
-      // onClick
-      >Logout</Menu.Item> </Link> */}
-
-      {/* <Menu.Item
-        name='       '>
-        {}
-      </Menu.Item> */}
       <Menu.Item
         className='menu-icon'
         position='right'

@@ -51,20 +51,18 @@ class EmployeeDetails extends Component {
     return totalHours;
   }
 
-  uniqueProjectNames = () => {
-    let { AllEmployeeAssignments } = this.props;
-    let name = [];
-    for (let i = 0; i < AllEmployeeAssignments.length; i++) {
-      let newObj = {};
-      newObj.project_id = AllEmployeeAssignments[i].project_id;
-      newObj.project_name = AllEmployeeAssignments[i].project_name;
-      if(!name.some(o => o['project_id'] === AllEmployeeAssignments[i].project_id))
-        name.push(newObj) 
-    }
-    return name;
-  }
-
-
+  // uniqueProjectNames = () => {
+  //   let { AllEmployeeAssignments } = this.props;
+  //   let name = [];
+  //   for (let i = 0; i < AllEmployeeAssignments.length; i++) {
+  //     let newObj = {};
+  //     newObj.project_id = AllEmployeeAssignments[i].project_id;
+  //     newObj.project_name = AllEmployeeAssignments[i].project_name;
+  //     if(!name.some(o => o['project_id'] === AllEmployeeAssignments[i].project_id))
+  //       name.push(newObj) 
+  //   }
+  //   return name;
+  // }
 
   render() {
     let {
@@ -148,7 +146,7 @@ class EmployeeDetails extends Component {
             <Table.Body>
               {this.props.employee_projects.map(name => {
               return (
-                <Table.Row>
+                <Table.Row key={name.project_id}>
                   <Table.Cell selectable> 
                      <Link to={`/projects/details/${name.project_id}`}>{name.project_name}</Link>
                   </Table.Cell>

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Table, Button, Modal } from 'semantic-ui-react';
 import ProjectEdit from './ProjectEdit'
 import { Link } from 'react-router-dom';
@@ -17,7 +16,7 @@ class ProjectRow extends Component {
         this.setState({
             projectModal: false
         })
-    ;}
+    };
 
     onUpdateProjectModal = async (model) =>{
         this.props.updateProject(model, this.props.project.project_id);
@@ -25,7 +24,7 @@ class ProjectRow extends Component {
       }
 
     render() {
-        let project_id = this.props.project.project_id || "i";
+        let project_id = this.props.project.project_id || "Error Loading";
         let project_name = this.props.project.project_name;
         let project_start_date = this.props.project.project_start_date && formatDate(this.props.project.project_start_date);
         let project_end_date = this.props.project.project_end_date && formatDate(this.props.project.project_end_date);

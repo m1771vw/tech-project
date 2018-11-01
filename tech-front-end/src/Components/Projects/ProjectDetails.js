@@ -4,11 +4,10 @@ import {
     getAllProjects, getAllProjectRoles, getProjectById,
     getEmployeesInProject, getAssignmentsInProject, submitAssignment,
     submitEmployee, submitProjectRole, getAllAssignments, deleteAssignment,
-    deleteEmployeeFromProject, deleteProjectRole
+    deleteProjectRole
 } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom"
-// import LazyLoad from 'react-lazy-load';
 import { Table, Modal, Button, Header } from 'semantic-ui-react';
 import { formatDate } from '../../util/DateHelper'
 import ProjectAssignments from './ProjectAssignments';
@@ -64,8 +63,6 @@ class ProjectDetails extends Component {
         await this.fetchProjectData();
         await this.closeEmployeeModal();
     }
-
-
 
     render() {
         return (

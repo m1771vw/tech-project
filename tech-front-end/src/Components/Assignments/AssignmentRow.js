@@ -54,7 +54,7 @@ class AssignmentRow extends Component {
             <Table.Row className={this.determineStatus(status_name)} key={assignment_id + assignment_name}>
                 <Table.Cell selectable><Link to={`/assignments/details/${assignment_id}`}>{assignment_name}</Link></Table.Cell>
                 { showProjectName && <Table.Cell selectable><Link to={`/projects/details/${project_id}`}>{project_name}</Link></Table.Cell> }
-                <Table.Cell>{first_name} {last_name}</Table.Cell>                
+                <Table.Cell selectable><Link to={`/employees/details/${employee_id}`}>{first_name} {last_name}</Link></Table.Cell>                
                 <Table.Cell>{status_name}</Table.Cell>
                 { showDates && <Table.Cell>{assignment_start_date}</Table.Cell> }
                 { showDates && <Table.Cell>{assignment_end_date}</Table.Cell> }

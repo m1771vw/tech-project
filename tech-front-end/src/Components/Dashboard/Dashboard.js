@@ -9,6 +9,7 @@ import {
 } from "../../Redux/Actions";
 import { connect } from "react-redux";
 import { Segment } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 import { Icon, Table, Header} from "semantic-ui-react";
 import "../../App.css";
 
@@ -94,8 +95,8 @@ class Dashboard extends Component {
         </div>
         <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
    
-        <Header header = 'h2' color ='blue'>Over Time</Header>
-        <Table selectable>
+        <Header header = 'h2' color ='teal'>Over Time</Header>
+        <Table striped padded color='teal'  singleLine celled selectable>
           <Table.Header>
             <Table.Row>
               <Table.HeaderCell>Employee Name</Table.HeaderCell>
@@ -109,7 +110,7 @@ class Dashboard extends Component {
                    
               return (
                 <Table.Row error>
-                  <Table.Cell key={ea.id}>{ea.first_name} {ea.last_name}</Table.Cell>
+                  <Table.Cell key={ea.id} selectable><Link to={`/employees/details/${ea.id}`}>{ea.first_name} {ea.last_name}</Link></Table.Cell>
                   <Table.Cell>{ea.assignment_est_hours}</Table.Cell>
                   <Table.Cell >{ea.assignment_final_hours}</Table.Cell>
                 

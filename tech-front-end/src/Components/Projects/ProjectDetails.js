@@ -76,7 +76,7 @@ class ProjectDetails extends Component {
             <div>
                 <h1>Project Overview
                 </h1>
-                <Table singleLine>
+                <Table color='blue' singleLine>
                     <Table.Header>
                         <h1>{this.props.project_by_id.project_name}</h1>
                         <h5>Start Date: {this.props.project_by_id.project_start_date && formatDate(this.props.project_by_id.project_start_date)}</h5>
@@ -87,7 +87,7 @@ class ProjectDetails extends Component {
                     </Table.Header>
                 </Table>
 
-                <Table singleLine selectable>
+                <Table color='blue' singleLine selectable>
                     <Table.Header>
                         <h1>Project Employees</h1>
                         {/* PROJECT EMPLOYEES MODAL */}
@@ -137,7 +137,7 @@ class ProjectDetails extends Component {
                     </Table.Body>
                 </Table>
 
-                <Table singleLine selectable>
+                <Table color='blue' singleLine selectable>
                     <Table.Header>
                         <h1>Project Assignments</h1>
                         {/* PROJECT ASSIGNMENTS MODAL */}
@@ -178,6 +178,7 @@ class ProjectDetails extends Component {
                                         <Table.Cell>{a.assignment_end_date && formatDate(a.assignment_end_date)}</Table.Cell>
                                         <Table.Cell>{a.assignment_est_hours}</Table.Cell>
                                         <Table.Cell>{a.assignment_final_hours}</Table.Cell>
+                                        
                                         <Button
                                             color="red"
                                             onClick={() => this.props.deleteAssignment(a.assignment_id)}

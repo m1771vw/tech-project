@@ -38,7 +38,7 @@ class ProjectRow extends Component {
                 <Modal
                     onClose={this.closeProjectModal}
                     open={this.state.projectModal}
-                    trigger={<Button color="blue" onClick={() => { this.setState({ projectModal: true }) }}>Update</Button>} closeIcon>
+                    trigger={<Button color="teal" onClick={() => { this.setState({ projectModal: true }) }}>Update</Button>} closeIcon>
                     <Modal.Header>Update Project</Modal.Header>
                     <Modal.Content>
                         <Modal.Description>
@@ -52,7 +52,7 @@ class ProjectRow extends Component {
                         </Modal.Description>
                     </Modal.Content>
                 </Modal>
-                <Button color='red' onClick={() => this.props.deleteProject(project_id)}>Delete</Button>
+                <Button className='need-pad' color='red' onClick={() => this.props.deleteProject(project_id)}>Delete</Button>
             </Table.Cell>
         </Table.Row>
         );

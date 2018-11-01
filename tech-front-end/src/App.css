@@ -2,14 +2,17 @@
   text-align: center;
 }
 
-/* .menu-bar { 
-  justify-content: center
-} */
-/* .menu-icon {
-  align-content: center;
-
-} */
 
 .dashboard {
   background-color: #babdc1,
+}
+
+/* Page header pad */
+.need-pad {
+  padding-top: 10px;
+}
+
+.need-left-right-margin {
+  margin-left: 10px;
+  margin-right: 10px;
 }

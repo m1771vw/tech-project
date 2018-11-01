@@ -42,7 +42,7 @@ class Login extends Component {
                 <div>
                 <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450 }}>   
-                <Header color='blue'>Log In</Header>
+                <Header color='teal'>Log In</Header>
                 <Segment>
                 <Form size='large'>
                     <Form.Input

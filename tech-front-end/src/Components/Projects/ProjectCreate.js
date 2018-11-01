@@ -1,62 +1,78 @@
 import React, { Component } from 'react'
-import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { Button, Form, Grid, Header, Segment, Dropdown } from 'semantic-ui-react';
 
-class EmployeeEdit extends Component {
+class ProjectCreate extends Component {
     state = {
-            first_name: this.props.first_name,
-            last_name: this.props.last_name,
-            position: this.props.position
+        project_name:'',
+        project_start_date:'',
+        project_end_date:''
     }
-
+  
     onSubmit = e => {
         e.preventDefault();
-        if (this.props.onSubmit) this.props.onSubmit(this.state, this.props.employee_id)
+        this.props.onSubmit(this.state)
+        // use action
     }
-    
+
+    onDelete = e => {
+        e.preventDefault();
+        this.props.onDelete(this.state)
+    }
+
+    onUpdate = e => {
+        e.preventDefault();
+        this.props.onUpdate(this.state, this.props.location.state.project_id)
+    }
+
     onChange = (e) => {
         e.preventDefault();
         this.setState({
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
+            
         })
     }
+
     //grab the model
-    renderForm = () => {
+
+
     
+    renderForm = () => {
         //loop thorugh all the metadata
         let formUI = (
             <div className="form-group">
-                <label className="form-label">First Name</label>
+               
+                <label className="form-label">Project Name</label>
                 <input className="form-input"
                     required
-                    name="first_name"
+                    name="project_name"
                     type="text"
-                    value={this.state.first_name}
+                    value={this.state.project_name}
                     onChange={this.onChange}
                 />
-                <label className="form-label">Last Name</label>
+                <label className="form-label">Project Start Date</label>
                 <input className="form-input"
                     required
-                    name="last_name"
+                    name="project_start_date"
                     type="text"
-                    value={this.state.last_name}
+                    value={this.state.project_start_date}
                     onChange={this.onChange}
                 />
-                <label className="form-label">Position</label>
+                <label className="form-label">Project End Date</label>
                 <input className="form-input"
                     required
-                    name="position"
+                    name="project_end_date"
                     type="text"
-                    value={this.state.position}
+                    value={this.state.project_end_date}
                     onChange={this.onChange}
                 />
 
             </div>
         )
         return formUI;
-    }
-
+    }                                   
     render() {
-        let title = "Employee Edit"  //Or render "default"
+        let title = " "  //Or render "default"
         return (
             <Grid className="form">
                 <Grid.Column style={{ maxWidth: 800 }}>
@@ -77,5 +93,12 @@ class EmployeeEdit extends Component {
         )
     }
 }
+const mapStateToProps = ({ projectReducer }) => ({ 
+    // projects: projectReducer.projects
+})
 
-export default EmployeeEdit;
+const mapDispatchToProps = dispatch => ({
+    // tosubmitProject:() => dispatch(submitProject())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectCreate);

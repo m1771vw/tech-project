@@ -111,8 +111,7 @@ class ProjectDetails extends Component {
 
                         <Table.Row>
                             {/* <Table.HeaderCell>Employee ID</Table.HeaderCell> */}
-                            <Table.HeaderCell>First Name</Table.HeaderCell>
-                            <Table.HeaderCell>Last Name</Table.HeaderCell>
+                            <Table.HeaderCell>Employee Name</Table.HeaderCell>
                             <Table.HeaderCell>Role</Table.HeaderCell>
                         </Table.Row>
                     </Table.Header>
@@ -123,8 +122,11 @@ class ProjectDetails extends Component {
                             .map((e) => {
                                 return (
                                     <Table.Row key={e.employee_id + e.first_name}>
-                                        <Table.Cell>{e.first_name}</Table.Cell>
-                                        <Table.Cell>{e.last_name}</Table.Cell>
+                                        <Table.Cell selectable>
+                                        <Link to={`/employees/details/${e.employee_id}`}>
+                                        {e.first_name} {e.last_name}
+                                        </Link>
+                                        </Table.Cell>
                                         <Table.Cell>{e.role}</Table.Cell>
                                         <Button
                                             color="red"
@@ -172,10 +174,17 @@ class ProjectDetails extends Component {
                         {this.props.projectAssignments && this.props.projectAssignments.map((a) => {
                                 return (
                                     <Table.Row key={a.assignment_id}>
-                                        <Table.Cell>{a.assignment_name}</Table.Cell>
-                                        <Link to={`/employees/details/${a.employee_id}`}>
-                                        <Table.Cell>{a.first_name} {a.last_name}</Table.Cell>        
+                                        <Table.Cell selectable>
+                                        <Link to={`/assignments/details/${a.assignment_id}`}>
+                                        {a.assignment_name}
                                         </Link>
+                                        </Table.Cell>
+                                        <Table.Cell selectable>
+                                        <Link to={`/employees/details/${a.employee_id}`}>
+                                        {a.first_name} {a.last_name}
+                                        </Link>
+                                        </Table.Cell>        
+                                        
                                         <Table.Cell>{a.status_name}</Table.Cell>
                                         <Table.Cell>{a.assignment_start_date && formatDate(a.assignment_start_date)}</Table.Cell>
                                         <Table.Cell>{a.assignment_end_date && formatDate(a.assignment_end_date)}</Table.Cell>

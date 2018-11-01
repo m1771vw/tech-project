@@ -69,7 +69,8 @@ const assignmentReducer = (state = initialState, action) => {
             };
 
         case UPDATE_ASSIGNMENT:
-            let updateIndex = state.assignments.findIndex(a => a.assignment_id === action.id);
+        let updateIndex = state.assignments.findIndex(a => a.assignment_id === action.id);
+        console.log("REDUCER UPDATE_ASSIGNMENT: ", action.payload, "Index: ", updateIndex)
             return {
                 ...state,
                 assignments: [...state.assignments.slice(0, updateIndex),

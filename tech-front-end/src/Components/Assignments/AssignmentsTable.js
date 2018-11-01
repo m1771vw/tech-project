@@ -83,6 +83,7 @@ class AssignmentsTable extends Component {
                                 <Table.Row>
                                     <Table.HeaderCell>Name</Table.HeaderCell>
                                     <Table.HeaderCell>Project Name</Table.HeaderCell>
+                                    <Table.HeaderCell>Assigned To</Table.HeaderCell>
                                     <Table.HeaderCell>Status</Table.HeaderCell>
                                     <Table.HeaderCell>Start Date</Table.HeaderCell>
                                     <Table.HeaderCell>End Date</Table.HeaderCell>

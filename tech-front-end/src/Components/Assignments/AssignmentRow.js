@@ -66,7 +66,8 @@ class AssignmentRow extends Component {
                         <Modal.Header>Update Assignment</Modal.Header>
                         <Modal.Content>
                             <Modal.Description>
-                                <AssignmentEdit onSubmit={this.onUpdateAssignmentModal}
+                                <AssignmentEdit 
+                                    onSubmit={this.onUpdateAssignmentModal}
                                     assignment_id={assignment_id}
                                     assignment_name={assignment_name}
                                     status_name={status_name}

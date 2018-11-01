@@ -13,7 +13,7 @@ router.get('/', isAuthorized, index);
 router.get('/all', isAuthorized, getAllProjects);
 router.get('/id/:id', isAuthorized, getProjectById);
 router.post('/', isAuthorized, addProject);
-router.put('/:id', isAuthorized, updateProject)
+router.put('/id/:id', isAuthorized, updateProject)
 router.delete('/:id', isAuthorized, deleteProject);
 router.get('/id/:id/employees', isAuthorized, getEmployeesInProject)
 router.get('/id/:id/assignments', isAuthorized, getAssignmentByProjectId)

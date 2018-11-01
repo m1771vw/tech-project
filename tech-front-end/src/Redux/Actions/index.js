@@ -220,6 +220,7 @@ export const deleteAssignment = id => async dispatch => {
 
 export const updateAssignment = (assignment, id) => async dispatch => {
     try {
+        console.log("ACTION: Update Assignment: ", assignment)
         let response = await axios.put(`http://localhost:5000/api/assignments/id/${id}`, assignment, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
@@ -227,6 +228,7 @@ export const updateAssignment = (assignment, id) => async dispatch => {
         });
         console.log('RESPONSE: ', response)
         dispatch({ type: UPDATE_ASSIGNMENT, payload: response.data.message, id })
+        dispatch(getAllAssignmentsOrdered());
     } catch {
         console.log("ERROR")
     }
@@ -345,7 +347,6 @@ export const updateEmployee = (employee, id) => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log('RESPONSE:', response)
         dispatch({ type: UPDATE_EMPLOYEE, payload: response.data.employee, id })
     } catch (e) {
         console.log("ERROR:", e)
@@ -413,6 +414,7 @@ export const getAssignmentsInProject = id => async dispatch => {
 
 export const submitProject = project => async dispatch => {
     try {
+      console.log("ACTION: Project:", project);
         let response = await axios.post('http://localhost:5000/api/projects/', project, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
@@ -440,8 +442,7 @@ export const deleteProject = id => async dispatch => {
 
 export const updateProject = (project, id) => async dispatch => {
     try {
-        let id = 13;
-        let response = await axios.put(`http://localhost:5000/api/projects/${id}`, project, {
+        let response = await axios.put(`http://localhost:5000/api/projects/id/${id}`, project, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
             }

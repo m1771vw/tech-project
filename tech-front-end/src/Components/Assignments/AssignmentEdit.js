@@ -3,18 +3,18 @@ import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
 class AssignmentEdit extends Component {
     state = {
-        assignment_name: this.props.location.state.assignment_name,
-        assignment_start_date: this.props.location.state.assignment_start_date,
-        assignment_end_date: this.props.location.state.assignment_end_date,
-        project_id: this.props.location.state.project_id,
-        status_id: this.props.location.state.status_id,
-        assignment_est_hours: this.props.location.state.assignment_est_hours,
-        assignment_final_hours: this.props.location.state.assignment_final_hours
+        assignment_name: this.props.assignment_name,
+        assignment_start_date: this.props.assignment_start_date,
+        assignment_end_date: this.props.assignment_end_date,
+        project_id: this.props.project_id,
+        status_id: this.props.status_id,
+        assignment_est_hours: this.props.assignment_est_hours,
+        assignment_final_hours: this.props.assignment_final_hours
     }
 
     onSubmit = e => {
         e.preventDefault();
-        if (this.props.onSubmit) this.props.onSubmit(this.state, this.props.location.state.assignment_id)
+        if (this.props.onSubmit) this.props.onSubmit(this.state, this.props.assignment_id)
     }
 
     onDelete = e => {
@@ -24,7 +24,7 @@ class AssignmentEdit extends Component {
 
     onUpdate = e => {
         e.preventDefault();
-        this.props.onUpdate(this.state)
+        this.props.onUpdate(this.state, this.props.assignment_id)
     }
 
     onChange = (e) => {
@@ -125,5 +125,9 @@ class AssignmentEdit extends Component {
         )
     }
 }
+
+const mapStateToProps = ({ assignmentReducer }) => ({
+    assignments: assignmentReducer.assignments
+  });
 
 export default AssignmentEdit;

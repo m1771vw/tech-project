@@ -93,7 +93,7 @@ class Dashboard extends Component {
             </Segment>
         </div>
         <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
-
+   
         <Header header = 'h2' color ='blue'>Over Time</Header>
         <Table selectable>
           <Table.Header>

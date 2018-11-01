@@ -87,7 +87,7 @@ class ProjectsPage extends Component {
                 </Modal>
 
 
-                a
+                
                 <LazyLoad height={100} offsetVertical={300}>
                     <div>
                         <Header color='blue'>Projects</Header>

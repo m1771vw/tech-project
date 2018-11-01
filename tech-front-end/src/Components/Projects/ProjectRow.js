@@ -24,10 +24,10 @@ class ProjectRow extends Component {
       }
 
     render() {
-        let project_id = this.props.projects.project_id || "i";
-        let project_name = this.props.projects.project_name;
-        let project_start_date = this.props.projects.project_start_date;
-        let project_end_date = this.props.projects.project_end_date;
+        let project_id = this.props.project.project_id || "i";
+        let project_name = this.props.project.project_name;
+        let project_start_date = this.props.project.project_start_date;
+        let project_end_date = this.props.project.project_end_date;
         
         return (
             <Table.Row key={project_id + project_name}>

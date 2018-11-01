@@ -76,7 +76,7 @@ const Navbar = props => {
       <Menu.Item
         className='menu-icon'
         name='editorials'>
-              <Icon circular color='teal' name='users' /> {localStorage.currentUser}
+              <Icon circular color='blue' name='user' /> {localStorage.currentUser}
       </Menu.Item>
 
     </Menu>

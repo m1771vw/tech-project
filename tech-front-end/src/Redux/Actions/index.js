@@ -221,8 +221,9 @@ export const deleteAssignment = id => async dispatch => {
         dispatch({ type: REMOVE_PROJECT_ASSIGNMENT, id: data.message.assignment_id })
         dispatch({ type: REMOVE_ASSIGNMENT, id})
         dispatch(getAllAssignments());
-        dispatch(getAssignmentsInProject(data.message.project_id));
+        dispatch(getAllEmployeesHours());
         dispatch(getAllAssignmentsBlocked());
+        dispatch(getAssignmentsInProject(data.message.project_id));
     } catch (e) {
         console.log("ERROR:", e)
     }
@@ -239,9 +240,10 @@ export const updateAssignment = (assignment, id, order) => async dispatch => {
         console.log('Update Assignment RESPONSE: ', response)
         dispatch({ type: UPDATE_ASSIGNMENT, payload: response.data.message, id })
         dispatch(getAllAssignments());
-        dispatch(getAssignmentsInProject(response.data.message.project_id))
         dispatch(getAssignmentById(id));
         dispatch(getAllAssignmentsBlocked());
+        dispatch(getAllEmployeesHours());
+        dispatch(getAssignmentsInProject(response.data.message.project_id))
         // console.log("SWTCHING: ", order);
         // switch(order) {
             
@@ -291,7 +293,7 @@ export const getAllEmployeesHours = () => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-       
+       console.log("ACTION: Getallemployeehorus", response);
         dispatch({ type: GET_ALL_EMPLOYEES_HOURS, payload: response.data.employees_hours })
     } catch (e) {
         console.log("Get All Employee Hours Error", e);

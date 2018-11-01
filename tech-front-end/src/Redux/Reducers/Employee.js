@@ -33,6 +33,7 @@ const employeeReducer = (state = initialState, action) => {
             };
 
         case GET_ALL_EMPLOYEES_HOURS:
+        console.log("GET_ALLEMPLOYEE_HOURS", action.payload);
             return {
                 ...state,
                 getAllEmployeesHours: [...action.payload]

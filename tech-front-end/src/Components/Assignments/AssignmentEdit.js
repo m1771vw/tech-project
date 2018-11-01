@@ -3,8 +3,6 @@ import { Button, Form, Grid, Header, Segment, Dropdown } from 'semantic-ui-react
 import { connect } from 'react-redux';
 import { getStatusTypes } from '../../Redux/Actions/index';
 
-
-
 class AssignmentEdit extends Component {
     state = {
         assignment_name: this.props.assignment_name,
@@ -13,7 +11,8 @@ class AssignmentEdit extends Component {
         project_id: this.props.project_id,
         status_id: this.props.status_id,
         assignment_est_hours: this.props.assignment_est_hours,
-        assignment_final_hours: this.props.assignment_final_hours
+        assignment_final_hours: this.props.assignment_final_hours,
+        employee_id: this.props.employee_id
     }
     componentDidMount() {
         this.props.getStatusTypes();
@@ -24,15 +23,15 @@ class AssignmentEdit extends Component {
         if (this.props.onSubmit) this.props.onSubmit(this.state, this.props.assignment_id)
     }
 
-    onDelete = e => {
-        e.preventDefault();
-        this.props.onDelete(this.state)
-    }
+    // onDelete = e => {
+    //     e.preventDefault();
+    //     this.props.onDelete(this.state)
+    // }
 
-    onUpdate = e => {
-        e.preventDefault();
-        this.props.onUpdate(this.state, this.props.assignment_id)
-    }
+    // onUpdate = e => {
+    //     e.preventDefault();
+    //     this.props.onUpdate(this.state, this.props.assignment_id)
+    // }
 
     onChange = (e) => {
         e.preventDefault();
@@ -49,6 +48,14 @@ class AssignmentEdit extends Component {
             status_id: value
         })
     }
+
+    onEmployeeChange = (e, { value }) => {
+        e.preventDefault();
+        this.setState({
+            employee_id: value
+        })
+    }
+    
     //grab the model
     renderForm = () => {
         //loop thorugh all the metadata
@@ -86,6 +93,12 @@ class AssignmentEdit extends Component {
                        value={this.state.project_id}
                        onChange={this.onChange}
                        /> */}
+                <label className="form-label">Employee</label>
+                <Dropdown
+                    placeholder='Employee'
+                    value={this.state.employee_id}
+                    onChange={this.onEmployeeChange}
+                    fluid search selection options={this.props.searchEmployees} />
                 <label className="form-label">Status</label>
                 <Dropdown
                     placeholder='Status'
@@ -139,9 +152,10 @@ class AssignmentEdit extends Component {
     }
 }
 
-const mapStateToProps = ({ assignmentReducer }) => ({
+const mapStateToProps = ({ assignmentReducer, employeeReducer }) => ({
     assignments: assignmentReducer.assignments,
-    assignmentStatus: assignmentReducer.assignmentStatus
+    assignmentStatus: assignmentReducer.assignmentStatus,
+    searchEmployees: employeeReducer.searchEmployees
 });
 const mapDispatchToProps = dispatch => ({
     getStatusTypes: () => dispatch(getStatusTypes()),

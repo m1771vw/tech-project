@@ -13,7 +13,6 @@ const initialState = {
 const assignmentReducer = (state = initialState, action) => {
     switch (action.type) {
         case GET_ALL_ASSIGNMENTS:
-            console.log("REDUCER: Assignment - GET ALL ASSIGNMENTS");
             return {
                 ...state,
                 assignments: [...action.payload]
@@ -24,7 +23,6 @@ const assignmentReducer = (state = initialState, action) => {
                 reversedAssignments: [...action.payload]
             };
         case GET_ASSIGNMENT_STATUS:
-            console.log('REDUCER: GET ASSIGNMENT STATUS', action.payload)
             return {
                 ...state,
                 assignmentStatus: [...action.payload]
@@ -35,7 +33,6 @@ const assignmentReducer = (state = initialState, action) => {
                 blockedAssignments: [...action.payload]
             }
         case GET_ASSIGNMENT_BY_ID:
-            console.log("Inside Assignment Reducer, GET_ASSIGNMENT_BY_ID:", action.payload);
             return {
                 ...state,
                 assignment: action.payload
@@ -51,16 +48,12 @@ const assignmentReducer = (state = initialState, action) => {
                 assignmentEmployees: [...state.assignmentEmployees, action.payload]
             }
         case ADD_ASSIGNMENT:
-            console.log("Inside ASSIGNMENT reducer add ASSIGNMENT");
-            console.log('ASSIGNMENT Data:', state.assignments);
             return {
                 ...state,
                 assignments: [...state.assignments, action.payload]
             };
         case REMOVE_ASSIGNMENT:
-            // Need some action.index
             let index = state.assignments.findIndex(a => a.assignment_id === action.id)
-            console.log("REDUCER: REMOVE ASSIGNMENT:", index);
             return {
                 ...state,
                 assignments: [
@@ -69,10 +62,8 @@ const assignmentReducer = (state = initialState, action) => {
                 ],
                 assignment: {}
             };
-
         case UPDATE_ASSIGNMENT:
         let updateIndex = state.assignments.findIndex(a => a.assignment_id === action.id);
-        console.log("REDUCER UPDATE_ASSIGNMENT: ", action.payload, "Index: ", updateIndex)
             return {
                 ...state,
                 assignments: [...state.assignments.slice(0, updateIndex),

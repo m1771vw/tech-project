@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import { getAllEmployees, deleteEmployee, submitEmployee, updateEmployee } from "../../Redux/Actions/index";
 import { connect } from "react-redux";
-import LazyLoad from "react-lazy-load";
-import { Modal, Button, Table, Header } from "semantic-ui-react";
-import { Link } from "react-router-dom";
+import { Modal, Button, Table, Header, Segment } from "semantic-ui-react";
 import EmployeeCreate from './EmployeeCreate';
-import EmployeeEdit from './EmployeeEdit';
 import EmployeeRow from './EmployeeRow';
 
 class EmployeesPage extends Component {
@@ -14,35 +11,26 @@ class EmployeesPage extends Component {
     employeeModal: false
   };
   componentDidMount() {
-    this.fetchAllEmployees();
+    this.props.getAllEmployees();
   }
-
-  fetchAllEmployees = async () => {
-    await this.props.getAllEmployees();
-  };
 
   closeEmployeeModal = () => {
     this.setState({
       employeeModal: false
-    })
-      ;
+    });
   }
 
-  onSubmitEmployeeModal = async (model) => {
-    model = { ...model, project_id: this.props.match.params.id }
-    await this.props.submitEmployee(model);
-    await this.fetchAllEmployees();
-    await this.closeEmployeeModal();
+  onSubmitEmployeeModal = (model) => {
+    this.props.submitEmployee(model);
+    this.closeEmployeeModal();
     this.setState({
       assignmentModal: false,
     });
   }
 
-  onUpdateEmployeeModal = async (model) => {
-    model = { ...model, project_id: this.props.match.params.id }
-    await this.props.updateEmployee(model);
-    await this.fetchAllEmployees();
-    await this.closeEmployeeModal();
+  onUpdateEmployeeModal = (model) => {
+    this.props.updateEmployee(model);
+    this.closeEmployeeModal();
     this.setState({
       assignmentModal: false,
     });
@@ -60,19 +48,14 @@ class EmployeesPage extends Component {
           <Modal.Content>
             <Modal.Description>
               <Header>Add Employee To Project</Header>
-              <EmployeeCreate
-                onSubmit={this.onSubmitEmployeeModal}
-              // key={this.props.key}
-              />
-              {/* <Dropdown placeholder='Select Employee' fluid search selection options={this.state.dropDown} /> */}
+              <EmployeeCreate onSubmit={this.onSubmitEmployeeModal}/>
             </Modal.Description>
           </Modal.Content>
         </Modal>
-
-
-        <LazyLoad height={100} offsetVertical={300}>
+        {/* <LazyLoad height={100} offsetVertical={300}> */}
           <div>
             <Header color="blue">Employee Roster</Header>
+            <Segment style={{overflow: 'auto', maxHeight: 500, maxWidth:1425 }}>
             <Table padded color='blue' singleLine selectable>
               <Table.Header>
                 <Table.Row>
@@ -84,10 +67,9 @@ class EmployeesPage extends Component {
               </Table.Header>
               <Table.Body>
                 {employees.map(em => {
-                  let employee_id = em.employee_id || "i";
+                  let employee_id = em.employee_id || "Error Loading Employee";
                   let first_name = em.first_name;
                   let last_name = em.last_name;
-                  let position = em.position;
                   return (
                     <EmployeeRow 
                       key={employee_id+first_name+last_name}
@@ -98,8 +80,9 @@ class EmployeesPage extends Component {
                 })}
               </Table.Body>
             </Table>
+              </Segment>
           </div>
-        </LazyLoad>
+        {/* </LazyLoad> */}
       </div>
     );
   }
@@ -111,12 +94,8 @@ const mapStateToProps = ({ employeeReducer }) => ({
 
 const mapDispatchToProps = dispatch => ({
   getAllEmployees: () => dispatch(getAllEmployees()),
-  deleteEmployee: id => dispatch(deleteEmployee(id)),
   submitEmployee: (model) => dispatch(submitEmployee(model)),
   updateEmployee: (model) => dispatch(updateEmployee(model))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(EmployeesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EmployeesPage);

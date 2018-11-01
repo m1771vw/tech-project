@@ -23,6 +23,6 @@ router.get('/:e_id/assignments/all', isAuthorized, getAllEmployeeAssignments);
 router.get('/:e_id/assignment/ea_id/:ea_id', isAuthorized, getEmployeeAssignment);
 router.get('/all/assignments/a_id/:a_id', isAuthorized, getAllEmployeesToAssignment);
 router.post('/:e_id/assignments', isAuthorized, addAssignmentToEmployee);
-router.put('/:e_id/assignments/ea_id/:ea_id', isAuthorized, updateEmployeeToAssignment);
+router.put('/all/assignments/ea_id/:ea_id', isAuthorized, updateEmployeeToAssignment);
 router.delete('/:e_id/assignments/ea_id/:ea_id', isAuthorized, deleteAssignmentToEmployee);
 module.exports = router;

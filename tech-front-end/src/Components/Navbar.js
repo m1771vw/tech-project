@@ -1,12 +1,13 @@
 import React from "react";
 // import PropTypes from 'prop-types';
 import { Link } from "react-router-dom";
-import { Menu } from "semantic-ui-react";
+import { Menu, Icon } from "semantic-ui-react";
+import "../App.css";
 
 
 const Navbar = props => {
   return (
-    <Menu>
+    <Menu className='menu-bar'>
 
       <Link to="/">
         <Menu.Item
@@ -73,8 +74,9 @@ const Navbar = props => {
         {}
       </Menu.Item>
       <Menu.Item
+        className='menu-icon'
         name='editorials'>
-        Current User: {localStorage.currentUser}
+              <Icon circular color='teal' name='users' /> {localStorage.currentUser}
       </Menu.Item>
 
     </Menu>

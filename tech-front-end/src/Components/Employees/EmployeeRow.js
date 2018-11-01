@@ -5,6 +5,7 @@ import EmployeeEdit from './EmployeeEdit'
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { updateEmployee } from '../../Redux/Actions/';
+
 class EmployeeRow extends Component {
     state={
         employeeModal: false

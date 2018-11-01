@@ -32,7 +32,7 @@ class ProjectsPage extends Component {
                     <div>
                         <Header color='blue'>Projects</Header>
 
-                        <Table singleLine selectable>
+                        <Table padded color='blue' singleLine selectable>
 
                             <Table.Header>
                                 <Table.Row>

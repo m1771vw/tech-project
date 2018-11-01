@@ -28,7 +28,7 @@ class EmployeesPage extends Component {
         <LazyLoad height={100} offsetVertical={300}>
           <div>
             <Header color="blue">Employee Roster</Header>
-            <Table singleLine selectable>
+            <Table padded color='blue' singleLine selectable>
               <Table.Header>
                 <Table.Row>
                   <Table.HeaderCell>First Name</Table.HeaderCell>

@@ -72,7 +72,7 @@ class EmployeeDetails extends Component {
       <LazyLoad>
         <div>
           <Header color="blue">Employee Details Page</Header>
-          <Table singleLine>
+          <Table padded color='blue' singleLine>
             <Table.Header>
               <Table.Row>
               <Table.HeaderCell>Employee Name: {EmployeeById.first_name + " "}{EmployeeById.last_name}</Table.HeaderCell>
@@ -81,7 +81,7 @@ class EmployeeDetails extends Component {
             </Table.Header>
           </Table>
 
-          <Table singleLine selectable>
+          <Table padded color='blue' singleLine selectable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>All Assignments Assigned to {EmployeeById.first_name}:</Table.HeaderCell>
@@ -111,7 +111,7 @@ class EmployeeDetails extends Component {
             </Table.Body>
           </Table>
 
-          <Table singleLine selectable>
+          <Table padded color='blue' singleLine selectable>
             <Table.Header>
               <Table.Row>
                 <Table.HeaderCell>Total Estimated Hours</Table.HeaderCell>
@@ -134,7 +134,7 @@ class EmployeeDetails extends Component {
             </Table.Body>
           </Table>
 
-          <Table>
+          <Table padded color='blue'>
             <Table.Header>
                 <Table.Row>
                  <Table.HeaderCell>Projects {EmployeeById.first_name} is Currently In:</Table.HeaderCell>

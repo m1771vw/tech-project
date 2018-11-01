@@ -51,7 +51,7 @@ class AssignmentsTable extends Component {
                         {/* <LazyLoad height={300} offsetVertical={200}> */}
                             <div>
                                 <Header color='blue'>{header}</Header>
-                                <Table singleLine celled selectable>
+                                <Table padded color='blue' singleLine celled selectable>
                                     <Table.Header>
                                         <Table.Row>
                                             <Table.HeaderCell>Name</Table.HeaderCell>

@@ -328,8 +328,6 @@ export const submitEmployee = employee => async dispatch => {
 
 export const deleteEmployee = id => async dispatch => {
     try {
-        // hard coded for now since getall does not exist
-        // let id = 31;
         await axios.delete(`http://localhost:5000/api/employees/${id}`, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`

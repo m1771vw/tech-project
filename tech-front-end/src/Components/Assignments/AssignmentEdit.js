@@ -86,6 +86,12 @@ class AssignmentEdit extends Component {
                        value={this.state.project_id}
                        onChange={this.onChange}
                        /> */}
+                <label className="form-label">Employee</label>
+                <Dropdown
+                    placeholder='Employee'
+                    value={this.state.employee_id}
+                    onChange={this.onInputChange}
+                    fluid search selection options={this.props.searchEmployees} />
                 <label className="form-label">Status</label>
                 <Dropdown
                     placeholder='Status'
@@ -139,9 +145,10 @@ class AssignmentEdit extends Component {
     }
 }
 
-const mapStateToProps = ({ assignmentReducer }) => ({
+const mapStateToProps = ({ assignmentReducer, employeeReducer }) => ({
     assignments: assignmentReducer.assignments,
-    assignmentStatus: assignmentReducer.assignmentStatus
+    assignmentStatus: assignmentReducer.assignmentStatus,
+    searchEmployees: employeeReducer.searchEmployees
 });
 const mapDispatchToProps = dispatch => ({
     getStatusTypes: () => dispatch(getStatusTypes()),

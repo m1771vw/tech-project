@@ -70,9 +70,9 @@ class ProjectDetails extends Component {
     render() {
         return (
             <div>
+                {/* <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}> */}
                 <h1>Project Overview
                 </h1>
-                <Segment style={{overflow: 'auto', maxHeight: 400, maxWidth:1425 }}>
                 <Table striped padded color='blue' singleLine>
                     <Table.Header>
                         <h1>{this.props.project_by_id.project_name}</h1>
@@ -83,131 +83,88 @@ class ProjectDetails extends Component {
                         </Table.Row>
                     </Table.Header>
                 </Table>
-                <Table striped padded color='blue' singleLine selectable>
-                    <Table.Header>
-                        <h1>Project Employees</h1>
-                        {/* PROJECT EMPLOYEES MODAL */}
-                        <Modal
-                            onClose={this.closeEmployeeModal}
-                            open={this.state.employeeModal}
-                            trigger={<Button onClick={() => { this.setState({ employeeModal: true }) }}>Add Employee</Button>} closeIcon>
-                            <Modal.Header>Add Employee</Modal.Header>
-                            <Modal.Content>
-                                <Modal.Description>
-                                    <Header>Add Employee To Project</Header>
-                                    <ProjectEmployees
-                                        onSubmit={this.onSubmitEmployeeModal}
-                                    // key={this.props.key}
-                                    />
-                                    {/* <Dropdown placeholder='Select Employee' fluid search selection options={this.state.dropDown} /> */}
-                                </Modal.Description>
-                            </Modal.Content>
-                        </Modal>
+                {/* </Segment> */}
+                <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
+                            <h1>Project Employees</h1>
+                            {/* PROJECT EMPLOYEES MODAL */}
+                            <Modal
+                                onClose={this.closeEmployeeModal}
+                                open={this.state.employeeModal}
+                                trigger={<Button onClick={() => { this.setState({ employeeModal: true }) }}>Add Employee</Button>} closeIcon>
+                                <Modal.Header>Add Employee</Modal.Header>
+                                <Modal.Content>
+                                    <Modal.Description>
+                                        <Header>Add Employee To Project</Header>
+                                        <ProjectEmployees
+                                            onSubmit={this.onSubmitEmployeeModal}
+                                        // key={this.props.key}
+                                        />
+                                        {/* <Dropdown placeholder='Select Employee' fluid search selection options={this.state.dropDown} /> */}
+                                    </Modal.Description>
+                                </Modal.Content>
+                            </Modal>
+                    <Table striped padded color='blue' singleLine selectable>
+                        <Table.Header>
 
-                        <Table.Row>
-                            {/* <Table.HeaderCell>Employee ID</Table.HeaderCell> */}
-                            <Table.HeaderCell>Employee Name</Table.HeaderCell>
-                            <Table.HeaderCell>Role</Table.HeaderCell>
-                            <Table.HeaderCell> </Table.HeaderCell>
+                            <Table.Row>
+                                {/* <Table.HeaderCell>Employee ID</Table.HeaderCell> */}
+                                <Table.HeaderCell>Employee Name</Table.HeaderCell>
+                                <Table.HeaderCell>Role</Table.HeaderCell>
+                                <Table.HeaderCell> </Table.HeaderCell>
 
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {this.props.projectEmployees && this
-                            .props
-                            .projectEmployees
-                            .map((e) => {
-                                return (
-                                    <Table.Row key={e.employee_id + e.first_name}>
-                                        <Table.Cell selectable>
-                                        <Link to={`/employees/details/${e.employee_id}`}>
-                                        {e.first_name} {e.last_name}
-                                        </Link>
-                                        </Table.Cell>
-                                        <Table.Cell>{e.role}</Table.Cell>
-                                        <Button
-                                            color="red"
-                                            onClick={() => this.props.deleteProjectRole(e.project_roles_id)}
-                                        >
-                                        Delete
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            {this.props.projectEmployees && this
+                                .props
+                                .projectEmployees
+                                .map((e) => {
+                                    return (
+                                        <Table.Row key={e.employee_id + e.first_name}>
+                                            <Table.Cell selectable>
+                                                <Link to={`/employees/details/${e.employee_id}`}>
+                                                    {e.first_name} {e.last_name}
+                                                </Link>
+                                            </Table.Cell>
+                                            <Table.Cell>{e.role}</Table.Cell>
+                                            <Button
+                                                color="red"
+                                                onClick={() => this.props.deleteProjectRole(e.project_roles_id)}
+                                            >
+                                                Delete
                                         </Button>
-                                    </Table.Row>
-                                );
-                            })}
-                    </Table.Body>
-                </Table>
+                                        </Table.Row>
+                                    );
+                                })}
+                        </Table.Body>
+                    </Table>
                 </Segment>
 
-                {/* <Table striped padded color='blue' singleLine selectable> */}
-                    {/* <Table.Header> */}
-                        <Segment style={{overflow: 'auto', maxHeight: 400, maxWidth:1425 }}>
-                        <h1>Project Assignments</h1>
-                        {/* PROJECT ASSIGNMENTS MODAL */}
-                        <Modal
-                            onClose={this.closeAssignmentModal}
-                            open={this.state.assignmentModal}
-                            trigger={<Button onClick={() => { this.setState({ assignmentModal: true }) }}>Add Assignment</Button>} closeIcon>
-                            <Modal.Header>Create Project Assignments</Modal.Header>
-                            <Modal.Content image>
-                                <Modal.Description>
+                <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
+                    <h1>Project Assignments</h1>
+                    {/* PROJECT ASSIGNMENTS MODAL */}
+                    <Modal
+                        onClose={this.closeAssignmentModal}
+                        open={this.state.assignmentModal}
+                        trigger={<Button onClick={() => { this.setState({ assignmentModal: true }) }}>Add Assignment</Button>} closeIcon>
+                        <Modal.Header>Create Project Assignments</Modal.Header>
+                        <Modal.Content image>
+                            <Modal.Description>
 
-                                    <ProjectAssignments
-                                        onSubmit={this.onSubmitAssignmentModal}
-                                    />
+                                <ProjectAssignments
+                                    onSubmit={this.onSubmitAssignmentModal}
+                                />
 
-                                </Modal.Description>
-                            </Modal.Content>
-                        </Modal>
-
-                        <AssignmentsTable assignments={this.props.projectAssignments}
-                                          showDates={true}
-                                          header={""}
-                        />
-                        </Segment>
-                        {/* <Table.Row>
-                            <Table.HeaderCell>Assignment</Table.HeaderCell>
-                            <Table.HeaderCell>Assigned To</Table.HeaderCell>
-                            <Table.HeaderCell>Status</Table.HeaderCell>
-                            <Table.HeaderCell>Start Date</Table.HeaderCell>
-                            <Table.HeaderCell>End Date</Table.HeaderCell>
-                            <Table.HeaderCell>Estimated Hours</Table.HeaderCell>
-                            <Table.HeaderCell>Final Hours</Table.HeaderCell>
-                        </Table.Row>
-                    </Table.Header>
-                    <Table.Body>
-                        {this.props.projectAssignments && this.props.projectAssignments.map((a) => {
-                                return (
-                                    <Table.Row key={a.assignment_id}>
-                                        <Table.Cell selectable>
-                                        <Link to={`/assignments/details/${a.assignment_id}`}>
-                                        {a.assignment_name}
-                                        </Link>
-                                        </Table.Cell>
-                                        <Table.Cell selectable>
-                                        <Link to={`/employees/details/${a.employee_id}`}>
-                                        {a.first_name} {a.last_name}
-                                        </Link>
-                                        </Table.Cell>        
-                                        
-                                        <Table.Cell>{a.status_name}</Table.Cell>
-                                        <Table.Cell>{a.assignment_start_date && formatDate(a.assignment_start_date)}</Table.Cell>
-                                        <Table.Cell>{a.assignment_end_date && formatDate(a.assignment_end_date)}</Table.Cell>
-                                        <Table.Cell>{a.assignment_est_hours}</Table.Cell>
-                                        <Table.Cell>{a.assignment_final_hours}</Table.Cell>
-                                        
-                                        <Button
-                                            color="red"
-                                            onClick={() => this.props.deleteAssignment(a.assignment_id)}
-                                        >
-                                        Delete
-                                        </Button>
-                                        
-                                    </Table.Row>
-                                );
-                            })}
-                    </Table.Body>
-                 
-                        </Table>*/}
+                            </Modal.Description>
+                        </Modal.Content>
+                    </Modal>
+                    
+                    <AssignmentsTable assignments={this.props.projectAssignments}
+                        showDates={true}
+                        header={""}
+                    />
+                </Segment>
+                
             </div>
         );
     }
@@ -229,9 +186,9 @@ const mapDispatchToProps = dispatch => ({
     submitProjectRole: (model) => dispatch(submitProjectRole(model)),
     submitEmployee: (model) => dispatch(submitEmployee(model)),
     getAllAssignments: () => dispatch(getAllAssignments()),
-    deleteAssignment:(id) => dispatch(deleteAssignment(id)),
-    deleteProjectRole:(id) => dispatch(deleteProjectRole(id)),
-    
+    deleteAssignment: (id) => dispatch(deleteAssignment(id)),
+    deleteProjectRole: (id) => dispatch(deleteProjectRole(id)),
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectDetails);

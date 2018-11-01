@@ -76,7 +76,6 @@ class AssignmentsTable extends Component {
                 {/* <LazyLoad height={300} offsetVertical={200}> */}
                     <div>
                         <Header color='blue'>{header}</Header>
-                            <Segment style={{overflow: 'auto', maxHeight: 400, maxWidth:1425 }}>
 
                             <Table color='blue'  singleLine celled selectable>
                                 <Table.Header>
@@ -111,7 +110,6 @@ class AssignmentsTable extends Component {
                                 </Table.Body>
                             </Table>
 
-                        </Segment>  
                     </div>
                 {/* </LazyLoad> */}
             </div>

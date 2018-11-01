@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { submitProject, getAllProjects, getAllProjectRoles, deleteProject, updateProject } from '../../Redux/Actions/index';
 import { connect } from 'react-redux';
 import LazyLoad from 'react-lazy-load';
-import { Button, Table, Header, Modal } from 'semantic-ui-react'
+import { Button, Table, Header, Modal, Segment } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 import { formatDate } from '../../util/DateHelper'
 import ProjectCreate from './ProjectCreate'
@@ -90,6 +90,7 @@ class ProjectsPage extends Component {
                 {/* <LazyLoad height={100} offsetVertical={300}> */}
                     <div>
                         <Header color='blue'>Projects</Header>
+                        <Segment style={{overflow: 'auto', maxHeight: 500, maxWidth:1425 }}>
 
                         <Table padded color='blue' singleLine selectable>
 
@@ -122,6 +123,7 @@ class ProjectsPage extends Component {
 
                             </Table.Body>
                         </Table>
+                        </Segment>
                     </div>
                 {/* </LazyLoad> */}
 

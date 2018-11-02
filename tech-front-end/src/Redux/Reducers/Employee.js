@@ -33,16 +33,12 @@ const employeeReducer = (state = initialState, action) => {
             };
 
         case GET_ALL_EMPLOYEES_HOURS:
-        console.log("GET_ALLEMPLOYEE_HOURS", action.payload);
             return {
                 ...state,
                 getAllEmployeesHours: [...action.payload]
             };
             
         case ADD_EMPLOYEE:
-            console.log("Inside employee reducer add employee");
-            console.log('Employee Data:', state.employees);
-            console.log("Payload:", action.payload);
             return {
                 ...state,
                 employees: [...state.employees, action.payload]
@@ -68,35 +64,22 @@ const employeeReducer = (state = initialState, action) => {
                 ...state.employees.slice(updateIndex + 1)]
             };
         case GET_EMPLOYEE_BY_ID:
-            console.log(
-                "Inside Employee Reducer, GET_EMPLOYEE_BY_ID:",
-                action.payload
-            );
             return {
                 ...state,
                 getEmployeeById: action.payload
             };
 
         case GET_ALL_EMPLOYEE_TO_ASSIGNMENT:
-            console.log(
-                "Inside Employee Reducer, GET_ALL_EMPLOYEE_TO_ASSIGNMENT:",
-                action.payload
-            );
             return {
                 ...state,
                 getAllEmployeesToAssignment: [...action.payload]
             };
         case GET_ALL_EMPLOYEE_ASSIGNMENTS:
-            console.log(
-                "Inside Employee Reducer, GET EMPLOYEE ASSIGNMENT:",
-                action.payload
-            );
             return {
                 ...state,
                 getAllEmployeeAssignments: [...action.payload]
             };
         case GET_ALL_EMPLOYEE_PROJECTS:
-        console.log("REDUCER: Get_ALL_EMPLOYEE_PROJECTS: ", action.payload);
             return{
                 ...state,
                 employee_projects: action.payload

@@ -34,8 +34,6 @@ import NoMatch from './NoMatch';
 class App extends Component {
   state = {}
   componentDidMount() {
-    console.log("Fetching initial data for store");
-    // this.props.getAllAssignments();
     this.props.getAllProjects();
     this.props.getAllEmployees();
   }
@@ -46,19 +44,15 @@ class App extends Component {
         <Navbar />
         <Switch>
           <PrivateRoute authed={localStorage.isAuthorized === 'true'} path='/dashboard' component={Dashboard} />
-
           <PrivateRoute authed={localStorage.isAuthorized === 'true'} exact path='/' component={Dashboard} />
           <Route path='/login' component={Login} />
           <Route path='/logout' component={Logout} />
           <PrivateRoute authed={localStorage.isAuthorized === 'true'} exact path='/employees' component={EmployeesPage} />
           <PrivateRoute authed={localStorage.isAuthorized === 'true'} exact path='/projects' component={ProjectsPage} />
           <PrivateRoute authed={localStorage.isAuthorized === 'true'}  path={`/projects/details/:id`} component={ProjectDetails} />
-
-          {/* Assignment Routes */}
           <PrivateRoute authed={localStorage.isAuthorized === 'true'}  path={`/assignments/details/:id`} component={AssignmentDetails} />
           <PrivateRoute authed={localStorage.isAuthorized === 'true'} path={`/employees/details/:id`} component={EmployeeDetails}/>
           <PrivateRoute authed={localStorage.isAuthorized === 'true'} component={NoMatch} />
-
         </Switch>
       </div>
     );
@@ -66,7 +60,6 @@ class App extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-  // submitForms: () => dispatch(submitForms()),
   submitProject: project => dispatch(submitProject(project)),
   deleteProject: (project, index) => dispatch(deleteProject(project, index)),
   updateProject: (project, index) => dispatch(updateProject(project, index)),
@@ -79,8 +72,6 @@ const mapDispatchToProps = dispatch => ({
   getAllAssignments: () => dispatch(getAllAssignments()),
   getAllProjects: () => dispatch(getAllProjects()),
   getAllEmployees: () => dispatch(getAllEmployees()),
-
-
 })
 
 export default withRouter(connect(null, mapDispatchToProps)(App));

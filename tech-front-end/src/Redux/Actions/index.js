@@ -57,19 +57,15 @@ export const submitLogin = loginBody => async dispatch => {
     let password = loginBody.password;
     try {
         dispatch({ type: LOGIN_REQUEST })
-        console.log("ACTION: SUBMIT LOGIN: ", loginBody);
         let response = await axios.post('http://localhost:5000/api/login', null, {
             auth: {
                 username,
                 password
             }
         });
-        console.log("Submit LoginResponse:", response);
-        console.log("Decode JWTToken:", jwtDecode(response.data.token).id)
         localStorage.authToken = response.data.token
         localStorage.isAuthorized = true
         localStorage.currentUser = jwtDecode(response.data.token).id
-
         dispatch({ type: LOGIN_SUCCESS, user: jwtDecode(response.data.token).id })
     } catch (e) {
         dispatch({

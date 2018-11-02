@@ -10,11 +10,9 @@ class AssignmentDetails extends Component {
 
   async componentDidMount() {
     await this.fetchAssignmentDetails();
-    console.log("Assignment Details: ", this.props.match.params.id);
   }
 
   async shouldComponentUpdate(prevProps) {
-    console.log("AssignmentDetails: Checking if component should update")
     if (prevProps.currentUser !== this.props.currentUser) {
       await this.fetchAssignmentDetails();
     }

@@ -10,7 +10,6 @@ const initialState = (token => ({
 }))(localStorage.authToken)
 
 const loginReducer = (state = initialState, action) => {
-    // console.log("LOGIN REDUCER: ", action);
     switch(action.type) {
         case LOGIN_REQUEST:
         return {
@@ -18,7 +17,6 @@ const loginReducer = (state = initialState, action) => {
           isAuthenticating: true
         }
       case LOGIN_FAILURE:
-
         return {
           ...state,
           isAuthenticating: false,
@@ -43,6 +41,6 @@ const loginReducer = (state = initialState, action) => {
         } 
         default:
             return state;
-}
+  }
 }
 export default loginReducer;

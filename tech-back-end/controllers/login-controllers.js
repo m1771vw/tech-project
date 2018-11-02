@@ -9,29 +9,10 @@ require('dotenv').load();
 const login = async (req, res) => {
     try{
         let loginUser = req.user;
-        // console.log("Login Controller: ", loginUser);
         var token = jwt.sign({ id: loginUser.username }, process.env.SECRET_KEY, {
             expiresIn: 86400 // expires in 24 hours
           });
           res.status(200).send({ auth: true, token: token });
-        // console.log("Req", req.user);
-        // if(loginUser !== undefined) {
-        //     let foundUserName = await db.one(`
-        //         SELECT * 
-        //         FROM User_Login
-        //         WHERE username = $1
-        //     `, [loginUser.username]);
-        //     // console.log("Found user name:", foundUserName);
-        //     // console.log("loginuserpw: ", loginUser.password, "foundUserpw", foundUserName.password)
-        //     let passwordApproved = await checkHash(loginUser.password, foundUserName.password);
-        //     if(foundUserName !== undefined) {
-        //         res.status(200).send({login: true});
-        //     } else {
-        //         res.status(500).send({login: false});
-        //     }
-        // } else {
-        //     res.status(500).send({error: "Your login failed"});
-        // }
     } catch (e) {
         res.status(500).send({error: e.message});
     }
@@ -62,9 +43,7 @@ const signup = async (req, res) => {
 
 const getAllUsers = async (req, res) => {
     try{
-        // var token = req.headers['x-access-token'];
         var token = req.headers.authorization;
-        // console.log('Token 2:', token2);
         if (!token) return res.status(401).send({ auth: false, message: 'No token provided.' });
         
         jwt.verify(token.split(' ')[1], process.env.SECRET_KEY, function(err, decoded) {
@@ -118,7 +97,6 @@ const saltPassword = async (password) => {
 
 const checkHash = async (password, hashPw) => { 
     let authenticated = await bcrypt.compareSync(password, hashPw);
-    // console.log("Inside check hash: ", authenticated);  
     return authenticated;
 }
 

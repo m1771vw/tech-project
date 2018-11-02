@@ -55,7 +55,6 @@ class Dashboard extends Component {
   
   addHoursTogether = (arr) => {
     let newArr = [];
-    console.log("Add Hours Together: ", arr);
     for(let i = 0; i < arr.length; i++) {
       if(this.checkIfIdExists(newArr, arr[i].employee_id)) {
         let indexOfPerson = newArr.findIndex(x => x.employee_id === arr[i].employee_id)
@@ -65,7 +64,6 @@ class Dashboard extends Component {
         newArr.push(arr[i])
       }
     }
-    console.log("New Arr: ", newArr);
     return newArr
   }
 

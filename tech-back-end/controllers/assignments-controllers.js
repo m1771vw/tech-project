@@ -147,7 +147,6 @@ const deleteAssignment = async (req, res) => {
     try {
         let assignment_id = parseInt(req.params.id);
         let assignment = await db.one('SELECT * FROM assignments WHERE assignment_id = $1', assignment_id);
-        console.log("Assignment MESSAGE:", assignment)
         await db.none(`DELETE FROM employee_assignments WHERE assignment_id = $1`, assignment_id);
         await db.none('DELETE FROM assignments WHERE assignment_id = $1', assignment_id);
         res.status(200).send({ message: assignment })

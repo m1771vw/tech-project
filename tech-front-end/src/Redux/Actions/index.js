@@ -91,7 +91,6 @@ export const getStatusTypes = () => async dispatch => {
             value: x.status_id,
             text: x.status_name,
         }))
-        console.log('PROJECT ASSIGNMENTS: ', newArray)
         dispatch({ type: GET_ASSIGNMENT_STATUS, payload: newArray })
     } catch (e) {
         console.log('Status Type Error :', e)
@@ -105,7 +104,6 @@ export const getAllAssignments = () => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log("ACTION: Get All Assignments: ", response);
         dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments })
 
     } catch (e) {
@@ -146,7 +144,6 @@ export const getAllAssignmentsReversed = () => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log("ACTION: Reverse All Assignments: ", response);
         dispatch({ type: GET_ALL_ASSIGNMENTS, payload: response.data.assignments.reverse() })
     } catch (e) {
         console.log("Get All Assignment Error", e.response.data);
@@ -160,7 +157,6 @@ export const getAssignmentById = id => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        // console.log("Single Assignment Response: ", response);
         dispatch({ type: GET_ASSIGNMENT_BY_ID, payload: response.data.assignment })
     } catch (e) {
         console.log("Get Single Assignment Error", e);
@@ -174,7 +170,6 @@ export const getAssignmentEmployees = id => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        // console.log("Employess to an Assignment Response: ", response);
         dispatch({ type: GET_ASSIGNMENT_EMPLOYEES, payload: response.data.assignment_employees })
     } catch (e) {
         console.log("Get Single Assignment Error", e);
@@ -183,7 +178,6 @@ export const getAssignmentEmployees = id => async dispatch => {
 export const submitAssignment = assignment => async dispatch => {
     try {
         let { employee_id, ...newAssignment } = assignment
-        console.log("Trying to submit to assignment:", assignment);
         let response = await axios.post('http://localhost:5000/api/assignments', assignment, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
@@ -199,7 +193,6 @@ export const submitAssignment = assignment => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log('SUBMITTING EMPLOYEE TO ASSIGNMENT: ', response2);
         dispatch({ type: ADD_EMPLOYEE_TO_ASSIGNMENT, payload: response2.data.employee_assignment })
     } catch (e) {
         console.log("ERROR:", e)
@@ -208,7 +201,6 @@ export const submitAssignment = assignment => async dispatch => {
 
 export const deleteAssignment = id => async dispatch => {
     try {
-        console.log('DELETEING ID#: ', id)
         let { data } = await axios.delete(`http://localhost:5000/api/assignments/${id}`, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
@@ -227,33 +219,17 @@ export const deleteAssignment = id => async dispatch => {
 
 export const updateAssignment = (assignment, id, order) => async dispatch => {
     try {
-        console.log("ACTION: Update Assignment: ", assignment)
         let response = await axios.put(`http://localhost:5000/api/assignments/id/${id}`, assignment, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log('Update Assignment RESPONSE: ', response)
         dispatch({ type: UPDATE_ASSIGNMENT, payload: response.data.message, id })
         dispatch(getAllAssignments());
         dispatch(getAssignmentById(id));
         dispatch(getAllAssignmentsBlocked());
         dispatch(getAllEmployeesHours());
-        dispatch(getAssignmentsInProject(response.data.message.project_id))
-        // console.log("SWTCHING: ", order);
-        // switch(order) {
-            
-        //     case IN_ORDER:
-        //         dispatch(getAllAssignmentsOrdered());
-        //         break;
-        //     case RECENT_ORDER:
-        //         console.log("ACTION SWITCH: REVERSE ASSIGNMENT");
-        //         dispatch(getAllAssignmentsReversed());
-        //         break;
-        //     default:
-        //         dispatch(getAllAssignments());
-        // }
-        
+        dispatch(getAssignmentsInProject(response.data.message.project_id))        
     } catch {
         console.log("ERROR")
     }
@@ -289,7 +265,6 @@ export const getAllEmployeesHours = () => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-       console.log("ACTION: Getallemployeehorus", response);
         dispatch({ type: GET_ALL_EMPLOYEES_HOURS, payload: response.data.employees_hours })
     } catch (e) {
         console.log("Get All Employee Hours Error", e);
@@ -321,7 +296,6 @@ export const getAllEmployeesToAssignment = id => async dispatch => {
                     'Authorization': `bearer ${localStorage.authToken}`
                 }
             });
-        console.log("Assignment to all Employees Response: ", response);
         dispatch({
             type: GET_ALL_EMPLOYEE_TO_ASSIGNMENT,
             payload: response.data.assignment_employees
@@ -340,7 +314,6 @@ export const getAllEmployeeAssignments = id => async dispatch => {
                     'Authorization': `bearer ${localStorage.authToken}`
                 }
             });
-        console.log("Assignments to the Employee Response: ", response);
         dispatch({
             type: GET_ALL_EMPLOYEE_ASSIGNMENTS,
             payload: response.data.employee_assignments
@@ -359,7 +332,6 @@ export const getAllEmployeeProjects = id => async dispatch => {
                     'Authorization': `bearer ${localStorage.authToken}`
                 }
             });
-        console.log("AllEmployeeProjects: ", response);
         dispatch({
             type: GET_ALL_EMPLOYEE_PROJECTS,
             payload: response.data.role
@@ -371,13 +343,11 @@ export const getAllEmployeeProjects = id => async dispatch => {
 
 export const submitEmployee = employee => async dispatch => {
     try {
-        console.log("Trying to submit employee:", employee)
         let response = await axios.post('http://localhost:5000/api/employees/', employee, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log("New Response:", response);
         dispatch({ type: ADD_EMPLOYEE, payload: response.data.employee })
         dispatch(getAllEmployees());
     } catch {
@@ -405,7 +375,6 @@ export const deleteEmployeeFromProject = id => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log('WHAT IS GOING ON: ', deleting)
         dispatch({ type: REMOVE_EMPLOYEE_FROM_PROJECT, id })
     } catch (e) {
         console.log('ERROR:', e)
@@ -450,7 +419,6 @@ export const getAllProjects = () => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log("ACTION: ALL PROJECTS Response: ", response);
         dispatch({ type: GET_ALL_PROJECTS, payload: response.data.projects })
     } catch (e) {
         console.log("Get All Projects Error", e);
@@ -477,7 +445,6 @@ export const getEmployeesInProject = id => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        // console.log('THIS IS THE RESPONSE: ', response)
         dispatch({ type: GET_EMPLOYEES_IN_PROJECT, payload: response.data.employees })
     } catch (e) {
         console.log('ERROR MESSAGE GETTING EMPLOYEES IN PROJECT: ', e)
@@ -491,9 +458,7 @@ export const getAssignmentsInProject = id => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log('assignment response: ', response)
         dispatch({ type: GET_ASSIGNMENTS_IN_PROJECT, payload: response.data.assignments })
-        // dispatch({ type: GET_ASSIGNMENT_STATUS, payload: newArray})
     } catch (e) {
         console.log('ERROR MESSAGE GETTING ASSIGNMENTS IN PROJECT: ', e)
     }
@@ -501,13 +466,11 @@ export const getAssignmentsInProject = id => async dispatch => {
 
 export const submitProject = project => async dispatch => {
     try {
-      console.log("ACTION: Project:", project);
         let response = await axios.post('http://localhost:5000/api/projects/', project, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log(response);
         dispatch({ type: ADD_PROJECT, payload: response.data.project })
     } catch (e) {
         console.log("ERROR:", e)
@@ -548,7 +511,6 @@ export const getAllProjectRoles = () => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log("GET PROJECT ROLES:", response)
         dispatch({ type: GET_ALL_PROJECT_ROLES, payload: response.data.role })
     } catch (e) {
         console.log("Get All Project Roles Error: ", e);
@@ -562,7 +524,6 @@ export const submitProjectRole = role => async dispatch => {
                 'Authorization': `bearer ${localStorage.authToken}`
             }
         });
-        console.log('Adding project role: ', response)
         dispatch({ type: ADD_PROJECT_ROLE, payload: response.data.project_role })
     } catch (e) {
         console.log('Submit Project Role Error: ', e);

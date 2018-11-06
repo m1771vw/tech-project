@@ -121,7 +121,17 @@ To run the project, you will need to have two console windows open, one in the `
 
 Run `npm start` with the `tech-back-end` first and then run `npm start` with `tech-front-end` once the back-end finishes starting up.
 
-You should be greeted with this screen.
+To confirm the backend has started, you should see something similar to the following with no errors:
+
+```
+[nodemon] 1.18.5
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching: *.*
+[nodemon] starting `node server.js`
+Server running on port: 5000
+```
+
+To confirm the frontend has started, you should be greeted with this screen.
 
 <p align="center">
   <img src="./assets/screenshots/unauthorizedLogin.png" alt="Unauthorized Login"/>

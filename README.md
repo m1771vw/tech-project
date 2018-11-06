@@ -115,8 +115,8 @@ You can now start up the project.
 To run the project, you will need to have two console windows open, one in the `tech-front-end` directory, and one in the `tech-back-end` directory. 
 
 <p align="center">
-  <img src="./assets/screenshots/terminal2.png" alt="Back End Terminal"/>
-  <img src="./assets/screenshots/terminal1.png" alt="Front End Terminal"/>
+  <img src="./assets/screenshots/terminals.png" alt=" Terminal"/>
+
 </p>
 
 Run `npm start` with the `tech-back-end` first and then run `npm start` with `tech-front-end` once the back-end finishes starting up.

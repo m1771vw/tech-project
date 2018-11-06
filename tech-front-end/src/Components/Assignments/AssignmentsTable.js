@@ -1,19 +1,13 @@
 import React, { Component } from 'react';
 import { getAllAssignments, submitAssignment } from '../../Redux/Actions/index';
-// import { IN_ORDER, RECENT_ORDER, NEED_ATTENTION } from '../../Redux/Constants/';
 import { connect } from 'react-redux';
-import LazyLoad from 'react-lazy-load'
-import { Modal, Button, Table, Header, Segment } from 'semantic-ui-react'
-import { Link } from 'react-router-dom';
-import { formatDate } from '../../util/DateHelper'
-import AssignmentEdit from './AssignmentEdit'
+import { Table, Header } from 'semantic-ui-react'
 import AssignmentRow from './AssignmentRow'
 
 
 class AssignmentsTable extends Component {
     state = {
-        assignmentModal: false,
-
+        assignmentModal: false
     }
 
     determineStatus = (status_name) => {
@@ -37,10 +31,9 @@ class AssignmentsTable extends Component {
     }
 
     render() {
-        let { assignments, header, showUpdate, showDates, showProjectName } = this.props
+        let { assignments, header, showDates, showProjectName } = this.props
         return (
             <div>
-                {/* <LazyLoad height={300} offsetVertical={200}> */}
                     <div>
                         <Header color='teal'>{header}</Header>
 
@@ -68,7 +61,6 @@ class AssignmentsTable extends Component {
                                                 assignment={a}
                                                 showProjectName={showProjectName}
                                                 order={this.props.order}
-                                                // onSubmit={this.onUpdateAssignmentModal}
                                                 showDates={showDates}
                                             />
                                             
@@ -78,7 +70,6 @@ class AssignmentsTable extends Component {
                             </Table>
 
                     </div>
-                {/* </LazyLoad> */}
             </div>
         );
     }

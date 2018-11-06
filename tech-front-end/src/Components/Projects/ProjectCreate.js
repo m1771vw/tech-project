@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { Button, Form, Grid, Header, Segment, Dropdown } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 
 class ProjectCreate extends Component {
     state = {
@@ -12,7 +12,6 @@ class ProjectCreate extends Component {
     onSubmit = e => {
         e.preventDefault();
         this.props.onSubmit(this.state)
-        // use action
     }
 
     onDelete = e => {
@@ -32,16 +31,10 @@ class ProjectCreate extends Component {
             
         })
     }
-
-    //grab the model
-
-
     
     renderForm = () => {
-        //loop thorugh all the metadata
         let formUI = (
-            <div className="form-group">
-               
+            <div className="form-group">  
                 <label className="form-label">Project Name</label>
                 <input className="form-input"
                     required
@@ -66,13 +59,12 @@ class ProjectCreate extends Component {
                     value={this.state.project_end_date}
                     onChange={this.onChange}
                 />
-
             </div>
         )
         return formUI;
     }                                   
     render() {
-        let title = " "  //Or render "default"
+        let title = " "  
         return (
             <Grid className="form">
                 <Grid.Column style={{ maxWidth: 800 }}>
@@ -83,7 +75,6 @@ class ProjectCreate extends Component {
                                 {this.renderForm()}
                                 <div className="form-group">
                                     <Button primary onClick={(e) => { this.onSubmit(e) }} type="submit">Submit</Button>
-                                    {/* /temp button */}
                                 </div>
                             </Form.Field>
                         </Segment>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { getAllEmployees, deleteEmployee, submitEmployee, updateEmployee } from "../../Redux/Actions/index";
+import { getAllEmployees, submitEmployee, updateEmployee } from "../../Redux/Actions/index";
 import { connect } from "react-redux";
 import { Modal, Button, Table, Header, Segment } from "semantic-ui-react";
 import EmployeeCreate from './EmployeeCreate';

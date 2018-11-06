@@ -7,7 +7,6 @@ import {
   getAllEmployeeAssignments,
   getAllEmployeeProjects
 } from "../../Redux/Actions/";
-import LazyLoad from "react-lazy-load";
 import { Header, Table, Segment } from "semantic-ui-react";
 import { formatDate } from '../../util/DateHelper'
 import { Link } from "react-router-dom"
@@ -67,7 +66,6 @@ class EmployeeDetails extends Component {
     let {
       EmployeeById,
       AllEmployeeAssignments,
-      AllEmployeesToAssignment
     } = this.props;
 
     return (

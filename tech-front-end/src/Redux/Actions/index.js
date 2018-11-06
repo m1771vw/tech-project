@@ -37,11 +37,11 @@ import {
     SEARCH_EMPLOYEES,
     GET_ALL_EMPLOYEES_HOURS,
     UPDATE_EMPLOYEE_TO_ASSIGNMENT,
-    IN_ORDER, RECENT_ORDER
 }
     from '../Constants';
 
 import jwtDecode from 'jwt-decode';
+
 /**
  * Login Actions
  */
@@ -177,7 +177,7 @@ export const getAssignmentEmployees = id => async dispatch => {
 }
 export const submitAssignment = assignment => async dispatch => {
     try {
-        let { employee_id, ...newAssignment } = assignment
+        let { employee_id } = assignment
         let response = await axios.post('http://localhost:5000/api/assignments', assignment, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
@@ -370,7 +370,7 @@ export const deleteEmployee = id => async dispatch => {
 
 export const deleteEmployeeFromProject = id => async dispatch => {
     try {
-        let deleting = await axios.delete(`http://localhost:5000/api/projects/roles/${id}`, {
+        await axios.delete(`http://localhost:5000/api/projects/roles/${id}`, {
             headers: {
                 'Authorization': `bearer ${localStorage.authToken}`
             }

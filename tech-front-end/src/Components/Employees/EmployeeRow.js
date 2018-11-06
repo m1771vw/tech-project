@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { Table, Button, Modal } from 'semantic-ui-react';
 import EmployeeEdit from './EmployeeEdit'
 import { Link } from 'react-router-dom';
@@ -61,10 +60,6 @@ class EmployeeRow extends Component {
         );
     }
 }
-
-EmployeeRow.propTypes = {
-
-};
 
 const mapDispatchToProps = dispatch => ({
     updateEmployee: (model, id) => dispatch(updateEmployee(model, id)),

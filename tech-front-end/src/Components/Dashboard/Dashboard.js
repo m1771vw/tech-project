@@ -10,13 +10,14 @@ import {
 import { connect } from "react-redux";
 import { Segment } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import { Icon, Table, Header} from "semantic-ui-react";
+import { Table, Header} from "semantic-ui-react";
 import "../../App.css";
 
 class Dashboard extends Component {
     state = {
         getAllemployeeAssignments: []
       }
+
   componentDidMount() {
     this.props.getAllAssignmentsBlocked();
     this.props.getAllAssignments();
@@ -26,7 +27,6 @@ class Dashboard extends Component {
 
   fetchAllEmployeesHours = () =>{
     this.props.getAllEmployeesHours();
-
   }
 
   fetchAllEmployeeAssignments = () => {
@@ -34,7 +34,6 @@ class Dashboard extends Component {
   };
 
   overHours = (arr) => {
-    
     let overTime = [];
     // if(employeesHours !== undefined) {
         for (let i = 0; i < arr.length; i++) {
@@ -68,11 +67,9 @@ class Dashboard extends Component {
   }
 
   render() {
-      
     let {
       assignments,
       blockedAssignments,
-      AllEmployeeAssignments,
       employeesHours
     } = this.props;
 
@@ -100,8 +97,7 @@ class Dashboard extends Component {
           </Table.Header>
           <Table.Body>
             {
-                employeesHours && this.overHours(this.addHoursTogether(employeesHours)).map(ea => {
-                   
+                employeesHours && this.overHours(this.addHoursTogether(employeesHours)).map(ea => {       
               return (
                 <Table.Row key={ea.id + ea.assignment_est_hours + ea.assignment_final_hours} error>
                   <Table.Cell key={ea.id} selectable><Link to={`/employees/details/${ea.id}`}>{ea.first_name} {ea.last_name}</Link></Table.Cell>
@@ -115,8 +111,6 @@ class Dashboard extends Component {
           </Table.Body>
         </Table>
         </Segment>
-
-
         <div>
             <Segment style={{ overflow: 'auto', maxHeight: 400, maxWidth: 1425 }}>
                 <AssignmentsTable showUpdate={true}
@@ -125,8 +119,7 @@ class Dashboard extends Component {
                     header={"All Assignments"} />
             </Segment>
         </div>
-      </div>
-    
+      </div> 
     );
   }
 }

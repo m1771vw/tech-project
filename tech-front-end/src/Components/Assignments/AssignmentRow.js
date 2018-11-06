@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Table, Button, Modal, Tab } from 'semantic-ui-react';
+import { Table, Button, Modal } from 'semantic-ui-react';
 import AssignmentEdit from './AssignmentEdit'
 import { Link } from 'react-router-dom';
 import { formatDate } from '../../util/DateHelper'
